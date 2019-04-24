@@ -1,0 +1,22 @@
+I
+1 + O(3^3) + I
+O(2^3)
+1 + O(2^3)
+x + (1 + O(3^3))
+(1 + O(3^3))/((1 + O(5^3))*x)
+Mod(1 + O(3^3), (1 + O(3^3))*x)
+[1 + O(3^3), 2]
+77
+38
+1
+1
+2
+  ***   at top-level: padicprec(O(2^2),3)
+  ***                 ^-------------------
+  *** padicprec: inconsistent moduli in padicprec: 2 != 3
+2
+3
+3
+3
+4
+Total time spent: 8

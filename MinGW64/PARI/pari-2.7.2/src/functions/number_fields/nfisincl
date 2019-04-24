@@ -1,0 +1,19 @@
+Function: nfisincl
+Section: number_fields
+C-Name: nfisincl
+Prototype: GG
+Help: nfisincl(x,y): tests whether the number field x is isomorphic to a
+ subfield of y (where x and y are either polynomials or number fields as
+ output by nfinit). Return 0 if not, and otherwise all the isomorphisms. If y
+ is a number field, a faster algorithm is used.
+Doc: tests whether the number field $K$ defined
+ by the polynomial $x$ is conjugate to a subfield of the field $L$ defined
+ by $y$ (where $x$ and $y$ must be in $\Q[X]$). If they are not, the output
+ is the number 0. If they are, the output is a vector of polynomials, each
+ polynomial $a$ representing an embedding of $K$ into $L$, i.e.~being such
+ that $y\mid x\circ a$.
+
+ If $y$ is a number field (\var{nf}), a much faster algorithm is used
+ (factoring $x$ over $y$ using \tet{nffactor}). Before version 2.0.14, this
+ wasn't guaranteed to return all the embeddings, hence was triggered by a
+ special flag. This is no more the case.

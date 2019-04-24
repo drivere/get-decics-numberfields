@@ -1,0 +1,102 @@
+#exported variables
+_readline_list="readline readline_version RLINCLUDE RLLIBS"
+
+readline=
+if test -n "$with_readline"; then
+  with_readline_lib="$with_readline_lib $with_readline/lib"
+  with_readline_include="$with_readline_include $with_readline/include"
+fi
+pth="$with_readline_lib $libpth"
+lib=readline; . ./locatelib
+
+# Readline -- Headers
+pth="$with_readline_include $basic_include_path"
+x=`./locate 'readline/readline.h' '' $pth`
+case $x in
+ ?:/*|/*) rl_include=`dirname $x`
+    echo ..."Found readline header in $rl_include"
+    if (echo $rl_include | grep "readline$" > /dev/null); then
+      rl_include=`dirname $rl_include`
+      RLINCLUDE="-I$rl_include"
+    fi
+     ;;
+  *) echo ..."readline header file not found by Configure, trying to proceed"
+     readline=;;
+esac
+
+exe=$osname-$arch-rlv$$
+if test -n "$readline"; then
+  RLLIBS="-L$readline -lreadline"
+else
+  RLLIBS="-lreadline"
+fi
+rllibs="$RLLIBS";
+cmd="$CC $CFLAGS $extraflag $RLINCLUDE -o $exe rl_version.c $RLLIBS"
+. log_cmd
+if test ! -r $exe; then # need ncurses ?
+  echo ..."Linking failed. Trying with libncurses"
+  pth="$with_ncurses_lib $libpth"
+  lib=ncurses; . ./locatelib
+  if test -n "$ncurses"; then
+    RLLIBS="$rllibs -L$ncurses -lncurses"
+  else
+    RLLIBS="$rllibs -lncurses"
+  fi
+  cmd="$CC $CFLAGS $extraflag $RLINCLUDE -o $exe rl_version.c $RLLIBS"
+  . log_cmd
+fi
+if test ! -r $exe; then # need termcap ?
+  echo ..."Linking failed. Trying with libtermcap"
+  pth="$with_ncurses_lib $libpth"
+  lib=termcap; . ./locatelib
+  if test -n "$termcap"; then
+    RLLIBS="$rllibs -L$termcap -ltermcap"
+  else
+    RLLIBS="$rllibs -ltermcap"
+  fi
+  cmd="$CC $CFLAGS $extraflag $RLINCLUDE -o $exe rl_version.c $RLLIBS"
+  . log_cmd
+fi
+
+readline_version=
+if test -r $exe; then
+  readline_version=`env LD_LIBRARY_PATH="$LD_LIBRARY_PATH$dir_sep$readline" $RUNTEST $exe`;
+fi
+rm -f $exe $exe$exe_suff;
+
+case "$readline_version" in
+*Editline*|*EditLine*) readline=
+  echo "###"
+  echo "### Editline wrapper detected, building without readline support"
+  echo "###";;
+"") readline=
+  echo "###"
+  echo "### Readline library does not seem to work. Maybe install libncurses?"
+  echo "###";;
+*) if test -z "$readline"; then readline=yes; fi;;
+esac
+
+if test -n "$readline"; then
+  if test "$fastread" != yes; then
+    cat << EOM
+==========================================================================
+GNU readline provides line editing in the gp shell, with history and
+context-dependent completions. You should really answer 'yes' to the
+following question, unless you are trying to overcome a problem in
+the default build.
+EOM
+    echo $n "Do you want to use GNU readline library within GP ? $c"
+    rep='y n'; dflt=y; . ./myread
+    case $ans in
+      n) readline=;;
+    esac
+  fi
+fi
+
+if test -z "$readline"; then
+  echo "### Building without GNU readline support"
+  RLLIBS=
+  RLINCLUDE=
+else
+  echo "Using GNU readline, version $readline_version"
+fi

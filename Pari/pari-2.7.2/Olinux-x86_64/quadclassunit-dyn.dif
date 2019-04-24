@@ -1,0 +1,13 @@
+*** ../src/test/32/quadclassunit	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:03.816771326 -0700
+***************
+*** 625,628 ****
+  ? setrand(1);quadclassunit(8*3*5*7).cyc
+  [2, 2]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 4964
+--- 625,628 ----
+  ? setrand(1);quadclassunit(8*3*5*7).cyc
+  [2, 2]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 3866

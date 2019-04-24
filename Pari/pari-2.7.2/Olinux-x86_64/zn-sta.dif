@@ -1,0 +1,13 @@
+*** ../src/test/32/zn	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:54:23.681629463 -0700
+***************
+*** 42,45 ****
+  error("incorrect type in generic discrete logarithm (order factorization) (t
+  _MAT).")
+  []
+! Total time spent: 1392
+--- 42,45 ----
+  error("incorrect type in generic discrete logarithm (order factorization) (t
+  _MAT).")
+  []
+! Total time spent: 956

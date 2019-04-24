@@ -1,0 +1,13 @@
+*** ../src/test/64/nf	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:51:58.714886968 -0700
+***************
+*** 358,361 ****
+    ***   at top-level: nfnewprec(vector(16)
+    ***                 ^--------------------
+    *** nfnewprec: incorrect type in nfnewprec (t_VEC).
+! Total time spent: 1408
+--- 358,361 ----
+    ***   at top-level: nfnewprec(vector(16)
+    ***                 ^--------------------
+    *** nfnewprec: incorrect type in nfnewprec (t_VEC).
+! Total time spent: 945

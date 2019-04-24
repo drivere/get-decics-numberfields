@@ -1,0 +1,168 @@
+Function: factor
+Section: number_theoretical
+C-Name: gp_factor0
+Prototype: GDG
+Help: factor(x,{lim}): factorization of x. lim is optional and can be set
+ whenever x is of (possibly recursive) rational type. If lim is set return
+ partial factorization, using primes < lim.
+Description:
+ (int, ?-1):vec        Z_factor($1)
+ (gen, ?-1):vec        factor($1)
+ (gen, small):vec      factor0($1, $2)
+Doc: general factorization function, where $x$ is a
+ rational (including integers), a complex number with rational
+ real and imaginary parts, or a rational function (including polynomials).
+ The result is a two-column matrix: the first contains the irreducibles
+ dividing $x$ (rational or Gaussian primes, irreducible polynomials),
+ and the second the exponents. By convention, $0$ is factored as $0^1$.
+
+ \misctitle{$\Q$ and $\Q(i)$}
+ See \tet{factorint} for more information about the algorithms used.
+ The rational or Gaussian primes are in fact \var{pseudoprimes}
+ (see \kbd{ispseudoprime}), a priori not rigorously proven primes. In fact,
+ any factor which is $\leq 2^{64}$ (whose norm is $\leq 2^{64}$ for an
+ irrational Gaussian prime) is a genuine prime. Use \kbd{isprime} to prove
+ primality of other factors, as in
+ \bprog
+ ? fa = factor(2^2^7 + 1)
+ %1 =
+ [59649589127497217 1]
+
+ [5704689200685129054721 1]
+
+ ? isprime( fa[,1] )
+ %2 = [1, 1]~   \\ both entries are proven primes
+ @eprog\noindent
+ Another possibility is to set the global default \tet{factor_proven}, which
+ will perform a rigorous primality proof for each pseudoprime factor.
+
+ A \typ{INT} argument \var{lim} can be added, meaning that we look only for
+ prime factors $p < \var{lim}$. The limit \var{lim} must be non-negative.
+ In this case, all but the last factor are proven primes, but the remaining
+ factor may actually be a proven composite! If the remaining factor is less
+ than $\var{lim}^2$, then it is prime.
+ \bprog
+ ? factor(2^2^7 +1, 10^5)
+ %3 =
+ [340282366920938463463374607431768211457 1]
+ @eprog\noindent
+ \misctitle{Deprecated feature} Setting $\var{lim}=0$ is the same
+ as setting it to $\kbd{primelimit} + 1$. Don't use this: it is unwise to
+ rely on global variables when you can specify an explicit argument.
+ \smallskip
+
+ This routine uses trial division and perfect power tests, and should not be
+ used for huge values of \var{lim} (at most $10^9$, say):
+ \kbd{factorint(, 1 + 8)} will in general be faster. The latter does not
+ guarantee that all small
+ prime factors are found, but it also finds larger factors, and in a much more
+ efficient way.
+ \bprog
+ ? F = (2^2^7 + 1) * 1009 * 100003; factor(F, 10^5)  \\ fast, incomplete
+ time = 0 ms.
+ %4 =
+ [1009 1]
+
+ [34029257539194609161727850866999116450334371 1]
+
+ ? factor(F, 10^9)    \\ very slow
+ time = 6,892 ms.
+ %6 =
+ [1009 1]
+
+ [100003 1]
+
+ [340282366920938463463374607431768211457 1]
+
+ ? factorint(F, 1+8)  \\ much faster, all small primes were found
+ time = 12 ms.
+ %7 =
+ [1009 1]
+
+ [100003 1]
+
+ [340282366920938463463374607431768211457 1]
+
+ ? factor(F)   \\ complete factorisation
+ time = 112 ms.
+ %8 =
+ [1009 1]
+
+ [100003 1]
+
+ [59649589127497217 1]
+
+ [5704689200685129054721 1]
+ @eprog\noindent Over $\Q$, the prime factors are sorted in increasing order.
+
+ \misctitle{Rational functions}
+ The polynomials or rational functions to be factored must have scalar
+ coefficients. In particular PARI does not know how to factor
+ \emph{multivariate} polynomials. The following domains are currently
+ supported: $\Q$, $\R$, $\C$, $\Q_p$, finite fields and number fields.
+ See \tet{factormod} and \tet{factorff} for
+ the algorithms used over finite fields, \tet{factornf} for the algorithms
+ over number fields. Over $\Q$, \idx{van Hoeij}'s method is used, which is
+ able to cope with hundreds of modular factors.
+
+ The routine guesses a sensible ring over which to factor: the
+ smallest ring containing all coefficients, taking into account quotient
+ structures induced by \typ{INTMOD}s and \typ{POLMOD}s (e.g.~if a coefficient
+ in $\Z/n\Z$ is known, all rational numbers encountered are first mapped to
+ $\Z/n\Z$; different moduli will produce an error). Factoring modulo a
+ non-prime number is not supported; to factor in $\Q_p$, use \typ{PADIC}
+ coefficients not \typ{INTMOD} modulo $p^n$.
+ \bprog
+ ? T = x^2+1;
+ ? factor(T);                         \\ over Q
+ ? factor(T*Mod(1,3))                 \\ over F_3
+ ? factor(T*ffgen(ffinit(3,2,'t))^0)  \\ over F_{3^2}
+ ? factor(T*Mod(Mod(1,3), t^2+t+2))   \\ over F_{3^2}, again
+ ? factor(T*(1 + O(3^6))              \\ over Q_3, precision 6
+ ? factor(T*1.)                       \\ over R, current precision
+ ? factor(T*(1.+0.*I))                \\ over C
+ ? factor(T*Mod(1, y^3-2))            \\ over Q(2^{1/3})
+ @eprog\noindent In most cases, it is clearer and simpler to call an
+ explicit variant than to rely on the generic \kbd{factor} function and
+ the above detection mechanism:
+ \bprog
+ ? factormod(T, 3)           \\ over F_3
+ ? factorff(T, 3, t^2+t+2))  \\ over F_{3^2}
+ ? factorpadic(T, 3,6)       \\ over Q_3, precision 6
+ ? nffactor(y^3-2, T)        \\ over Q(2^{1/3})
+ ? polroots(T)               \\ over C
+ @eprog
+
+ Note that factorization of polynomials is done up to
+ multiplication by a constant. In particular, the factors of rational
+ polynomials will have integer coefficients, and the content of a polynomial
+ or rational function is discarded and not included in the factorization. If
+ needed, you can always ask for the content explicitly:
+ \bprog
+ ? factor(t^2 + 5/2*t + 1)
+ %1 =
+ [2*t + 1 1]
+
+ [t + 2 1]
+
+ ? content(t^2 + 5/2*t + 1)
+ %2 = 1/2
+ @eprog\noindent
+ The irreducible factors are sorted by increasing degree.
+ See also \tet{nffactor}.
+Variant: This function should only be used by the \kbd{gp} interface. Use
+ directly \fun{GEN}{factor}{GEN x} or \fun{GEN}{boundfact}{GEN x, ulong lim}.
+ The obsolete function \fun{GEN}{factor0}{GEN x, long lim} is kept for
+ backward compatibility.
+
+Function: _factor_Aurifeuille
+Section: programming/internals
+C-Name: factor_Aurifeuille
+Prototype: GL
+Help: _factor_Aurifeuille(a,d): return an algebraic factor of Phi_d(a), a != 0
+
+Function: _factor_Aurifeuille_prime
+Section: programming/internals
+C-Name: factor_Aurifeuille_prime
+Prototype: GL
+Help: _factor_Aurifeuille_prime(p,d): return an algebraic factor of Phi_d(p), p prime

@@ -1,0 +1,9 @@
+Function: qfbnupow
+Section: number_theoretical
+C-Name: nupow
+Prototype: GG
+Help: qfbnupow(x,n): n-th power of primitive positive definite quadratic
+ form x using nucomp and nudupl.
+Doc: $n$-th power of the primitive positive definite
+ binary quadratic form $x$ using \idx{Shanks}'s NUCOMP and NUDUPL algorithms
+ (see \kbd{qfbnucomp}, in particular the final warning).

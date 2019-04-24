@@ -1,0 +1,13 @@
+*** ../src/test/32/subgroup	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:54:16.922641469 -0700
+***************
+*** 8,11 ****
+    ***                                       ^---------
+    ***   incorrect type in forsubgroup [not a group] (t_VEC).
+  []
+! Total time spent: 4
+--- 8,11 ----
+    ***                                       ^---------
+    ***   incorrect type in forsubgroup [not a group] (t_VEC).
+  []
+! Total time spent: 0

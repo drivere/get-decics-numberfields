@@ -1,0 +1,25 @@
+Function: vector
+Section: linear_algebra
+C-Name: vecteur
+Prototype: GDVDE
+Help: vector(n,{X},{expr=0}): row vector with n components of expression
+ expr (X ranges from 1 to n). By default, fill with 0s.
+Doc: creates a row vector (type
+ \typ{VEC}) with $n$ components whose components are the expression
+ \var{expr} evaluated at the integer points between 1 and $n$. If one of the
+ last two arguments is omitted, fill the vector with zeroes.
+
+ Avoid modifying $X$ within \var{expr}; if you do, the formal variable
+ still runs from $1$ to $n$. In particular, \kbd{vector(n,i,expr)} is not
+ equivalent to
+ \bprog
+ v = vector(n)
+ for (i = 1, n, v[i] = expr)
+ @eprog\noindent
+ as the following example shows:
+ \bprog
+ n = 3
+ v = vector(n); vector(n, i, i++)            ----> [2, 3, 4]
+ v = vector(n); for (i = 1, n, v[i] = i++)   ----> [2, 0, 4]
+ @eprog\noindent
+ %\syn{NO}

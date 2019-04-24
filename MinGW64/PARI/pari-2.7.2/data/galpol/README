@@ -1,0 +1,37 @@
+A database of Galois polynomials (v 2.0)
+================================
+
+This packages contains a database of polynomials defining Galois extensions of
+the rationals representing all abstract groups of order up to 127 for
+all signatures (2429 polynomials).
+
+Abstract groups are indexed according to the GAP 4 small groups database
+<http://www.gap-system.org/Packages/sgl.html>.
+GAP4(a,b) denotes the group returned by SmallGroup(a,b) under GAP 4.
+
+a/nb: the number of abstract groups of order a
+
+a/b/real: Vector [pol,den] where pol is a totally real Galois polynomial
+of Galois Group isomorphic to GAP4(a,b), and den is the common denominator
+of the conjugates returned by nfgaloisconj.
+
+a/b/complex: (a even) Vector [pol,den] where pol is a totally complex.
+Galois polynomial of Galois Group isomorphic to GAP4(a,b), and den is the
+common denominator of the conjugates returned by nfgaloisconj.
+
+a/b/non-wss: if present, then the group GAP4(a,b) is not weakly super-solvable,
+see ??galoisinit.
+
+Bill Allombert and Igor Schein 2002-2014
+
+================================
+
+Copyright © 2003-2014 The PARI Group
+
+We do not assert rights to the mathematical entities in this database.
+
+The group data are taken from GAP 4 and the SMALL GROUPS LIBRARY by Hans Ulrich
+Besche, Bettina Eick and Eamonn O'Brien.
+
+The database itself is licensed under the GNU GPL version 2 or latter.
+

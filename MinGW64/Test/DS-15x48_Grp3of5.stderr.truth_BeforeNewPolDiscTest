@@ -1,0 +1,22 @@
+00:43:34 (20702): Can't open init data file - running in standalone mode
+Checkpoint Flag = 0.
+Cvec Starting Index = 0.
+N1 Start = 0.
+N2 Start = 0.
+PolyCount starting value = 0.
+Stat Count 1 = 0.
+Stat Count 2 = 0.
+Stat Count 3 = 0.
+Elapsed Time = 0 (sec).
+Reading file in
+    K = x^2 + 1
+    S = [2, 5]
+    Disc Bound = 512000000000
+    Skip = (P1^1)*(P2^2)*(P3^5)
+    Num Congruences = 20000
+    |dK| = 4
+    Signature = [0,1]
+Opening output file out
+Now starting the targeted Martinet search:
+The search has finished.
+00:46:23 (20702): called boinc_finish

@@ -1,0 +1,23 @@
+Function: nfsnf
+Section: number_fields
+C-Name: nfsnf
+Prototype: GG
+Help: nfsnf(nf,x): if x=[A,I,J], outputs [c_1,...c_n] Smith normal form of x.
+Doc: given a $\Z_K$-module $x$ associated to the integral pseudo-matrix
+ $(A,I,J)$, returns an ideal list $d_1,\dots,d_n$ which is the \idx{Smith
+ normal form} of $x$. In other words, $x$ is isomorphic to
+ $\Z_K/d_1\oplus\cdots\oplus\Z_K/d_n$ and $d_i$ divides $d_{i-1}$ for $i\ge2$.
+
+ See \secref{se:ZKmodules} for the definition of integral pseudo-matrix;
+ briefly, it is input as a 3-component row vector $[A,I,J]$ where
+ $I = [b_1,\dots,b_n]$ and $J = [a_1,\dots,a_n]$ are two ideal lists,
+ and $A$ is a square $n\times n$ matrix with columns $(A_1,\dots,A_n)$,
+ seen as elements in $K^n$ (with canonical basis $(e_1,\dots,e_n)$).
+ This data defines the $\Z_K$ module $x$ given by
+ $$ (b_1e_1\oplus\cdots\oplus b_ne_n) / (a_1A_1\oplus\cdots\oplus a_nA_n)
+ \enspace, $$
+ The integrality condition is $a_{i,j} \in b_i a_j^{-1}$ for all $i,j$. If it
+ is not satisfied, then the $d_i$ will not be integral. Note that every
+ finitely generated torsion module is isomorphic to a module of this form and
+ even with $b_i=Z_K$ for all $i$.
+

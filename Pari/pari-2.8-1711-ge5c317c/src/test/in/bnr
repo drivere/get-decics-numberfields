@@ -1,0 +1,51 @@
+default(realprecision,38);
+K=bnfinit(x^3-x-1);
+subgrouplist(bnrinit(K,10))
+K=bnrinit(K,20);
+default(realprecision,77);
+nfnewprec(K);
+default(realprecision,38);
+subgrouplist(K)
+subgrouplist(K, 2)
+subgrouplist(K, 2, 1)
+bnrL1(bnrinit(bnfinit(x^2+1),10,1),1);
+setrand(5);bnrL1(bnrinit(bnfinit(y^2+6),1,1),0);
+bnrL1(bnrinit(bnfinit(x),[5,[1]],1));
+\\ #1399
+bnf=bnfinit(y^2+1); bnrdisc(bnf,12)
+
+setrand(1);bnf=bnfinit(x^2-x-57);
+test(m)=
+{
+  print(bnrisconductor(bnf,m), ", ", bnrclassno(bnf,m), ", ", bnrdisc(bnf,m));
+}
+test([[25,13;0,1],[1,1]])
+test([[25,13;0,1],[1,0]])
+test([[5,3;0,1],[1,0]])
+test([5,3;0,1])
+
+m=[idealfactor(bnf,[5,3;0,1]),[1,0]];
+H=Mat(2);
+bnr=bnrinit(bnf, idealstar(bnf,m,2));
+f=[bnrclassno,bnrdisc,bnrconductor];
+{
+for (i=1,#f,
+  print(f[i](bnr));
+  print(f[i](bnr,H));
+  print(f[i](bnf,m));
+  print(f[i](bnf,m,H));
+)
+}
+bnrdisc(bnf,m,H,1)
+bnrdisc(bnf,m,H,2)
+bnrdisc(bnf,m,H,3)
+bnrdisc(bnf,[5,3;0,1],H,2)
+bnrdisc(bnf,[5,3;0,1],H,3)
+bnrclassno(bnf, idealprimedec(bnf,5)[1])
+
+bnr=bnrinit(bnf,[7,[1,1]],1);
+bnrrootnumber(bnr, [2,1])
+bnrrootnumber(bnr, [0,0])
+
+bnfnarrow(bnfinit(x^2-460))
+bnrconductor(bnfinit(K),4,Mat(3))

@@ -1,0 +1,27 @@
+Function: bnrisprincipal
+Section: number_fields
+C-Name: bnrisprincipal
+Prototype: GGD1,L,
+Help: bnrisprincipal(bnr,x,{flag=1}): bnr being output by bnrinit, gives
+ [v,alpha], where v is the vector of exponents on the class group
+ generators and alpha is the generator of the resulting principal ideal. In
+ particular x is principal if and only if v is the zero vector. If (optional)
+ flag is set to 0, output only v.
+Doc: \var{bnr} being the
+ number field data which is output by \kbd{bnrinit}$(,,1)$ and $x$ being an
+ ideal in any form, outputs the components of $x$ on the ray class group
+ generators in a way similar to \kbd{bnfisprincipal}. That is a 2-component
+ vector $v$ where $v[1]$ is the vector of components of $x$ on the ray class
+ group generators, $v[2]$ gives on the integral basis an element $\alpha$ such
+ that $x=\alpha\prod_ig_i^{x_i}$.
+
+ If $\fl=0$, outputs only $v_1$. In that case, \var{bnr} need not contain the
+ ray class group generators, i.e.~it may be created with \kbd{bnrinit}$(,,0)$
+ If $x$ is not coprime to the modulus of \var{bnr} the result is undefined.
+Variant: Instead of hardcoded  numerical flags,  one should rather
+ use
+ \fun{GEN}{isprincipalray}{GEN bnr, GEN x} for $\kbd{flag} = 0$, and if you
+ want generators:
+ \bprog
+   bnrisprincipal(bnr, x, nf_GEN)
+ @eprog

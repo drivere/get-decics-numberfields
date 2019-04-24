@@ -1,0 +1,13 @@
+*** ../src/test/32/sqrtn	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:41.025705232 -0700
+***************
+*** 52,55 ****
+  error("not a prime number in sqrtn [modulus]: 35.")
+  [Mod(99, 101), Mod(100, 101)]
+  0.E-38
+! Total time spent: 0
+--- 52,55 ----
+  error("not a prime number in sqrtn [modulus]: 35.")
+  [Mod(99, 101), Mod(100, 101)]
+  0.E-38
+! Total time spent: 1

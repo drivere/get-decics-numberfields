@@ -1,0 +1,1491 @@
+% Copyright (c) 2000  The PARI Group
+%
+% This file is part of the PARI/GP documentation
+%
+% Permission is granted to copy, distribute and/or modify this document
+% under the terms of the GNU General Public License
+\chapter{Functions and Operations Available in PARI and GP}
+\label{se:functions}
+
+The functions and operators available in PARI and in the GP/PARI calculator
+are numerous and ever-expanding. Here is a description of the ones available
+in version \vers. It should be noted that many of these functions accept
+quite different types as arguments, but others are more restricted. The list
+of acceptable types will be given for each function or class of functions.
+Except when stated otherwise, it is understood that a function or operation
+which should make natural sense is legal.
+
+On the other hand, many routines list explicit preconditions for some of their
+argument, e.g. $p$ is a prime number, or $q$ is a positive definite quadratic
+form. For reasons of efficiency, all trust the user input and only perform
+minimal sanity checks. When a precondition is not satisfied, any of the
+following may occur: a regular exception is raised, the PARI stack overflows, a
+\kbd{SIGSEGV} or \kbd{SIGBUS} signal is generated, or we enter an infinite
+loop. The function can also quietly return a mathematically meaningless
+result: junk in, junk out.
+
+In this chapter, we will describe the functions according to a rough
+classification. The general entry looks something like:
+
+\key{foo}$(x,\{\fl=0\})$: short description.
+
+The library syntax is \kbd{GEN foo(GEN x, long fl = 0)}.
+
+\noindent
+This means that the GP function \kbd{foo} has one mandatory argument $x$, and
+an optional one, $\fl$, whose default value is 0. (The $\{\}$ should not be
+typed, it is just a convenient notation we will use throughout to denote
+optional arguments.) That is, you can type \kbd{foo(x,2)}, or \kbd{foo(x)},
+which is then understood to mean \kbd{foo(x,0)}. As well, a comma or closing
+parenthesis, where an optional argument should have been, signals to GP it
+should use the default. Thus, the syntax \kbd{foo(x,)} is also accepted as a
+synonym for our last expression. When a function has more than one optional
+argument, the argument list is filled with user supplied values, in order.
+When none are left, the defaults are used instead. Thus, assuming that
+\kbd{foo}'s prototype had been
+$$\hbox{%
+\key{foo}$(\{x=1\},\{y=2\},\{z=3\})$,%
+}$$
+typing in \kbd{foo(6,4)} would give
+you \kbd{foo(6,4,3)}. In the rare case when you want to set some far away
+argument, and leave the defaults in between as they stand, you can use the
+``empty arg'' trick alluded to above: \kbd{foo(6,,1)} would yield
+\kbd{foo(6,2,1)}. By the way, \kbd{foo()} by itself yields
+\kbd{foo(1,2,3)} as was to be expected.
+
+In this rather special case of a function having no mandatory argument, you
+can even omit the $()$: a standalone \kbd{foo} would be enough (though we
+do not recommend it for your scripts, for the sake of clarity). In defining
+GP syntax, we strove to put optional arguments at the end of the argument
+list (of course, since they would not make sense otherwise), and in order of
+decreasing usefulness so that, most of the time, you will be able to ignore
+them.
+
+Finally, an optional argument (between braces) followed by a star, like
+$\{\var{x}\}*$, means that any number of such arguments (possibly none) can
+be given. This is in particular used by the various \kbd{print} routines.
+
+\misctitle{Flags} A \tev{flag} is an argument which, rather than conveying
+actual information to the routine, instructs it to change its default
+behavior, e.g.~return more or less information. All such
+flags are optional, and will be called \fl\ in the function descriptions to
+follow. There are two different kind of flags
+
+\item generic: all valid values for the flag are individually
+described (``If \fl\ is equal to $1$, then\dots'').
+
+\item binary:\sidx{binary flag} use customary binary notation as a
+compact way to represent many toggles with just one integer. Let
+$(p_0,\dots,p_n)$ be a list of switches (i.e.~of properties which take either
+the value $0$ or~$1$), the number $2^3 + 2^5 = 40$ means that $p_3$ and $p_5$
+are set (that is, set to $1$), and none of the others are (that is, they
+are set to $0$). This is announced as ``The binary digits of $\fl$ mean 1:
+$p_0$, 2: $p_1$, 4: $p_2$'', and so on, using the available consecutive
+powers of~$2$.
+
+\misctitle{Mnemonics for flags} Numeric flags as mentioned above are
+obscure, error-prone, and quite rigid: should the authors
+want to adopt a new flag numbering scheme (for instance when noticing
+flags with the same meaning but different numeric values across a set of
+routines), it would break backward compatibility. The only advantage of
+explicit numeric values is that they are fast to type, so their use is only
+advised when using the calculator \kbd{gp}.
+
+As an alternative, one can replace a numeric flag by a character string
+containing symbolic identifiers. For a generic flag, the mnemonic
+corresponding to the numeric identifier is given after it as in
+
+\bprog
+fun(x, {flag = 0} ):
+
+  If flag is equal to 1 = AGM, use an agm formula ...
+@eprog\noindent
+which means that one can use indifferently \kbd{fun($x$, 1)} or
+\kbd{fun($x$, "AGM")}.
+
+For a binary flag, mnemonics corresponding to the various toggles are given
+after each of them. They can be negated by prepending \kbd{no\_} to the
+mnemonic, or by removing such a prefix. These toggles are grouped together
+using any punctuation character (such as ',' or ';'). For instance (taken
+from description of $\tet{ploth}(X=a,b,\var{expr},\{\fl=0\},\{n=0\})$)
+
+\centerline{Binary digits of flags mean: $1=\kbd{Parametric}$,
+$2=\kbd{Recursive}$, \dots}
+
+\noindent so that, instead of $1$, one could use the mnemonic
+\kbd{"Parametric; no\_Recursive"}, or simply \kbd{"Parametric"} since
+\kbd{Recursive} is unset by default (default value of $\fl$ is $0$,
+i.e.~everything unset). People used to the bit-or notation in languages like
+C may also use the form \kbd{"Parametric | no\_Recursive"}.
+
+\misctitle{Pointers} \varsidx{pointer} If a parameter in the function
+prototype is prefixed with a \& sign, as in
+
+\key{foo}$(x,\&e)$
+
+\noindent it means that, besides the normal return value, the function may
+assign a value to $e$ as a side effect. When passing the argument, the \&
+sign has to be typed in explicitly. As of version \vers, this \tev{pointer}
+argument is optional for all documented functions, hence the \& will always
+appear between brackets as in \kbd{Z\_issquare}$(x,\{\&e\})$.
+
+\misctitle{About library programming}
+The \var{library} function \kbd{foo}, as defined at the beginning of this
+section, is seen to have two mandatory arguments, $x$ and \fl: no function
+seen in the present chapter has been implemented so as to accept a variable
+number of arguments, so all arguments are mandatory when programming with the
+library (usually, variants are provided corresponding to the various flag values).
+We include an \kbd{= default value} token in the prototype to signal how a missing
+argument should be encoded. Most of the time, it will be a \kbd{NULL} pointer, or
+-1 for a variable number. Refer to the \emph{User's Guide to the PARI library}
+for general background and details.
+
+\section{Standard monadic or dyadic operators}
+
+\subseckbd{+$/$-} The expressions \kbd{+}$x$ and \kbd{-}$x$ refer
+to monadic operators (the first does nothing, the second negates $x$).
+
+The library syntax is \fun{GEN}{gneg}{GEN x} for \kbd{-}$x$.
+
+\subseckbd{+} The expression $x$ \kbd{+} $y$ is the \idx{sum} of $x$ and $y$.
+Addition between a scalar type $x$ and a \typ{COL} or \typ{MAT} $y$ returns
+respectively $[y[1] + x, y[2],\dots]$ and $y + x \text{Id}$. Other additions
+between a scalar type and a vector or a matrix, or between vector/matrices of
+incompatible sizes are forbidden.
+
+The library syntax is \fun{GEN}{gadd}{GEN x, GEN y}.
+
+\subseckbd{-} The expression $x$ \kbd{-} $y$ is the \idx{difference} of $x$
+and $y$. Subtraction between a scalar type $x$ and a \typ{COL} or \typ{MAT}
+$y$ returns respectively $[y[1] - x, y[2],\dots]$ and $y - x \text{Id}$.
+Other subtractions between a scalar type and a vector or a matrix, or
+between vector/matrices of incompatible sizes are forbidden.
+
+The library syntax is \fun{GEN}{gsub}{GEN x, GEN y} for $x$ \kbd{-} $y$.
+
+\subseckbd{*} The expression $x$ \kbd{*} $y$ is the \idx{product} of $x$
+and $y$. Among the prominent impossibilities are multiplication between
+vector/matrices of incompatible sizes, between a \typ{INTMOD} or \typ{PADIC}
+Restricted to scalars, \kbd{*} is commutative; because of vector and matrix
+operations, it is not commutative in general.
+
+Multiplication between two \typ{VEC}s or two \typ{COL}s is not
+allowed; to take the \idx{scalar product} of two vectors of the same length,
+transpose one of the vectors (using the operator \kbd{\til} or the function
+\kbd{mattranspose}, see \secref{se:linear_algebra}) and multiply a line vector
+by a column vector:
+\bprog
+? a = [1,2,3];
+? a * a
+  ***   at top-level: a*a
+  ***                  ^--
+  *** _*_: forbidden multiplication t_VEC * t_VEC.
+? a * a~
+%2 = 14
+@eprog
+
+If $x,y$ are binary quadratic forms, compose them; see also
+\kbd{qfbnucomp} and \kbd{qfbnupow}. If $x,y$ are \typ{VECSMALL} of the same
+length, understand them as permutations and compose them.
+
+The library syntax is \fun{GEN}{gmul}{GEN x, GEN y} for $x$ \kbd{*} $y$.
+Also available is \fun{GEN}{gsqr}{GEN x} for $x$ \kbd{*} $x$.
+
+\subseckbd{/} The expression $x$ \kbd{/} $y$ is the \idx{quotient} of $x$
+and $y$. In addition to the impossibilities for multiplication, note that if
+the divisor is a matrix, it must be an invertible square matrix, and in that
+case the result is $x*y^{-1}$. Furthermore note that the result is as exact
+as possible: in particular, division of two integers always gives a rational
+number (which may be an integer if the quotient is exact) and \emph{not} the
+Euclidean quotient (see $x$ \kbd{\bs} $y$ for that), and similarly the
+quotient of two polynomials is a rational function in general. To obtain the
+approximate real value of the quotient of two integers, add \kbd{0.} to the
+result; to obtain the approximate $p$-adic value of the quotient of two
+integers, add \kbd{O(p\pow k)} to the result; finally, to obtain the
+\idx{Taylor series} expansion of the quotient of two polynomials, add
+\kbd{O(X\pow k)} to the result or use the \kbd{taylor} function
+(see \secref{se:taylor}). \label{se:gdiv}
+
+The library syntax is \fun{GEN}{gdiv}{GEN x, GEN y} for $x$ \kbd{/} $y$.
+
+\subseckbd{\bs} The expression \kbd{$x$ \bs\ $y$} is the \idx{Euclidean
+quotient} of $x$ and $y$. If $y$ is a real scalar, this is defined as
+\kbd{floor($x$/$y$)} if $y > 0$, and \kbd{ceil($x$/$y$)} if $y < 0$ and
+the division is not exact. Hence the remainder \kbd{$x$ - ($x$\bs$y$)*$y$}
+is in $[0, |y|[$.
+
+Note that when $y$ is an integer and $x$ a polynomial, $y$ is first promoted
+to a polynomial of degree $0$. When $x$ is a vector or matrix, the operator
+is applied componentwise.
+
+The library syntax is \fun{GEN}{gdivent}{GEN x, GEN y}
+for $x$ \kbd{\bs} $y$.
+
+\subseckbd{\bs/} The expression $x$ \b{/} $y$ evaluates to the rounded
+\idx{Euclidean quotient} of $x$ and $y$. This is the same as \kbd{$x$ \bs\ $y$}
+except for scalar division: the quotient is such that the corresponding
+remainder is smallest in absolute value and in case of a tie the quotient
+closest to $+\infty$ is chosen (hence the remainder would belong to
+$]{-}|y|/2, |y|/2]$).
+
+When $x$ is a vector or matrix, the operator is applied componentwise.
+
+The library syntax is \fun{GEN}{gdivround}{GEN x, GEN y}
+for $x$ \b{/} $y$.
+
+\subseckbd{\%} The expression \kbd{$x$ \% $y$} evaluates to the modular
+\idx{Euclidean remainder} of $x$ and $y$, which we now define. When $x$ or $y$
+is a non-integral real number, \kbd{$x$\%$y$} is defined as \kbd{$x$ -
+($x$\bs$y$)*$y$}. Otherwise, if $y$ is an integer, this is the smallest
+non-negative integer congruent to $x$ modulo $y$. (This actually coincides with
+the previous definition if and only if $x$ is an integer.) If $y$ is a
+polynomial, this is the polynomial of smallest degree congruent to $x$ modulo
+$y$. For instance:
+\bprog
+? (1/2) % 3
+%1 = 2
+? 0.5 % 3
+%2 = 0.5000000000000000000000000000
+? (1/2) % 3.0
+%3 = 1/2
+@eprog
+Note that when $y$ is an integer and $x$ a polynomial, $y$ is first promoted
+to a polynomial of degree $0$. When $x$ is a vector or matrix, the operator
+is applied componentwise.
+
+The library syntax is \fun{GEN}{gmod}{GEN x, GEN y}
+for $x$ \kbd{\%} $y$.
+
+\subseckbd{\pow} The expression $x\hbox{\kbd{\pow}}n$ is \idx{powering}.
+If the exponent is an integer, then exact operations are performed using
+binary (left-shift) powering techniques. In particular, in this case $x$
+cannot be a vector or matrix unless it is a square matrix (invertible
+if the exponent is negative). If $x$ is a $p$-adic number, its
+precision will increase if $v_p(n) > 0$. Powering a binary quadratic form
+(types \typ{QFI} and \typ{QFR}) returns a reduced representative of the
+class, provided the input is reduced. In particular, $x\hbox{\kbd{\pow}}1$ is
+identical to $x$.
+
+PARI is able to rewrite the multiplication $x * x$ of two \emph{identical}
+objects as $x^2$, or $\kbd{sqr}(x)$. Here, identical means the operands are
+two different labels referencing the same chunk of memory; no equality test
+is performed. This is no longer true when more than two arguments are
+involved.
+
+If the exponent is not of type integer, this is treated as a transcendental
+function (see \secref{se:trans}), and in particular has the effect of
+componentwise powering on vector or matrices.
+
+As an exception, if the exponent is a rational number $p/q$ and $x$ an
+integer modulo a prime or a $p$-adic number, return a solution $y$ of
+$y^q=x^p$ if it exists. Currently, $q$ must not have large prime factors.
+Beware that
+\bprog
+? Mod(7,19)^(1/2)
+%1 = Mod(11, 19) /* is any square root */
+? sqrt(Mod(7,19))
+%2 = Mod(8, 19)  /* is the smallest square root */
+? Mod(7,19)^(3/5)
+%3 = Mod(1, 19)
+? %3^(5/3)
+%4 = Mod(1, 19)  /* Mod(7,19) is just another cubic root */
+@eprog
+
+If the exponent is a negative integer, an \idx{inverse} must be computed.
+For non-invertible \typ{INTMOD}, this will fail and implicitly exhibit a
+non trivial factor of the modulus:
+\bprog
+? Mod(4,6)^(-1)
+  ***   at top-level: Mod(4,6)^(-1)
+  ***                         ^-----
+  *** _^_: impossible inverse modulo: Mod(2, 6).
+@eprog\noindent
+(Here, a factor 2 is obtained directly. In general, take the gcd of the
+representative and the modulus.) This is most useful when performing
+complicated operations modulo an integer $N$ whose factorization is
+unknown. Either the computation succeeds and all is well, or a factor $d$
+is discovered and the computation may be restarted modulo $d$ or $N/d$.
+
+For non-invertible \typ{POLMOD}, this will fail without exhibiting a
+factor.
+\bprog
+? Mod(x^2, x^3-x)^(-1)
+  ***   at top-level: Mod(x^2,x^3-x)^(-1)
+  ***                               ^-----
+  *** _^_: non-invertible polynomial in RgXQ_inv.
+? a = Mod(3,4)*y^3 + Mod(1,4); b = y^6+y^5+y^4+y^3+y^2+y+1;
+? Mod(a, b)^(-1);
+  ***   at top-level: Mod(a,b)^(-1)
+  ***                         ^-----
+  *** _^_: impossible inverse modulo: Mod(0, 4).
+@eprog\noindent
+In fact the latter polynomial is invertible, but the algorithm used
+(subresultant) assumes the base ring is a domain. If it is not the case,
+as here for $\Z/4\Z$, a result will be correct but chances are an error
+will occur first. In this specific case, one should work with $2$-adics.
+In general, one can try the following approach
+\bprog
+? inversemod(a, b) =
+{ my(m);
+  m = polsylvestermatrix(polrecip(a), polrecip(b));
+  m = matinverseimage(m, matid(#m)[,1]);
+  Polrev( vecextract(m, Str("..", poldegree(b))), variable(b) )
+}
+? inversemod(a,b)
+%2 = Mod(2,4)*y^5 + Mod(3,4)*y^3 + Mod(1,4)*y^2 + Mod(3,4)*y + Mod(2,4)
+@eprog\noindent
+This is not guaranteed to work either since it must invert pivots. See
+\secref{se:linear_algebra}.
+
+The library syntax is \fun{GEN}{gpow}{GEN x, GEN n, long prec}
+for $x\hbox{\kbd{\pow}}n$.
+
+%SECTION: operators
+
+\subsec{Comparison and Boolean operators}\sidx{Boolean operators} The six
+standard \idx{comparison operators} \kbd{<=}, \kbd{<}, \kbd{>=}, \kbd{>},
+\kbd{==}, \kbd{!=} are available in GP. The result is 1 if the comparison is
+true, 0 if it is false. The operator \kbd{==} is quite liberal : for
+instance, the integer 0, a 0 polynomial, and a vector with 0 entries are all
+tested equal.
+
+The extra operator \kbd{===} tests whether two objects are identical and is
+much stricter than \kbd{==} : objects of different type or length are never
+identical.
+
+For the purpose of comparison, \typ{STR} objects are compared using
+the standard lexicographic order, and comparing them to objects
+of a different type raises an exception.
+
+GP accepts \kbd{<>} as a synonym for \kbd{!=}. On the other hand, \kbd{=} is
+definitely \emph{not} a synonym for \kbd{==}: it is the assignment statement.
+
+The standard boolean operators \kbd{||} (\idx{inclusive or}), \kbd{\&\&}
+(\idx{and})\sidx{or} and \kbd{!} (\idx{not}) are also available.
+
+\section{Conversions and similar elementary functions or commands}
+\label{se:conversion}
+
+\noindent
+Many of the conversion functions are rounding or truncating operations. In
+this case, if the argument is a rational function, the result is the
+Euclidean quotient of the numerator by the denominator, and if the argument
+is a vector or a matrix, the operation is done componentwise. This will not
+be restated for every function.
+
+%SECTION: conversions
+
+\section{Transcendental functions}\label{se:trans}
+
+Since the values of transcendental functions cannot be exactly represented,
+these functions will always return an inexact object: a real number,
+a complex number, a $p$-adic number or a power series.  All these objects
+have a certain finite precision.
+
+As a general rule, which of course in some cases may have exceptions,
+transcendental functions operate in the following way:
+
+\item If the argument is either a real number or an inexact complex number
+(like \kbd{1.0 + I} or \kbd{Pi*I} but not \kbd{2 - 3*I}), then the
+computation is done with the precision of the argument.
+In the example below, we see that changing the precision to $50$ digits does
+not matter, because $x$ only had a precision of $19$ digits.
+\bprog
+? \p 15
+   realprecision = 19 significant digits (15 digits displayed)
+? x = Pi/4
+%1 = 0.785398163397448
+? \p 50
+   realprecision = 57 significant digits (50 digits displayed)
+? sin(x)
+%2 = 0.7071067811865475244
+@eprog
+
+Note that even if the argument is real, the result may be complex
+(e.g.~$\text{acos}(2.0)$ or $\text{acosh}(0.0)$). See each individual
+function help for the definition of the branch cuts and choice of principal
+value.
+
+\item If the argument is either an integer, a rational, an exact complex
+number or a quadratic number, it is first converted to a real
+or complex number using the current \idx{precision} held in the default
+\tet{realprecision}.  This precision (the number of decimal digits) can be
+changed using \b{p} or \kbd{default(realprecision,...)}).
+After this conversion, the computation proceeds as above for real or complex
+arguments.
+
+In library mode, the \kbd{realprecision} does not matter; instead the
+precision is taken from the \kbd{prec} parameter which every transcendental
+function has.  As in \kbd{gp}, this \kbd{prec} is not used when the
+argument to a function is already inexact.
+Note that the argument \var{prec} stands for the length in words of a real
+number, including codewords. Hence we must have $\var{prec} \geq 3$.
+
+Some accuracies attainable on 32-bit machines cannot be attained
+on 64-bit machines for parity reasons. For example the default \kbd{gp} accuracy
+is 28 decimal digits on 32-bit machines, corresponding to \var{prec} having
+the value 5, but this cannot be attained on 64-bit machines.
+
+\item If the argument is a polmod (representing an algebraic number),
+then the function is evaluated for every possible complex embedding of that
+algebraic number.  A column vector of results is returned, with one component
+for each complex embedding.  Therefore, the number of components equals
+the degree of the \typ{POLMOD} modulus.
+
+\item If the argument is an intmod or a $p$-adic, at present only a
+few functions like \kbd{sqrt} (square root), \kbd{sqr} (square), \kbd{log},
+\kbd{exp}, powering, \kbd{teichmuller} (Teichm\"uller character) and
+\kbd{agm} (arithmetic-geometric mean) are implemented.
+
+Note that in the case of a $2$-adic number, $\kbd{sqr}(x)$ may not be
+identical to $x*x$: for example if $x = 1+O(2^5)$ and $y = 1+O(2^5)$ then
+$x*y = 1+O(2^5)$ while $\kbd{sqr}(x) = 1+O(2^6)$. Here, $x * x$ yields the
+same result as $\kbd{sqr}(x)$ since the two operands are known to be
+\emph{identical}. The same statement holds true for $p$-adics raised to the
+power $n$, where $v_p(n) > 0$.
+
+\misctitle{Remark} If we wanted to be strictly consistent with
+the PARI philosophy, we should have $x*y = (4 \mod 8)$ and $\kbd{sqr}(x) =
+(4 \mod 32)$ when both $x$ and $y$ are congruent to $2$ modulo $4$.
+However, since intmod is an exact object, PARI assumes that the modulus
+must not change, and the result is hence $(0\, \mod\, 4)$ in both cases. On
+the other hand, $p$-adics are not exact objects, hence are treated
+differently.
+
+\item If the argument is a polynomial, a power series or a rational function,
+it is, if necessary, first converted to a power series using the current
+series precision, held in the default \tet{seriesprecision}. This precision
+(the number of significant terms) can be changed using \b{ps} or
+\kbd{default(seriesprecision,...)}. Then the Taylor series expansion of the
+function around $X=0$ (where $X$ is the main variable) is computed to a
+number of terms depending on the number of terms of the argument and the
+function being computed.
+
+Under \kbd{gp} this again is transparent to the user. When programming in
+library mode, however, it is \emph{strongly} advised to perform an explicit
+conversion to a power series first, as in \kbd{x = gtoser(x, seriesprec)},
+where the number of significant terms \kbd{seriesprec} can be specified
+explicitly. If you do not do this, a global variable \kbd{precdl} is used
+instead, to convert polynomials and rational functions to a power series with
+a reasonable number of terms; tampering with the value of this global
+variable is \emph{deprecated} and strongly discouraged.
+
+
+\item If the argument is a vector or a matrix, the result is the
+componentwise evaluation of the function. In particular, transcendental
+functions on square matrices, which are not implemented in the present
+version \vers, will have a different name if they are implemented some day.
+
+\subseckbd{\pow} If $y$ is not of type integer, \kbd{x\pow y} has the same
+effect as \kbd{exp(y*log(x))}. It can be applied to $p$-adic numbers as well
+as to the more usual types.\sidx{powering}
+
+The library syntax is \fun{GEN}{gpow}{GEN x, GEN n, long prec}
+for $x\hbox{\kbd{\pow}}n$.
+
+%SECTION: transcendental
+
+\section{Arithmetic functions}\label{se:arithmetic}
+
+These functions are by definition functions whose natural domain of
+definition is either $\Z$ (or $\Z_{>0}$). The way these functions are used is
+completely different from transcendental functions in that there are no
+automatic type conversions: in general only integers are accepted as
+arguments. An integer argument $N$ can be given in the following alternate
+formats:
+
+\item \typ{MAT}: its factorization \kbd{fa = factor($N$)},
+
+\item \typ{VEC}: a pair \kbd{[$N$, fa]} giving both the integer and
+  its factorization.
+
+This allows to compute different arithmetic functions at a given $N$
+while factoring the latter only once.
+
+\bprog
+  ? N = 10!; faN = factor(N);
+  ? eulerphi(N)
+  %2 = 829440
+  ? eulerphi(faN)
+  %3 = 829440
+  ? eulerphi(S = [N, faN])
+  %4 = 829440
+  ? sigma(S)
+  %5 = 15334088
+@eprog
+
+\subsec{Arithmetic functions and the factoring engine}
+All arithmetic functions in the narrow sense of the word~--- Euler's
+totient\sidx{Euler totient function} function, the \idx{Moebius} function,
+the sums over divisors or powers of divisors etc.--- call, after trial
+division by small primes, the same versatile factoring machinery described
+under \kbd{factorint}. It includes \idx{Shanks SQUFOF}, \idx{Pollard Rho},
+\idx{ECM} and \idx{MPQS} stages, and has an early exit option for the
+functions \teb{moebius} and (the integer function underlying)
+\teb{issquarefree}. This machinery relies on a fairly strong
+probabilistic primality test, see \kbd{ispseudoprime}, but you may also set
+\bprog
+  default(factor_proven, 1)
+@eprog\noindent to ensure that all tentative factorizations are fully proven.
+This should not slow down PARI too much, unless prime numbers with
+hundreds of decimal digits occur frequently in your application.
+
+\subsec{Orders in finite groups and Discrete Logarithm functions}
+\label{se:DLfun}
+
+The following functions compute the order of an element in a finite group:
+\kbd{ellorder} (the rational points on an elliptic curve defined over a
+finite field), \kbd{fforder} (the multiplicative group of a finite field),
+\kbd{znorder} (the invertible elements in $\Z/n\Z$). The following functions
+compute discrete logarithms in the same groups (whenever this is meaningful)
+\kbd{elllog}, \kbd{fflog}, \kbd{znlog}.
+
+All such functions allow an optional argument specifying an integer
+$N$, representing the order of the group. (The \emph{order} functions also
+allows any non-zero multiple of the order, with a minor loss of efficiency.)
+That optional argument follows the same format as given above:
+
+\item \typ{INT}: the integer $N$,
+
+\item \typ{MAT}: the factorization \kbd{fa = factor($N$)},
+
+\item \typ{VEC}: this is the preferred format and provides both the
+integer $N$ and its factorization in a two-component vector
+\kbd{[$N$, fa]}.
+
+When the group is fixed and many orders or discrete logarithms will be
+computed, it is much more efficient to initialize this data once and for all
+and pass it to the relevant functions, as in
+\bprog
+? p = nextprime(10^40);
+? v = [p-1, factor(p-1)]; \\ data for discrete log & order computations
+? znorder(Mod(2,p), v)
+%3 = 500000000000000000000000000028
+? g = znprimroot(p);
+? znlog(2, g, v)
+%5 = 543038070904014908801878611374
+@eprog
+\bigskip
+
+%SECTION: number_theoretical
+
+\section{Functions related to elliptic curves}
+
+\subsec{Elliptic curve structures}
+An elliptic curve is given by a Weierstrass model\sidx{Weierstrass equation}
+$$
+  y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6,
+$$
+whose discriminant is non-zero. Affine points on \kbd{E} are represented as
+two-component vectors \kbd{[x,y]}; the point at infinity, i.e.~the identity
+element of the group law, is represented by the one-component vector
+\kbd{[0]}.
+
+Given a vector of coefficients $[a_1,a_2,a_3,a_4,a_6]$, the function
+\tet{ellinit} initializes and returns an \tev{ell} structure. (An additional
+optional argument allows to specify the base field in case it cannot be
+inferred from the curve coefficients.) This structure contains data needed by
+elliptic curve related functions, and is generally passed as a first argument.
+Expensive data are skipped on initialization: they will be dynamically
+computed when (and if) needed, and then inserted in the structure. The
+precise layout of the \tev{ell} structure is left undefined and should never
+be used directly. The following \idx{member functions} are available,
+depending on the underlying domain.
+
+\subsubsec{All domains}
+
+\item \tet{a1}, \tet{a2}, \tet{a3}, \tet{a4}, \tet{a6}: coefficients of the
+elliptic curve.
+
+\item \tet{b2}, \tet{b4}, \tet{b6}, \tet{b8}: $b$-invariants of the curve; in
+characteristic $\neq 2$, for $Y = 2y + a_1x+a3$, the curve equation becomes
+$$ Y^2 = 4 x^3 + b_2 x^2 + 2b_4 x + b_6 =: g(x). $$
+
+\item \tet{c4}, \tet{c6}: $c$-invariants of the curve; in characteristic $\neq
+2,3$, for $X = x + b_2/12$ and $Y = 2y + a_1x+a3$, the curve equation becomes
+$$ Y^2 = 4 X^3 - (c_4/12) X - (c_6/216). $$
+
+\item \tet{disc}: discriminant of the curve. This is only required to be
+non-zero, not necessarily a unit.
+
+\item \tet{j}: $j$-invariant of the curve.
+
+\noindent These are used as follows:
+\bprog
+? E = ellinit([0,0,0, a4,a6]);
+? E.b4
+%2 = 2*a4
+? E.disc
+%3 = -64*a4^3 - 432*a6^2
+@eprog
+
+\subsubsec{Curves over $\R$}
+
+This in particular includes curves defined over $\Q$. All member functions in
+this section return data, as it is currently stored in the structure, if
+present; and otherwise compute it to the default accuracy, that was fixed
+\emph{at the time of ellinit} (via a \typ{REAL} $D$ domain argument, or
+\kbd{realprecision} by default). The function \tet{ellperiods} allows to
+recompute (and cache) the following data to \emph{current}
+\kbd{realprecision}.
+
+\item \tet{area}: volume of the complex lattice defining $E$.
+
+\item \tet{roots} is a vector whose three components contain the complex
+roots of the right hand side $g(x)$ of the associated $b$-model $Y^2 = g(x)$.
+If the roots are all real, they are ordered by decreasing value. If only one
+is real, it is the first component.
+
+\item \tet{omega}: $[\omega_1,\omega_2]$, periods forming a basis of the
+complex lattice defining $E$. The first component $\omega_1$ is the
+(positive) real period, in other words the integral of $dx/(2y+a_1x+a_3)$
+over the connected component of the identity component of $E(\R)$.
+The second component $\omega_2$ is a complex period, such that
+$\tau=\dfrac{\omega_1}{\omega_2}$ belongs to Poincar\'e's
+half-plane (positive imaginary part); not necessarily to the standard
+fundamental domain.
+
+\item \tet{eta} is a row vector containing the quasi-periods $\eta_1$ and
+$\eta_2$ such that $\eta_i = 2\zeta(\omega_i/2)$, where $\zeta$ is the
+Weierstrass zeta function associated to the period lattice; see
+\tet{ellzeta}. In particular, the Legendre relation holds: $\eta_2\omega_1 -
+\eta_1\omega_2 = 2i\pi$.
+
+\misctitle{Warning} As for the orientation of the basis of the period lattice,
+beware that many sources use the inverse convention where $\omega_2/\omega_1$
+has positive imaginary part and our $\omega_2$ is the negative of theirs. Our
+convention $\tau = \omega_1/\omega_2$  ensures that the action of $\text{PSL}_2$ is the natural
+one:
+$$[a,b;c,d]\cdot\tau = (a\tau+b)/(c\tau+d)
+  = (a \omega_1 + b\omega_2)/(c\omega_1 + d\omega_2),$$
+instead of a twisted one. (Our $tau$ is $-1/\tau$ in the above inverse
+convention.)
+
+\subsubsec{Curves over $\Q_p$}
+
+We advise to input a model defined over $\Q$ for such curves. In any case,
+if you input an approximate model with \typ{PADIC} coefficients, it will be
+replaced by a lift to $\Q$ (an exact model ``close'' to the one that was
+input) and all quantities will then be computed in terms of this lifted
+model.
+
+For the time being only curves with multiplicative reduction (split or
+non-split), i.e. $v_p(j) < 0$, are supported by non-trivial functions. In
+this case the curve is analytically isomorphic to $\bar{\Q}_p^*/q^\Z :=
+E_q(\bar{\Q}_p)$, for some $p$-adic integer $q$ (the Tate period). In
+particular, we have $j(q) = j(E)$.
+
+\item \tet{p} is the residual characteristic
+
+\item \tet{roots} is a vector with a single component, equal to the $p$-adic
+root $e_1$ of the right hand side $g(x)$ of the associated $b$-model $Y^2
+= g(x)$. The point $(e_1,0)$ corresponds to $-1 \in \bar{\Q}_p^*/q^\Z$
+under the Tate parametrization.
+
+\item \tet{tate} returns $[u^2,u,q,[a,b]]$ in the notation of Henniart-Mestre
+(CRAS t. 308, p.~391--395, 1989): $q$ is as above, $u\in \Q_p(\sqrt{-c_6})$
+is such that $\phi^* dx/(2y + a_1x+a3) = u dt/t$, where $\phi: E_q\to E$
+is an isomorphism (well defined up to sign) and $dt/t$ is the canonical
+invariant differential on the Tate curve; $u^2\in\Q_p$ does not depend on
+$\phi$. (Technicality: if $u\not\in\Q_p$, it is stored as a quadratic
+\typ{POLMOD}.)
+Finally, $[a,b]$ satisfy $4u^2 b \cdot \text{agm}(\sqrt{a/b},1)^2 = 1$
+as in Theorem~2 (\emph{loc.~cit.}).
+
+\subsubsec{Curves over $\F_q$}
+
+\item \tet{p} is the characteristic of $\F_q$.
+
+\item \tet{no} is $\#E(\F_q)$.
+
+\item \tet{cyc} gives the cycle structure of $E(\F_q)$.
+
+\item \tet{gen} returns the generators of $E(\F_q)$.
+
+\item \tet{group} returns $[\kbd{no},\kbd{cyc},\kbd{gen}]$, i.e. $E(\F_q)$
+as an abelian group structure.
+
+\subsubsec{Curves over $\Q$}
+
+All functions should return a correct result, whether the model is minimal or
+not, but it is a good idea to stick to minimal models whenever
+$\gcd(c_4,c_6)$ is easy to factor (minor speed-up). The construction
+\bprog
+  E = ellminimalmodel(E0, &v)
+@eprog\noindent replaces the original model $E_0$ by a minimal model $E$,
+and the variable change $v$ allows to go between the two models:
+\bprog
+  ellchangepoint(P0, v)
+  ellchangepointinv(P, v)
+@eprog\noindent respectively map the point $P_0$ on $E_0$ to its image on
+$E$, and the point $P$ on $E$ to its pre-image on $E_0$.
+
+A few routines --- namely \tet{ellgenerators}, \tet{ellidentify},
+\tet{ellsearch}, \tet{forell} --- require the optional package \tet{elldata}
+(John Cremona's database) to be installed. In that case, the function
+\tet{ellinit} will allow alternative inputs, e.g.~\kbd{ellinit("11a1")}.
+Functions using this package need to load chunks of a large database in
+memory and require at least 2MB stack to avoid stack overflows.
+
+\item \tet{gen} returns the generators of $E(\Q)$, if known (from John
+  Cremona's database)
+
+\subsubsec{Curves over number fields}
+
+\item \tet{nf} returns the number field over which $E$ is defined.
+
+
+%SECTION: elliptic_curves
+
+\section{Functions related to modular forms and modular symbols}
+
+Let $\Delta := \text{Div}^0(\P^1(\Q))$ be the abelian group of divisors of
+degree $0$ on the rational projective line. The standard $\text{GL}(2,\Q)$
+action on $\P^1(\Q)$ via homographies naturally extends to $\Delta$. Given
+
+\item $G$ a finite index subgroup of $\text{SL}(2,\Z)$,
+
+\item a field $F$ and a finite dimensional representation $V/F$ of
+  $\text{GL}(2,\Q)$,
+
+\noindent we consider the space of \emph{modular symbols} $M :=
+\text{Hom}_G(\Delta, V)$. This finite dimensional $F$-vector
+space is a $G$-module, canonically isomorphic to $H^1_c(X(G), V)$,
+and allows to compute modular forms for $G$.
+
+Currently, we only support the groups $\Gamma_0(N)$ ($N > 1$ an integer)
+and the representations $V_k = \Q[X,Y]_{k-2}$ ($k \geq 2$ an integer) over
+$\Q$. We represent a space of modular symbols by an \var{ms} structure,
+created by the function \tet{msinit}. It encodes basic data associated to the
+space: chosen $\Z[G]$-generators $(g_i)$ for $\Delta$ (and relations among
+those) and an $F$-basis of $M$. A modular symbol $s$ is thus given either in
+terms of this fixed basis, or as a collection of values $s(g_i)$
+satisfying certain relations.
+
+A subspace of $M$ (e.g. the cuspidal or Eisenstein subspaces, the new or
+old modular symbols, etc.) is given by a structure allowing quick projection
+and restriction of linear operators; its first component is a matrix whose
+columns  form  an $F$-basis  of the subspace.
+
+%SECTION: modular_forms
+
+\section{Functions related to general number fields}
+
+In this section, we describe functions related to general number fields.
+Functions related to quadratic number fields are found in
+section \secref{se:arithmetic} (Arithmetic functions).
+
+\subsec{Number field structures}
+
+Let $K = \Q[X] / (T)$ a number field, $\Z_K$ its ring of integers, $T\in\Z[X]$
+is monic. Three basic number field structures can be associated to $K$ in
+GP:
+
+\item $\tev{nf}$ denotes a number field, i.e.~a data structure output by
+\tet{nfinit}. This contains the basic arithmetic data associated to the
+number field: signature, maximal order (given by a basis \kbd{nf.zk}),
+discriminant, defining polynomial $T$, etc.
+
+\item $\tev{bnf}$ denotes a ``Buchmann's number field'', i.e.~a
+data structure output by \tet{bnfinit}. This contains
+$\var{nf}$ and the deeper invariants of the field: units $U(K)$, class group
+$\Cl(K)$, as well as technical data required to solve the two associated
+discrete logarithm problems.
+
+\item $\tev{bnr}$ denotes a ``ray number field'', i.e.~a data structure
+output by \kbd{bnrinit}, corresponding to the ray class group structure of
+the field, for some modulus $f$. It contains a \var{bnf}, the modulus
+$f$, the ray class group $\Cl_f(K)$ and data associated to
+the discrete logarithm problem therein.
+
+\subsec{Algebraic numbers and ideals}
+
+\noindent An \tev{algebraic number} belonging to $K = \Q[X]/(T)$ is given as
+
+\item a \typ{INT}, \typ{FRAC} or \typ{POL} (implicitly modulo $T$), or
+
+\item a \typ{POLMOD} (modulo $T$), or
+
+\item a \typ{COL}~\kbd{v} of dimension $N = [K:\Q]$, representing
+the element in terms of the computed integral basis, as
+\kbd{sum(i = 1, N,~v[i] * nf.zk[i])}. Note that a \typ{VEC}
+will not be recognized.
+\medskip
+
+\noindent An \tev{ideal} is given in any of the following ways:
+
+\item an algebraic number in one of the above forms, defining a principal ideal.
+
+\item a prime ideal, i.e.~a 5-component vector in the format output by
+\kbd{idealprimedec} or \kbd{idealfactor}.
+
+\item a \typ{MAT}, square and in Hermite Normal Form (or at least
+upper triangular with non-negative coefficients), whose columns represent a
+$\Z$-basis of the ideal.
+
+One may use \kbd{idealhnf} to convert any ideal to the last (preferred) format.
+
+\item an \emph{extended ideal} \sidx{ideal (extended)} is a 2-component
+vector $[I, t]$, where $I$ is an ideal as above and $t$ is an algebraic
+number, representing the ideal $(t)I$. This is useful whenever \tet{idealred}
+is involved, implicitly working in the ideal class group, while keeping track
+of principal ideals. Ideal operations suitably update the principal part
+when it makes sense (in a multiplicative context), e.g.~using \kbd{idealmul}
+on $[I,t]$, $[J,u]$, we obtain $[IJ, tu]$. When it does not make sense, the
+extended part is silently discarded, e.g.~using \kbd{idealadd} with the above
+input produces $I+J$.
+
+The ``principal part'' $t$ in an extended ideal may be
+represented in any of the above forms, and \emph{also} as a factorization
+matrix (in terms of number field elements, not ideals!), possibly the empty
+matrix \kbd{[;]} representing $1$. In the latter case, elements stay in
+factored form, or \tev{famat} for \emph{fa}ctorization \emph{mat}rix, which
+is a convenient way to avoid coefficient explosion. To recover the
+conventional expanded form, try \tet{nffactorback}; but many functions
+already accept \var{famat}s as input, for instance \tet{ideallog}, so
+expanding huge elements should never be necessary.
+
+\subsec{Finite abelian groups}
+
+A finite abelian group $G$ in user-readable format is given by its Smith
+Normal Form as a pair $[h,d]$ or triple $[h,d,g]$.
+Here $h$ is the cardinality of $G$, $(d_i)$ is the vector of elementary
+divisors, and $(g_i)$ is a vector of generators. In short,
+$G = \oplus_{i\leq n} (\Z/d_i\Z) g_i$, with $d_n \mid \dots \mid d_2 \mid d_1$
+and $\prod d_i = h$. This information can also be retrieved as
+$G.\kbd{no}$, $G.\kbd{cyc}$ and $G.\kbd{gen}$.
+
+\item a \tev{character} on the abelian group
+$\oplus (\Z/d_i\Z) g_i$
+is given by a row vector $\chi = [a_1,\ldots,a_n]$ such that
+$\chi(\prod g_i^{n_i}) = \exp(2i\pi\sum a_i n_i / d_i)$.
+
+\item given such a structure, a \tev{subgroup} $H$ is input as a square
+matrix in HNF, whose columns express generators of $H$ on the given generators
+$g_i$. Note that the determinant of that matrix is equal to the index $(G:H)$.
+
+\subsec{Relative extensions}
+
+We now have a look at data structures associated to relative extensions
+of number fields $L/K$, and to projective $\Z_K$-modules. When defining a
+relative extension $L/K$, the $\var{nf}$ associated to the base field $K$
+must be defined by a variable having a lower priority (see
+\secref{se:priority}) than the variable defining the extension. For example,
+you may use the variable name $y$ to define the base field $K$, and $x$ to
+define the relative extension $L/K$.
+
+\subsubsec{Basic definitions}\label{se:ZKmodules}
+
+\item $\tev{rnf}$ denotes a relative number field, i.e.~a data structure
+output by \kbd{rnfinit}, associated to the extension $L/K$. The \var{nf}
+associated to be base field $K$ is \kbd{rnf.nf}.
+
+\item A \emph{relative matrix} is an $m\times n$ matrix whose entries are
+elements of $K$, in any form. Its $m$ columns $A_j$ represent elements
+in $K^n$.
+
+\item An \tev{ideal list} is a row vector of fractional ideals of the number
+field $\var{nf}$.
+
+\item A \tev{pseudo-matrix} is a 2-component row vector $(A,I)$ where $A$
+is a relative $m\times n$ matrix and $I$ an ideal list of length $n$. If $I =
+\{{\Bbb a}_1,\dots, {\Bbb a}_n\}$ and the columns of $A$ are $(A_1,\dots,
+A_n)$, this data defines the torsion-free (projective) $\Z_K$-module ${\Bbb
+a}_1 A_1\oplus {\Bbb a}_n A_n$.
+
+\item An \tev{integral pseudo-matrix} is a 3-component row vector w$(A,I,J)$
+where $A = (a_{i,j})$ is an $m\times n$ relative matrix and $I = ({\Bbb
+b}_1,\dots, {\Bbb b}_m)$, $J = ({\Bbb a}_1,\dots, {\Bbb a}_n)$ are ideal
+lists, such that $a_{i,j} \in {\Bbb b}_i {\Bbb a}_j^{-1}$ for all $i,j$. This
+data defines two abstract projective $\Z_K$-modules $N = {\Bbb
+a_1}\omega_1\oplus \cdots\oplus {\Bbb a_n}\omega_n $ in $K^n$, $P = {\Bbb
+b_1}\eta_1\oplus \cdots\oplus {\Bbb b_m}\eta_m$ in $K^m$, and a $\Z_K$-linear
+map $f:N\to P$ given by
+$$ f(\sum \alpha_j\omega_j) = \sum_i \Big(a_{i,j}\alpha_j\Big) \eta_i.$$
+This data defines the $\Z_K$-module $M = P/f(N)$.
+
+\item Any \emph{projective} $\Z_K$-module\varsidx{projective module} $M$
+of finite type in $K^m$ can be given by a pseudo matrix $(A,I)$.
+
+\item An arbitrary $\Z_K$ modules of finite type in $K^m$, with non-trivial
+torsion, is given by an integral pseudo-matrix $(A,I,J)$
+
+\subsubsec{Pseudo-bases, determinant}
+
+\item The pair $(A,I)$ is a \tev{pseudo-basis} of the module it
+generates if the ${\Bbb a_j}$ are non-zero, and the $A_j$ are $K$-linearly
+independent. We call $n$ the \emph{size} of the pseudo-basis. If $A$ is a
+relative matrix, the latter condition means it is square with non-zero
+determinant; we say that it is in Hermite Normal Form\sidx{Hermite normal
+form} (HNF) if it is upper triangular and all the elements of the diagonal
+are equal to 1.
+
+\item For instance, the relative integer basis \kbd{rnf.zk} is a pseudo-basis
+$(A,I)$ of $\Z_L$, where $A = \kbd{rnf.zk[1]}$ is a vector of elements of $L$,
+which are $K$-linearly independent. Most \var{rnf} routines return and handle
+$\Z_K$-modules contained in $L$ (e.g.~$\Z_L$-ideals) via a pseudo-basis
+$(A',I')$, where $A'$ is a relative matrix representing a vector of elements of
+$L$ in terms of the fixed basis \kbd{rnf.zk[1]}
+
+\item The \emph{determinant} of a pseudo-basis $(A,I)$ is the ideal
+equal to the product of the determinant of $A$ by all the ideals of $I$. The
+determinant of a pseudo-matrix is the determinant of any pseudo-basis of the
+module it generates.
+
+\subsec{Class field theory}\label{se:CFT}
+
+A $\tev{modulus}$, in the sense of class field theory, is a divisor supported
+on the non-complex places of $K$. In PARI terms, this means either an
+ordinary ideal $I$ as above (no Archimedean component), or a pair $[I,a]$,
+where $a$ is a vector with $r_1$ $\{0,1\}$-components, corresponding to the
+infinite part of the divisor. More precisely, the $i$-th component of $a$
+corresponds to the real embedding associated to the $i$-th real root of
+\kbd{K.roots}. (That ordering is not canonical, but well defined once a
+defining polynomial for $K$ is chosen.) For instance, \kbd{[1, [1,1]]} is a
+modulus for a real quadratic field, allowing ramification at any of the two
+places at infinity, and nowhere else.
+
+A \tev{bid} or ``big ideal'' is a structure output by \kbd{idealstar}
+needed to compute in $(\Z_K/I)^*$, where $I$ is a modulus in the above sense.
+It is a finite abelian group as described above, supplemented by
+technical data needed to solve discrete log problems.
+
+Finally we explain how to input ray number fields (or \var{bnr}), using class
+field theory. These are defined by a triple $A$, $B$, $C$, where the
+defining set $[A,B,C]$ can have any of the following forms: $[\var{bnr}]$,
+$[\var{bnr},\var{subgroup}]$, $[\var{bnf},\var{mod}]$,
+$[\var{bnf},\var{mod},\var{subgroup}]$. The last two forms are kept for
+backward compatibility, but no longer serve any real purpose (see example
+below); no newly written function will accept them.
+
+\item $\var{bnf}$ is as output by \kbd{bnfinit}, where units are mandatory
+unless the modulus is trivial; \var{bnr} is as output by \kbd{bnrinit}. This
+is the ground field $K$.
+
+\item \emph{mod} is a modulus $\goth{f}$, as described above.
+
+\item \emph{subgroup} a subgroup of the ray class group modulo $\goth{f}$ of
+$K$. As described above, this is input as a square matrix expressing
+generators of a subgroup of the ray class group \kbd{\var{bnr}.clgp} on the
+given generators.
+
+The corresponding \var{bnr} is the subfield of the ray class field of $K$
+modulo $\goth{f}$, fixed by the given subgroup.
+
+\bprog
+  ? K = bnfinit(y^2+1);
+  ? bnr = bnrinit(K, 13)
+  ? %.clgp
+  %3 = [36, [12, 3]]
+  ? bnrdisc(bnr); \\ discriminant of the full ray class field
+  ? bnrdisc(bnr, [3,1;0,1]); \\ discriminant of cyclic cubic extension of K
+@eprog\noindent
+We could have written directly
+\bprog
+  ? bnrdisc(K, 13);
+  ? bnrdisc(K, 13, [3,1;0,1]);
+@eprog\noindent
+avoiding one \tet{bnrinit}, but this would actually be slower since the
+\kbd{bnrinit} is called internally anyway. And now twice!
+
+\subsec{General use}
+
+All the functions which are specific to relative extensions, number fields,
+Buchmann's number fields, Buchmann's number rays, share the prefix \kbd{rnf},
+\kbd{nf}, \kbd{bnf}, \kbd{bnr} respectively. They take as first argument a
+number field of that precise type, respectively output by \kbd{rnfinit},
+\kbd{nfinit}, \kbd{bnfinit}, and \kbd{bnrinit}.
+
+However, and even though it may not be specified in the descriptions of the
+functions below, it is permissible, if the function expects a $\var{nf}$, to
+use a $\var{bnf}$ instead, which contains much more information. On the other
+hand, if the function requires a \kbd{bnf}, it will \emph{not} launch
+\kbd{bnfinit} for you, which is a costly operation. Instead, it will give you
+a specific error message. In short, the types
+$$ \kbd{nf} \leq \kbd{bnf} \leq \kbd{bnr}$$
+are ordered, each function requires a minimal type to work properly, but you
+may always substitute a larger type.
+
+The data types corresponding to the structures described above are rather
+complicated. Thus, as we already have seen it with elliptic curves, GP
+provides ``member functions'' to retrieve data from these structures (once
+they have been initialized of course). The relevant types of number fields
+are indicated between parentheses: \smallskip
+
+\sidx{member functions}
+\settabs\+xxxxxxx&(\var{bnr},x&\var{bnf},x&nf\hskip2pt&)x&: &\cr
+\+\tet{bid}    &(\var{bnr}&&&)&: & bid ideal structure.\cr
+
+\+\tet{bnf}    &(\var{bnr},& \var{bnf}&&)&: & Buchmann's number field.\cr
+
+\+\tet{clgp}  &(\var{bnr},& \var{bnf}&&)&: & classgroup. This one admits the
+following three subclasses:\cr
+
+\+      \quad \tet{cyc} &&&&&: & \quad cyclic decomposition
+ (SNF)\sidx{Smith normal form}.\cr
+
+\+      \quad \kbd{gen}\sidx{gen (member function)} &&&&&: &
+ \quad generators.\cr
+
+\+      \quad \tet{no}  &&&&&: & \quad number of elements.\cr
+
+\+\tet{diff}  &(\var{bnr},& \var{bnf},& \var{nf}&)&: & the different ideal.\cr
+
+\+\tet{codiff}&(\var{bnr},& \var{bnf},& \var{nf}&)&: & the codifferent
+(inverse of the different in the ideal group).\cr
+
+\+\tet{disc} &(\var{bnr},& \var{bnf},& \var{nf}&)&: & discriminant.\cr
+
+\+\tet{fu}   &(\var{bnr},& \var{bnf}&&)&: & \idx{fundamental units}.\cr
+
+\+\tet{index}   &(\var{bnr},& \var{bnf},& \var{nf}&)&: &
+ \idx{index} of the power order in the ring of integers.\cr
+
+\+\tet{mod}   &(\var{bnr}&&&)&: & modulus.\cr
+
+\+\tet{nf}   &(\var{bnr},& \var{bnf},& \var{nf}&)&: & number field.\cr
+
+\+\tet{pol}   &(\var{bnr},& \var{bnf},& \var{nf}&)&: & defining polynomial.\cr
+
+\+\tet{r1} &(\var{bnr},& \var{bnf},& \var{nf}&)&: & the number
+of real embeddings.\cr
+
+\+\tet{r2} &(\var{bnr},& \var{bnf},& \var{nf}&)&: & the number
+of pairs of complex embeddings.\cr
+
+\+\tet{reg}  &(\var{bnr},& \var{bnf}&&)&: & regulator.\cr
+
+\+\tet{roots}&(\var{bnr},& \var{bnf},& \var{nf}&)&: & roots of the
+polynomial generating the field.\cr
+
+\+\tet{sign} &(\var{bnr},& \var{bnf},& \var{nf}&)&: & signature $[r1,r2]$.\cr
+
+\+\tet{t2}   &(\var{bnr},& \var{bnf},& \var{nf}&)&: & the $T_2$ matrix (see
+\kbd{nfinit}).\cr
+
+\+\tet{tu}   &(\var{bnr},& \var{bnf}&&)&: & a generator for the torsion
+units.\cr
+
+\+\tet{zk}   &(\var{bnr},& \var{bnf},& \var{nf}&)&: & integral basis, i.e.~a
+$\Z$-basis of the maximal order.\cr
+
+\+\tet{zkst}   &(\var{bnr}&&&)&: & structure of $(\Z_K/m)^*$.\cr
+
+\misctitle{Deprecated} The following member functions are still available, but deprecated and should not be used in new scripts :
+\+\tet{futu} &(\var{bnr},& \var{bnf},&&)&: &
+ $[u_1,...,u_r,w]$, $(u_i)$ is a vector of fundamental units,\cr
+\+&&&&&& $w$ generates the torsion units.\cr
+
+\+\tet{tufu} &(\var{bnr},& \var{bnf},&&)&: &
+ $[w,u_1,...,u_r]$, $(u_i)$ is a vector of fundamental units,\cr
+\+&&&&&& $w$ generates the torsion units.\cr
+
+
+  For instance, assume that $\var{bnf} = \kbd{bnfinit}(\var{pol})$, for some
+polynomial. Then \kbd{\var{bnf}.clgp} retrieves the class group, and
+\kbd{\var{bnf}.clgp.no} the class number. If we had set $\var{bnf} =
+\kbd{nfinit}(\var{pol})$, both would have output an error message. All these
+functions are completely recursive, thus for instance
+\kbd{\var{bnr}.bnf.nf.zk} will yield the maximal order of \var{bnr}, which
+you could get directly with a simple \kbd{\var{bnr}.zk}.
+
+\subsec{Class group, units, and the GRH}\label{se:GRHbnf}
+
+Some of the functions starting with \kbd{bnf} are implementations of the
+sub-exponential algorithms for finding class and unit groups under \idx{GRH},
+due to Hafner-McCurley, \idx{Buchmann} and Cohen-Diaz-Olivier. The general
+call to the functions concerning class groups of general number fields
+(i.e.~excluding \kbd{quadclassunit}) involves a polynomial $P$ and a
+technical vector
+$$\var{tech} = [c_1, c_2, \var{nrpid} ],$$
+where the parameters are to be understood as follows:
+
+$P$ is the defining polynomial for the number field, which must be in
+$\Z[X]$, irreducible and monic. In fact, if you supply a non-monic polynomial
+at this point, \kbd{gp} issues a warning, then \emph{transforms your
+polynomial} so that it becomes monic. The \kbd{nfinit} routine
+will return a different result in this case: instead of \kbd{res}, you get a
+vector \kbd{[res,Mod(a,Q)]}, where \kbd{Mod(a,Q) = Mod(X,P)} gives the change
+of variables. In all other routines, the variable change is simply lost.
+
+The \var{tech} interface is obsolete and you should not tamper with
+these parameters. Indeed, from version 2.4.0 on,
+
+\item the results are always rigorous under \idx{GRH} (before that version,
+they relied on a heuristic strengthening, hence the need for overrides).
+
+\item the influence of these parameters on execution time and stack size is
+marginal. They \emph{can} be useful to fine-tune and experiment with the
+\kbd{bnfinit} code, but you will be better off modifying all tuning
+parameters in the C code (there are many more than just those three).
+We nevertheless describe it for completeness.
+
+The numbers $c_1 \leq c_2$ are non-negative real numbers. By default they are
+chosen so that the result is correct under GRH. For $i = 1,2$, let
+$B_i = c_i(\log |d_K|)^2$, and denote by $S(B)$ the set of maximal ideals of
+$K$ whose norm is less than $B$. We want $S(B_1)$ to generate $\Cl(K)$ and hope
+that $S(B_2)$ can be \emph{proven} to generate $\Cl(K)$.
+
+More precisely, $S(B_1)$ is a factorbase used to compute a tentative
+$\Cl(K)$ by generators and relations. We then check explicitly, using
+essentially \kbd{bnfisprincipal}, that the elements of $S(B_2)$ belong to the
+span of $S(B_1)$. Under the assumption that $S(B_2)$ generates $\Cl(K)$, we
+are done. User-supplied $c_i$ are only used to compute initial guesses for
+the bounds $B_i$, and the algorithm increases them until one can \emph{prove}
+under GRH that $S(B_2)$ generates $\Cl(K)$. A uniform result of Bach says
+that $c_2 = 12$ is always suitable, but this bound is very pessimistic and a
+direct algorithm due to Belabas-Diaz-Friedman is used to check the condition,
+assuming GRH. The default values are $c_1 = c_2 = 0$. When $c_1$ is equal to
+$0$ the algorithm takes it equal to $c_2$.
+
+$\var{nrpid}$ is the maximal number of small norm relations associated to each
+ideal in the factor base. Set it to $0$ to disable the search for small norm
+relations. Otherwise, reasonable values are between 4 and 20. The default is
+4.
+
+\misctitle{Warning} Make sure you understand the above! By default, most of
+the \kbd{bnf} routines depend on the correctness of the GRH. In particular,
+any of the class number, class group structure, class group generators,
+regulator and fundamental units may be wrong, independently of each other.
+Any result computed from such a \kbd{bnf} may be wrong. The only guarantee is
+that the units given generate a subgroup of finite index in the full unit
+group. You must use \kbd{bnfcertify} to certify the computations
+unconditionally.
+
+\misctitle{Remarks}
+
+You do not need to supply the technical parameters (under the library you
+still need to send at least an empty vector, coded as \kbd{NULL}). However,
+should you choose to set some of them, they \emph{must} be given in the
+requested order. For example, if you want to specify a given value of
+\var{nrpid}, you must give some values as well for $c_1$ and $c_2$, and provide
+a vector $[c_1,c_2,\var{nrpid}]$.
+
+Note also that you can use an $\var{nf}$ instead of $P$, which avoids
+recomputing the integral basis and analogous quantities.
+
+\smallskip
+
+%SECTION: number_fields
+
+\section{Functions related to associative and central simple algebras}
+
+This section collects functions related to associative algebras and central
+simple algebras over number fields. Let $A$ be a finite-dimensional unitary
+associative algebra over a field $K$. We say that $A$ is \emph{central} if
+the center of $A$ is $K$, and that $A$ is \emph{simple} if it has no
+nontrivial two-sided ideals.
+
+\par We provide functions to manipulate associative algebras of finite
+dimension over~$\Q$ or~$\F_p$. We represent them by the left multiplication
+table on a basis over the prime subfield. The function \kbd{algtableinit}
+creates the object representing an associative algebra. We also provide
+functions to manipulate central simple algebras over number fields. We
+represent them either by the left multiplication table on a basis over the
+center, or by a cyclic algebra (see below). The function~\kbd{alginit} creates
+the object representing a central simple algebra.
+
+\par The set of elements of an algebra~$A$ that annihilate every simple left
+$A$-module is a two-sided ideal, called the \emph{Jacobson radical} of~$A$.
+An algebra is \emph{semisimple} if its Jacobson radical is trivial. A
+semisimple algebra is isomorphic to a direct sum of simple algebras. The
+dimension of a central simple algebra~$A$ over $K$ is always a square $d^2$,
+and the integer $d$ is called the \emph{degree} of the algebra~$A$ over~$K$.
+A central simple algebra~$A$ over a field~$K$ is always isomorphic to~$M_d(D)$
+for some integer~$d$ and some central division algebra~$D$ of degree~$e$ : the
+integer~$e$ is called the \emph{index} of~$A$.
+
+\par Let $L/K$ be a cyclic extension of degree $d$, let $\sigma$ be a
+generator of $\text{Gal}(L/K)$ and let $b\in K^*$. Then the \emph{cyclic
+algebra} $(L/K,\sigma,b)$ is the algebra $\bigoplus_{i=0}^{d-1}x^iL$ with
+$x^d=b$ and $\ell x=x\sigma(\ell)$ for all~$\ell\in L$. The algebra
+$(L/K,\sigma,b)$ is a central simple $K$-algebra of degree~$d$, and it is an
+$L$-vector space. Left multiplication is $L$-linear and induces a $K$-algebra
+homomorphism $(L/K,\sigma,b)\to M_d(L)$.
+
+\par Let $K$ be a nonarchimedean local field with uniformizer $\pi$, and let
+$L/K$ be the unique unramified extension of degree $d$. Then every central
+simple algebra $A$ of degree $d$ over $K$ is isomorphic to
+$(L/K,\text{Frob},\pi^h)$ for some integer $h$. The element $h/d\in
+(1/d)\Z/\Z\subset\Q/\Z$ is called the \emph{Hasse invariant} of $A$.
+
+\par Let~$A$ be an algebra of finite dimension over~$\Q$. An \emph{order}
+in~$A$ is a finitely generated $\Z$-submodule~${\cal O}$ such that~$\Q{\cal
+O} = A$, that is also a subring with unit. We define natural orders in
+central simple algebras defined by a cyclic algebra or by a multiplication
+table over the center. Let~$A = (L/K,\sigma,b) = \bigoplus_{i=0}^{d-1}x^iL$
+be a cyclic algebra over a number field~$K$ of degree~$n$ with ring of
+integers~$\Z_K$. Let~$\Z_L$ be the ring of integers of~$L$, and assume
+that~$b$ is integral. Then the submodule~${\cal O} =
+\bigoplus_{i=0}^{d-1}x^i\Z_L$ is an order in~$A$, called the \emph{natural
+order}. Let~$\omega_0,\dots,\omega_{nd-1}$ be a~$\Z$-basis of~$\Z_L$. The
+\emph{natural basis} of~${\cal O}$ is~$b_0,\dots,b_{nd^2-1}$ where~$b_i =
+x^{i/(nd)}\omega_{(i \mod nd)}$. Now let~$A$ be a central simple algebra of
+degree~$d$ over a number field~$K$ of degree~$n$ with ring of
+integers~$\Z_K$. Let~$e_0,\dots,e_{d^2-1}$ be a basis of~$A$ over~$K$ and
+assume that the left multiplication table of~$A$ on~$(e_i)$ is integral. Then
+the submodule~${\cal O} = \bigoplus_{i=0}^{d^2-1}\Z_K e_i$ is an order
+in~$A$, called the \emph{natural order}. Let~$\omega_0,\dots,\omega_{n-1}$ be
+a~$\Z$-basis of~$\Z_K$. The \emph{natural basis} of~${\cal O}$
+is~$b_0,\dots,b_{nd^2-1}$ where~$b_i = \omega_{(i \mod n)}e_{i/n}$.
+
+\par As with number fields, we represent elements of central simple algebras
+in two ways, called the \emph{algebraic representation} and the \emph{basis
+representation}, and you can convert betweeen the two with the functions
+\kbd{algalgtobasis} and \kbd{algbasistoalg}. In every central simple algebra
+object, we store a~$\Z$-basis of an order~${\cal O}_0$, and the basis
+representation is simply a \typ{COL} with coefficients in~$\Q$ expressing the
+element in that basis. If no maximal order was computed, then~${\cal O}_0$ is
+the natural order. If a maximal order was computed, then~${\cal O}_0$ is a
+maximal order containing the natural order. For a cyclic algebra~$A =
+(L/K,\sigma,b)$, the algebraic representation is a \typ{COL} with coefficients
+in~$L$ representing the element in the decomposition~$A =
+\bigoplus_{i=0}^{d-1}x^iL$. For a central simple algebra defined by a
+multiplication table over its center~$K$ on a basis~$(e_i)$, the algebraic
+representation is a \typ{COL} with coefficients in~$K$ representing the element
+on the basis~$(e_i)$.
+
+\misctitle{Warning} The coefficients in the decomposition~$A =
+\bigoplus_{i=0}^{d-1}x^iL$ are not the same as those in the decomposition~$A
+= \bigoplus_{i=0}^{d-1}Lx^i$! The $i$-th coefficients are related by
+conjugating by~$x^i$, which on~$L$ amounts to acting by~$\sigma^i$.
+
+\misctitle{Warning} For a central simple algebra over $\Q$ defined by a
+multiplication table, we cannot distinguish between the basis and the algebraic
+representations from the size of the vectors. The behaviour is then to always
+interpret the column vector as a basis representation if the coefficients are
+\typ{INT} or \typ{FRAC}, and as an algebraic representation if the coefficients
+are \typ{POL} or \typ{POLMOD}.
+
+%SECTION: algebras
+
+\section{Polynomials and power series}
+
+We group here all functions which are specific to polynomials or power
+series. Many other functions which can be applied on these objects are
+described in the other sections. Also, some of the functions described here
+can be applied to other types.
+
+%SECTION: polynomials
+
+\section{Vectors, matrices, linear algebra and sets}
+\label{se:linear_algebra}
+
+Note that most linear algebra functions operating on subspaces defined by
+generating sets (such as \tet{mathnf}, \tet{qflll}, etc.) take matrices as
+arguments. As usual, the generating vectors are taken to be the
+\emph{columns} of the given matrix.
+
+Since PARI does not have a strong typing system, scalars live in
+unspecified commutative base rings. It is very difficult to write
+robust linear algebra routines in such a general setting. We thus
+assume that the base ring is a domain and work over its field of
+fractions. If the base ring is \emph{not} a domain, one gets an error as soon
+as a non-zero pivot turns out to be non-invertible. Some functions,
+e.g.~\kbd{mathnf} or \kbd{mathnfmod}, specifically assume that the base ring is
+$\Z$.
+
+%SECTION: linear_algebra
+
+\section{Sums, products, integrals and similar functions}
+\label{se:sums}
+
+Although the \kbd{gp} calculator is programmable, it is useful to have
+a number of preprogrammed loops, including sums, products, and a certain
+number of recursions. Also, a number of functions from numerical analysis
+like numerical integration and summation of series will be described here.
+
+One of the parameters in these loops must be the control variable, hence a
+simple variable name. In the descriptions, the letter $X$ will always denote
+any simple variable name, and represents the formal parameter used in the
+function. The expression to be summed, integrated, etc. is any legal PARI
+expression, including of course expressions using loops.
+
+\misctitle{Library mode}
+Since it is easier to program directly the loops in library mode, these
+functions are mainly useful for GP programming. On the other hand, numerical
+routines code a function (to be integrated, summed, etc.) with two parameters
+named
+\bprog
+  GEN (*eval)(void*,GEN)
+  void *E;  \\ context: eval(E, x) must evaluate your function at x.
+@eprog\noindent
+see the Libpari manual for details.
+
+\misctitle{Numerical integration}\sidx{numerical integration}
+Starting with version 2.2.9 the ``double exponential'' univariate
+integration method is implemented in \tet{intnum} and its variants. Romberg
+integration is still available under the name \kbd{intnumromb}, but
+superseded. It is possible to compute numerically integrals to thousands of
+decimal places in reasonable time, as long as the integrand is regular. It is
+also reasonable to compute numerically integrals in several variables,
+although more than two becomes lengthy. The integration domain may be
+non-compact, and the integrand may have reasonable singularities at
+endpoints. To use \kbd{intnum}, you must split the integral into a sum
+of subintegrals where the function has no singularities except at the
+endpoints. Polynomials in logarithms are not considered singular, and
+neglecting these logs, singularities are assumed to be algebraic (asymptotic
+to $C(x-a)^{-\alpha}$ for some $\alpha > -1$ when $x$ is
+close to $a$), or to correspond to simple discontinuities of some (higher)
+derivative of the function. For instance, the point $0$ is a singularity of
+$\text{abs}(x)$.
+
+See also the discrete summation methods below, sharing the prefix \kbd{sum}.
+
+%SECTION: sums
+
+\section{Plotting functions}
+
+  Although plotting is not even a side purpose of PARI, a number of plotting
+functions are provided. Moreover, a lot of people
+\footnote{*}{Among these, special thanks go to Klaus-Peter Nischke who
+suggested the recursive plotting and forking/resizing stuff the graphical
+window, and Ilya Zakharevich who rewrote the graphic code from scratch
+implementing many new primitives (splines, clipping). Nils Skoruppa and Bill
+Allombert wrote the \tet{Qt} and \tet{fltk} graphic drivers respectively.}
+suggested ideas or submitted patches for this section of the code. There are
+three types of graphic functions.
+
+\subsec{High-level plotting functions} (all the functions starting with
+\kbd{ploth}) in which the user has little to do but explain what type of plot
+he wants, and whose syntax is similar to the one used in the preceding
+section.
+
+\subsec{Low-level plotting functions} (called \var{rectplot} functions,
+sharing the prefix \kbd{plot}), where every drawing primitive (point, line,
+box, etc.) is specified by the user. These low-level functions work as
+follows. You have at your disposal 16 virtual windows which are filled
+independently, and can then be physically ORed on a single window at
+user-defined positions. These windows are numbered from 0 to 15, and must be
+initialized before being used by the function \kbd{plotinit}, which specifies
+the height and width of the virtual window (called a \var{rectwindow} in the
+sequel). At all times, a virtual cursor (initialized at $[0,0]$) is associated
+to the window, and its current value can be obtained using the function
+\kbd{plotcursor}.
+
+A number of primitive graphic objects (called \var{rect} objects) can then
+be drawn in these windows, using a default color associated to that window
+(which can be changed using the \kbd{plotcolor} function) and only the part
+of the object which is inside the window will be drawn, with the exception of
+polygons and strings which are drawn entirely. The ones sharing the prefix
+\kbd{plotr} draw relatively to the current position of the virtual cursor,
+the others use absolute coordinates. Those having the prefix \kbd{plotrecth}
+put in the rectwindow a large batch of rect objects corresponding to the
+output of the related \kbd{ploth} function.
+
+   Finally, the actual physical drawing is done using \kbd{plotdraw}. The
+rectwindows are preserved so that further drawings using the same windows at
+different positions or different windows can be done without extra work. To
+erase a window, use \kbd{plotkill}. It is not possible to partially erase a
+window: erase it completely, initialize it again, then fill it with the
+graphic objects that you want to keep.
+
+   In addition to initializing the window, you may use a scaled window to
+avoid unnecessary conversions. For this, use \kbd{plotscale}. As long as this
+function is not called, the scaling is simply the number of pixels, the
+origin being at the upper left and the $y$-coordinates going downwards.
+
+   Plotting functions are platform independent, but a number of graphical
+drivers are available for screen output: X11-windows (hence also for GUI's
+based on X11 such as Openwindows and Motif), and the Qt and FLTK graphical
+libraries. The physical window opened by \kbd{plotdraw} or any of the
+\kbd{ploth*} functions is completely separated from \kbd{gp} (technically, a
+\kbd{fork} is done, and the non-graphical memory is immediately freed in the
+child process), which means you can go on working in the current \kbd{gp}
+session, without having to kill the window first. This window can be closed,
+enlarged or reduced using the standard window manager functions. No zooming
+procedure is implemented though (yet).
+
+\subsec{Functions for PostScript output} in the same way that \kbd{printtex} allows you to have a \TeX\ output
+corresponding to printed results, the functions starting with \kbd{ps} allow
+you to have \tet{PostScript} output of the plots. This will not be identical
+with the screen output, but sufficiently close. Note that you can use
+PostScript output even if you do not have the plotting routines enabled. The
+PostScript output is written in a file whose name is derived from the
+\tet{psfile} default (\kbd{./pari.ps} if you did not tamper with it). Each
+time a new PostScript output is asked for, the PostScript output is appended
+to that file. Hence you probably want to remove this file, or change the
+value of \kbd{psfile}, in between plots. On the other hand, in this manner,
+as many plots as desired can be kept in a single file. \smallskip
+
+\subsec{Library mode} \emph{None of the graphic functions are available
+within the PARI library, you must be under \kbd{gp} to use them}. The reason
+for that is that you really should not use PARI for heavy-duty graphical work,
+there are better specialized alternatives around. This whole set of routines
+was only meant as a convenient, but simple-minded, visual aid. If you really
+insist on using these in your program (we warned you), the source
+(\kbd{plot*.c}) should be readable enough for you to achieve something.
+
+%SECTION: graphic
+
+\section{Programming in GP: control statements}
+\sidx{programming}\label{se:programming}
+
+  A number of control statements are available in GP. They are simpler and
+have a syntax slightly different from their C counterparts, but are quite
+powerful enough to write any kind of program. Some of them are specific to
+GP, since they are made for number theorists. As usual, $X$ will denote any
+simple variable name, and \var{seq} will always denote a sequence of
+expressions, including the empty sequence.
+
+\misctitle{Caveat} In constructs like
+\bprog
+    for (X = a,b, seq)
+@eprog\noindent
+the variable \kbd{X} is lexically scoped to the loop, leading to possibly
+unexpected behavior:
+\bprog
+    n = 5;
+    for (n = 1, 10,
+      if (something_nice(), break);
+    );
+    \\ @com at this point \kbd{n} is 5 !
+@eprog\noindent
+If the sequence \kbd{seq} modifies the loop index, then the loop
+is modified accordingly:
+\bprog
+    ? for (n = 1, 10, n += 2; print(n))
+    3
+    6
+    9
+    12
+@eprog
+
+%SECTION: programming/control
+
+\section{Programming in GP: other specific functions}
+\label{se:gp_program}
+
+  In addition to the general PARI functions, it is necessary to have some
+functions which will be of use specifically for \kbd{gp}, though a few of these can
+be accessed under library mode. Before we start describing these, we recall
+the difference between \emph{strings} and \emph{keywords} (see
+\secref{se:strings}): the latter don't get expanded at all, and you can type
+them without any enclosing quotes. The former are dynamic objects, where
+everything outside quotes gets immediately expanded.
+
+%SECTION: programming/specific
+
+\section{Parallel programming}
+
+These function are only available if PARI was configured using \kbd{Configure
+--mt=\dots}. Two multithread interfaces are supported:
+
+\item POSIX threads
+
+\item Message passing interface (MPI)
+
+As a rule, POSIX threads are well-suited for single systems, while MPI is used
+by most clusters. However the parallel GP interface does not depend on the
+chosen multithread interface: a properly written GP program will work
+identically with both.
+
+%SECTION: programming/parallel
+
+\section{GP defaults}
+\label{se:gp_defaults} This section documents the GP defaults, be sure to
+check out \tet{parisize} and \tet{parisizemax} !
+
+%SECTION: default
+
+\vfill\eject

@@ -1,0 +1,42 @@
+Function: rnfpolredabs
+Section: number_fields
+C-Name: rnfpolredabs
+Prototype: GGD0,L,
+Help: rnfpolredabs(nf,pol,{flag=0}): given a pol with coefficients in nf,
+ finds a relative simpler polynomial defining the same field. Binary digits
+ of flag mean: 1: return also the element whose characteristic polynomial is
+ the given polynomial, 2: return an absolute polynomial, 16: partial
+ reduction.
+Doc: THIS FUNCTION IS OBSOLETE: use \tet{rnfpolredbest} instead.
+ Relative version of \kbd{polredabs}. Given a monic polynomial \var{pol}
+ with coefficients in $\var{nf}$, finds a simpler relative polynomial defining
+ the same field. The binary digits of $\fl$ mean
+
+ The binary digits of $\fl$ correspond to $1$: add information to convert
+ elements to the new representation, $2$: absolute polynomial, instead of
+ relative, $16$: possibly use a suborder of the maximal order. More precisely:
+
+ 0: default, return $P$
+
+ 1: returns $[P,a]$ where $P$ is the default output and $a$,
+ a \typ{POLMOD} modulo $P$, is a root of \var{pol}.
+
+ 2: returns \var{Pabs}, an absolute, instead of a relative, polynomial.
+ Same as but faster than
+ \bprog
+   rnfequation(nf, rnfpolredabs(nf,pol))
+ @eprog
+
+ 3: returns $[\var{Pabs},a,b]$, where \var{Pabs} is an absolute polynomial
+ as above, $a$, $b$ are \typ{POLMOD} modulo \var{Pabs}, roots of \kbd{nf.pol}
+ and \var{pol} respectively.
+
+ 16: possibly use a suborder of the maximal order. This is slower than the
+ default when the relative discriminant is smooth, and much faster otherwise.
+ See \secref{se:polredabs}.
+
+ \misctitle{Warning} In the present implementation, \kbd{rnfpolredabs}
+ produces smaller polynomials than \kbd{rnfpolred} and is usually
+ faster, but its complexity is still exponential in the absolute degree.
+ The function \tet{rnfpolredbest} runs in polynomial time, and  tends  to
+ return polynomials with smaller discriminants.

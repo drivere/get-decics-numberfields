@@ -1,0 +1,29 @@
+default(realprecision,38);
+N = 1<<64;
+for(a=N-2, N+2, print(a))
+for(a=-N-2, -N+2, print(a))
+
+forprime(p=2^32-50,2^32+30,print(p))
+forprime(p=2^64-70,2^64+50,print(p))
+
+for(a=0.5,3,print(a))
+for(a=1,10, print(a+=2))
+
+forstep(a=5,1,-2,print1(a," "))
+forstep(a=1,10,[1,3],print1(a," "))
+
+forprime(p=2,10,p=4)
+
+forcomposite(a=2,10,print(a))
+forcomposite(a=5,11,print(a))
+forcomposite(a=6,12,print(a))
+forcomposite(a=6,,print(a); if (a>8, break))
+forcomposite(a=6,12,print(a); a=1)
+forcomposite(a=2,3,print(a))
+
+{
+for(i=1,4,for(j=5,8,
+  if ([i,j]==[2,6], next,
+      [i,j]==[3,6], next(2),
+      [i,j]==[4,6], next(3)); print([i,j])))
+}

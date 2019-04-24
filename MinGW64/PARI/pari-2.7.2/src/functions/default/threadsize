@@ -1,0 +1,14 @@
+Function: _def_threadsize
+Class: default
+Section: default
+C-Name: sd_threadsize
+Prototype:
+Help:
+Doc: In parallel mode, each thread needs its own private \tev{stack} in which
+ to do its computations, see \kbd{parisize}. This value determines the size
+ in bytes of the stacks of each thread, so the total memory allocated will be
+ $\kbd{parisize}+\kbd{nbthreads}\times\kbd{threadsize}$.
+
+ If set to $0$, the value used is the same as \kbd{parisize}.
+
+ The default value is $0$.

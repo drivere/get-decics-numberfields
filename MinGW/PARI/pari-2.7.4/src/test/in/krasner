@@ -1,0 +1,15 @@
+allocatemem(20*10^6);
+filter_output(p, v) = vecsort(vector(#v, j, my([D,e,f,d]=v[j]); [valuation(poldisc(D), p), e, f, d]), cmp);
+
+do(p,N,flag)=filter_output(p, padicfields(p,N,flag));
+
+p = 2; for (d = 2, 50, if (d%p, print(do(p,d,1))))
+p = 3; for (d = 2, 50, if (d%p, print(do(p,d,1))))
+do(2, 105, 1)
+do(5, 21, 1)
+do(23, 55, 1)
+do(23459, 12, 1)
+do(2, [8,12], 1)
+padicfields(2^64+13, 8, 2)
+do(2^64+13, 2, 1)
+do(2, 4, 1)

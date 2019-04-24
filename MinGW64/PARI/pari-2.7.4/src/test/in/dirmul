@@ -1,0 +1,6 @@
+dirmul([0,1],[0,1])
+dirdiv([0,1,1,1,1],[1])
+dirmul(vector(10,n,moebius(n)),vector(10,n,1))
+dirmul([1,2,3,4],[1,2,3,4])
+dirdiv([1,2,3,4],[1,2,3,4])
+dirdiv([1,2,3,4],2*[1,2,3,4])

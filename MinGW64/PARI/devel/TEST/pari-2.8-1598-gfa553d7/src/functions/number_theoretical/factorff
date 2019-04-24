@@ -1,0 +1,41 @@
+Function: factorff
+Section: number_theoretical
+C-Name: factorff
+Prototype: GDGDG
+Help: factorff(x,{p},{a}): factorization of the polynomial x in the finite field
+ F_p[X]/a(X)F_p[X].
+Doc: factors the polynomial $x$ in the field
+ $\F_q$ defined by the irreducible polynomial $a$ over $\F_p$. The
+ coefficients of $x$ must be operation-compatible with $\Z/p\Z$. The result
+ is a two-column matrix: the first column contains the irreducible factors of
+ $x$, and the second their exponents. If all the coefficients of $x$ are in
+ $\F_p$, a much faster algorithm is applied, using the computation of
+ isomorphisms between finite fields.
+
+ Either $a$ or $p$ can omitted (in which case both are ignored) if x has
+ \typ{FFELT} coefficients; the function then becomes identical to \kbd{factor}:
+ \bprog
+ ? factorff(x^2 + 1, 5, y^2+3)  \\ over F_5[y]/(y^2+3) ~ F_25
+ %1 =
+ [Mod(Mod(1, 5), Mod(1, 5)*y^2 + Mod(3, 5))*x
+  + Mod(Mod(2, 5), Mod(1, 5)*y^2 + Mod(3, 5)) 1]
+
+ [Mod(Mod(1, 5), Mod(1, 5)*y^2 + Mod(3, 5))*x
+  + Mod(Mod(3, 5), Mod(1, 5)*y^2 + Mod(3, 5)) 1]
+ ? t = ffgen(y^2 + Mod(3,5), 't); \\ a generator for F_25 as a t_FFELT
+ ? factorff(x^2 + 1)   \\ not enough information to determine the base field
+  ***   at top-level: factorff(x^2+1)
+  ***                 ^---------------
+  *** factorff: incorrect type in factorff.
+ ? factorff(x^2 + t^0) \\ make sure a coeff. is a t_FFELT
+ %3 =
+ [x + 2 1]
+
+ [x + 3 1]
+ ? factorff(x^2 + t + 1)
+ %11 =
+ [x + (2*t + 1) 1]
+
+ [x + (3*t + 4) 1]
+ @eprog\noindent
+ Notice that the second syntax is easier to use and much more readable.

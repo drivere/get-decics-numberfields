@@ -1,0 +1,45 @@
+  ***   Warning: new stack size = 20000000 (19.073 Mbytes).
++oo
++oo
+-38
+  ***   at top-level: sumnummonien(n=3,1/n^2,tab)
+  ***                                  ^----------
+  ***   incompatible initial value 1 != 3.
+(n)->1/(n^2+1)
+-38
+-38
+(n)->log(1+1/n)/n
+-36
+-38
+(n)->lngamma(1+1/n)/n
+-37
++oo
+(n)->sin(1/sqrt(n))/n^(3/2)
+-36
++oo
+2.3979771206715998375659850036324914714
+-37
+-38
++oo
++oo
+-36
++oo
+   realprecision = 308 significant digits
+-307
+-307
+-307
+-307
+-305
+-305
+-307
+-307
++oo
+   realprecision = 38 significant digits
+0.94536905472633293526609521540827019813
+0.E-37
+  ***   at top-level: sumnum(n=1,1/n^2,"bug")
+  ***                            ^------------
+  ***   incorrect type in sumnum (t_STR).
+   realprecision = 19 significant digits
+1.644934066848226436
+Total time spent: 5356

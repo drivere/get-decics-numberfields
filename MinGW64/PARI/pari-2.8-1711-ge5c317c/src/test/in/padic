@@ -1,0 +1,47 @@
+padicappr(x,O(2))
+padicappr(x^2+1+O(3), Mod(-1+O(5^10),y^2-2))
+padicappr(x^2+1+O(3), -1+O(5^10))
+factorpadic(y^2+3^5,3,5)
+p=2^64+13; liftint(padicappr((x-1)^30+p^30, 1+O(p^40)))
+
+test(p, e = 1)=
+{ my (N = 7*p^2);
+  for (i=0,10,if (!ispower(i+O(p^e), N), print([i,p,e])));
+  for (i=1,10,if (!ispower((i+O(p^e))^N, N), error([i,p,e])));
+}
+test(2)
+test(2,2)
+test(2,3)
+test(3)
+test(3,3)
+test(11,3)
+test(nextprime(2^64),3)
+polrootspadic(x^3-x+8, 2, 6)
+f = subst(x^3-x+8, x, x + Mod(y,y^2+y+1));
+padicappr(f, Mod(1+O(2^10)-y, y^2+y+1))
+\\#1424
+lift(1/2 + O(2))
+
+s=3+3^2+O(3^5)
+t=2+2^2+O(2^5)
+f=[cosh,sinh,tanh,cotanh];
+{
+for (i=1,#f,
+  print(f[i](s));
+  print(f[i](O(x)));
+)
+}
+gamma(s)
+gamma(t)
+p=2^64+13;
+gamma(3 + O(p^2))
+gamma(-3 + O(p^2))
+lngamma(17+O(3^5))
+gamma(1/5+O(2^2))
+gamma(1/5+O(2^3))
+gamma(123+O(2^7))
+gamma(123+O(2^8))
+gamma(29+O(2^5))
+gamma(29+O(2^6))
+
+I + O(5^3)

@@ -1,0 +1,35 @@
+o = [Mod(0,3),y,1/y, (y^2+1)/y, [1,2,3], Vecsmall([1,2,0]), Qfb(1,2,4), Qfb(1,2,-4), y+2*y^2+O(y^4)];
+{
+  for (i=1,#o,
+    my (v = o[i]);
+    printsep(" ", Pol(v,y), Pol(v,x), Polrev(v));
+    printsep(" ", Ser(v,y), Ser(v,x), Ser(v,,5));
+  )
+}
+o = [2*x+3*y, 2+x+y+O(x^2), 2+x+y+O(y^2)];
+{
+  for (i=1,#o,
+    my (v = o[i]);
+    printsep(" ",pollead(v), pollead(v,x), pollead(v,y))
+  )
+}
+pollead(z,y)
+pollead(y,z)
+polgraeffe(x^2+x+1)
+polgraeffe(x^3+x+1)
+polsym(2*x^4+1,4)
+norm(I*x+1)
+trace(I*x+1)
+matcompanion(2*x^2+1)
+Pol("")
+serlaplace(1+x+x^2)
+serlaplace(x^2+x^3)
+
+\\#1651
+f1=(x-1)/(x*x-x);
+type(subst(1/f1,x,1))
+
+\\#1690
+default(realprecision,38);
+P(x,y)=(x+1)*y^2+(x^2-x+1)*y+(x^2+x);
+polroots(P(exp(I*Pi),y))

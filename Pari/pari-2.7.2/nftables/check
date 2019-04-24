@@ -1,0 +1,12 @@
+check(n,r, GRH = 1) =
+{ my( v = readvec(Str("T", n,r)) );
+  print(#v, " fields, |disc| <= ", abs(v[#v][1]));
+  for (i = 1, #v,
+    my (K, z = v[i], P = Pol(z[2]));
+    if (GRH, K = bnfinit(P)
+           , K = bnfinit(P,1); bnfcertify(K));
+    if (K.disc != z[1] || K.no != z[3] || K.cyc != z[4], error(z));
+  );
+}
+do(n) = forstep(r = n%2, n, 2, check(n,r));
+all() = for (n = 2, 7, do(n));

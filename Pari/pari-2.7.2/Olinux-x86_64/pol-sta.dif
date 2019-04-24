@@ -1,0 +1,13 @@
+*** ../src/test/32/pol	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:52:44.221806133 -0700
+***************
+*** 33,36 ****
+    ***   at top-level: Pol("")
+    ***                 ^-------
+    *** Pol: incorrect type in gtopoly (t_STR).
+! Total time spent: 0
+--- 33,36 ----
+    ***   at top-level: Pol("")
+    ***                 ^-------
+    *** Pol: incorrect type in gtopoly (t_STR).
+! Total time spent: 1

@@ -1,0 +1,12 @@
+Function: ellan
+Section: elliptic_curves
+C-Name: anell
+Prototype: GL
+Help: ellan(E,n): computes the first n Fourier coefficients of the
+ L-function of the elliptic curve E (n<2^24 on a 32-bit machine).
+Doc: computes the vector of the first $n$ Fourier coefficients $a_k$
+ corresponding to the elliptic curve $E$. The curve must be given by an
+ integral model, not necessarily minimal, although a minimal model will make
+ the function faster.
+Variant: Also available is \fun{GEN}{anellsmall}{GEN e, long n}, which
+ returns a \typ{VECSMALL} instead of a \typ{VEC}, saving on memory.

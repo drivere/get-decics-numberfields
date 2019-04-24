@@ -1,0 +1,7 @@
+v=Vecsmall("hello world!")
+Strchr(v)
+Strtex(Mat(1/2))
+Strtex((x+y)^3/(x-y)^2)
+Str(x)
+Str(1/2)
+Str("a","b",1)

@@ -1,0 +1,13 @@
+*** ../src/test/32/qf	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:52:51.811792651 -0700
+***************
+*** 66,69 ****
+    ***   at top-level: qfbil([1,2],[1,2],Ma
+    ***                 ^--------------------
+    *** qfbil: inconsistent operation 'RgV_RgM_mul' t_VEC (2 elts) , t_MAT (1x2).
+! Total time spent: 16
+--- 66,69 ----
+    ***   at top-level: qfbil([1,2],[1,2],Ma
+    ***                 ^--------------------
+    *** qfbil: inconsistent operation 'RgV_RgM_mul' t_VEC (2 elts) , t_MAT (1x2).
+! Total time spent: 10

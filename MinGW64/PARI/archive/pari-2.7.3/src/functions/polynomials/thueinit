@@ -1,0 +1,19 @@
+Function: thueinit
+Section: polynomials
+C-Name: thueinit
+Prototype: GD0,L,p
+Help: thueinit(P,{flag=0}): initialize the tnf corresponding to P, that will
+ be used to solve Thue equations P(x,y) = some-integer. If flag is non-zero,
+ certify the result unconditionaly. Otherwise, assume GRH (much faster of
+ course).
+Doc: initializes the \var{tnf} corresponding to $P$, a univariate polynomial
+ with integer coefficients. The result is meant to be used in conjunction with
+ \tet{thue} to solve Thue equations $P(X / Y)Y^{\deg P} = a$, where $a$ is an
+ integer.
+
+ If $\fl$ is non-zero, certify results unconditionally. Otherwise, assume
+ \idx{GRH}, this being much faster of course. In the latter case, the result
+ may still be unconditionally correct, see \tet{thue}. For instance in most
+ cases where $P$ is reducible (not a pure power of an irreducible), \emph{or}
+ conditional computed class groups are trivial \emph{or} the right hand side
+ is $\pm1$, then results are always unconditional.

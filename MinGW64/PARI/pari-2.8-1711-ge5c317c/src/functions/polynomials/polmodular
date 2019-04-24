@@ -1,0 +1,39 @@
+Function: polmodular
+Section: polynomials
+C-Name: polmodular
+Prototype: LD0,L,DGDnD0,L,
+Help: polmodular(L, {inv = 0}, {x = 'x}, {y = 'y}, {compute_derivs = 0}): return the
+ modular polynomial of level L and invariant inv.
+Doc:
+ Return the modular polynomial of level $L$ in variables $x$ and $y$
+ for the modular function specified by $inv$.  If $inv$ is 0 (the
+ default), use the modular f$j$ function, if $inv$ is 1 use the
+ Weber-$f$ function, and if $inv$ is 5 use $\gamma_2 =
+ \sqrt[3]{j}$. If $x$ is given as \kbd{Mod(j, p)} or an element $j$ of
+ a prime finite field, then return the modular polynomial of level $L$
+ evaluated at $j$ modulo $p$.  If $j$ is from a finite field and
+ \var{compute\_derivs} is non-zero, then return a triple where the
+ last two elements are the first and second derivatives of the modular
+ polynomial evaluated at $j$.
+ \bprog
+ ? polmodular(3)
+ %1 = x^4 + (-y^3 + 2232*y^2 - 1069956*y + 36864000)*x^3 + [...]
+ ? polmodular(11, 1, , 'J)
+ x^12 - J^11*x^11 + 11*J^9*x^9 - 44*J^7*x^7 + 88*J^5*x^5 - 88*J^3*x^3 + 32*J*x + J^12
+ ? polmodular(11, 5, 7*ffgen(19)^0, 'j)
+ j^12 + j^11 + 7*j^10 + 5*j^9 + 11*j^8 + 10*j^7 + 18*j^6 + 2*j^5 + j^4 + 18*j^3 + 13*j^2 + 11*j + 1
+ @eprog
+Variant: Also available are
+
+ \fun{GEN}{polmodular_ZXX}{long L, long inv, long xvar, long yvar}
+ which returns a bivariate polynomial in variables \kbd{xvar} and
+ \kbd{yvar},
+
+ \fun{GEN}{polmodular_ZM}{long L, long inv} which returns a matrix of
+ coefficients, and
+
+ \fun{GEN}{Fp_polmodular_evalx}{long L, long inv, GEN J, GEN P, long
+ v, int compute_derivs} which returns the modular polynomial evaluated
+ at $J$ modulo $P$ in the variable $v$ (if \kbd{compute\_derivs} is
+ non-zero, returns a vector containing the modular polynomial and its
+ first and second derivatives, all evaluted at $J$ modulo $P$).

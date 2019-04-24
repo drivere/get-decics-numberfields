@@ -1,0 +1,1 @@
+../mpn/x86/p6/aorsmul_1.asm

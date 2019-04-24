@@ -1,0 +1,11 @@
+#! /bin/sh
+cd "$1"
+FL=../funclist
+TMPFL=$FL.tmp$$
+find ../functions -name CVS -prune -o -name '.*' -prune -o -name '*~' -prune -o -type f -print | env LANG= LC_COLLATE= LC_ALL= sort | xargs cksum > $TMPFL
+if cmp $FL $TMPFL >/dev/null 2>&1; then
+        rm -f $TMPFL
+else
+        echo "File $FL updated."
+        mv $TMPFL $FL
+fi

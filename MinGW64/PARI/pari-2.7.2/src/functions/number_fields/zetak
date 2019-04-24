@@ -1,0 +1,54 @@
+Function: zetak
+Section: number_fields
+C-Name: gzetakall
+Prototype: GGD0,L,p
+Help: zetak(nfz,x,{flag=0}): Dedekind zeta function of the number field nfz
+ at x, where nfz is the vector computed by zetakinit (NOT by nfinit); flag is
+ optional, and can be 0: default, compute zetak, or non-zero: compute the
+ lambdak function, i.e. with the gamma factors.
+Doc: \var{znf} being a number
+ field initialized by \kbd{zetakinit} (\emph{not} by \kbd{nfinit}),
+ computes the value of the \idx{Dedekind} zeta function of the number
+ field at the complex number $x$. If $\fl=1$ computes Dedekind $\Lambda$
+ function instead (i.e.~the product of the Dedekind zeta function by its gamma
+ and exponential factors).
+
+ \misctitle{CAVEAT} This implementation is not satisfactory and must be
+ rewritten. In particular
+
+ \item The accuracy of the result depends in an essential way on the
+ accuracy of both the \kbd{zetakinit} program and the current accuracy.
+ Be wary in particular that $x$ of large imaginary part or, on the
+ contrary, very close to an ordinary integer will suffer from precision
+ loss, yielding fewer significant digits than expected. Computing with 28
+ digits of relative accuracy, we have
+ \bprog
+ ? zeta(3)
+ %1 = 1.202056903159594285399738161
+ ? zeta(3-1e-20)
+ %2 = 1.202056903159594285401719424
+ ? zetak(zetakinit(x), 3-1e-20)
+ %3 = 1.2020569031595952919  \\ 5 digits are wrong
+ ? zetak(zetakinit(x), 3-1e-28)
+ %4 = -25.33411749           \\ junk
+ @eprog
+
+ \item As the precision increases, results become unexpectedly
+ completely wrong:
+ \bprog
+ ? \p100
+ ? zetak(zetakinit(x^2-5), -1) - 1/30
+ %1 = 7.26691813 E-108    \\ perfect
+ ? \p150
+ ? zetak(zetakinit(x^2-5), -1) - 1/30
+ %2 = -2.486113578 E-156  \\ perfect
+ ? \p200
+ ? zetak(zetakinit(x^2-5), -1) - 1/30
+ %3 = 4.47... E-75        \\ more than half of the digits are wrong
+ ? \p250
+ ? zetak(zetakinit(x^2-5), -1) - 1/30
+ %4 = 1.6 E43             \\ junk
+ @eprog
+
+Variant: See also \fun{GEN}{glambdak}{GEN znf, GEN x, long prec} or
+ \fun{GEN}{gzetak}{GEN znf, GEN x, long prec}.

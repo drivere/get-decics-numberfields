@@ -1,0 +1,26 @@
+Function: parfor
+Section: programming/parallel
+C-Name: parfor0
+Prototype: vV=GDGJDVDI
+Description:
+ (gen,gen,closure):void parfor($1, $2, $3, NULL, NULL)
+Help: parfor(i=a,{b},expr1,{j},{expr2}): evaluates the sequence expr2
+ (dependent on i and j) for i between a and b, in random order, computed
+ in parallel. Substitute for j the value of expr1 (dependent on i).
+ If b is omitted, the loop will not stop.
+Doc: evaluates the sequence \kbd{expr2} (dependent on $i$ and $j$) for $i$
+ between $a$ and $b$, in random order, computed in parallel; in this sequence
+ \kbd{expr2}, substitute the variable $j$ by the value of \kbd{expr1}
+ (dependent on $i$). If $b$ is omitted, the loop will not stop.
+
+ It is allowed for \kbd{expr2} to exit the loop using
+ \kbd{break}/\kbd{next}/\kbd{return}; however in that case, \kbd{expr2} will
+ still be evaluated for all remaining value of $i$ less than the current one,
+ unless a subsequent \kbd{break}/\kbd{next}/\kbd{return} happens.
+ %\syn{NO}
+
+Function: _parfor_worker
+Section: programming/internals
+C-Name: parfor_worker
+Prototype: GG
+Help: _parfor_worker(i,C): evaluate the closure C on i and return [i,C(i)]

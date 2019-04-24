@@ -1,0 +1,37 @@
+This file contains messages produced while configuring
+  pari-2.8.0 [ development git-e5c317c ]
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure 
+
+/bin/gcc -o linux-x86_64-ansi24269 ansi.c
+/bin/gcc -o linux-x86_64-gnu24269 gnu.c
+/bin/gcc -fno-strict-aliasing -o linux-x86_64-gnu24269 gnu.c
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer endian.c -o linux-x86_64-endian24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_exp2.c -o linux-x86_64-tmp24269 -lm
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_log2.c -o linux-x86_64-tmp24269 -lm
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_strftime.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_getrusage.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_gettimeofday.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_sigaction.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_TIOCGWINSZ.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_getrlimit.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_stat.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_vsnprintf.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_mmap.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_waitpid.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_setsid.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_getenv.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_isatty.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_alarm.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_system.c -o linux-x86_64-tmp24269
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_dlopen.c -o linux-x86_64-tmp24269
+/tmp/ccVkKSbC.o: In function `main':
+has_dlopen.c:(.text.startup+0xf): undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer has_dlopen.c -o linux-x86_64-tmp24269 -ldl
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer -o linux-x86_64-gmp24269 gmp_version.c -lgmp
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer -o linux-x86_64-gmp24269 gmp_mismatch.c -lgmp
+xmkmf
+../log_cmd: line 2: xmkmf: command not found
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer -I/usr/include -o linux-x86_64-X1124269 has_X11.c -lX11
+/bin/gcc -O3 -Wall -fno-strict-aliasing -fomit-frame-pointer -o linux-x86_64-rlv24269 rl_version.c -lreadline

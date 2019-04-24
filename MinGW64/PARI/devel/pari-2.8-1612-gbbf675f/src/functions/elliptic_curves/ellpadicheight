@@ -1,0 +1,65 @@
+Function: ellpadicheight
+Section: elliptic_curves
+C-Name: ellpadicheight0
+Prototype: GGLGDG
+Help:ellpadicheight(E, p,n, P,{Q}): E elliptic curve/Q, P in E(Q),
+ p prime, n an integer; returns the cyclotomic p-adic heights of P.
+ Resp. the value of the associated bilinear form at (P,Q).
+Doc: cyclotomic $p$-adic height of the rational point $P$ on the elliptic curve
+ $E$ (defined over $\Q$), given to $n$ $p$-adic digits.
+ If the argument $Q$ is present, computes the value of the bilinear
+ form $(h(P+Q)-h(P-Q)) / 4$.
+
+ Let $D_{dR}(E) := H^1_{dR}(E) \otimes_\Q \Q_p$ be the $\Q_p$ vector space
+ spanned by $\omega$
+ (invariant differential $dx/(2y+a_1x+a3)$ related to the given model) and
+ $\eta = x \omega$. Then the cyclotomic $p$-adic height associates to
+ $P\in E(\Q)$ an element $f \omega + g\eta$ in $D_{dR}$.
+ This routine returns the vector $[f, g]$ to $n$ $p$-adic digits.
+
+ If $P\in E(\Q)$ is in the kernel of reduction mod $p$ and if its reduction
+ at all finite places is non singular, then $g = -(\log_E P)^2$, where
+ $\log_E$ is the logarithm for the formal group of $E$ at $p$.
+
+ If furthermore the model is of the form $Y^2 = X^3 + a X + b$ and $P = (x,y)$,
+ then
+   $$ f = \log_p(\kbd{denominator}(x)) - 2 \log_p(\sigma(P))$$
+ where $\sigma(P)$ is given by \kbd{ellsigma}$(E,P)$.
+
+ Recall (\emph{Advanced topics in the arithmetic of elliptic
+ curves}, Theorem~3.2) that the local height function over the complex numbers
+ is of the form
+   $$ \lambda(z) = -\log (|\kbd{E.disc}|) / 6 + \Re(z \eta(z)) - 2 \log(
+   \sigma(z). $$
+ (N.B. our normalization for local and global heights is twice that of
+ Silverman's).
+ \bprog
+  ? E = ellinit([1,-1,1,0,0]); P = [0,0];
+  ? ellpadicheight(E,5,4, P)
+  %2 = [3*5 + 5^2 + 2*5^3 + O(5^4), 5^2 + 4*5^4 + O(5^6)]
+  ? E = ellinit("11a1"); P = [5,5]; \\ torsion point
+  ? ellpadicheight(E,19,6, P)
+  %4 = O(19^6)
+  ? E = ellinit([0,0,1,-4,2]); P = [-2,1];
+  ? ellpadicheight(E,3,5, P)
+  %6 = [2*3^2 + 2*3^3 + 3^4 + O(3^5), 2*3^2 + 3^4 + 2*3^5 + 3^6 + O(3^7)]
+  ? ellpadicheight(E,3,5, P, elladd(E,P,P))
+ @eprog
+
+ One can replace the parameter $p$ prime by a vector $[p,[a,b]]$, in which
+ case the routine returns the $p$-adic number $af + bg$.
+
+ When $E$ has good ordinary reduction at $p$, the ``canonical''
+ $p$-adic height is given by
+ \bprog
+ s2 = ellpadics2(E,p,n);
+ ellpadicheight(E, [p,[1,-s2]], n, P)
+ @eprog\noindent Since $s_2$ does not depend on $P$, it is preferable to
+ compute it only once:
+ \bprog
+ ? E = ellinit("5077a1"); p = 5; n = 7;
+ ? s2 = ellpadics2(E,p,n);
+ ? M = ellpadicheightmatrix(E,[p,[1,-s2]], n, E.gen);
+ ? matdet(M)   \\ p-adic regulator
+ %4 = 5 + 5^2 + 4*5^3 + 2*5^4 + 2*5^5 + 5^6 + O(5^7)
+ @eprog

@@ -1,0 +1,17 @@
+Function: zeta
+Section: transcendental
+C-Name: gzeta
+Prototype: Gp
+Help: zeta(s): Riemann zeta function at s with s a complex or a p-adic number.
+Doc: For $s$ a complex number, Riemann's zeta
+ function \sidx{Riemann zeta-function} $\zeta(s)=\sum_{n\ge1}n^{-s}$,
+ computed using the \idx{Euler-Maclaurin} summation formula, except
+ when $s$ is of type integer, in which case it is computed using
+ Bernoulli numbers\sidx{Bernoulli numbers} for $s\le0$ or $s>0$ and
+ even, and using modular forms for $s>0$ and odd.
+
+ For $s$ a $p$-adic number, Kubota-Leopoldt zeta function at $s$, that
+ is the unique continuous $p$-adic function on the $p$-adic integers
+ that interpolates the values of $(1 - p^{-k}) \zeta(k)$ at negative
+ integers $k$ such that $k \equiv 1 \pmod{p-1}$ (resp. $k$ is odd) if
+ $p$ is odd (resp. $p = 2$).

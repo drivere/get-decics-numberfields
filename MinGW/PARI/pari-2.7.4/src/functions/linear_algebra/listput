@@ -1,0 +1,18 @@
+Function: listput
+Section: linear_algebra
+C-Name: listput
+Prototype: WGD0,L,
+Help: listput(list,x,{n}): sets n-th element of list equal to x. If n is
+ omitted or greater than the current list length, appends x.
+Description:
+ (list, gen, small):gen        listput($1, $2, $3)
+Doc:
+ sets the $n$-th element of the list
+ \var{list} (which must be of type \typ{LIST}) equal to $x$. If $n$ is omitted,
+ or greater than the list length, appends $x$.
+ You may put an element into an occupied cell (not changing the
+ list length), but it is easier to use the standard \kbd{list[n] = x}
+ construct. This runs in time $O(\#L)$ in the worst case (when the list must
+ be reallocated), but in time $O(1)$ on average: any number of successive
+ \kbd{listput}s run in time $O(\#L)$, where $\#L$ denotes the list
+ \emph{final} length.

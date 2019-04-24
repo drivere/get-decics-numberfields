@@ -1,0 +1,44 @@
+if test -z "$with_qt"; then
+  with_qt=yes
+fi
+QTDIR=
+case "$with_qt" in
+yes)
+   pth="/usr/local/lib /usr/local/share /usr/lib /usr/share"
+   QTDIR=`locatedir qt4/bin $pth`
+   if test -n "$QTDIR"; then
+     QTLIB="-lQtCore -lQtGui"
+     which_graphic_lib=Qt4
+   else
+     QTDIR=`locatedir qt/bin $pth`
+     if test -n "$QTDIR"; then
+       QTLIB="-lQtCore -lQtGui"
+       which_graphic_lib=Qt4
+     else
+       QTDIR=`locatedir qt3/bin $pth`
+       if test -n "$QTDIR"; then
+         QTLIB="-lqt-mt"
+         which_graphic_lib=Qt
+       else
+         QTDIR=`locatedir qt2/bin $pth`
+         if test -n "$QTDIR"; then
+           QTLIB="-lqt"
+           which_graphic_lib=Qt
+         fi
+       fi
+     fi
+   fi;
+   if test -n "$QTDIR"; then
+     QTDIR=`dirname $QTDIR`
+   fi;;
+*) if test ! -d "$with_qt"; then
+    echo "### Qt directory '$with_qt' not found"
+  else
+    QTDIR=$with_qt
+  fi;;
+esac
+if test -n "$QTDIR"; then
+  echo "Using Qt library, QTDIR = $QTDIR, QTLIB = $QTLIB"
+else
+  echo "### Qt not found. Building without Qt support"
+fi

@@ -1,0 +1,11 @@
+[53835600, 29]
+[5, 0; 0, 1]
+[10, 0; 0, 1]
+[[12, 0; 0, 1]]
+[]
+[]
+  ***   at top-level: forsubgroup(h=[2,3],2,print(h))
+  ***                                       ^---------
+  ***   incorrect type in forsubgroup [not a group] (t_VEC).
+[]
+Total time spent: 4

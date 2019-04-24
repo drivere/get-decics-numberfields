@@ -1,0 +1,13 @@
+Function: ellxn
+Section: elliptic_curves
+C-Name: ellxn
+Prototype: GLDn
+Help: ellxn(E,n,{v='x}): polynomials [phi_n, (psi_n)^2] in variable v,
+ where x([n]P) = phi_n/(psi_n)^2
+Doc: In standard notation, for any affine point $P = (v,w)$ on the
+ curve $E$, we have
+ $$[n]P = (\phi_n(P)\psi_n(P) : \omega_n(P) : \psi_n(P)^3)$$
+ for some polynomials $\phi_n,\omega_n,\psi_n$ in
+ $\Z[a_1,a_2,a_3,a_4,a_6][v,w]$. This function returns
+ $[\phi_n(P),\psi_n(P)^2]$, which give the numerator and denominator of
+ the abcissa of $[n]P$ and depend only on $v$.

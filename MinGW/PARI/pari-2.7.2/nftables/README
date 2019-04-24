@@ -1,0 +1,91 @@
+This directory contains a stripped down version of the number field tables
+published by the Bordeaux computational number theory group (H. Cohen,
+F. Diaz y Diaz, M. Olivier and their students) around 1995, and incorporates
+a number of corrections. The original [uncorrected] tables can be found at
+
+  ftp://megrez.math.u-bordeaux.fr/pub/numberfields/
+
+AUTHORS: See ftp://megrez.math.u-bordeaux.fr/pub/numberfields/readme.pdf
+for the authors of the original tables (~1995). The present version was
+set up by Karim Belabas (Bordeaux) for the PARI group (2007).
+
+FORMAT: The file T<n><r>.gp contains data pertaining to fields of degree
+3 <= n <= 7 with 0 <= r <= n real places. The data is in GP format, one
+field per line, meant to be fed to the gp calculator as in
+
+  v = readvec("T31.gp");
+
+which stores in the vector v (182417 elements) data corresponding to the
+182417 complex cubic fields with discriminant > -10^6. Reading the largest
+table requires a PARI stack size around 30M.
+
+Entries in the resulting vector are sorted by increasing discriminant absolute
+value. Each entry is a 4-components vector: [disc, V, h, cyc], where
+ * disc is the field discriminant.
+ * V is the VECTOR of coefficients of the minimal polynomial of a generator
+   of the number field. P = Pol(V) is the true defining polynomial, and
+   bnfinit(P) will recompute the bnf data associated to the field.
+   polgalois(P) indicates the Galois group of its Galois closure.
+ * h is the class number.
+ * cyc is the vector of orders of the class group cyclic components in
+   "elementary divisors" form: cyc = [d1, d2, ..., dk] means that
+     Cl(K) ~ (Z/d1 Z) x ... x (Z/dk Z),  with dk | ... | d2 | d1.
+
+NOTE 1: You need not download the whole table archive, all individual tables
+are downloadable under
+
+  http://pari.math.u-bordeaux1.fr/pub/pari/packages/nftables/
+
+NOTE 2: The tables were designed to include the minimal amount of data
+necessary to recover all the invariants (V) as well as commonly filtering
+criteria (disc, h, cyc). The most important information -- the one which is
+hardest to recover -- is the field equation.
+
+NOTE 3: The time necessary to run bnfinit and polgalois on all the fields in
+these tables is two to three hours. For this reason, the corresponding
+output is no longer included in the tables, making them much smaller than
+the historical version.
+
+INDEX:
+  T20: |disc| <   10^6,  303968 fields
+  T22: |disc| <   10^6,  303957 fields
+
+  T31: |disc| <   10^6,  182417 fields
+  T33: |disc| < 2*10^6,  112444 fields
+
+  T40: |disc| <   10^6,   81322 fields
+  T42: |disc| <   10^6,   90671 fields
+  T44: |disc| <   10^6,   13073 fields
+
+  T51: |disc| <=  10^6,   28993 fields
+  T53: |disc| <   10^6,   10800 fields
+  T55: |disc| < 2*10^7,   22740 fields
+
+  T60: |disc| < 2*10^5,     442 fields
+  T62: |disc| < 4*10^5,    1179 fields
+  T64: |disc| <   10^6,     405 fields
+  T66: |disc| <   10^7,     398 fields
+
+  T71: |disc| < 6*10^5,     121 fields
+  T73: |disc| <18*10^5,     162 fields
+  T75: |disc| <12*10^6,     201 fields
+  T77: |disc| <15*10^7,     154 fields
+
+ERRATUM: Here is the complete list of errors that are fixed in the
+current version, compared to the original tables.
+
+  T20: disc = -75747, pol = x^2 - x + 18937:   cyc = [24,2]  [ was [12,4] ]
+       disc =-124323, pol = x^2 - x + 31081:   cyc = [38,2]  [ was [76] ]
+       disc =-186043, pol = x^2 - x + 46511:   cyc = [24,2]  [ was [12, 4] ]
+
+  T22: disc = 224108, pol = x^2 - 56027:       h = 2  [ was 1 ]
+       disc = 404477, pol = x^2 - x - 101119:  h = 2  [ was 1 ]
+       disc = 416597, pol = x^2 - x - 104149:  cyc = [4] [ was [2] ]
+       disc = 485237, pol = x^2 - x - 121309:  h = 2 [ was 1 ]
+       disc = 487805, pol = x^2 - x - 121951:  h = 2 [ was 1 ]
+
+  T31: disc =  -5979, pol = x^3 - 6*x - 45:    h = 1  [ was 2 ]
+       disc = -53284, pol = x^3 - 59*x - 180:  h = 1  [ was 2 ]
+       disc = -73251, pol = x^3 + 36*x - 355:  h = 3  [ was 6 ]
+
+  T33: disc = 34620, pol = x^3 - x^2 - 56*x + 96: h = 1 [ was 2 ]

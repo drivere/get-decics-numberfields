@@ -1,0 +1,19 @@
+Function: ellcard
+Section: elliptic_curves
+C-Name: ellcard
+Prototype: GDG
+Help: ellcard(E,{p}): computes the order of the group E(Fp)
+ for the elliptic curve E, defined over Q or a finite field.
+Doc: Let $E$ be an \var{ell} structure as output by \kbd{ellinit}, defined over
+ $\Q$ or a finite field $\F_q$. The argument $p$ is best left omitted if the
+ curve is defined over a finite field, and must be a prime number otherwise.
+ This function computes the order of the group $E(\F_q)$ (as would be
+ computed by \tet{ellgroup}).
+
+ If the curve is defined over $\Q$, $p$ must be explicitly given and the
+ function computes the cardinal of the reduction over $\F_p$; the
+ equation need not be minimal at $p$, but a minimal model will be more
+ efficient. The reduction is allowed to be singular, and we return the order
+ of the group of non-singular points in this case.
+Variant: Also available is \fun{GEN}{ellcard}{GEN E, GEN p} where $p$ is not
+ \kbd{NULL}.

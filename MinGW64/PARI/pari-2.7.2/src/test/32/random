@@ -1,0 +1,30 @@
+Mod(0, 3)
+0
+[[a^2 + 1, a + 1], 1]
+1387580271*a^2 + 3706911745*a + 1312695376
+[[573349991*a^2 + 2420031944*a + 1343519483, 2386085604*a^2 + 2392264859*a +
+ 1794760354], 1]
+15580190479849132290*a^2 + 18389358899415525065*a + 4921253721701162537
+[[13347186698121344203*a^2 + 15544125443573997803*a + 6210385477505767251, 3
+879726255188522250*a^2 + 4837042904171823814*a + 4650867119660314244], 1]
+0.2189535881123797030145835478
+Mod(4, 7)*x^4 + Mod(4, 7)*x^3 + Mod(2, 7)*x^2 + Mod(6, 7)*x
+  ***   at top-level: randomprime(2)
+  ***                 ^--------------
+  *** randomprime: domain error in randomprime: N < 2
+  ***   at top-level: randomprime([0,1])
+  ***                 ^------------------
+  *** randomprime: domain error in randomprime: floor(b) - max(ceil(a),2) < 0
+  ***   at top-level: randomprime([2.5,2.4
+  ***                 ^--------------------
+  *** randomprime: domain error in randomprime: b-a < 0
+  ***   at top-level: randomprime([2.4,2.5
+  ***                 ^--------------------
+  *** randomprime: domain error in randomprime: floor(b) - max(ceil(a),2) < 0
+2124902699
+5
+1267650600228229401496704197543
+  ***   at top-level: random("")
+  ***                 ^----------
+  *** random: incorrect type in genrand (t_STR).
+Total time spent: 0

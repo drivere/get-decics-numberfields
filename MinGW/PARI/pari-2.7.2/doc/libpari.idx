@@ -1,0 +1,3788 @@
+!library mode!rm!11!
+!C_INCLUDE_PATH!tt!11!
+!GEN!tt!11!
+!pari_init!tt!11!
+!maxprime!tt!11!
+!stack!it!11!
+!gen_0!tt!11!
+!gen_1!tt!11!
+!gen_m1!tt!11!
+!gen_2!tt!11!
+!gen_m2!tt!11!
+!ghal\EFF {}!tt!11!
+!heap!it!12!
+!clone!rm!12!
+!di\EFF {}\EFF {}ptr!tt!12!
+!pari_init!tt!12!
+!PARI_OLD_NAMES!tt!12!
+!type!tt!12!
+!gel!tt!12!
+!gmael!tt!13!
+!gel!tt!13!
+!gmael!tt!13!
+!gmael1!tt!13!
+!gcoe\EFF {}\EFF {}!tt!13!
+!gaddgs!tt!13!
+!gaddsg!tt!13!
+!gaddz!tt!13!
+!addii!tt!13!
+!addrr!tt!13!
+!addir!tt!13!
+!addri!tt!13!
+!mpadd!tt!13!
+!addis!tt!13!
+!Fp_add!tt!13!
+!BITS_IN_LONG!tt!14!
+!LONG_IS_64BIT!tt!14!
+!DEFAULTPREC!tt!14!
+!MEDDEFAULTPREC!tt!14!
+!BIGDEFAULTPREC!tt!14!
+!bit_accuracy!tt!14!
+!BITS_IN_LONG!tt!14!
+!pari_malloc!tt!15!
+!pari_realloc!tt!15!
+!pari_malloc!tt!15!
+!pari_calloc!tt!15!
+!pari_malloc!tt!15!
+!pari_\EFF {}ree!tt!15!
+!pari_malloc!tt!15!
+!pari_realloc!tt!15!
+!garbage collecting!rm!15!
+!stack!it!15!
+!avma!tt!15!
+!pari_sp!tt!15!
+!destruction!rm!16!
+!cgiv!tt!16!
+!gerepile!tt!16!
+!gerepileupto!tt!17!
+!gerepilecopy!tt!18!
+!gerepileupto!tt!18!
+!gerepile!tt!18!
+!gerepileall!tt!18!
+!gerepileall!tt!18!
+!gerepileallsp!tt!18!
+!gerepileall!rm!21!
+!stack_lim!tt!21!
+!gerepilecopy!tt!21!
+!gerepileall!tt!21!
+!creation!rm!22!
+!cgetg!tt!22!
+!cgeti!tt!22!
+!cgetr!tt!22!
+!cgetc!tt!22!
+!cgetg!tt!23!
+!varargs!tt!23!
+!mkintn!tt!23!
+!mkpoln!tt!23!
+!setvarn!tt!23!
+!mkvecn!tt!23!
+!mkcoln!tt!23!
+!gerepileupto!tt!23!
+!mkintn!tt!24!
+!uu32toi!tt!24!
+!gsizeword!tt!24!
+!gsizebyte!tt!24!
+!gerepile!tt!24!
+!assignment!rm!24!
+!ga\EFF {}\EFF {}ect!tt!24!
+!ga\EFF {}\EFF {}ect!tt!24!
+!gaddz!tt!24!
+!avma!tt!24!
+!ga\EFF {}\EFF {}ect!tt!24!
+!ga\EFF {}\EFF {}sg!tt!25!
+!ga\EFF {}\EFF {}ect!tt!25!
+!gto\EFF {}p!tt!25!
+!copy!rm!25!
+!gcopy!tt!25!
+!gcopy!tt!25!
+!shallowcopy!tt!25!
+!gerepileupto!tt!25!
+!clone!rm!25!
+!gerepile!tt!25!
+!gclone!tt!25!
+!gclone!tt!25!
+!gunclone!tt!25!
+!conversions!rm!25!
+!stoi!tt!25!
+!dbltor!tt!25!
+!itos!tt!25!
+!rtodbl!tt!26!
+!gtolong!tt!26!
+!gtodouble!tt!26!
+!type number!rm!26!
+!typ!tt!26!
+!settyp!tt!26!
+!lg!tt!26!
+!setlg!tt!26!
+!isclone!tt!26!
+!setisclone!tt!26!
+!unsetisclone!tt!26!
+!integer!rm!27!
+!t_INT!tt!27!
+!signe!tt!27!
+!setsigne!tt!27!
+!lge\EFF {}int!tt!27!
+!e\EFF {}\EFF {}ective length!rm!27!
+!setlge\EFF {}int!tt!27!
+!int_MSW!tt!27!
+!int_LSW!tt!27!
+!int_W!tt!27!
+!int_W_lg!tt!27!
+!int_precW!tt!27!
+!int_nextW!tt!27!
+!int_normalize!tt!27!
+!mpodd!tt!28!
+!mod2!tt!28!
+!mod4!tt!28!
+!mod8!tt!28!
+!mod16!tt!28!
+!mod32!tt!28!
+!mod64!tt!28!
+!mod2BIL!tt!28!
+!t_REAL!tt!29!
+!real number!rm!29!
+!expo!tt!29!
+!setexpo!tt!29!
+!gexpo!tt!29!
+!gsigne!tt!29!
+!mantissa_real!tt!29!
+!t_INTMOD!tt!29!
+!t_FRAC!tt!29!
+!rational number!rm!29!
+!t_FFELT!tt!29!
+!\EFF {}inite \EFF {}ield element!rm!29!
+!t_FF_FpXQ!tt!29!
+!t_FF_Flxq!tt!29!
+!t_FF_F2xq!tt!29!
+!t_COMPLEX!tt!29!
+!complex number!rm!29!
+!p-adic number!rm!30!
+!t_PADIC!tt!30!
+!precp!tt!30!
+!setprecp!tt!30!
+!valp!tt!30!
+!setvalp!tt!30!
+!quadratic number!rm!30!
+!t_QUAD!tt!30!
+!quadpoly!tt!30!
+!t_POLMOD!tt!30!
+!polmod!rm!30!
+!t_POL!tt!30!
+!polynomial!rm!30!
+!signe!tt!30!
+!setsigne!tt!30!
+!varn!tt!30!
+!setvarn!tt!30!
+!gvar!tt!30!
+!variable number!rm!30!
+!NO_VARIABLE!tt!30!
+!degpol!tt!31!
+!leading_term!tt!31!
+!constant_term!tt!31!
+!degree!tt!31!
+!gen_0!tt!31!
+!normalizepol!tt!31!
+!t_SER!tt!31!
+!power series!rm!31!
+!signe!tt!31!
+!setsigne!tt!31!
+!varn!tt!31!
+!setvarn!tt!31!
+!valp!tt!31!
+!setvalp!tt!31!
+!expo!tt!31!
+!setexpo!tt!31!
+!t_RFRAC!tt!32!
+!rational \EFF {}unction!rm!32!
+!gred_r\EFF {}ac2!tt!32!
+!t_QFR!tt!32!
+!inde\EFF {}inite binary quadratic \EFF {}orm!rm!32!
+!t_QFI!tt!32!
+!de\EFF {}inite binary quadratic \EFF {}orm!rm!32!
+!t_VEC!tt!32!
+!t_COL!tt!32!
+!row vector!rm!32!
+!column vector!rm!32!
+!t_MAT!tt!32!
+!matrix!rm!32!
+!t_VECSMALL!tt!32!
+!t_STR!tt!32!
+!character string!rm!32!
+!GSTR!tt!32!
+!t_ERROR!tt!32!
+!error context!rm!32!
+!pari_err!tt!32!
+!t_CLOSURE!tt!32!
+!closure!rm!32!
+!closure_arity!tt!32!
+!t_LIST!tt!33!
+!list!rm!33!
+!variable (priority)!rm!33!
+!varncmp!tt!33!
+!gvar!tt!33!
+!variable number!rm!33!
+!NO_VARIABLE!tt!33!
+!varn!tt!33!
+!MAXVARN!tt!34!
+!MAXVARN!tt!34!
+!variable (user)!rm!34!
+!variable (user)!rm!34!
+!\EFF {}etch_user_var!tt!34!
+!install!tt!34!
+!gp_read_str!tt!34!
+!\EFF {}etch_var_value!tt!34!
+!variable (temporary)!rm!34!
+!\EFF {}etch_var!tt!34!
+!name_var!tt!34!
+!delete_var!tt!35!
+!input!rm!35!
+!gp_read_str!tt!35!
+!readseq!tt!35!
+!gp_read_stream!tt!35!
+!read!tt!36!
+!gp_read_\EFF {}ile!tt!36!
+!writebin!tt!36!
+!output!rm!36!
+!pari_out\EFF {}ile!tt!36!
+!stdout!tt!36!
+!pari_putc!tt!36!
+!pari_puts!tt!36!
+!pari_\EFF {}lush!tt!36!
+!pari_print\EFF {}!tt!36!
+!print\EFF {}!tt!36!
+!print\EFF {}!tt!36!
+!output!tt!36!
+!outmat!tt!36!
+!pari_\EFF {}print\EFF {}!tt!37!
+!pari_sprint\EFF {}!tt!37!
+!print\EFF {}!tt!37!
+!Strprint\EFF {}!tt!37!
+!sprint\EFF {}!tt!37!
+!pari_sprint\EFF {}!tt!37!
+!GENtostr!tt!37!
+!GENtoTeXstr!tt!37!
+!va_list!tt!37!
+!pari_vprint\EFF {}!tt!37!
+!pari_v\EFF {}print\EFF {}!tt!37!
+!pari_vsprint\EFF {}!tt!37!
+!error!rm!37!
+!e_MISC!tt!37!
+!pari_err!tt!37!
+!pari_print\EFF {}!tt!37!
+!pari_err!tt!37!
+!pari_warn!tt!38!
+!warner!tt!38!
+!warnprec!tt!38!
+!warnmem!tt!38!
+!warn\EFF {}ile!tt!38!
+!debugging!rm!38!
+!\EFF {}ormat!rm!38!
+!output!tt!38!
+!pari_print\EFF {}!tt!38!
+!hexadecimal tree!rm!38!
+!dbgGEN!tt!38!
+!output!tt!38!
+!DEBUGLEVEL!tt!38!
+!DEBUGMEM!tt!38!
+!debug!tt!38!
+!debugmem!tt!38!
+!install!tt!38!
+!dbg_pari_heap!tt!39!
+!pari_timer!tt!39!
+!timer_start!tt!39!
+!timer_delay!tt!39!
+!timer_get!tt!39!
+!timer_print\EFF {}!tt!39!
+!timer!tt!39!
+!timer2!tt!39!
+!msgtimer!tt!39!
+!gettime!tt!39!
+!timer_delay!tt!39!
+!\EFF {}ordiv!tt!40!
+!divisors!tt!40!
+!\EFF {}orell!tt!40!
+!\EFF {}orsubgroup!tt!40!
+!\EFF {}orell!tt!40!
+!\EFF {}orell(ell,a,b,)!tt!40!
+!\EFF {}un(E, ell)!tt!40!
+!\EFF {}orsubgroup!tt!40!
+!\EFF {}orsubgroup(H = G, B,)!tt!40!
+!\EFF {}un(E, H)!tt!40!
+!\EFF {}orprime!tt!40!
+!\EFF {}orcomposite!tt!40!
+!\EFF {}orcomposite!tt!40!
+!\EFF {}orcomposite_next!tt!40!
+!\EFF {}orcomposite_init!tt!40!
+!\EFF {}orvec!tt!40!
+!\EFF {}orvec_init!tt!40!
+!\EFF {}orvec_next!tt!40!
+!\EFF {}orpart!tt!40!
+!\EFF {}orpart!tt!40!
+!\EFF {}orpart_init!tt!40!
+!\EFF {}orpart_next!tt!40!
+!\EFF {}orpart_prev!tt!40!
+!\EFF {}orpart_next!tt!40!
+!\EFF {}orpart_prev!tt!40!
+!\EFF {}orpart_t!tt!40!
+!\EFF {}orprime_t!tt!41!
+!\EFF {}orprime_init!tt!41!
+!u_\EFF {}orprime_init!tt!41!
+!\EFF {}orprime_t!tt!41!
+!\EFF {}orprime_next!tt!41!
+!u_\EFF {}orprime_next!tt!41!
+!\EFF {}orprime_t!tt!41!
+!\EFF {}orprime_init!tt!41!
+!\EFF {}orprime_t!tt!41!
+!pari_CATCH!tt!42!
+!CATCH_ALL!tt!42!
+!pari_TRY!tt!42!
+!pari_RETRY!tt!42!
+!pari_err!tt!42!
+!pari_ENDCATCH!tt!42!
+!pari_CATCH_reset!tt!42!
+!pari_err_last!tt!43!
+!pari_err_last!tt!43!
+!err_get_num!tt!43!
+!err_get_compo!tt!43!
+!bezout!tt!43!
+!BITS_IN_LONG!tt!47!
+!ulong!tt!47!
+!BIL!tt!47!
+!shallow!it!47!
+!pari_init!tt!47!
+!pari_close!tt!47!
+!pari_init_opts!tt!47!
+!initprimetable!tt!48!
+!pari_mt_init!tt!48!
+!pari_close_opts!tt!48!
+!pari_mt_close!tt!48!
+!pari_sig_init!tt!48!
+!pari_stackcheck_init!tt!48!
+!pari_daemon!tt!48!
+!\EFF {}unctions_basic!tt!49!
+!\EFF {}unctions_gp!tt!49!
+!\EFF {}unctions_highlevel!tt!49!
+!pari_add_\EFF {}unction!tt!49!
+!pari_add_module!tt!49!
+!pari_add_oldmodule!tt!49!
+!de\EFF {}ault0!tt!49!
+!setde\EFF {}ault!tt!49!
+!\EFF {}unctions_de\EFF {}ault!tt!49!
+!\EFF {}unctions_gp_rl_de\EFF {}ault!tt!49!
+!\EFF {}unctions_gp_de\EFF {}ault!tt!49!
+!pari_add_de\EFF {}aults_module!tt!49!
+!setde\EFF {}ault!tt!49!
+!cb_pari_ask_con\EFF {}irm!tt!49!
+!secure!tt!49!
+!cb_pari_handle_exception!tt!49!
+!cb_pari_sigint!tt!50!
+!cb_pari_pre_recover!tt!50!
+!cb_pari_err_recover!tt!50!
+!cb_pari_whatnow!tt!50!
+!pari_library_path!tt!50!
+!gpinstall!tt!50!
+!pari_ask_con\EFF {}irm!tt!50!
+!cb_pari_ask_con\EFF {}irm!tt!50!
+!gp_context_save!tt!50!
+!gp_context_restore!tt!50!
+!pari_add_hist!tt!50!
+!pari_get_hist!tt!50!
+!pari_get_histtime!tt!51!
+!pari_get_hist!tt!51!
+!pari_nb_hist!tt!51!
+!cgetg!tt!51!
+!cgeti!tt!51!
+!cgetr!tt!51!
+!cgetc!tt!51!
+!cgetg_copy!tt!51!
+!vectrunc_init!tt!51!
+!vectrunc_append!tt!51!
+!vectrunc_init!tt!51!
+!vectrunc_init!tt!51!
+!vectrunc_append_batch!tt!51!
+!vecsmalltrunc_init!tt!52!
+!vecsmalltrunc_append!tt!52!
+!ndec2nlong!tt!52!
+!ndec2prec!tt!52!
+!prec2ndec!tt!52!
+!nbits2nlong!tt!52!
+!nbits2prec!tt!52!
+!nchar2nlong!tt!52!
+!bit_accuracy!tt!52!
+!bit_accuracy_mul!tt!52!
+!typ!tt!52!
+!type_name!tt!52!
+!lg!tt!52!
+!lge\EFF {}int!tt!52!
+!signe!tt!52!
+!gsigne!tt!52!
+!expi!tt!53!
+!expo!tt!53!
+!mpexpo!tt!53!
+!gexpo!tt!53!
+!valp!tt!53!
+!precp!tt!53!
+!varn!tt!53!
+!gvar!tt!53!
+!NO_VARIABLE!tt!53!
+!gvar2!tt!53!
+!NO_VARIABLE!tt!53!
+!degpol!tt!53!
+!lgpol!tt!53!
+!precision!tt!53!
+!lgcols!tt!53!
+!nbrows!tt!53!
+!gprecision!tt!53!
+!sizedigit!tt!53!
+!evaltyp!tt!54!
+!evallg!tt!54!
+!_evallg!tt!54!
+!evalvarn!tt!54!
+!evalsigne!tt!54!
+!evalprecp!tt!54!
+!_evalprecp!tt!54!
+!evalvalp!tt!54!
+!_evalvalp!tt!54!
+!evalexpo!tt!54!
+!_evalexpo!tt!54!
+!evallge\EFF {}int!tt!54!
+!settyp!tt!54!
+!setlg!tt!54!
+!setlge\EFF {}int!tt!54!
+!setsigne!tt!54!
+!togglesign!tt!54!
+!togglesign_sa\EFF {}e!tt!54!
+!setabssign!tt!54!
+!a\EFF {}\EFF {}ectsign!tt!54!
+!a\EFF {}\EFF {}ectsign_sa\EFF {}e!tt!55!
+!normalize_\EFF {}rac!tt!55!
+!setexpo!tt!55!
+!setvalp!tt!55!
+!setprecp!tt!55!
+!setvarn!tt!55!
+!is_recursive_t!tt!55!
+!is_intreal_t!tt!55!
+!is_rational_t!tt!55!
+!is_vec_t!tt!55!
+!is_matvec_t!tt!55!
+!is_scalar_t!tt!55!
+!is_extscalar_t!tt!55!
+!is_const_t!tt!55!
+!is_noncalc_t!tt!55!
+!compo!tt!55!
+!truecoe\EFF {}\EFF {}!tt!55!
+!constant_term!tt!56!
+!leading_term!tt!56!
+!gel!tt!56!
+!gcoe\EFF {}\EFF {}!tt!56!
+!gmael!tt!56!
+!gmael2!tt!56!
+!gmael3!tt!56!
+!gmael4!tt!56!
+!gmael5!tt!56!
+!BITS_IN_LONG!tt!56!
+!TWOPOTBITS_IN_LONG!tt!56!
+!BITS_IN_HALFULONG!tt!56!
+!LONG_MAX!tt!56!
+!ULONG_MAX!tt!56!
+!DEFAULTPREC!tt!56!
+!MEDDEFAULTPREC!tt!56!
+!BIGDEFAULTPREC!tt!56!
+!HIGHBIT!tt!56!
+!LOWMASK!tt!56!
+!HIGHMASK!tt!56!
+!LOWWORD!tt!56!
+!HIGHWORD!tt!56!
+!divsBIL!tt!56!
+!remsBIL!tt!57!
+!dvmdsBIL!tt!57!
+!dvmduBIL!tt!57!
+!EXPOnumBITS!tt!57!
+!LGnumBITS!tt!57!
+!SIGNnumBITS!tt!57!
+!TYPnumBITS!tt!57!
+!VALPnumBITS!tt!57!
+!VARNnumBITS!tt!57!
+!PRECPSHIFT!tt!57!
+!SIGNSHIFT!tt!57!
+!TYPSHIFT!tt!57!
+!VARNSHIFT!tt!57!
+!CLONEBIT!tt!57!
+!EXPOBITS!tt!57!
+!LGBITS!tt!57!
+!PRECPBITS!tt!57!
+!SIGNBITS!tt!57!
+!TYPBITS!tt!57!
+!VALPBITS!tt!57!
+!VARNBITS!tt!57!
+!MAXVARN!tt!57!
+!NO_VARIABLE!tt!57!
+!HIGHEXPOBIT!tt!57!
+!HIGHVALPBIT!tt!57!
+!LOG2!tt!57!
+!LOG10_2!tt!57!
+!LOG2_10!tt!57!
+!PI!tt!57!
+!maxprime!tt!57!
+!maxprime!tt!57!
+!maxprime_check!tt!58!
+!NEXT_PRIME_VIADIFF_CHECK!tt!58!
+!e_MAXPRIME!tt!58!
+!NEXT_PRIME_VIADIFF!tt!58!
+!initprimes!tt!58!
+!initprimetable!tt!58!
+!init_primepointer_geq!tt!59!
+!init_primepointer_gt!tt!59!
+!init_primepointer_leq!tt!59!
+!init_primepointer_lt!tt!59!
+!cgetg!tt!59!
+!cgeti!tt!59!
+!cgetr!tt!59!
+!cgetc!tt!59!
+!cgetp!tt!59!
+!new_chunk!tt!59!
+!stack_malloc!tt!59!
+!stack_calloc!tt!59!
+!cgetalloc!tt!59!
+!pari_malloc!tt!59!
+!pari_\EFF {}ree!tt!59!
+!copy_bin!tt!59!
+!copy_bin_canon!tt!60!
+!bin_copy!tt!60!
+!GENbinbase!tt!60!
+!shi\EFF {}taddress!tt!60!
+!shi\EFF {}taddress_canon!tt!60!
+!copybin_unlink!tt!60!
+!bincopy_relink!tt!60!
+!cgiv!tt!60!
+!gerepile!tt!60!
+!gerepileall!tt!60!
+!gerepileallsp!tt!60!
+!gerepilecopy!tt!60!
+!gerepilemany!tt!60!
+!gerepilemanysp!tt!61!
+!gerepilecoe\EFF {}\EFF {}s!tt!61!
+!gerepilecoe\EFF {}\EFF {}ssp!tt!61!
+!gerepileupto!tt!61!
+!gerepileuptoint!tt!61!
+!gerepileuptolea\EFF {}!tt!61!
+!stackdummy!tt!61!
+!\EFF {}ixlg!tt!62!
+!gcopy_avma!tt!62!
+!gclone!tt!62!
+!icopy_avma!tt!62!
+!chk_gerepileupto!tt!62!
+!dbg_gerepile!tt!62!
+!dbg_gerepileupto!tt!62!
+!gcopy!tt!62!
+!gcopy_lg!tt!63!
+!isonstack!tt!63!
+!copyi\EFF {}stack!tt!63!
+!icopyi\EFF {}stack!tt!63!
+!simpli\EFF {}y!tt!63!
+!simpli\EFF {}y_shallow!tt!63!
+!simpli\EFF {}y!tt!63!
+!clone!it!63!
+!gclone!tt!63!
+!newblock!tt!63!
+!killblock!tt!63!
+!gclone!tt!63!
+!gclonere\EFF {}!tt!63!
+!gunclone!tt!63!
+!gunclone_deep!tt!63!
+!traverseheap!tt!63!
+!getheap!tt!63!
+!cgetg_block!tt!63!
+!cgetr_block!tt!63!
+!bl_base!tt!64!
+!bl_re\EFF {}c!tt!64!
+!gclone_re\EFF {}c!tt!64!
+!bl_num!tt!64!
+!bl_next!tt!64!
+!bl_prev!tt!64!
+!pari_var_init!tt!64!
+!pari_var_next!tt!64!
+!pari_var_next_temp!tt!64!
+!pari_var_create!tt!64!
+!manage_var!tt!64!
+!\EFF {}etch_user_var!tt!64!
+!\EFF {}etch_named_var!tt!64!
+!\EFF {}etch_var_value!tt!64!
+!is_entry!tt!65!
+!\EFF {}etch_var!tt!65!
+!delete_var!tt!65!
+!name_var!tt!65!
+!pari_putc!tt!66!
+!pari_puts!tt!66!
+!pari_print\EFF {}!tt!66!
+!print\EFF {}!tt!66!
+!err_print\EFF {}!tt!66!
+!pari_print\EFF {}!tt!66!
+!err_\EFF {}lush!tt!66!
+!GP prototype!it!66!
+!variable number!rm!66!
+!closure_evalvoid!tt!66!
+!closure_evalgen!tt!67!
+!closure_callgen1!tt!67!
+!closure!it!67!
+!string context!it!67!
+!push_lex!tt!68!
+!pop_lex!tt!68!
+!install!tt!68!
+!parser code!rm!68!
+!addhelp!rm!68!
+!pre\EFF {}erences \EFF {}ile!rm!68!
+!gp_read_str!tt!69!
+!install!tt!69!
+!install!tt!69!
+!paric\EFF {}g_version_code!tt!70!
+!PARI_VERSION!tt!70!
+!PARI_VERSION_SHIFT!tt!70!
+!paric\EFF {}g_vcsversion!tt!70!
+!paric\EFF {}g_version!tt!70!
+!paric\EFF {}g_buildin\EFF {}o!tt!70!
+!paric\EFF {}g_compiledate!tt!70!
+!paric\EFF {}g_mt_engine!tt!70!
+!pari_version!tt!70!
+!paric\EFF {}g_datadir!tt!70!
+!datadir!tt!70!
+!addll!tt!71!
+!addllx!tt!71!
+!subll!tt!71!
+!subllx!tt!71!
+!b\EFF {}\EFF {}\EFF {}o!tt!71!
+!mulll!tt!71!
+!addmul!tt!71!
+!divll!tt!71!
+!shi\EFF {}tl!tt!72!
+!shi\EFF {}tlr!tt!72!
+!odd!tt!72!
+!both_odd!tt!72!
+!invmod2BIL!tt!72!
+!Fl_add!tt!72!
+!Fl_neg!tt!72!
+!Fl_sub!tt!72!
+!Fl_center!tt!72!
+!Fl_mul!tt!72!
+!Fl_double!tt!72!
+!Fl_triple!tt!72!
+!Fl_sqr!tt!72!
+!Fl_inv!tt!72!
+!Fl_invsa\EFF {}e!tt!72!
+!Fl_div!tt!72!
+!Fl_powu!tt!72!
+!Fl_sqrt!tt!72!
+!Fl_order!tt!72!
+!random_Fl!tt!72!
+!pgener_Fl!tt!72!
+!primitive root!rm!73!
+!pgener_Zl!tt!73!
+!pgener_Fl_local!tt!73!
+!SMALL_ULONG!tt!73!
+!gadd[z]!tt!74!
+!gadd!tt!74!
+!gaddz!tt!74!
+!cgeti!tt!74!
+!cgetipos!tt!74!
+!cgetineg!tt!74!
+!cgetr!tt!74!
+!cgetc!tt!74!
+!real_1!tt!74!
+!real_m1!tt!74!
+!real_0_bit!tt!74!
+!real_0!tt!74!
+!int2n!tt!74!
+!int2u!tt!74!
+!real2n!tt!74!
+!real_m2n!tt!74!
+!strtoi!tt!74!
+!strtor!tt!74!
+!mpa\EFF {}\EFF {}!tt!75!
+!a\EFF {}\EFF {}ii!tt!75!
+!a\EFF {}\EFF {}ir!tt!75!
+!a\EFF {}\EFF {}iz!tt!75!
+!a\EFF {}\EFF {}si!tt!75!
+!a\EFF {}\EFF {}sr!tt!75!
+!a\EFF {}\EFF {}sz!tt!75!
+!a\EFF {}\EFF {}ui!tt!75!
+!a\EFF {}\EFF {}ur!tt!75!
+!a\EFF {}\EFF {}rr!tt!75!
+!a\EFF {}\EFF {}gr!tt!75!
+!a\EFF {}\EFF {}rr_\EFF {}ixlg!tt!75!
+!\EFF {}ixlg!tt!75!
+!stackdummy!tt!75!
+!icopy!tt!75!
+!rcopy!tt!75!
+!lea\EFF {}copy!tt!75!
+!mpcopy!tt!75!
+!lea\EFF {}copy_avma!tt!75!
+!icopyspec!tt!75!
+!itor!tt!75!
+!itos!tt!76!
+!itos_or_0!tt!76!
+!is_bigint!tt!76!
+!is_bigint_lg!tt!76!
+!itou!tt!76!
+!itou_or_0!tt!76!
+!stoi!tt!76!
+!stor!tt!76!
+!utoi!tt!76!
+!utoipos!tt!76!
+!utoineg!tt!76!
+!utor!tt!76!
+!rtor!tt!76!
+!mkintn!tt!76!
+!uu32toi!tt!76!
+!uutoi!tt!76!
+!uutoineg!tt!76!
+!ceilr!tt!76!
+!\EFF {}loorr!tt!76!
+!roundr!tt!76!
+!truncr!tt!76!
+!mpceil!tt!76!
+!mp\EFF {}loor!tt!76!
+!mpround!tt!76!
+!mptrunc!tt!76!
+!diviiround!tt!76!
+!roundr!tt!77!
+!ceil_sa\EFF {}e!tt!77!
+!\EFF {}loor_sa\EFF {}e!tt!77!
+!trunc_sa\EFF {}e!tt!77!
+!roundr_sa\EFF {}e!tt!77!
+!vals!tt!77!
+!vali!tt!77!
+!mpshi\EFF {}t!tt!77!
+!shi\EFF {}ti!tt!77!
+!shi\EFF {}tr!tt!77!
+!shi\EFF {}tr_inplace!tt!77!
+!trunc2nr!tt!77!
+!gtrunc2n!tt!77!
+!trunc2nr_lg!tt!77!
+!mantissa2nr!tt!77!
+!mantissa_real!tt!77!
+!shi\EFF {}t_le\EFF {}t!tt!78!
+!shi\EFF {}t_right!tt!78!
+!Z_pvalrem!tt!78!
+!Z_pval!tt!78!
+!Z_lvalrem!tt!78!
+!Z_lvalrem_stop!tt!78!
+!Z_lval!tt!78!
+!u_lvalrem!tt!78!
+!u_lvalrem_stop!tt!78!
+!u_pvalrem!tt!78!
+!u_lval!tt!78!
+!u_pval!tt!78!
+!z_lval!tt!78!
+!z_lvalrem!tt!78!
+!z_pval!tt!78!
+!z_pvalrem!tt!78!
+!Q_pval!tt!78!
+!\EFF {}actorial_lval!tt!78!
+!ZV_pvalrem!tt!78!
+!ZV_pval!tt!79!
+!ZV_Z_dvd!tt!79!
+!ZV_lvalrem!tt!79!
+!ZV_lval!tt!79!
+!ZX_pvalrem!tt!79!
+!ZX_pval!tt!79!
+!ZX_lvalrem!tt!79!
+!ZX_lval!tt!79!
+!absi!tt!79!
+!absr!tt!79!
+!mpabs!tt!79!
+!negi!tt!79!
+!negr!tt!79!
+!mpneg!tt!79!
+!sqri!tt!79!
+!sqrr!tt!79!
+!mpsqr!tt!79!
+!absi_shallow!tt!79!
+!mpabs_shallow!tt!79!
+!sqrs!tt!79!
+!sqru!tt!79!
+!minss!tt!79!
+!minuu!tt!80!
+!mindd!tt!80!
+!maxss!tt!80!
+!maxuu!tt!80!
+!maxdd!tt!80!
+!mpcmp!tt!80!
+!cmpii!tt!80!
+!cmpir!tt!80!
+!cmpis!tt!80!
+!cmpsi!tt!80!
+!cmpsr!tt!80!
+!cmpri!tt!80!
+!cmprr!tt!80!
+!cmprs!tt!80!
+!equalii!tt!80!
+!equalrr!tt!80!
+!equalsi!tt!80!
+!equalis!tt!80!
+!equalui!tt!80!
+!equaliu!tt!80!
+!cmpui!tt!80!
+!cmpiu!tt!80!
+!absi_cmp!tt!80!
+!absi_equal!tt!80!
+!absr_cmp!tt!80!
+!absrnz_equal2n!tt!80!
+!absrnz_equal1!tt!80!
+!expu!tt!82!
+!adduu!tt!82!
+!addiu!tt!82!
+!addui!tt!82!
+!subuu!tt!82!
+!subiu!tt!82!
+!subui!tt!82!
+!muluu!tt!82!
+!mului!tt!82!
+!muluui!tt!82!
+!muliu!tt!82!
+!addumului!tt!82!
+!addmuliu!tt!82!
+!addmulii!tt!82!
+!addmulii_inplace!tt!82!
+!gerepile!tt!82!
+!gerepileupto!tt!82!
+!addmuliu_inplace!tt!82!
+!gerepile!tt!82!
+!gerepileupto!tt!82!
+!submuliu_inplace!tt!82!
+!gerepile!tt!82!
+!gerepileupto!tt!82!
+!lincombii!tt!82!
+!mulsubii!tt!82!
+!submulii!tt!82!
+!submuliu!tt!82!
+!mulu_interval!tt!82!
+!invr!tt!83!
+!truedivii!tt!83!
+!truedivis!tt!83!
+!truedivsi!tt!83!
+!centermodii!tt!83!
+!remi2n!tt!83!
+!addii_sign!tt!83!
+!addir_sign!tt!83!
+!addrr_sign!tt!83!
+!addsi_sign!tt!83!
+!addui_sign!tt!83!
+!diviiexact!tt!83!
+!diviuexact!tt!83!
+!diviuuexact!tt!83!
+!dvdii!tt!83!
+!dvdis!tt!83!
+!dvdiu!tt!83!
+!dvdsi!tt!83!
+!dvdui!tt!83!
+!dvdiiz!tt!83!
+!dvdisz!tt!83!
+!dvdiuz!tt!83!
+!rdivii!tt!84!
+!rdiviiz!tt!84!
+!rdivis!tt!84!
+!rdivsi!tt!84!
+!rdivss!tt!84!
+!dvmdii!tt!84!
+!dvmdiiz!tt!84!
+!dvmdis!tt!84!
+!dvmdsi!tt!84!
+!dvmdss!tt!84!
+!sdivss_rem!tt!84!
+!sdivsi_rem!tt!84!
+!sdivsi!tt!84!
+!divis_rem!tt!84!
+!diviu_rem!tt!84!
+!udiviu_rem!tt!84!
+!diviu_rem!tt!84!
+!udivui_rem!tt!84!
+!udivuu_rem!tt!84!
+!divsi_rem!tt!85!
+!divss_rem!tt!85!
+!truedvmdii!tt!85!
+!truedvmdis!tt!85!
+!truedvmdsi!tt!85!
+!smodis!tt!85!
+!smodss!tt!85!
+!umodiu!tt!85!
+!umodui!tt!85!
+!smodsi!tt!85!
+!powii!tt!85!
+!powuu!tt!85!
+!powiu!tt!85!
+!powis!tt!85!
+!powrs!tt!85!
+!powru!tt!85!
+!powruvec!tt!85!
+!powrshal\EFF {}!tt!85!
+!powruhal\EFF {}!tt!85!
+!powr\EFF {}rac!tt!85!
+!powIs!tt!85!
+!upowuu!tt!86!
+!sqrtremi!tt!86!
+!sqrti!tt!86!
+!cgcd!tt!86!
+!ugcd!tt!86!
+!clcm!tt!86!
+!gcdii!tt!86!
+!lcmii!tt!86!
+!bezout!tt!86!
+!cbezout!tt!86!
+!ZV_gcdext!tt!86!
+!getrand!tt!86!
+!setrand!tt!86!
+!setrand!tt!86!
+!getrand!tt!86!
+!random!tt!86!
+!setrand!tt!86!
+!pari_rand!tt!86!
+!random_bits!tt!86!
+!random_Fl!tt!86!
+!randomi!tt!86!
+!randomr!tt!87!
+!Fp_red!tt!87!
+!Fp_neg!tt!87!
+!Fp_add!tt!87!
+!Fp_sub!tt!87!
+!Fp_center!tt!87!
+!Fp_mul!tt!87!
+!Fp_addmul!tt!87!
+!Fp_mulu!tt!87!
+!Fp_muls!tt!87!
+!Fp_sqr!tt!87!
+!Fp_powu!tt!87!
+!Fp_pows!tt!87!
+!Fp_pow!tt!87!
+!Fp_inv!tt!87!
+!Fp_invsa\EFF {}e!tt!87!
+!FpV_inv!tt!87!
+!Fp_div!tt!87!
+!invmod!tt!87!
+!Fp_log!tt!87!
+!Fp_order!tt!88!
+!Fp_\EFF {}actored_order!tt!88!
+!Fp_issquare!tt!88!
+!Fp_ispower!tt!88!
+!Fp_sqrt!tt!88!
+!Fp_sqrtn!tt!88!
+!Zn_sqrt!tt!88!
+!kross!tt!88!
+!Kronecker symbol!rm!88!
+!Legendre symbol!rm!88!
+!krouu!tt!88!
+!Kronecker symbol!rm!88!
+!Legendre symbol!rm!88!
+!krois!tt!88!
+!Kronecker symbol!rm!88!
+!kroiu!tt!88!
+!Kronecker symbol!rm!88!
+!krosi!tt!88!
+!Kronecker symbol!rm!88!
+!kronecker!tt!88!
+!Kronecker symbol!rm!88!
+!pgener_Fp!tt!88!
+!pgener_Zp!tt!88!
+!Zp_issquare!tt!88!
+!Zn_issquare!tt!88!
+!Zn_ispower!tt!88!
+!pgener_Fp_local!tt!88!
+!rootso\EFF {}1_Fp!tt!89!
+!rootso\EFF {}1u_Fp!tt!89!
+!rootso\EFF {}1_Fl!tt!89!
+!map_proto_G!tt!89!
+!map_proto_lG!tt!89!
+!map_proto_GL!tt!89!
+!map_proto_lGL!tt!89!
+!gassoc_proto!tt!89!
+!coreu!tt!89!
+!eulerphiu!tt!89!
+!eulerphiu_\EFF {}act!tt!89!
+!moebiusu!tt!89!
+!divisorsu!tt!89!
+!uissquare\EFF {}ree!tt!89!
+!uissquare\EFF {}ree_\EFF {}act!tt!89!
+!uposis\EFF {}undamental!tt!89!
+!unegis\EFF {}undamental!tt!89!
+!uis_357_power!tt!89!
+!is_357_power!tt!89!
+!uis_357_powermod!tt!89!
+!uis_357_power!tt!90!
+!uisprimepower!tt!90!
+!isprimepower!tt!90!
+!uislucaspsp!tt!90!
+!sumdigitsu!tt!90!
+!usumdivkvec!tt!90!
+!hilbertii!tt!90!
+!sumdedekind!tt!90!
+!sumdedekind_coprime!tt!90!
+!u_sumdedekind_coprime!tt!90!
+!ONLY_REM!tt!92!
+!ONLY_DIVIDES!tt!92!
+!Rg_is_Fp!tt!92!
+!RgV_is_FpV!tt!92!
+!RgM_is_FpM!tt!92!
+!Rg_to_Fp!tt!92!
+!padic_to_Fp!tt!93!
+!Rg_to_Fp!tt!93!
+!RgV_to_FpV!tt!93!
+!RgC_to_FpC!tt!93!
+!RgM_to_FpM!tt!93!
+!RgM_Fp_init!tt!93!
+!Rg_to_Fp!tt!93!
+!FpC_red!tt!93!
+!FpV_red!tt!93!
+!FpM_red!tt!93!
+!FpC_center!tt!93!
+!FpM_center!tt!93!
+!FpC_add!tt!93!
+!FpV_add!tt!94!
+!FpC_sub!tt!94!
+!FpV_sub!tt!94!
+!FpC_Fp_mul!tt!94!
+!FpC_FpV_mul!tt!94!
+!FpM_mul!tt!94!
+!FpM_powu!tt!94!
+!FpM_FpC_mul!tt!94!
+!FpM_FpC_mul_FpX!tt!94!
+!FpV_FpC_mul!tt!94!
+!FpV_dotproduct!tt!94!
+!FpV_dotsquare!tt!94!
+!FpM_deplin!tt!94!
+!FpM_det!tt!94!
+!FpM_gauss!tt!94!
+!FpM_FpC_gauss!tt!94!
+!FpM_image!tt!94!
+!FpM_intersect!tt!94!
+!FpM_inv!tt!94!
+!FpM_FpC_invimage!tt!94!
+!FpM_invimage!tt!94!
+!FpM_ker!tt!95!
+!FpM_rank!tt!95!
+!FpM_indexrank!tt!95!
+!FpM_suppl!tt!95!
+!FpM_hess!tt!95!
+!FpM_charpoly!tt!95!
+!FqC_add!tt!95!
+!FqC_sub!tt!95!
+!FqC_Fq_mul!tt!95!
+!FqM_deplin!tt!95!
+!FqM_gauss!tt!95!
+!FqM_FqC_gauss!tt!95!
+!FqM_FqC_mul!tt!95!
+!FqM_ker!tt!95!
+!FqM_image!tt!95!
+!FqM_inv!tt!95!
+!FqM_mul!tt!95!
+!FqM_rank!tt!95!
+!FqM_suppl!tt!95!
+!FqM_det!tt!95!
+!Flv_copy!tt!95!
+!Flv_center!tt!95!
+!Flm_copy!tt!95!
+!matid_Flm!tt!95!
+!scalar_Flm!tt!95!
+!Flm_center!tt!95!
+!Flm_Fl_add!tt!95!
+!Flm_Flc_mul!tt!95!
+!Flm_Fl_mul!tt!96!
+!Flm_neg!tt!96!
+!Flm_Fl_mul_inplace!tt!96!
+!Flc_Fl_mul!tt!96!
+!Flc_Fl_mul_inplace!tt!96!
+!Flc_Fl_mul_part_inplace!tt!96!
+!Flc_Fl_div!tt!96!
+!Flc_Fl_div_inplace!tt!96!
+!Flc_lincomb1_inplace!tt!96!
+!Flv_add!tt!96!
+!Flv_add_inplace!tt!96!
+!Flv_sub!tt!96!
+!Flv_sub_inplace!tt!96!
+!Flv_dotproduct!tt!96!
+!Flv_sum!tt!96!
+!zero_Flm!tt!96!
+!zero_Flm_copy!tt!96!
+!zero_Flv!tt!96!
+!row_Flm!tt!96!
+!Flm_mul!tt!96!
+!Flm_powu!tt!96!
+!Flm_charpoly!tt!96!
+!Flm_deplin!tt!96!
+!Flm_det!tt!96!
+!Flm_det_sp!tt!97!
+!Flm_gauss!tt!97!
+!Flm_Flc_gauss!tt!97!
+!Flm_indexrank!tt!97!
+!Flm_inv!tt!97!
+!Flm_Flc_invimage!tt!97!
+!Flm_invimage!tt!97!
+!Flm_ker!tt!97!
+!Flm_ker_sp!tt!97!
+!Flm_rank!tt!97!
+!Flm_suppl!tt!97!
+!Flm_image!tt!97!
+!Flm_transpose!tt!97!
+!Flm_hess!tt!97!
+!F2v_coe\EFF {}\EFF {}!tt!97!
+!F2v_clear!tt!97!
+!F2v_\EFF {}lip!tt!97!
+!F2v_set!tt!97!
+!F2v_copy!tt!97!
+!F2v_slice!tt!97!
+!F2m_coe\EFF {}\EFF {}!tt!97!
+!F2m_clear!tt!97!
+!F2m_\EFF {}lip!tt!97!
+!F2m_set!tt!97!
+!F2m_copy!tt!97!
+!F2m_rowslice!tt!97!
+!F2m_F2c_mul!tt!97!
+!F2m_image!tt!98!
+!F2m_invimage!tt!98!
+!F2m_F2c_invimage!tt!98!
+!F2m_gauss!tt!98!
+!F2m_F2c_gauss!tt!98!
+!F2m_indexrank!tt!98!
+!F2m_mul!tt!98!
+!F2m_powu!tt!98!
+!F2m_rank!tt!98!
+!F2m_suppl!tt!98!
+!matid_F2m!tt!98!
+!zero_F2v!tt!98!
+!F2v_ei!tt!98!
+!zero_F2m!tt!98!
+!zero_F2m_copy!tt!98!
+!F2c_to_Flc!tt!98!
+!F2c_to_ZC!tt!98!
+!ZV_to_F2v!tt!98!
+!RgV_to_F2v!tt!98!
+!F2m_to_Flm!tt!98!
+!F2m_to_ZM!tt!98!
+!Flv_to_F2v!tt!98!
+!Flm_to_F2m!tt!98!
+!ZM_to_F2m!tt!98!
+!RgM_to_F2m!tt!98!
+!F2v_add_inplace!tt!98!
+!F2m_det!tt!98!
+!F2m_det_sp!tt!98!
+!F2m_deplin!tt!98!
+!F2v_dotproduct!tt!98!
+!F2m_inv!tt!99!
+!F2m_ker!tt!99!
+!F2m_ker_sp!tt!99!
+!FlxqV_dotproduct!tt!99!
+!FlxM_Flx_add_shallow!tt!99!
+!FlxqM_gauss!tt!99!
+!FlxqM_FlxqC_gauss!tt!99!
+!FlxqM_FlxqC_mul!tt!99!
+!FlxqM_ker!tt!99!
+!FlxqM_image!tt!99!
+!FlxqM_det!tt!99!
+!FlxqM_inv!tt!99!
+!FlxqM_mul!tt!99!
+!FlxqM_rank!tt!99!
+!matid_FlxqM!tt!99!
+!ZlM_gauss!tt!99!
+!RgX_is_FpX!tt!99!
+!RgX_to_FpX!tt!99!
+!FpX_red!tt!99!
+!FpXV_red!tt!99!
+!FpXT_red!tt!99!
+!FpX_add!tt!100!
+!FpX_neg!tt!100!
+!FpX_renormalize!tt!100!
+!FpX_sub!tt!100!
+!FpX_mul!tt!100!
+!FpX_mulspec!tt!100!
+!FpX_sqr!tt!100!
+!FpX_divrem!tt!100!
+!FpX_div!tt!100!
+!FpX_div_by_X_x!tt!100!
+!FpX_rem!tt!100!
+!FpX_valrem!tt!100!
+!FpX_deriv!tt!100!
+!FpX_translate!tt!100!
+!FpX_gcd!tt!100!
+!FpX_hal\EFF {}gcd!tt!100!
+!FpX_extgcd!tt!100!
+!FpX_center!tt!101!
+!Z_to_FpX!tt!101!
+!FpX_Fp_add!tt!101!
+!FpX_Fp_add_shallow!tt!101!
+!FpX_Fp_sub!tt!101!
+!FpX_Fp_sub_shallow!tt!101!
+!Fp_FpX_sub!tt!101!
+!FpX_Fp_mul!tt!101!
+!FpX_Fp_mulspec!tt!101!
+!FpX_mulu!tt!101!
+!FpX_Fp_mul_to_monic!tt!101!
+!FpX_normalize!tt!101!
+!FpX_invBarrett!tt!101!
+!FpX_rescale!tt!101!
+!FpX_eval!tt!101!
+!FpXV_FpC_mul!tt!101!
+!FpXV_prod!tt!101!
+!FpV_roots_to_pol!tt!101!
+!FpX_chinese_coprime!tt!101!
+!FpV_polint!tt!101!
+!FpX_is_square\EFF {}ree!tt!101!
+!FpX_is_irred!tt!102!
+!FpX_is_totally_split!tt!102!
+!FpX_\EFF {}actor!tt!102!
+!FpX_nb\EFF {}act!tt!102!
+!FpX_deg\EFF {}act!tt!102!
+!FpX_nbroots!tt!102!
+!FpX_oneroot!tt!102!
+!FpX_roots!tt!102!
+!random_FpX!tt!102!
+!FpX_resultant!tt!102!
+!FpX_disc!tt!102!
+!FpX_FpXY_resultant!tt!102!
+!FpX_get_red!tt!102!
+!get_FpX_mod!tt!103!
+!get_FpX_var!tt!103!
+!get_FpX_degree!tt!103!
+!Rg_is_FpXQ!tt!103!
+!RgX_is_FpXQX!tt!103!
+!Rg_to_FpXQ!tt!103!
+!RgX_to_FpXQX!tt!103!
+!RgX_to_FqX!tt!103!
+!Fq_red!tt!103!
+!FqX_red!tt!103!
+!FqV_red!tt!103!
+!FpXQ_red!tt!103!
+!FpXQ_add!tt!103!
+!FpXQ_sub!tt!103!
+!FpXQ_mul!tt!103!
+!FpXQ_sqr!tt!103!
+!FpXQ_div!tt!103!
+!FpXQ_inv!tt!103!
+!FpXQ_invsa\EFF {}e!tt!104!
+!FpXQX_renormalize!tt!104!
+!FpXQ_pow!tt!104!
+!FpXQ_powu!tt!104!
+!FpXQ_log!tt!104!
+!Fp_FpXQ_log!tt!104!
+!FpXQ_order!tt!104!
+!FpXQ_issquare!tt!104!
+!FpXQ_sqrt!tt!104!
+!FpXQ_sqrtn!tt!104!
+!Fq_add!tt!104!
+!Fq_sub!tt!104!
+!Fq_mul!tt!104!
+!Fq_Fp_mul!tt!104!
+!Fq_mulu!tt!104!
+!Fq_sqr!tt!104!
+!Fq_neg!tt!104!
+!Fq_neg_inv!tt!104!
+!Fq_inv!tt!104!
+!Fq_invsa\EFF {}e!tt!104!
+!Fq_div!tt!104!
+!FqV_inv!tt!104!
+!Fq_pow!tt!105!
+!Fq_powu!tt!105!
+!Fq_issquare!tt!105!
+!Fq_sqrt!tt!105!
+!Fq_sqrtn!tt!105!
+!FpXQ_charpoly!tt!105!
+!FpXQ_minpoly!tt!105!
+!FpXQ_norm!tt!105!
+!FpXQ_trace!tt!105!
+!FpXQ_conjvec!tt!105!
+!gener_FpXQ!tt!105!
+!gener_FpXQ_local!tt!105!
+!FpXQ_powers!tt!105!
+!FpXQ_matrix_pow!tt!105!
+!FpXQ_autpow!tt!105!
+!FpXQ_autsum!tt!105!
+!FpXQ_autpowers!tt!105!
+!FpX_FpXQ_eval!tt!105!
+!FpX_FpXQV_eval!tt!105!
+!FpXX_red!tt!106!
+!FpXX_renormalize!tt!106!
+!FpXX_add!tt!106!
+!FpXX_sub!tt!106!
+!FpXX_neg!tt!106!
+!FpXX_Fp_mul!tt!106!
+!FpXX_FpX_mul!tt!106!
+!FpXX_mulu!tt!106!
+!FpXY_eval!tt!106!
+!FpXY_evalx!tt!106!
+!FpXY_evaly!tt!106!
+!FpXY_Fq_evaly!tt!106!
+!FpXY_FpXQ_evalx!tt!106!
+!FpXYQQ_pow!tt!106!
+!FqX_add!tt!106!
+!FqX_Fq_add!tt!106!
+!FqX_neg!tt!106!
+!FqX_sub!tt!106!
+!FqX_mul!tt!106!
+!FqX_Fq_mul!tt!106!
+!FqX_mulu!tt!106!
+!FqX_Fp_mul!tt!106!
+!FqX_Fq_mul_to_monic!tt!106!
+!FqX_normalize!tt!106!
+!FqX_sqr!tt!107!
+!FqX_divrem!tt!107!
+!FqX_div!tt!107!
+!FqX_rem!tt!107!
+!FqX_deriv!tt!107!
+!FqX_translate!tt!107!
+!FqX_gcd!tt!107!
+!FqX_extgcd!tt!107!
+!FqX_eval!tt!107!
+!FqXY_eval!tt!107!
+!FqXY_evalx!tt!107!
+!FpXQX_red!tt!107!
+!FpXQX_mul!tt!107!
+!Kronecker_to_FpXQX!tt!107!
+!FpXQX_FpXQ_mul!tt!107!
+!FpXQX_sqr!tt!107!
+!FpXQX_divrem!tt!107!
+!FpXQX_div!tt!107!
+!FpXQX_rem!tt!107!
+!FpXQX_invBarrett!tt!107!
+!FpXQX_rem_Barrett!tt!107!
+!FpXQX_divrem_Barrett!tt!107!
+!FpXQXV_prod!tt!108!
+!FpXQX_gcd!tt!108!
+!FpXQX_extgcd!tt!108!
+!FpXQX_FpXQXQ_eval!tt!108!
+!FpXQX_FpXQXQV_eval!tt!108!
+!FpXQXQ_div!tt!108!
+!FpXQXQ_inv!tt!108!
+!FpXQXQ_invsa\EFF {}e!tt!108!
+!FpXQXQ_mul!tt!108!
+!FpXQXQ_sqr!tt!108!
+!FpXQXQ_pow!tt!108!
+!FpXQXQ_powers!tt!108!
+!FpXQXQ_matrix_pow!tt!108!
+!FpXQXQV_autpow!tt!108!
+!FpXQXQV_autsum!tt!108!
+!FqXQ_add!tt!108!
+!FqXQ_sub!tt!108!
+!FqXQ_mul!tt!108!
+!FqXQ_div!tt!108!
+!FqXQ_inv!tt!108!
+!FqXQ_invsa\EFF {}e!tt!108!
+!FqXQ_sqr!tt!108!
+!FqXQ_pow!tt!109!
+!FqXQ_powers!tt!109!
+!FqXQ_matrix_pow!tt!109!
+!FqV_roots_to_pol!tt!109!
+!init_Fq!tt!109!
+!FqX_is_square\EFF {}ree!tt!109!
+!FqX_roots!tt!109!
+!FqX_\EFF {}actor!tt!109!
+!FpX_\EFF {}actor\EFF {}\EFF {}!tt!109!
+!FpX_roots\EFF {}\EFF {}!tt!109!
+!FpX_\EFF {}actor\EFF {}\EFF {}_irred!tt!109!
+!FpX_\EFF {}\EFF {}isom!tt!109!
+!FpX_\EFF {}\EFF {}intersect!tt!109!
+!FpXQ_\EFF {}\EFF {}isom_inv!tt!109!
+!FpXQX_nb\EFF {}act!tt!109!
+!FqX_nb\EFF {}act!tt!109!
+!FpXQX_nbroots!tt!109!
+!FqX_nbroots!tt!110!
+!FpXQX_Frobenius!tt!110!
+!FpXQXQ_hal\EFF {}Frobenius!tt!110!
+!Flx_get_red!tt!110!
+!get_Flx_mod!tt!110!
+!get_Flx_var!tt!110!
+!get_Flx_degree!tt!110!
+!Flx_lead!tt!110!
+!Flx_red!tt!110!
+!Flx_equal1!tt!110!
+!Flx_equal!tt!110!
+!Flx_copy!tt!110!
+!Flx_add!tt!110!
+!Flx_Fl_add!tt!110!
+!Flx_neg!tt!110!
+!Flx_neg_inplace!tt!110!
+!Flx_sub!tt!110!
+!Flx_mul!tt!110!
+!Flx_Fl_mul!tt!110!
+!Flx_double!tt!111!
+!Flx_triple!tt!111!
+!Flx_mulu!tt!111!
+!Flx_Fl_mul_to_monic!tt!111!
+!Flx_sqr!tt!111!
+!Flx_divrem!tt!111!
+!Flx_div!tt!111!
+!Flx_rem!tt!111!
+!Flx_deriv!tt!111!
+!Flx_gcd!tt!111!
+!Flx_hal\EFF {}gcd!tt!111!
+!Flx_extgcd!tt!111!
+!Flx_pow!tt!111!
+!Flx_roots!tt!111!
+!Flx_oneroot!tt!111!
+!Flx_roots_naive!tt!111!
+!Flx_\EFF {}actor!tt!111!
+!Flx_mod_Xn1!tt!111!
+!Flx_mod_Xnm1!tt!111!
+!Flx_deg\EFF {}act!tt!111!
+!FpX_deg\EFF {}act!tt!111!
+!Flx_\EFF {}actor\EFF {}\EFF {}_irred!tt!111!
+!FpX_\EFF {}actor\EFF {}\EFF {}_irred!tt!111!
+!Flx_\EFF {}\EFF {}isom!tt!111!
+!FpX_\EFF {}\EFF {}isom!tt!111!
+!pol0_Flx!tt!111!
+!zero_Flx!tt!111!
+!pol1_Flx!tt!111!
+!polx_Flx!tt!111!
+!Flx_normalize!tt!111!
+!random_Flx!tt!111!
+!Flx_recip!tt!112!
+!Flx_resultant!tt!112!
+!Flx_extresultant!tt!112!
+!Flx_invBarrett!tt!112!
+!Flx_renormalize!tt!112!
+!Flx_shi\EFF {}t!tt!112!
+!Flx_val!tt!112!
+!Flx_valrem!tt!112!
+!Flx_div_by_X_x!tt!112!
+!Flx_eval!tt!112!
+!Flx_de\EFF {}late!tt!112!
+!Flx_splitting!tt!112!
+!RgX_splitting!tt!112!
+!Flx_in\EFF {}late!tt!112!
+!Flx_is_square\EFF {}ree!tt!112!
+!Flx_is_irred!tt!112!
+!Flx_is_smooth!tt!112!
+!Flx_nbroots!tt!112!
+!Flx_nb\EFF {}act!tt!112!
+!Flx_deg\EFF {}act!tt!112!
+!Flx_nb\EFF {}act_by_degree!tt!112!
+!Flx_\EFF {}\EFF {}intersect!tt!112!
+!Flv_polint!tt!112!
+!Flv_roots_to_pol!tt!113!
+!FlxV_Flc_mul!tt!113!
+!FlxV_red!tt!113!
+!FlxT_red!tt!113!
+!Flxq_add!tt!113!
+!Flxq_sub!tt!113!
+!Flxq_mul!tt!113!
+!Flxq_sqr!tt!113!
+!Flxq_inv!tt!113!
+!Flxq_invsa\EFF {}e!tt!113!
+!Flxq_div!tt!113!
+!Flxq_pow!tt!113!
+!Flxq_powu!tt!113!
+!Flxq_powers!tt!113!
+!Flxq_matrix_pow!tt!113!
+!Flxq_autpow!tt!113!
+!Flxq_autsum!tt!113!
+!Flxq_\EFF {}\EFF {}isom_inv!tt!113!
+!Flx_Flxq_eval!tt!113!
+!Flx_FlxqV_eval!tt!113!
+!FlxqV_roots_to_pol!tt!113!
+!Flxq_order!tt!113!
+!Flxq_issquare!tt!113!
+!Flxq_is2npower!tt!113!
+!Flxq_log!tt!113!
+!Flxq_sqrtn!tt!114!
+!Flxq_sqrt!tt!114!
+!Flxq_lroot!tt!114!
+!Flxq_lroot_\EFF {}ast!tt!114!
+!Flxq_charpoly!tt!114!
+!Flxq_minpoly!tt!114!
+!Flxq_norm!tt!114!
+!Flxq_trace!tt!114!
+!Flxq_conjvec!tt!114!
+!gener_Flxq!tt!114!
+!pol1_FlxX!tt!114!
+!polx_FlxX!tt!114!
+!FlxX_add!tt!114!
+!FlxX_sub!tt!114!
+!FlxX_Fl_mul!tt!114!
+!FlxX_double!tt!114!
+!FlxX_triple!tt!114!
+!FlxX_neg!tt!114!
+!FlxX_Flx_add!tt!114!
+!FlxX_Flx_mul!tt!114!
+!FlxY_Flx_div!tt!114!
+!FlxY_evalx!tt!114!
+!FlxY_Flxq_evalx!tt!114!
+!FlxX_renormalize!tt!114!
+!FlxX_resultant!tt!114!
+!Flx_FlxY_resultant!tt!115!
+!FlxX_shi\EFF {}t!tt!115!
+!FlxX_swap!tt!115!
+!FlxYqq_pow!tt!115!
+!zxX_to_Kronecker!tt!115!
+!Kronecker_to_FlxqX!tt!115!
+!FlxqX_red!tt!115!
+!FlxqX_normalize!tt!115!
+!FlxqX_mul!tt!115!
+!FlxqX_Flxq_mul!tt!115!
+!FlxqX_Flxq_mul_to_monic!tt!115!
+!FlxqX_sqr!tt!115!
+!FlxqX_pow!tt!115!
+!FlxqX_divrem!tt!115!
+!FlxqX_div!tt!115!
+!FlxqX_rem!tt!115!
+!FlxqX_invBarrett!tt!115!
+!FlxqX_rem_Barrett!tt!115!
+!FlxqX_gcd!tt!115!
+!FlxqX_extgcd!tt!115!
+!FlxqXV_prod!tt!115!
+!FlxqX_sa\EFF {}egcd!tt!115!
+!FlxqX_Frobenius!tt!115!
+!FlxqXQ_hal\EFF {}Frobenius!tt!116!
+!FlxqX_nbroots!tt!116!
+!FlxqX_FlxqXQ_eval!tt!116!
+!FlxqX_FlxqXQV_eval!tt!116!
+!FlxqXQ_mul!tt!116!
+!FlxqXQ_sqr!tt!116!
+!FlxqXQ_inv!tt!116!
+!FlxqXQ_invsa\EFF {}e!tt!116!
+!FlxqXQ_div!tt!116!
+!FlxqXQ_pow!tt!116!
+!FlxqXQ_powers!tt!116!
+!FlxqXQ_matrix_pow!tt!116!
+!FlxqXQV_autpow!tt!116!
+!FlxqXQV_autsum!tt!116!
+!F2x_coe\EFF {}\EFF {}!tt!116!
+!F2x_clear!tt!116!
+!F2x_\EFF {}lip!tt!116!
+!F2x_set!tt!116!
+!Flx_to_F2x!tt!116!
+!Z_to_F2x!tt!116!
+!ZX_to_F2x!tt!116!
+!F2v_to_F2x!tt!116!
+!ZXX_to_F2xX!tt!116!
+!F2x_to_Flx!tt!116!
+!F2x_to_ZX!tt!116!
+!pol0_F2x!tt!116!
+!zero_F2x!tt!116!
+!pol1_F2x!tt!116!
+!polx_F2x!tt!116!
+!random_F2x!tt!117!
+!F2x_degree!tt!117!
+!F2x_equal1!tt!117!
+!F2x_equal!tt!117!
+!F2x_1_add!tt!117!
+!F2x_add!tt!117!
+!F2x_mul!tt!117!
+!F2x_sqr!tt!117!
+!F2x_divrem!tt!117!
+!F2x_rem!tt!117!
+!F2x_div!tt!117!
+!F2x_renormalize!tt!117!
+!F2x_deriv!tt!117!
+!F2x_de\EFF {}late!tt!117!
+!F2x_shi\EFF {}t!tt!117!
+!RgX_shi\EFF {}t!tt!117!
+!F2x_even_odd!tt!117!
+!RgX_even_odd!tt!117!
+!F2x_valrem!tt!117!
+!F2x_extgcd!tt!117!
+!F2x_gcd!tt!117!
+!F2x_hal\EFF {}gcd!tt!117!
+!F2x_issquare!tt!117!
+!F2x_is_irred!tt!117!
+!FpX_is_irred!tt!117!
+!F2x_sqrt!tt!117!
+!F2x_\EFF {}actor!tt!117!
+!F2xq_mul!tt!117!
+!F2xq_sqr!tt!117!
+!F2xq_div!tt!117!
+!F2xq_inv!tt!117!
+!F2xq_invsa\EFF {}e!tt!117!
+!F2xq_pow!tt!117!
+!F2xq_powu!tt!117!
+!F2xq_trace!tt!118!
+!F2xq_conjvec!tt!118!
+!F2xq_log!tt!118!
+!F2xq_order!tt!118!
+!F2xq_Artin_Schreier!tt!118!
+!F2xq_sqrt!tt!118!
+!F2xq_sqrt_\EFF {}ast!tt!118!
+!F2xq_sqrtn!tt!118!
+!gener_F2xq!tt!118!
+!F2xq_powers!tt!118!
+!F2xq_matrix_pow!tt!118!
+!F2x_F2xq_eval!tt!118!
+!F2x_F2xqV_eval!tt!118!
+!F2xq_autpow!tt!118!
+!F2xqM_F2xqC_mul!tt!118!
+!F2xqM_ker!tt!118!
+!F2xqM_det!tt!118!
+!F2xqM_image!tt!118!
+!F2xqM_inv!tt!118!
+!F2xqM_mul!tt!118!
+!F2xqM_rank!tt!118!
+!matid_F2xqM!tt!118!
+!Fp_to_mod!tt!119!
+!FpX_to_mod!tt!119!
+!FpC_to_mod!tt!119!
+!FpV_to_mod!tt!119!
+!FpVV_to_mod!tt!119!
+!FpM_to_mod!tt!119!
+!F2c_to_mod!tt!119!
+!F2m_to_mod!tt!119!
+!Flc_to_mod!tt!119!
+!Flm_to_mod!tt!119!
+!FpXQC_to_mod!tt!119!
+!QXQV_to_mod!tt!119!
+!QXQXV_to_mod!tt!119!
+!QXQX_to_mod_shallow!tt!119!
+!rootmod!tt!119!
+!rootmod2!tt!119!
+!\EFF {}actmod!tt!119!
+!simple\EFF {}actmod!tt!119!
+!Z_chinese!tt!119!
+!Z_chinese_all!tt!119!
+!Z_chinese_coprime!tt!119!
+!Z_chinese_pre!tt!120!
+!Z_chinese_post!tt!120!
+!Z_init_CRT!tt!120!
+!Z_incremental_CRT!tt!120!
+!chinese1_coprime_Z!tt!120!
+!chinese1!tt!120!
+!ZM_init_CRT!tt!120!
+!ZM_incremental_CRT!tt!120!
+!ZX_init_CRT!tt!120!
+!ZX_incremental_CRT!tt!120!
+!Fp_ratli\EFF {}t!tt!121!
+!FpM_ratli\EFF {}t!tt!121!
+!FpX_ratli\EFF {}t!tt!121!
+!FpC_ratli\EFF {}t!tt!121!
+!Zp_sqrtli\EFF {}t!tt!121!
+!Zp_sqrtnli\EFF {}t!tt!121!
+!Zp_sqrtnli\EFF {}t!tt!121!
+!ZpX_li\EFF {}troot!tt!121!
+!Zp_teichmuller!tt!121!
+!ZpXQ_invli\EFF {}t!tt!121!
+!ZpXQ_li\EFF {}troot!tt!121!
+!ZpXQ_inv!tt!121!
+!ZpXQ_sqrtnli\EFF {}t!tt!121!
+!ZpXQ_li\EFF {}troot!tt!121!
+!rootpadic\EFF {}ast!tt!122!
+!ZpX_li\EFF {}troot!tt!122!
+!ZX_Zp_root!tt!122!
+!ZpX_li\EFF {}troot!tt!122!
+!ZpX_li\EFF {}troots!tt!122!
+!ZpXQX_li\EFF {}troot!tt!122!
+!ZpX_li\EFF {}troot!tt!122!
+!ZpXQX_li\EFF {}troot_vald!tt!122!
+!ZpXQX_li\EFF {}troot!tt!122!
+!ZpX_li\EFF {}t\EFF {}act!tt!122!
+!polhenselli\EFF {}t!tt!122!
+!quadratic_prec_mask!tt!122!
+!ZpX_disc_val!tt!123!
+!ZpX_resultant_val!tt!123!
+!ZpX_gcd!tt!123!
+!ZpX_reduced_resultant!tt!123!
+!resultant (reduced)!it!123!
+!ZpX_reduced_resultant_\EFF {}ast!tt!123!
+!ZpM_echelon!tt!124!
+!zlm_echelon!tt!124!
+!ZpXQ_log!tt!124!
+!padic_to_Q!tt!124!
+!padic_to_Q_shallow!tt!124!
+!padic_to_Q!tt!124!
+!QpV_to_QV!tt!124!
+!padic_to_Q_shallow!tt!124!
+!padicprec!tt!124!
+!padicprec_relative!tt!124!
+!Rg_to_Fl!tt!124!
+!Rg_to_F2!tt!124!
+!Rg_to_Fl!tt!124!
+!padic_to_Fl!tt!124!
+!Rg_to_Fl!tt!124!
+!RgX_to_F2x!tt!124!
+!RgX_to_Flx!tt!124!
+!Rg_to_F2xq!tt!124!
+!Rg_to_Flxq!tt!124!
+!ZX_to_Flx!tt!124!
+!ZV_to_Flv!tt!125!
+!ZXV_to_FlxV!tt!125!
+!ZXT_to_FlxT!tt!125!
+!ZXX_to_FlxX!tt!125!
+!ZXXV_to_FlxXV!tt!125!
+!RgC_to_Flc!tt!125!
+!RgM_to_Flm!tt!125!
+!ZM_to_Flm!tt!125!
+!ZV_to_zv!tt!125!
+!ZV_to_nv!tt!125!
+!ZM_to_zm!tt!125!
+!FqC_to_FlxC!tt!125!
+!FqV_to_FlxV!tt!125!
+!FqM_to_FlxM!tt!125!
+!Flx_to_ZX!tt!125!
+!Flx_to_FlxX!tt!125!
+!Flx_to_ZX_inplace!tt!125!
+!FlxX_to_ZXX!tt!125!
+!FlxC_to_ZXC!tt!125!
+!FlxV_to_ZXV!tt!125!
+!F2xV_to_FlxV_inplace!tt!125!
+!F2xV_to_ZXV_inplace!tt!125!
+!FlxV_to_ZXV_inplace!tt!125!
+!FlxM_to_ZXM!tt!125!
+!zx_to_ZX!tt!125!
+!Flc_to_ZC!tt!125!
+!Flv_to_ZV!tt!125!
+!Flm_to_ZM!tt!125!
+!zc_to_ZC!tt!126!
+!zv_to_ZV!tt!126!
+!zm_to_ZM!tt!126!
+!zv_to_Flv!tt!126!
+!zm_to_Flm!tt!126!
+!RgM_zc_mul!tt!126!
+!RgM_zm_mul!tt!126!
+!RgV_zc_mul!tt!126!
+!RgV_zm_mul!tt!126!
+!ZM_zc_mul!tt!126!
+!ZM_zm_mul!tt!126!
+!ZC_z_mul!tt!126!
+!ZM_nm_mul!tt!126!
+!nm_Z_mul!tt!126!
+!Fl_to_Flx!tt!126!
+!Z_to_Flx!tt!126!
+!Flx_to_Flv!tt!126!
+!zx_to_zv!tt!126!
+!Flv_to_Flx!tt!126!
+!zv_to_zx!tt!126!
+!Flm_to_FlxV!tt!126!
+!zm_to_zxV!tt!126!
+!Flm_to_FlxX!tt!126!
+!FlxV_to_Flm!tt!126!
+!FlxX_to_Flm!tt!126!
+!FlxX_to_FlxC!tt!126!
+!FlxXV_to_FlxM!tt!127!
+!Fly_to_FlxY!tt!127!
+!F2x_to_F2v!tt!127!
+!F2xC_to_ZXC!tt!127!
+!F2xV_to_F2m!tt!127!
+!Z_issquare!tt!127!
+!Z_issquareall!tt!127!
+!Z_ispow2!tt!127!
+!uissquare!tt!127!
+!uissquareall!tt!127!
+!usqrt!tt!127!
+!usqrtn!tt!127!
+!Z_ispower!tt!127!
+!Z_ispowerall!tt!127!
+!Z_isanypower!tt!127!
+!Z_isanypower!tt!127!
+!is_357_power!tt!127!
+!is_pth_power!tt!128!
+!is_357_power!tt!128!
+!Z_\EFF {}actor!tt!128!
+!absi_\EFF {}actor!tt!128!
+!Z_issmooth!tt!128!
+!Z_issmooth_\EFF {}act!tt!128!
+!Z_\EFF {}actor_until!tt!128!
+!Z_\EFF {}actor_limit!tt!128!
+!absi_\EFF {}actor_limit!tt!128!
+!bound\EFF {}act!tt!128!
+!Z_\EFF {}actor_limit!tt!128!
+!Z_smoothen!tt!128!
+!gerepileupto!tt!128!
+!Z_\EFF {}actor_listP!tt!128!
+!gerepileupto!tt!128!
+!\EFF {}actor_pn_1!tt!128!
+!\EFF {}actor_pn_1_limit!tt!129!
+!\EFF {}actor_Auri\EFF {}euille_prime!tt!129!
+!\EFF {}actor_Auri\EFF {}euille!tt!129!
+!odd_prime_divisors!tt!129!
+!\EFF {}actoru!tt!129!
+!\EFF {}actoru_pow!tt!129!
+!tridiv_bound!tt!129!
+!Z_\EFF {}actor!tt!129!
+!omega!tt!129!
+!\EFF {}actorint!tt!129!
+!is_Z_\EFF {}actorpos!tt!129!
+!is_Z_\EFF {}actornon0!tt!129!
+!is_Z_\EFF {}actorpos!tt!129!
+!is_Z_\EFF {}actor!tt!129!
+!clean_Z_\EFF {}actor!tt!129!
+!check_arith_pos!tt!129!
+!e_DOMAIN!tt!129!
+!e_TYPE!tt!129!
+!check_arith_non0!tt!130!
+!e_TYPE!tt!130!
+!check_arith_all!tt!130!
+!i\EFF {}ac_start!tt!130!
+!i\EFF {}ac_next!tt!130!
+!i\EFF {}ac_read!tt!130!
+!i\EFF {}ac_next!tt!130!
+!i\EFF {}ac_skip!tt!130!
+!i\EFF {}ac_isprime!tt!130!
+!\EFF {}actor_proven!tt!130!
+!Z_issquare\EFF {}ree!tt!130!
+!Z_is\EFF {}undamental!tt!130!
+!core!tt!130!
+!core2!tt!130!
+!corepartial!tt!130!
+!core2partial!tt!131!
+!uprimepi!tt!131!
+!primepi_upper_bound!tt!131!
+!gprimepi_upper_bound!tt!131!
+!primepi_upper_bound!tt!131!
+!primepi_lower_bound!tt!131!
+!gprimepi_lower_bound!tt!131!
+!primepi_lower_bound!tt!131!
+!unextprime!tt!131!
+!uprecprime!tt!131!
+!uprime!tt!131!
+!prime!tt!131!
+!primes_zv!tt!131!
+!primes!tt!131!
+!primes_interval!tt!131!
+!primes_interval_zv!tt!131!
+!primes_upto_zv!tt!131!
+!uisprime!tt!131!
+!isprime!tt!131!
+!isprimeAPRCL!tt!131!
+!BPSW_psp!tt!131!
+!BPSW_isprime!tt!132!
+!isprime!tt!132!
+!millerrabin!tt!132!
+!BPSW_psp!tt!132!
+!\EFF {}orprime_init!tt!132!
+!\EFF {}orprime_next!tt!132!
+!\EFF {}orprime_init!tt!132!
+!u_\EFF {}orprime_init!tt!132!
+!u_\EFF {}orprime_next!tt!132!
+!u_\EFF {}orprime_restrict!tt!132!
+!u_\EFF {}orprime_next!tt!132!
+!u_\EFF {}orprime_arith_init!tt!132!
+!u_\EFF {}orprime_next!tt!132!
+!RgV_check_ZV!tt!132!
+!RgV_is_ZV!tt!132!
+!RgV_is_QV!tt!132!
+!ZV_equal0!tt!132!
+!ZV_cmp!tt!133!
+!ZV_abscmp!tt!133!
+!ZV_equal!tt!133!
+!ZC_add!tt!133!
+!ZC_sub!tt!133!
+!ZC_Z_add!tt!133!
+!ZC_Z_sub!tt!133!
+!ZC_copy!tt!133!
+!ZC_neg!tt!133!
+!ZV_neg_inplace!tt!133!
+!ZV_togglesign!tt!133!
+!togglesign_sa\EFF {}e!tt!133!
+!ZC_Z_mul!tt!133!
+!ZC_Z_divexact!tt!133!
+!ZV_dotproduct!tt!133!
+!ZV_dotsquare!tt!133!
+!ZC_lincomb!tt!133!
+!ZC_lincomb1_inplace!tt!133!
+!ZC_ZV_mul!tt!133!
+!ZV_content!tt!133!
+!ZV_gcdext!tt!134!
+!ZV_prod!tt!134!
+!ZV_sum!tt!134!
+!ZV_max_lg!tt!134!
+!ZV_dvd!tt!134!
+!ZV_sort!tt!134!
+!ZV_sort_uniq!tt!134!
+!ZV_search!tt!134!
+!ZV_indexsort!tt!134!
+!ZV_union_shallow!tt!134!
+!ZV_sort!tt!134!
+!RgM_check_ZM!tt!134!
+!ZM_copy!tt!134!
+!ZM_equal!tt!134!
+!ZM_add!tt!134!
+!ZM_sub!tt!134!
+!ZM_neg!tt!134!
+!ZM_togglesign!tt!134!
+!togglesign_sa\EFF {}e!tt!134!
+!ZM_mul!tt!134!
+!ZM_Z_mul!tt!134!
+!ZM_ZC_mul!tt!134!
+!ZM_multosym!tt!134!
+!ZM_transmultosym!tt!134!
+!ZMrow_ZC_mul!tt!134!
+!ZV_ZM_mul!tt!134!
+!ZM_Z_divexact!tt!134!
+!ZM_pow!tt!135!
+!ZM_powu!tt!135!
+!ZM_det!tt!135!
+!matdet!tt!135!
+!ZM_detmult!tt!135!
+!detint!tt!135!
+!ZM_supnorm!tt!135!
+!ZM_charpoly!tt!135!
+!ZM_imagecompl!tt!135!
+!ZM_rank!tt!135!
+!ZM_indexrank!tt!135!
+!ZM_indeximage!tt!135!
+!ZM_max_lg!tt!135!
+!ZM_inv!tt!135!
+!QM_inv!tt!135!
+!ZM_det_triangular!tt!135!
+!ZM_isidentity!tt!135!
+!ZM_ishn\EFF {}!tt!135!
+!zv_neg!tt!135!
+!zv_neg_inplace!tt!135!
+!zm_zc_mul!tt!135!
+!zm_mul!tt!135!
+!zv_z_mul!tt!135!
+!zv_content!tt!135!
+!zv_dotproduct!tt!135!
+!zv_prod!tt!135!
+!zv_prod_Z!tt!135!
+!zv_sum!tt!135!
+!zv_cmp0!tt!135!
+!zv_equal!tt!136!
+!zv_equal0!tt!136!
+!zv_search!tt!136!
+!zv_copy!tt!136!
+!zm_transpose!tt!136!
+!zm_copy!tt!136!
+!zero_zm!tt!136!
+!zero_zv!tt!136!
+!row_zm!tt!136!
+!zvV_equal!tt!136!
+!RgV_is_ZMV!tt!136!
+!ZMV_to_zmV!tt!136!
+!zmV_to_ZMV!tt!136!
+!RgM_dimensions!tt!136!
+!RgC_add!tt!136!
+!RgC_neg!tt!136!
+!RgC_sub!tt!136!
+!RgV_add!tt!136!
+!RgV_neg!tt!136!
+!RgV_sub!tt!136!
+!RgM_add!tt!136!
+!RgM_neg!tt!136!
+!RgM_sub!tt!136!
+!RgM_Rg_add!tt!136!
+!RgM_Rg_add_shallow!tt!136!
+!RgM_Rg_sub!tt!137!
+!RgM_Rg_sub_shallow!tt!137!
+!RgC_Rg_add!tt!137!
+!RgC_Rg_div!tt!137!
+!RgM_Rg_div!tt!137!
+!RgC_Rg_mul!tt!137!
+!RgV_Rg_mul!tt!137!
+!RgM_Rg_mul!tt!137!
+!RgV_RgC_mul!tt!137!
+!RgV_RgM_mul!tt!137!
+!RgM_RgC_mul!tt!137!
+!RgM_mul!tt!137!
+!RgM_transmul!tt!137!
+!RgM_multosym!tt!137!
+!RgM_transmultosym!tt!137!
+!RgMrow_RgC_mul!tt!137!
+!RgM_mulreal!tt!137!
+!RgM_sqr!tt!137!
+!RgC_RgV_mul!tt!137!
+!RgC_RgM_mul!tt!137!
+!RgM_RgV_mul!tt!137!
+!RgM_powers!tt!137!
+!RgV_sum!tt!137!
+!RgV_sumpart!tt!137!
+!RgV_sumpart2!tt!137!
+!RgV_dotproduct!tt!138!
+!RgV_dotsquare!tt!138!
+!gram_matrix!tt!138!
+!Gram matrix!rm!138!
+!RgV_polint!tt!138!
+!RgV_isscalar!tt!138!
+!QV_isscalar!tt!138!
+!ZV_isscalar!tt!138!
+!RgM_isscalar!tt!138!
+!RgM_isidentity!tt!138!
+!RgM_isdiagonal!tt!138!
+!RgM_is_ZM!tt!138!
+!RgV_isin!tt!138!
+!RgM_diagonal!tt!138!
+!RgM_diagonal_shallow!tt!138!
+!RgC_gto\EFF {}p!tt!138!
+!RgC_gtomp!tt!138!
+!RgC_\EFF {}pnorml2!tt!138!
+!RgM_gto\EFF {}p!tt!138!
+!RgM_gtomp!tt!138!
+!RgM_\EFF {}pnorml2!tt!138!
+!RgM_inv!tt!139!
+!RgM_inv_upper!tt!139!
+!RgM_RgC_invimage!tt!139!
+!RgM_invimage!tt!139!
+!RgM_Hadamard!tt!139!
+!RgM_solve!tt!139!
+!RgM_inv!tt!139!
+!RgM_solve_realimag!tt!139!
+!split_realimag!tt!139!
+!RgM_solve_realimag!tt!139!
+!RgM_det_triangular!tt!139!
+!Frobenius\EFF {}orm!tt!139!
+!RgM_QR_init!tt!139!
+!QR_init!tt!139!
+!R_\EFF {}rom_QR!tt!139!
+!RgM_gtomp!tt!139!
+!gaussred_\EFF {}rom_QR!tt!140!
+!zCs_to_ZC!tt!140!
+!zMs_to_ZM!tt!140!
+!FpMs_FpC_mul!tt!140!
+!zMs_ZC_mul!tt!140!
+!FpV_FpMs_mul!tt!140!
+!ZV_zMs_mul!tt!140!
+!RgMs_structelim!tt!140!
+!FpMs_le\EFF {}tkernel_elt!tt!140!
+!FpMs_FpCs_solve!tt!140!
+!FpMs_FpCs_solve_sa\EFF {}e!tt!140!
+!ZpMs_ZpCs_solve!tt!141!
+!gen_FpM_Wiedemann!tt!141!
+!gen_ZpM_Dixon!tt!141!
+!image2!tt!141!
+!image!tt!141!
+!RgX_check_ZX!tt!141!
+!ZX_copy!tt!141!
+!ZX_max_lg!tt!141!
+!scalar_ZX!tt!141!
+!scalar_ZX_shallow!tt!141!
+!ZX_renormalize!tt!141!
+!ZX_equal!tt!141!
+!ZX_equal1!tt!141!
+!ZX_add!tt!141!
+!ZX_sub!tt!141!
+!ZX_neg!tt!141!
+!ZX_Z_add!tt!141!
+!ZX_Z_add_shallow!tt!141!
+!ZX_Z_add!tt!141!
+!ZX_Z_sub!tt!141!
+!Z_ZX_sub!tt!141!
+!ZX_Z_mul!tt!142!
+!ZX_mulu!tt!142!
+!ZX_shi\EFF {}ti!tt!142!
+!ZX_Z_divexact!tt!142!
+!ZX_remi2n!tt!142!
+!remi2n!tt!142!
+!ZX_mul!tt!142!
+!ZX_sqr!tt!142!
+!ZX_mulspec!tt!142!
+!ZX_sqrspec!tt!142!
+!ZX_rem!tt!142!
+!ZX_mod_Xnm1!tt!142!
+!ZX_gcd!tt!142!
+!ZX_gcd_all!tt!142!
+!ZX_content!tt!142!
+!ZX_val!tt!142!
+!ZX_valrem!tt!142!
+!ZX_to_monic!tt!142!
+!ZX_primitive_to_monic!tt!142!
+!ZX_to_monic!tt!142!
+!ZX_Z_normalize!tt!142!
+!ZX_Q_normalize!tt!142!
+!ZX_Z_normalize!tt!142!
+!ZX_rescale!tt!142!
+!ZX_rescale_lt!tt!142!
+!ZX_translate!tt!143!
+!ZX_unscale!tt!143!
+!ZX_unscale_div!tt!143!
+!ZX_eval1!tt!143!
+!ZX_grae\EFF {}\EFF {}e!tt!143!
+!ZX_deriv!tt!143!
+!ZX_resultant!tt!143!
+!ZX_disc!tt!143!
+!ZX_\EFF {}actor!tt!143!
+!ZX_is_square\EFF {}ree!tt!143!
+!ZX_is_irred!tt!143!
+!ZX_squ\EFF {}\EFF {}!tt!143!
+!ZXQ_mul!tt!143!
+!ZXQ_sqr!tt!143!
+!ZXQ_charpoly!tt!143!
+!ZX_ZXY_resultant!tt!143!
+!ZX_compositum_disjoint!tt!143!
+!ZX_ZXY_rn\EFF {}equation!tt!143!
+!ZXV_equal!tt!144!
+!ZX_equal!tt!144!
+!ZXV_Z_mul!tt!144!
+!ZXV_remi2n!tt!144!
+!ZXV_dotproduct!tt!144!
+!ZXT_remi2n!tt!144!
+!RgX_check_ZXX!tt!144!
+!ZXX_renormalize!tt!144!
+!ZXX_max_lg!tt!144!
+!ZXX_Z_divexact!tt!144!
+!ZXX_to_Kronecker!tt!144!
+!ZXX_to_Kronecker_spec!tt!144!
+!ZXX_to_Kronecker!tt!144!
+!Kronecker_to_ZXX!tt!144!
+!ZXX_mul_Kronecker!tt!144!
+!ZX_mul!tt!144!
+!RgX_check_QX!tt!144!
+!QX_gcd!tt!144!
+!QX_disc!tt!144!
+!QX_\EFF {}actor!tt!144!
+!QX_resultant!tt!144!
+!QX_complex_roots!tt!144!
+!cleanroots!tt!144!
+!QXQ_norm!tt!144!
+!QXQ_intnorm!tt!145!
+!QXQ_intnorm!tt!145!
+!QXQ_norm!tt!145!
+!QXQ_inv!tt!145!
+!QXQ_powers!tt!145!
+!QXQ_reverse!tt!145!
+!QX_ZXQV_eval!tt!145!
+!QXV_QXQ_eval!tt!145!
+!QXX_QXQ_eval!tt!145!
+!n\EFF {}gcd!tt!145!
+!n\EFF {}gcd_all!tt!145!
+!zero_zx!tt!145!
+!polx_zx!tt!145!
+!zx_renormalize!tt!145!
+!zx_shi\EFF {}t!tt!145!
+!RgX_type!tt!146!
+!RgX_type_decode!tt!146!
+!RgX_type_is_composite!tt!146!
+!RgX_get_0!tt!146!
+!RgX_get_1!tt!146!
+!RgX_isscalar!tt!146!
+!RgX_blocks!tt!147!
+!RgX_even_odd!tt!147!
+!RgX_splitting!tt!147!
+!RgX_copy!tt!147!
+!RgX_add!tt!147!
+!RgX_sub!tt!147!
+!RgX_neg!tt!147!
+!RgX_Rg_add!tt!147!
+!RgX_Rg_add_shallow!tt!147!
+!Rg_RgX_sub!tt!147!
+!RgX_Rg_sub!tt!147!
+!RgX_mul!tt!147!
+!RgX_mul_normalized!tt!147!
+!RgX_mulspec!tt!147!
+!RgX_mullow!tt!147!
+!RgX_sqr!tt!147!
+!RgX_sqrspec!tt!147!
+!RgX_sqrlow!tt!147!
+!RgX_divrem!tt!147!
+!ONLY_REM!tt!147!
+!ONLY_DIVIDES!tt!147!
+!RgX_div!tt!147!
+!RgX_div_by_X_x!tt!147!
+!RgX_rem!tt!148!
+!RgX_pseudodivrem!tt!148!
+!RgX_pseudorem!tt!148!
+!RgX_degree!tt!148!
+!RgXQX_pseudorem!tt!148!
+!ZXQX_dvd!tt!148!
+!RgXQX_pseudodivrem!tt!148!
+!RgX_mulXn!tt!148!
+!RgX_shi\EFF {}t!tt!148!
+!RgX_shi\EFF {}t_shallow!tt!148!
+!RgX_rotate_shallow!tt!148!
+!RgX_shi\EFF {}t_inplace_init!tt!148!
+!RgX_shi\EFF {}t_inplace!tt!148!
+!RgX_shi\EFF {}t_inplace!tt!148!
+!RgX_shi\EFF {}t_inplace_init!tt!148!
+!RgX_valrem!tt!148!
+!RgX_val!tt!148!
+!RgX_valrem_inexact!tt!148!
+!RgX_deriv!tt!148!
+!RgX_integ!tt!148!
+!RgX_gcd!tt!148!
+!RgX_gcd_simple!tt!149!
+!RgX_gcd!tt!149!
+!RgX_gcd!tt!149!
+!RgX_extgcd!tt!149!
+!RgX_extgcd_simple!tt!149!
+!RgX_extgcd!tt!149!
+!RgX_extgcd!tt!149!
+!RgX_disc!tt!149!
+!RgX_resultant_all!tt!149!
+!RgX_modXn_shallow!tt!149!
+!RgX_modXn_eval!tt!149!
+!RgX_RgXQ_eval!tt!149!
+!RgX_renormalize!tt!149!
+!RgX_renormalize_lg!tt!149!
+!RgX_gto\EFF {}p!tt!149!
+!RgX_\EFF {}pnorml2!tt!149!
+!RgX_recip!tt!149!
+!RgX_recip_shallow!tt!149!
+!RgX_recip!tt!149!
+!RgX_de\EFF {}late!tt!149!
+!RgX_de\EFF {}late_max!tt!149!
+!RgX_in\EFF {}late!tt!149!
+!RgX_rescale!tt!149!
+!RgX_unscale!tt!149!
+!RgXV_unscale!tt!149!
+!RgX_is_rational!tt!149!
+!RgX_is_QX!tt!150!
+!RgX_is_ZX!tt!150!
+!RgX_is_monomial!tt!150!
+!RgX_equal!tt!150!
+!gequal!tt!150!
+!RgX_equal_var!tt!150!
+!RgXQ_mul!tt!150!
+!RgXQ_sqr!tt!150!
+!RgXQ_inv!tt!150!
+!RgXQ_pow!tt!150!
+!RgXQ_powu!tt!150!
+!RgXQ_powers!tt!150!
+!RgXQ_ratli\EFF {}t!tt!150!
+!RgXQ_reverse!tt!150!
+!modreverse!tt!150!
+!RgXQ_matrix_pow!tt!150!
+!RgXQ_norm!tt!150!
+!RgXQ_charpoly!tt!150!
+!RgX_RgXQ_eval!tt!150!
+!RgX_RgXQV_eval!tt!150!
+!RgX_translate!tt!151!
+!RgXQX_translate!tt!151!
+!RgXQC_red!tt!151!
+!RgXQV_red!tt!151!
+!RgXQX_red!tt!151!
+!RgXQX_mul!tt!151!
+!Kronecker_to_mod!tt!151!
+!RgX_Rg_mul!tt!151!
+!RgX_muls!tt!151!
+!RgX_Rg_div!tt!151!
+!RgX_divs!tt!151!
+!RgX_Rg_divexact!tt!151!
+!RgXQX_RgXQ_mul!tt!151!
+!RgXQX_sqr!tt!151!
+!RgXQX_divrem!tt!151!
+!RgXQX_div!tt!151!
+!RgXQX_rem!tt!151!
+!ga\EFF {}\EFF {}sg!tt!153!
+!ga\EFF {}\EFF {}ect!tt!153!
+!is_universal_constant!tt!153!
+!rtodbl!tt!153!
+!dbltor!tt!153!
+!dblexpo!tt!153!
+!dblmantissa!tt!153!
+!gtodouble!tt!153!
+!gtos!tt!153!
+!itos!tt!153!
+!dbllog2r!tt!153!
+!gtolong!tt!153!
+!\EFF {}ractor!tt!153!
+!quadto\EFF {}p!tt!153!
+!cxto\EFF {}p!tt!153!
+!cxcompotor!tt!153!
+!gto\EFF {}p!tt!153!
+!gtomp!tt!154!
+!gcvtop!tt!154!
+!cvtop!tt!154!
+!cvtop2!tt!154!
+!cvstop2!tt!154!
+!gprec!tt!154!
+!gprec_w!tt!154!
+!gprec_wtrunc!tt!154!
+!gmodulo!tt!154!
+!gmodulgs!tt!154!
+!gmodulsg!tt!154!
+!gmodulss!tt!154!
+!li\EFF {}tall_shallow!tt!154!
+!li\EFF {}tall!tt!154!
+!li\EFF {}tint_shallow!tt!154!
+!li\EFF {}tint!tt!154!
+!li\EFF {}tpol_shallow!tt!154!
+!li\EFF {}tpol!tt!154!
+!centerli\EFF {}t0!tt!154!
+!li\EFF {}t0!tt!154!
+!centerli\EFF {}t!tt!154!
+!gtopoly!tt!154!
+!gtopolyrev!tt!155!
+!normalizepol!tt!155!
+!normalizepol_lg!tt!155!
+!normalizepol_approx!tt!155!
+!RgV_to_RgX!tt!155!
+!RgV_to_RgX_reverse!tt!155!
+!RgX_to_RgV!tt!155!
+!Rg_to_RgV!tt!155!
+!RgX_to_RgV!tt!155!
+!RgM_to_RgXV!tt!155!
+!RgV_to_RgM!tt!155!
+!RgXV_to_RgM!tt!155!
+!RgM_to_RgXX!tt!155!
+!RgXX_to_RgM!tt!155!
+!RgXY_swap!tt!156!
+!RgXY_swapspec!tt!156!
+!RgX_to_ser!tt!156!
+!RgX_to_ser_inexact!tt!156!
+!r\EFF {}rac_to_ser!tt!156!
+!gtoser!tt!156!
+!Polrev!tt!156!
+!gtocol!tt!156!
+!gtomat!tt!156!
+!gtovec!tt!156!
+!gtovecsmall!tt!156!
+!normalize!tt!156!
+!serchop0!tt!156!
+!zeropadic!tt!156!
+!zeroser!tt!156!
+!scalarser!tt!156!
+!pol_0!tt!156!
+!pol_1!tt!156!
+!pol_x!tt!157!
+!pol_x_powers!tt!157!
+!scalarpol!tt!157!
+!deg1pol!tt!157!
+!zeropol!tt!157!
+!zerocol!tt!157!
+!zerovec!tt!157!
+!col_ei!tt!157!
+!vec_ei!tt!157!
+!trivial_\EFF {}act!tt!157!
+!prime_\EFF {}act!tt!157!
+!Rg_col_ei!tt!157!
+!vecsmall_ei!tt!157!
+!scalarcol!tt!157!
+!mkintmodu!tt!157!
+!zeromat!tt!157!
+!zeromatcopy!tt!157!
+!matid!tt!157!
+!scalarmat!tt!157!
+!scalarmat_s!tt!157!
+!vecrange!tt!157!
+!vecrangess!tt!158!
+!mk\EFF {}raccopy!tt!158!
+!mkr\EFF {}raccopy!tt!158!
+!mkcolcopy!tt!158!
+!mkmatcopy!tt!158!
+!mkveccopy!tt!158!
+!mkvec2copy!tt!158!
+!mkcols!tt!158!
+!mkcol2s!tt!158!
+!mkcol3s!tt!158!
+!mkcol4s!tt!158!
+!mkvecs!tt!158!
+!mkvec2s!tt!158!
+!mkvec3s!tt!158!
+!mkvec4s!tt!158!
+!mkvecsmall!tt!158!
+!mkvecsmall2!tt!158!
+!mkvecsmall3!tt!158!
+!mkvecsmall4!tt!158!
+!mkvecsmalln!tt!158!
+!gerepileupto!tt!158!
+!mkcomplex!tt!158!
+!mulcxI!tt!158!
+!mulcxmI!tt!159!
+!mulcxI!tt!159!
+!mkquad!tt!159!
+!mk\EFF {}rac!tt!159!
+!mkr\EFF {}rac!tt!159!
+!mkcol!tt!159!
+!mkcol2!tt!159!
+!mkcol3!tt!159!
+!mkcol4!tt!159!
+!mkcol5!tt!159!
+!mkintmod!tt!159!
+!mkpolmod!tt!159!
+!mkmat!tt!159!
+!mkmat2!tt!159!
+!mkmat3!tt!159!
+!mkmat4!tt!159!
+!mkmat5!tt!159!
+!mkvec!tt!159!
+!mkvec2!tt!159!
+!mkvec3!tt!159!
+!mkvec4!tt!159!
+!mkvec5!tt!159!
+!mkq\EFF {}i!tt!159!
+!mkerr!tt!160!
+!gerepileupto!tt!160!
+!retmkvec!tt!160!
+!retmkvec2!tt!160!
+!retmkvec3!tt!160!
+!retmkvec4!tt!160!
+!retmkvec5!tt!160!
+!retconst_vec!tt!160!
+!retmkcol!tt!160!
+!retmkcol2!tt!160!
+!retmkcol3!tt!160!
+!retmkcol4!tt!160!
+!retmkcol5!tt!160!
+!retconst_col!tt!160!
+!retmkmat!tt!160!
+!retmkmat2!tt!160!
+!retmkmat3!tt!160!
+!retmkmat4!tt!160!
+!retmkmat5!tt!160!
+!retmkcomplex!tt!160!
+!retmk\EFF {}rac!tt!160!
+!retmkintmod!tt!160!
+!retmkq\EFF {}i!tt!161!
+!retmkq\EFF {}r!tt!161!
+!retmkquad!tt!161!
+!retmkpolmod!tt!161!
+!mkintn!tt!161!
+!mkpoln!tt!161!
+!setvarn!tt!161!
+!mkvecn!tt!161!
+!mkcoln!tt!161!
+!scalarcol_shallow!tt!161!
+!scalarmat_shallow!tt!161!
+!diagonal_shallow!tt!161!
+!scalarpol_shallow!tt!161!
+!deg1pol_shallow!tt!161!
+!zeropadic_shallow!tt!161!
+!deg1_\EFF {}rom_roots!tt!161!
+!roots_\EFF {}rom_deg1!tt!161!
+!roots_to_pol!tt!161!
+!divide_conquer_prod!tt!161!
+!roots_to_pol_r1!tt!161!
+!divide_conquer_prod!tt!161!
+!divide_conquer_prod!tt!161!
+!g\EFF {}loor!tt!162!
+!g\EFF {}rac!tt!162!
+!gceil!tt!162!
+!ground!tt!162!
+!grndtoi!tt!162!
+!gtrunc!tt!162!
+!gtrunc2n!tt!162!
+!gcvtoi!tt!162!
+!gshi\EFF {}t[z]!tt!162!
+!gmul2n[z]!tt!162!
+!gvaluation!tt!162!
+!gval!tt!162!
+!gcmp!tt!163!
+!cmp_universal!tt!163!
+!lexcmp!tt!163!
+!gequalX!tt!163!
+!gequal!tt!163!
+!gidentical!tt!163!
+!gequal!tt!163!
+!isexactzero!tt!163!
+!isrationalzero!tt!163!
+!ismpzero!tt!163!
+!isintzero!tt!163!
+!isint1!tt!163!
+!isintm1!tt!164!
+!equali1!tt!164!
+!equalim1!tt!164!
+!is_pm1!tt!164!
+!gequal0!tt!164!
+!gequal1!tt!164!
+!gequalm1!tt!164!
+!gcmpsg!tt!164!
+!gcmpgs!tt!164!
+!gmaxsg!tt!164!
+!gmaxgs!tt!164!
+!gminsg!tt!164!
+!gmings!tt!164!
+!gequalsg!tt!164!
+!gequalgs!tt!164!
+!isrationalzeroscalar!tt!164!
+!isinexact!tt!164!
+!isinexactreal!tt!164!
+!isrealappr!tt!164!
+!isint!tt!164!
+!issmall!tt!164!
+!iscomplex!tt!165!
+!gle!tt!165!
+!glt!tt!165!
+!gge!tt!165!
+!ggt!tt!165!
+!geq!tt!165!
+!gne!tt!165!
+!gor!tt!165!
+!gand!tt!165!
+!gnot!tt!165!
+!sort!tt!165!
+!lexsort!tt!165!
+!vecsort!tt!165!
+!indexsort!tt!166!
+!indexlexsort!tt!166!
+!indexvecsort!tt!166!
+!vecindexmin!tt!166!
+!vecindexmax!tt!166!
+!vecindexmax!tt!166!
+!gen_sort!tt!166!
+!gen_sort_uniq!tt!166!
+!gen_indexsort!tt!166!
+!gen_indexsort_uniq!tt!166!
+!gen_sort_inplace!tt!166!
+!gen_setminus!tt!166!
+!sort_\EFF {}actor!tt!166!
+!merge_sort_uniq!tt!166!
+!merge_\EFF {}actor!tt!167!
+!sort_\EFF {}actor!tt!167!
+!gen_search!tt!167!
+!tablesearch!tt!167!
+!cmp_universal!tt!167!
+!cmp_nodata!tt!167!
+!ZV_cmp!tt!167!
+!cmp_RgX!tt!167!
+!cmp_prime_over_p!tt!167!
+!cmp_prime_ideal!tt!167!
+!gen_cmp_RgX!tt!167!
+!gdivexact!tt!167!
+!gdvd!tt!167!
+!gdiventres!tt!167!
+!gdivent[z]!tt!168!
+!gdiventsg!tt!168!
+!gdiventgs[z]!tt!168!
+!gmod[z]!tt!168!
+!gmodsg!tt!168!
+!gmodgs!tt!168!
+!gdivmod!tt!168!
+!poldivrem!tt!168!
+!gdeuc!tt!168!
+!grem!tt!168!
+!gdivround!tt!168!
+!centermod_i!tt!168!
+!centermod!tt!168!
+!ginvmod!tt!168!
+!resultant!tt!168!
+!ggcd!tt!168!
+!glcm!tt!169!
+!gbezout!tt!169!
+!subresext!tt!169!
+!content!tt!169!
+!primitive_part!tt!169!
+!primpart!tt!169!
+!Q_pval!tt!169!
+!Q_pvalrem!tt!169!
+!Q_abs!tt!169!
+!Q_abs_shallow!tt!169!
+!Q_gcd!tt!169!
+!Q_content!tt!169!
+!Q_denom!tt!169!
+!Q_primitive_part!tt!169!
+!Q_primpart!tt!169!
+!Q_remove_denom!tt!169!
+!Q_div_to_int!tt!169!
+!Q_mul_to_int!tt!169!
+!Q_muli_to_int!tt!170!
+!mul_content!tt!170!
+!mul_denom!tt!170!
+!gneg[z]!tt!170!
+!gneg_i!tt!170!
+!gabs[z]!tt!170!
+!gsqr!tt!170!
+!ginv!tt!170!
+!gadd!tt!170!
+!gaddgs!tt!170!
+!gaddsg!tt!170!
+!gmul!tt!170!
+!gmulgs!tt!170!
+!gmulsg!tt!170!
+!gsub!tt!170!
+!gsubgs!tt!170!
+!gsubsg!tt!170!
+!gdiv!tt!170!
+!gdivgs!tt!170!
+!gdivsg!tt!170!
+!gpow!tt!170!
+!gpowgs!tt!171!
+!powgi!tt!171!
+!gaddz!tt!171!
+!gsubz!tt!171!
+!gmulz!tt!171!
+!gdivz!tt!171!
+!divide_conquer_prod!tt!171!
+!divide_conquer_assoc!tt!172!
+!divide_conquer_prod!tt!172!
+!gen_pow!tt!172!
+!gen_powu!tt!172!
+!gen_pow!tt!172!
+!gen_pow_i!tt!172!
+!gen_pow!tt!172!
+!gen_powu_i!tt!172!
+!gen_powu!tt!172!
+!gen_pow_\EFF {}old!tt!172!
+!gen_pow!tt!172!
+!gen_pow_\EFF {}old_i!tt!172!
+!gen_pow_\EFF {}old!tt!172!
+!gen_powu_\EFF {}old!tt!172!
+!gen_pow_\EFF {}old!tt!172!
+!gen_powu_\EFF {}old_i!tt!172!
+!gen_pow_\EFF {}old_i!tt!172!
+!gen_powers!tt!172!
+!gen_\EFF {}actorback!tt!172!
+!\EFF {}actorback!tt!172!
+!ZM_supnorm!tt!173!
+!RgM_\EFF {}pnorml2!tt!173!
+!gnorml2!tt!173!
+!gnorml1!tt!173!
+!gnorml1_\EFF {}ake!tt!173!
+!gnorml1!tt!173!
+!gsupnorm!tt!173!
+!gsupnorm_aux!tt!173!
+!gsubst!tt!173!
+!poleval!tt!173!
+!RgX_RgM_eval!tt!174!
+!RgX_RgMV_eval!tt!174!
+!RgX_RgM_eval_col!tt!174!
+!q\EFF {}eval!tt!174!
+!q\EFF {}evalb!tt!174!
+!hq\EFF {}eval!tt!174!
+!q\EFF {}_apply_RgM!tt!174!
+!q\EFF {}_apply_ZM!tt!174!
+!abs\EFF {}rac!tt!175!
+!abs\EFF {}rac_shallow!tt!175!
+!sqr\EFF {}rac!tt!175!
+!imag!tt!175!
+!real!tt!175!
+!gerepileupto!tt!175!
+!imag_i!tt!175!
+!real_i!tt!175!
+!mulreal!tt!175!
+!cxnorm!tt!175!
+!cxexpm1!tt!175!
+!quad_disc!tt!175!
+!quadnorm!tt!175!
+!q\EFF {}b_disc!tt!175!
+!q\EFF {}b_disc3!tt!175!
+!truecoe\EFF {}\EFF {}!tt!175!
+!polcoe\EFF {}\EFF {}_i!tt!175!
+!degree!tt!175!
+!degpol!tt!176!
+!characteristic!tt!176!
+!residual_characteristic!tt!176!
+!resultant!tt!176!
+!resultant2!tt!176!
+!resultant_all!tt!176!
+!cleanroots!tt!176!
+!QX_complex_roots!tt!176!
+!polmod_to_embed!tt!176!
+!conjvec!tt!176!
+!derivser!tt!176!
+!integser!tt!176!
+!truecoe\EFF {}\EFF {}!tt!176!
+!ser_unscale!tt!177!
+!ser_normalize!tt!177!
+!FF_p!tt!177!
+!FF_\EFF {}!tt!177!
+!FF_p_i!tt!177!
+!FF_q!tt!177!
+!FF_mod!tt!177!
+!FF_to_FpXQ!tt!177!
+!FF_to_FpXQ_i!tt!177!
+!FF_to_F2xq!tt!177!
+!FF_to_F2xq_i!tt!177!
+!FF_to_Flxq!tt!177!
+!FF_to_Flxq_i!tt!177!
+!p_to_FF!tt!177!
+!FF_1!tt!177!
+!FF_zero!tt!177!
+!FF_equal0!tt!177!
+!FF_equal1!tt!177!
+!FF_equalm1!tt!177!
+!FF_equal!tt!177!
+!FF_same\EFF {}ield!tt!177!
+!Rg_is_FF!tt!178!
+!RgC_is_FFC!tt!178!
+!Rg_is_FF!tt!178!
+!RgM_is_FFM!tt!178!
+!Rg_is_FF!tt!178!
+!FF_add!tt!178!
+!FF_Z_add!tt!178!
+!FF_Q_add!tt!178!
+!FF_sub!tt!178!
+!FF_mul!tt!178!
+!FF_Z_mul!tt!178!
+!FF_div!tt!178!
+!FF_neg!tt!178!
+!FF_neg_i!tt!178!
+!FF_inv!tt!178!
+!FF_sqr!tt!178!
+!FF_mul2n!tt!178!
+!FF_pow!tt!178!
+!FF_Z_Z_muldiv!tt!178!
+!Z_FF_div!tt!178!
+!FF_norm!tt!178!
+!FF_trace!tt!178!
+!FF_conjvec!tt!178!
+!FF_charpoly!tt!178!
+!FF_minpoly!tt!178!
+!FF_sqrt!tt!178!
+!FF_issquareall!tt!179!
+!FF_issquare!tt!179!
+!FF_ispower!tt!179!
+!FF_sqrtn!tt!179!
+!FF_log!tt!179!
+!FF_primroot!tt!179!
+!FF_order!tt!179!
+!FF_primroot!tt!179!
+!FF_log!tt!179!
+!FFX_\EFF {}actor!tt!179!
+!FFX_roots!tt!179!
+!FFM_FFC_mul!tt!179!
+!FFM_ker!tt!179!
+!RgM_is_FFM(M,\&\EFF {}\EFF {})!tt!179!
+!FFM_det!tt!179!
+!FFM_image!tt!179!
+!FFM_inv!tt!179!
+!FFM_mul!tt!179!
+!FFM_rank!tt!179!
+!getrealprecision!tt!179!
+!setrealprecision!tt!179!
+!sqrtr!tt!180!
+!sqrtnr!tt!180!
+!mpcos[z]!tt!180!
+!mpsin[z]!tt!180!
+!mplog[z]!tt!180!
+!mpexp[z]!tt!180!
+!mpexpm1!tt!180!
+!mpsincosm1!tt!180!
+!mpveceint1!tt!180!
+!mpeint1!tt!180!
+!szeta!tt!180!
+!mplambertW!tt!180!
+!sqrtr_abs!tt!180!
+!exp1r_abs!tt!180!
+!logr_abs!tt!180!
+!mpsincos!tt!180!
+!expIr!tt!180!
+!expIxy!tt!180!
+!gsincos!tt!181!
+!a\EFF {}\EFF {}rr_\EFF {}ixlg!tt!181!
+!a\EFF {}\EFF {}c_\EFF {}ixlg!tt!181!
+!cgetc!tt!181!
+!trans_eval!tt!181!
+!conjvec!tt!181!
+!Qp_exp!tt!181!
+!Qp_gamma!tt!181!
+!Qp_log!tt!181!
+!Qp_sqrt!tt!181!
+!Qp_sqrtn!tt!181!
+!consteuler!tt!181!
+!constcatalan!tt!181!
+!constpi!tt!181!
+!constlog2!tt!181!
+!mpbern!tt!181!
+!Bernoulli!rm!181!
+!bern\EFF {}rac!tt!181!
+!bernreal!tt!181!
+!mppi!tt!182!
+!Pi2n!tt!182!
+!PiI2!tt!182!
+!PiI2n!tt!182!
+!mpeuler!tt!182!
+!mpeuler!tt!182!
+!mplog2!tt!182!
+!bernreal!tt!182!
+!Bernoulli!rm!182!
+!bern\EFF {}rac!tt!182!
+!Bernoulli!rm!182!
+!identity_perm!tt!182!
+!cyclic_perm!tt!182!
+!perm_mul!tt!182!
+!perm_conj!tt!182!
+!perm_commute!tt!182!
+!perm_inv!tt!182!
+!perm_pow!tt!182!
+!cyc_pow_perm!tt!182!
+!cyc_pow!tt!182!
+!perm_cycles!tt!182!
+!perm_order!tt!182!
+!vecperm_orbits!tt!182!
+!galoisinit!tt!183!
+!galoisinit!tt!183!
+!checkgroup!tt!183!
+!galois_group!tt!183!
+!cyclicgroup!tt!183!
+!trivialgroup!tt!183!
+!dicyclicgroup!tt!183!
+!abelian_group!tt!183!
+!group_domain!tt!183!
+!group_elts!tt!183!
+!group_set!tt!183!
+!groupelts_set!tt!183!
+!group_order!tt!183!
+!group_isabelian!tt!183!
+!group_abelianHNF!tt!183!
+!group_abelianSNF!tt!184!
+!group_subgroup_isnormal!tt!184!
+!group_isA4S4!tt!184!
+!group_le\EFF {}tcoset!tt!184!
+!group_rightcoset!tt!184!
+!group_perm_normalize!tt!184!
+!group_quotient!tt!184!
+!quotient_perm!tt!184!
+!quotient_group!tt!184!
+!quotient_subgroup_li\EFF {}t!tt!184!
+!group_subgroups!tt!184!
+!subgroups_tableset!tt!184!
+!tableset_\EFF {}ind_index!tt!184!
+!groupelts_abelian_group!tt!184!
+!groupelts_center!tt!184!
+!group_export!tt!184!
+!galoisexport!tt!184!
+!group_ident!tt!184!
+!galoisidenti\EFF {}y!tt!184!
+!group_ident_trans!tt!184!
+!polgalois!tt!184!
+!pari_strdup!tt!185!
+!pari_strndup!tt!185!
+!stack_strdup!tt!185!
+!stack_strcat!tt!185!
+!stack_sprint\EFF {}!tt!185!
+!itostr!tt!185!
+!stack_malloc!tt!185!
+!GENtostr!tt!185!
+!pari_sprint\EFF {}!tt!185!
+!GENtostr_unquoted!tt!185!
+!GENtostr!tt!185!
+!GENtoTeXstr!tt!185!
+!\EFF {}_TEX!tt!185!
+!RgV_to_str!tt!185!
+!\EFF {}_RAW!tt!185!
+!\EFF {}_PRETTYMAT!tt!185!
+!\EFF {}_TEX!tt!185!
+!strtoGENstr!tt!185!
+!strntoGENstr!tt!185!
+!chartoGENstr!tt!185!
+!GENtoGENstr!tt!185!
+!raw!tt!185!
+!GENtostr!tt!185!
+!GENtoGENstr_nospace!tt!185!
+!Str!tt!185!
+!RgV_to_str!tt!185!
+!\EFF {}_RAW!tt!185!
+!Strtex!tt!185!
+!RgV_to_str!tt!185!
+!\EFF {}_TEX!tt!185!
+!Strexpand!tt!186!
+!RgV_to_str!tt!186!
+!\EFF {}_RAW!tt!186!
+!gsprint\EFF {}!tt!186!
+!strtoGENstr!tt!186!
+!gvsprint\EFF {}!tt!186!
+!gsprint\EFF {}!tt!186!
+!PariOUT!tt!186!
+!putch!tt!186!
+!puts!tt!186!
+!\EFF {}lush!tt!186!
+!pari_putc!tt!186!
+!pari_puts!tt!186!
+!pari_\EFF {}lush!tt!186!
+!pari_print\EFF {}!tt!186!
+!out_putc!tt!186!
+!out_puts!tt!186!
+!out_print\EFF {}!tt!186!
+!out_vprint\EFF {}!tt!186!
+!pari_last_was_newline!tt!186!
+!out_putc!tt!186!
+!out_puts!tt!186!
+!pari_set_last_newline!tt!186!
+!pari_last_was_newline!tt!186!
+!pariOut!tt!187!
+!pariErr!tt!187!
+!pari_out\EFF {}ile!tt!187!
+!stdout!tt!187!
+!pari_err\EFF {}ile!tt!187!
+!stderr!tt!187!
+!pari_out\EFF {}ile!tt!187!
+!switchout!tt!187!
+!colors!tt!187!
+!c_ERR!tt!187!
+!c_HIST!tt!187!
+!c_PROMPT!tt!187!
+!c_INPUT!tt!187!
+!c_OUTPUT!tt!187!
+!c_HELP!tt!187!
+!c_TIME!tt!187!
+!c_NONE!tt!187!
+!colors!tt!187!
+!term_color!tt!187!
+!pari_puts!tt!187!
+!c_NONE!tt!187!
+!out_term_color!tt!187!
+!term_color!tt!187!
+!term_get_color!tt!187!
+!c_NONE!tt!187!
+!output!tt!188!
+!pari_print\EFF {}!tt!188!
+!brute!tt!188!
+!matbrute!tt!188!
+!texe!tt!188!
+!pari_is_dir!tt!188!
+!pari_is_\EFF {}ile!tt!188!
+!\EFF {}ile_is_binary!tt!188!
+!writebin!tt!188!
+!pari_unlink!tt!188!
+!pari_\EFF {}read_chars!tt!188!
+!path_expand!tt!188!
+!str\EFF {}time_expand!tt!188!
+!pari_get_homedir!tt!188!
+!pari_stdin_isatty!tt!188!
+!pari_\EFF {}open!tt!188!
+!pari_\EFF {}open_or_\EFF {}ail!tt!189!
+!pari_\EFF {}opengz!tt!189!
+!pari_\EFF {}close!tt!189!
+!pari_sa\EFF {}e\EFF {}open!tt!189!
+!pari_unique_dir!tt!189!
+!malloc!tt!189!
+!pari_unique_\EFF {}ilename!tt!189!
+!malloc!tt!189!
+!pari_err!tt!189!
+!pari_err!tt!189!
+!pari_err!tt!189!
+!pari_malloc!tt!192!
+!pari_realloc!tt!192!
+!alarm!tt!192!
+!error!tt!193!
+!name_numerr!tt!194!
+!numerr_name!tt!194!
+!pari_err2str!tt!194!
+!hashtable!tt!194!
+!hashentry!tt!194!
+!hash_create!tt!195!
+!hash_insert!tt!195!
+!hash_search!tt!195!
+!hash_remove!tt!195!
+!hash_destroy!tt!195!
+!hash_str!tt!195!
+!hash_str2!tt!195!
+!hash_GEN!tt!195!
+!dynamic array!tt!195!
+!pari_stack_init!tt!196!
+!pari_stack_alloc!tt!196!
+!pari_stack_new!tt!196!
+!pari_stack_delete!tt!197!
+!pari_stack_pushp!tt!197!
+!pari_stack_base!tt!197!
+!gel!tt!197!
+!gcoe\EFF {}\EFF {}!tt!197!
+!gerepileupto!tt!197!
+!shallowcopy!tt!197!
+!RgM_shallowcopy!tt!197!
+!lea\EFF {}copy!tt!197!
+!RgM_shallowcopy!tt!197!
+!shallowtrans!tt!197!
+!gtrans!tt!197!
+!shallowconcat!tt!197!
+!shallowconcat1!tt!197!
+!shallowmatconcat!tt!198!
+!shallowextract!tt!198!
+!vecextract!tt!198!
+!extract0!tt!198!
+!RgM_minor!tt!198!
+!vconcat!tt!198!
+!shallowconcat!tt!198!
+!row!tt!198!
+!row_i!tt!198!
+!rowcopy!tt!198!
+!rowslice!tt!198!
+!rowpermute!tt!198!
+!rowslicepermute!tt!198!
+!vecslice!tt!198!
+!vecsplice!tt!198!
+!vecreverse!tt!198!
+!vecpermute!tt!198!
+!vecslicepermute!tt!198!
+!vecinv!tt!198!
+!vecmul!tt!199!
+!vecdiv!tt!199!
+!vecpow!tt!199!
+!vecmodii!tt!199!
+!const_col!tt!199!
+!const_vec!tt!199!
+!vec_isconst!tt!199!
+!vec_setconst!tt!199!
+!vec_is1to1!tt!199!
+!vec_shorten!tt!199!
+!vec_lengthen!tt!199!
+!vec_insert!tt!199!
+!const_vecsmall!tt!199!
+!vec_to_vecsmall!tt!199!
+!vecsmall_to_vec!tt!199!
+!vecsmall_to_col!tt!199!
+!vecsmall_copy!tt!199!
+!vecsmall_shorten!tt!199!
+!vecsmall_lengthen!tt!200!
+!vecsmall_indexsort!tt!200!
+!vecsmall_sort!tt!200!
+!vecsmall_max!tt!200!
+!vecsmall_indexmax!tt!200!
+!vecsmall_min!tt!200!
+!vecsmall_indexmin!tt!200!
+!vecsmall_isin!tt!200!
+!vecsmall_uniq!tt!200!
+!vecsmall_uniq_sorted!tt!200!
+!vecsmall_duplicate!tt!200!
+!vecsmall_duplicate_sorted!tt!200!
+!vecsmall_lexcmp!tt!200!
+!vecsmall_pre\EFF {}ixcmp!tt!200!
+!vecsmall_prepend!tt!200!
+!vecsmall_append!tt!200!
+!vecsmall_concat!tt!200!
+!vecsmall_coincidence!tt!200!
+!vecsmall_pack!tt!200!
+!vecvecsmall_sort!tt!201!
+!vecvecsmall_sort_uniq!tt!201!
+!vecvecsmall_indexsort!tt!201!
+!vecvecsmall_search!tt!201!
+!closure_disassemble!tt!203!
+!closure_callgenall!tt!203!
+!closure_callgenvec!tt!203!
+!closure_callgen1!tt!203!
+!closure_callgen2!tt!203!
+!closure_callvoid1!tt!203!
+!closure_evalgen!tt!203!
+!closure_evalnobrk!tt!203!
+!closure_evalvoid!tt!203!
+!closure_evalres!tt!203!
+!closure_evalbrk!tt!203!
+!closure_trapgen!tt!203!
+!loop_break!tt!204!
+!push_lex!tt!204!
+!pop_lex!tt!204!
+!get_lex!tt!204!
+!set_lex!tt!204!
+!compile_str!tt!204!
+!closure_deriv!tt!204!
+!snm_closure!tt!204!
+!strto\EFF {}unction!tt!204!
+!strtoclosure!tt!204!
+!snm_closure!tt!204!
+!closure_context!tt!204!
+!closure_err!tt!204!
+!gp_eval!tt!205!
+!gp_evalvoid!tt!205!
+!gp_evalbool!tt!205!
+!gp_evalupto!tt!205!
+!gp_call!tt!205!
+!gp_callbool!tt!205!
+!gp_callvoid!tt!205!
+!pari_is_de\EFF {}ault!tt!205!
+!setde\EFF {}ault!tt!205!
+!d_ACKNOWLEDGE!tt!205!
+!d_INITRC!tt!205!
+!d_RETURN!tt!205!
+!d_ACKNOWLEDGE!tt!205!
+!d_SILENT!tt!205!
+!sd_TeXstyle!tt!205!
+!sd_colors!tt!205!
+!sd_compatible!tt!205!
+!sd_datadir!tt!205!
+!sd_debug!tt!205!
+!sd_debug\EFF {}iles!tt!205!
+!sd_debugmem!tt!206!
+!sd_\EFF {}actor_add_primes!tt!206!
+!sd_\EFF {}actor_proven!tt!206!
+!sd_\EFF {}ormat!tt!206!
+!sd_histsize!tt!206!
+!sd_log!tt!206!
+!sd_log\EFF {}ile!tt!206!
+!sd_nbthreads!tt!206!
+!sd_new_galois_\EFF {}ormat!tt!206!
+!sd_output!tt!206!
+!sd_parisize!tt!206!
+!sd_path!tt!206!
+!sd_prettyprinter!tt!206!
+!sd_primelimit!tt!206!
+!sd_realprecision!tt!206!
+!sd_recover!tt!206!
+!sd_secure!tt!206!
+!sd_seriesprecision!tt!206!
+!sd_simpli\EFF {}y!tt!206!
+!sd_sopath!tt!206!
+!sd_strictargs!tt!206!
+!sd_strictmatch!tt!206!
+!sd_threadsize!tt!206!
+!d_INITRC!tt!206!
+!d_RETURN!tt!206!
+!sd_toggle!tt!206!
+!pari_err!tt!206!
+!d_RETURN!tt!207!
+!d_ACKNOWLEDGE!tt!207!
+!sd_ulong!tt!207!
+!d_RETURN!tt!207!
+!d_ACKNOWLEDGE!tt!207!
+!sd_string!tt!207!
+!obj_init!tt!207!
+!obj!it!207!
+!obj_check!tt!208!
+!obj_insert!tt!208!
+!obj_insert_shallow!tt!208!
+!obj_insert!tt!208!
+!obj_checkbuild!tt!208!
+!obj_checkbuild_padicprec!tt!208!
+!obj_checkbuild_prec!tt!208!
+!obj_\EFF {}ree!tt!208!
+!n\EFF {}typ!tt!209!
+!typ_NF!tt!209!
+!typ_BNF!tt!209!
+!typ_BNR!tt!209!
+!get_n\EFF {}!tt!209!
+!get_bn\EFF {}!tt!209!
+!get_n\EFF {}pol!tt!209!
+!get_bn\EFF {}pol!tt!209!
+!checkn\EFF {}!tt!209!
+!checkbn\EFF {}!tt!209!
+!checkbnr!tt!209!
+!checkbnrgen!tt!209!
+!checkbnr!tt!209!
+!checkrn\EFF {}!tt!209!
+!checkbid!tt!209!
+!checkgal!tt!209!
+!checksqmat!tt!209!
+!checkprid!tt!209!
+!get_prid!tt!209!
+!checkabgrp!tt!210!
+!abgrp_get_no!tt!210!
+!abgrp_get_cyc!tt!210!
+!abgrp_get_gen!tt!210!
+!checkmodpr!tt!210!
+!checkn\EFF {}elt_mod!tt!210!
+!check_ZKmodule!tt!210!
+!idealtyp!tt!210!
+!id_PRINCIPAL!tt!210!
+!id_PRIME!tt!210!
+!id_MAT!tt!210!
+!n\EFF {}_get_pol!tt!210!
+!n\EFF {}_get_varn!tt!210!
+!n\EFF {}_get_r1!tt!210!
+!n\EFF {}_get_r2!tt!210!
+!n\EFF {}_get_sign!tt!210!
+!n\EFF {}_get_degree!tt!210!
+!n\EFF {}_get_disc!tt!210!
+!n\EFF {}_get_index!tt!210!
+!n\EFF {}_get_zk!tt!210!
+!n\EFF {}_get_invzk!tt!210!
+!n\EFF {}_get_roots!tt!210!
+!n\EFF {}_get_allroots!tt!211!
+!n\EFF {}_get_M!tt!211!
+!n\EFF {}_get_G!tt!211!
+!n\EFF {}_get_roundG!tt!211!
+!RM_round_maxrank!tt!211!
+!n\EFF {}_get_Tr!tt!211!
+!n\EFF {}_get_di\EFF {}\EFF {}!tt!211!
+!n\EFF {}_get_prec!tt!211!
+!bn\EFF {}_get_n\EFF {}!tt!211!
+!bn\EFF {}_get_clgp!tt!211!
+!bn\EFF {}_get_cyc!tt!211!
+!bn\EFF {}_get_gen!tt!211!
+!bn\EFF {}_get_no!tt!211!
+!bn\EFF {}_get_reg!tt!211!
+!bn\EFF {}_get_log\EFF {}u!tt!211!
+!bn\EFF {}_get_\EFF {}u!tt!211!
+!bn\EFF {}_get_\EFF {}u_nocheck!tt!211!
+!bn\EFF {}_get_\EFF {}u!tt!211!
+!bn\EFF {}_get_tuU!tt!211!
+!bn\EFF {}_get_tuN!tt!211!
+!bnr_get_bn\EFF {}!tt!212!
+!bnr_get_n\EFF {}!tt!212!
+!bnr_get_clgp!tt!212!
+!bnr_get_no!tt!212!
+!bnr_get_cyc!tt!212!
+!bnr_get_gen!tt!212!
+!bnr_get_gen_nocheck!tt!212!
+!bnr_get_gen!tt!212!
+!bnr_get_bid!tt!212!
+!bnr_get_mod!tt!212!
+!rn\EFF {}_get_degree!tt!212!
+!rn\EFF {}_get_absdegree!tt!212!
+!rn\EFF {}_get_n\EFF {}degree!tt!212!
+!rn\EFF {}_get_n\EFF {}!tt!212!
+!rn\EFF {}_get_n\EFF {}pol!tt!212!
+!rn\EFF {}_get_n\EFF {}varn!tt!212!
+!rn\EFF {}_get_n\EFF {}zk!tt!212!
+!rn\EFF {}_get_pol!tt!212!
+!rn\EFF {}_get_varn!tt!212!
+!rn\EFF {}_get_zk!tt!212!
+!rn\EFF {}_get_disc!tt!212!
+!rn\EFF {}_get_index!tt!212!
+!rn\EFF {}_get_polabs!tt!212!
+!rn\EFF {}_get_invzk!tt!212!
+!rn\EFF {}_get_map!tt!212!
+!bid_get_mod!tt!213!
+!bid_get_grp!tt!213!
+!bid_get_ideal!tt!213!
+!bid_get_arch!tt!213!
+!bid_get_no!tt!213!
+!bid_get_cyc!tt!213!
+!bid_get_gen!tt!213!
+!bid_get_gen_nocheck!tt!213!
+!bid_get_gen!tt!213!
+!n\EFF {}newprec!tt!213!
+!bn\EFF {}isprincipal0!tt!213!
+!bn\EFF {}newprec!tt!213!
+!bnrnewprec!tt!213!
+!n\EFF {}newprec_shallow!tt!213!
+!bn\EFF {}newprec_shallow!tt!213!
+!bnrnewprec_shallow!tt!213!
+!Q_remove_denom!tt!214!
+!n\EFF {}add!tt!214!
+!n\EFF {}div!tt!214!
+!n\EFF {}inv!tt!214!
+!n\EFF {}mul!tt!214!
+!n\EFF {}pow!tt!214!
+!n\EFF {}pow_u!tt!214!
+!n\EFF {}sqr!tt!214!
+!n\EFF {}val!tt!214!
+!n\EFF {}norm!tt!214!
+!n\EFF {}trace!tt!214!
+!n\EFF {}poleval!tt!214!
+!FpX_FpC_n\EFF {}poleval!tt!214!
+!n\EFF {}diveuc!tt!214!
+!n\EFF {}divrem!tt!214!
+!n\EFF {}mod!tt!214!
+!n\EFF {}_to_scalar_or_basis!tt!215!
+!n\EFF {}algtobasis!tt!215!
+!n\EFF {}_to_scalar_or_alg!tt!215!
+!n\EFF {}basistoalg!tt!215!
+!RgX_to_n\EFF {}X!tt!215!
+!RgM_to_n\EFF {}M!tt!215!
+!RgC_to_n\EFF {}C!tt!215!
+!n\EFF {}invmodideal!tt!215!
+!n\EFF {}powmodideal!tt!215!
+!n\EFF {}muli!tt!215!
+!n\EFF {}sqri!tt!215!
+!n\EFF {}C_n\EFF {}_mul!tt!215!
+!zk_multable!tt!215!
+!zk_scalar_or_multable!tt!215!
+!multable!tt!216!
+!ei_multable!tt!216!
+!tablemul!tt!216!
+!tablesqr!tt!216!
+!tablemul_ei!tt!216!
+!tablemul_ei_ej!tt!216!
+!tablemulvec!tt!216!
+!\EFF {}amat!it!216!
+!\EFF {}amat_reduce!tt!216!
+!\EFF {}amat_mul!tt!216!
+!\EFF {}amat_mul_shallow!tt!216!
+!\EFF {}amat_pow!tt!216!
+!\EFF {}amat_sqr!tt!216!
+!\EFF {}amat_inv!tt!216!
+!\EFF {}amat_inv_shallow!tt!216!
+!\EFF {}amat_inv!tt!216!
+!to_\EFF {}amat!tt!216!
+!to_\EFF {}amat_shallow!tt!216!
+!\EFF {}amat_reduce!tt!217!
+!ZM_\EFF {}amat_limit!tt!217!
+!\EFF {}amat_to_n\EFF {}!tt!217!
+!n\EFF {}\EFF {}actorback!tt!217!
+!\EFF {}amat_to_n\EFF {}!tt!217!
+!n\EFF {}sign!tt!217!
+!n\EFF {}sign_arch!tt!217!
+!ideallog!tt!217!
+!bn\EFF {}isunit!tt!217!
+!\EFF {}amatsmall_reduce!tt!217!
+!idealhn\EFF {}!tt!217!
+!idealprimedec!tt!217!
+!ideal\EFF {}actor!tt!217!
+!mathn\EFF {}!tt!217!
+!idealhn\EFF {}0!tt!217!
+!idealhn\EFF {}_principal!tt!217!
+!idealhn\EFF {}_shallow!tt!217!
+!idealhn\EFF {}!tt!217!
+!idealhn\EFF {}_two!tt!217!
+!zk_multable!tt!218!
+!idealadd!tt!218!
+!idealdiv!tt!218!
+!idealmul!tt!218!
+!idealsqr!tt!218!
+!idealinv!tt!218!
+!idealpow!tt!218!
+!idealpows!tt!218!
+!idealmulred!tt!218!
+!idealpowred!tt!218!
+!idealdivexact!tt!218!
+!idealdiv!tt!218!
+!idealdivpowprime!tt!218!
+!gerepileupto!tt!218!
+!idealmulpowprime!tt!218!
+!gerepileupto!tt!218!
+!idealprodprime!tt!218!
+!idealmul_HNF!tt!218!
+!idealaddtoone!tt!218!
+!idealaddtoone_i!tt!219!
+!idealaddtoone!tt!219!
+!hn\EFF {}merge_get_1!tt!219!
+!idealaddtoone!tt!219!
+!idealaddmultoone!tt!219!
+!idealappr!tt!219!
+!idealappr\EFF {}act!tt!219!
+!idealappr!tt!219!
+!idealcoprime!tt!219!
+!idealcoprime\EFF {}act!tt!219!
+!idealcoprime!tt!219!
+!ideal\EFF {}actor!tt!219!
+!idealchinese!tt!219!
+!prid!it!219!
+!idealprimedec!tt!219!
+!ideal\EFF {}actor!tt!219!
+!pr_get_p!tt!219!
+!pr_get_gen!tt!219!
+!pr_get_e!tt!219!
+!pr_get_\EFF {}!tt!219!
+!pr_get_tau!tt!219!
+!zk_scalar_or_multable!tt!219!
+!pr_is_inert!tt!220!
+!pr_norm!tt!220!
+!n\EFF {}modprinit!tt!220!
+!n\EFF {}_to_Fq_init!tt!220!
+!n\EFF {}_to_Fq!tt!220!
+!Fq_to_n\EFF {}!tt!220!
+!modpr_genFq!tt!220!
+!n\EFF {}_to_Fq!tt!220!
+!zkmodprinit!tt!220!
+!n\EFF {}modprinit!tt!220!
+!zk_to_Fq_init!tt!220!
+!zk_to_Fq!tt!220!
+!n\EFF {}M_to_FqM!tt!220!
+!FqM_to_n\EFF {}M!tt!220!
+!n\EFF {}V_to_FqV!tt!220!
+!FqV_to_n\EFF {}V!tt!220!
+!n\EFF {}X_to_FqX!tt!220!
+!FqX_to_n\EFF {}X!tt!220!
+!n\EFF {}val!tt!221!
+!ZC_n\EFF {}val!tt!221!
+!ZC_n\EFF {}valrem!tt!221!
+!ZC_prdvd!tt!221!
+!pr_equal!tt!221!
+!vec01_to_indices!tt!221!
+!indices_to_vec01!tt!221!
+!n\EFF {}sign!tt!221!
+!Flv_add_inplace!tt!221!
+!n\EFF {}sign_arch!tt!221!
+!vec01_to_indices!tt!221!
+!n\EFF {}sign_units!tt!221!
+!n\EFF {}sign_\EFF {}rom_logarch!tt!221!
+!set_sign_mod_divisor!tt!222!
+!n\EFF {}archstar!tt!222!
+!idealprincipalunits!tt!222!
+!idealstar!tt!222!
+!n\EFF {}maxord!tt!222!
+!n\EFF {}maxord_t!tt!222!
+!ZX_Q_normalize!tt!222!
+!n\EFF {}_PARTIALFACT!tt!222!
+!n\EFF {}_ROUND2!tt!223!
+!n\EFF {}basis!tt!223!
+!indexpartial!tt!223!
+!bn\EFF {}isprincipal0!tt!223!
+!n\EFF {}_GEN!tt!223!
+!n\EFF {}_GENMAT!tt!223!
+!idealmulred!tt!223!
+!n\EFF {}_GEN_IF_PRINCIPAL!tt!223!
+!n\EFF {}_FORCE!tt!223!
+!bn\EFF {}newprec!tt!223!
+!isprincipal!tt!223!
+!isprincipal\EFF {}act!tt!224!
+!n\EFF {}_GENMAT!tt!224!
+!isprincipal\EFF {}act_or_\EFF {}ail!tt!224!
+!bn\EFF {}newprec!tt!224!
+!n\EFF {}_get_M!tt!224!
+!embed_T2!tt!224!
+!embednorm_T2!tt!224!
+!embed_T2!tt!224!
+!embed_roots!tt!224!
+!embed_disc!tt!224!
+!embed_norm!tt!224!
+!n\EFF {}_get_Gtwist!tt!225!
+!RM_round_maxrank!tt!225!
+!n\EFF {}_get_Gtwist1!tt!225!
+!idealpseudomin!tt!225!
+!n\EFF {}_get_Gtwist!tt!225!
+!idealred!tt!225!
+!idealpseudomin_nonscalar!tt!225!
+!idealpseudomin!tt!225!
+!idealred_elt!tt!225!
+!idealred0!tt!225!
+!n\EFF {}_get_Gtwist!tt!225!
+!n\EFF {}_get_roundG!tt!225!
+!idealred!tt!225!
+!bn\EFF {}isprincipal0!tt!226!
+!idealred_elt!tt!226!
+!idealmoddivisor!tt!226!
+!\EFF {}amat_to_n\EFF {}_moddivisor!tt!226!
+!\EFF {}amat_to_n\EFF {}_modideal_coprime!tt!226!
+!\EFF {}amat_makecoprime!tt!226!
+!\EFF {}amat_to_n\EFF {}_modideal_coprime!tt!226!
+!Buchray!tt!227!
+!bnrclassno!tt!227!
+!Buchray!tt!227!
+!bnrconductor!tt!227!
+!bnrisconductor!tt!227!
+!bnrdisc!tt!227!
+!rn\EFF {}_REL!tt!227!
+!rn\EFF {}_COND!tt!227!
+!bnrsurjection!tt!227!
+!ABC_to_bnr!tt!227!
+!rn\EFF {}equationall!tt!227!
+!n\EFF {}_rn\EFF {}eq!tt!227!
+!rn\EFF {}equationall!tt!228!
+!rn\EFF {}_get_map!tt!228!
+!n\EFF {}_rn\EFF {}eqsimple!tt!228!
+!n\EFF {}_rn\EFF {}eq!tt!228!
+!abstorel!tt!228!
+!eltabstorel!tt!228!
+!rn\EFF {}_get_map!tt!228!
+!rn\EFF {}eltabstorel!tt!228!
+!n\EFF {}_rn\EFF {}eq!tt!228!
+!n\EFF {}_rn\EFF {}eqsimple!tt!228!
+!eltabstorel_li\EFF {}t!tt!228!
+!eltabstorel!tt!228!
+!eltreltoabs!tt!228!
+!rn\EFF {}_get_map!tt!228!
+!rn\EFF {}eltreltoabs!tt!228!
+!n\EFF {}_rn\EFF {}eq!tt!228!
+!n\EFF {}_n\EFF {}zk!tt!228!
+!n\EFF {}_rn\EFF {}eq!tt!228!
+!n\EFF {}eltup!tt!228!
+!rn\EFF {}_get_n\EFF {}zk!tt!228!
+!n\EFF {}eltup!tt!228!
+!n\EFF {}_n\EFF {}zk!tt!228!
+!rn\EFF {}_get_n\EFF {}zk!tt!228!
+!rn\EFF {}eltup!tt!228!
+!Rg_n\EFF {}\EFF {}ix!tt!228!
+!RgX_n\EFF {}\EFF {}ix!tt!228!
+!Rg_n\EFF {}\EFF {}ix!tt!228!
+!RgV_n\EFF {}\EFF {}ix!tt!228!
+!RgX_n\EFF {}\EFF {}ix!tt!228!
+!polmod_n\EFF {}\EFF {}ix!tt!228!
+!Rg_n\EFF {}\EFF {}ix!tt!228!
+!polmod_n\EFF {}\EFF {}ix2!tt!229!
+!polmod_n\EFF {}\EFF {}ix!tt!229!
+!numbero\EFF {}conjugates!tt!229!
+!n\EFF {}galoisconj!tt!229!
+!zidealstar!tt!229!
+!zidealstarinit!tt!229!
+!zidealstarinitgen!tt!229!
+!buchimag!tt!229!
+!buchreal!tt!229!
+!isprincipal\EFF {}orce!tt!229!
+!isprincipalgen!tt!229!
+!isprincipalgen\EFF {}orce!tt!229!
+!isprincipalraygen!tt!229!
+!bnrisprincipal!tt!229!
+!\EFF {}actoredpolred!tt!229!
+!\EFF {}actoredpolred2!tt!229!
+!smallpolred!tt!229!
+!smallpolred2!tt!229!
+!Polred!tt!229!
+!polredabs!tt!229!
+!polredabs2!tt!229!
+!polredabsall!tt!229!
+!polred0!tt!229!
+!n\EFF {}basis0!tt!229!
+!n\EFF {}disc0!tt!229!
+!\EFF {}actorpadic0!tt!229!
+!bnrdisc!tt!230!
+!discrayabs!tt!230!
+!discrayabscond!tt!230!
+!discrayrel!tt!230!
+!discrayrelcond!tt!230!
+!bnrdisclist0!tt!230!
+!discrayabslist!tt!230!
+!discrayabslistarch!tt!230!
+!discrayabslistlong!tt!230!
+!galoisinit!tt!230!
+!galoisinit!tt!230!
+!gal_get_pol!tt!230!
+!gal_get_p!tt!230!
+!gal_get_e!tt!230!
+!gal_get_mod!tt!230!
+!gal_get_roots!tt!230!
+!gal_get_invvdm!tt!230!
+!gal_get_den!tt!230!
+!gal_get_group!tt!230!
+!gal_get_gen!tt!230!
+!gal_get_orders!tt!230!
+!n\EFF {}galoismatrix!tt!230!
+!check_quaddisc!tt!231!
+!check_quaddisc_real!tt!231!
+!check_quaddisc!tt!231!
+!check_quaddisc_imag!tt!231!
+!check_quaddisc!tt!231!
+!q\EFF {}i!tt!231!
+!q\EFF {}r!tt!231!
+!q\EFF {}r_1!tt!231!
+!q\EFF {}i_1!tt!231!
+!q\EFF {}icomp!tt!231!
+!q\EFF {}rcomp!tt!231!
+!q\EFF {}isqr!tt!231!
+!q\EFF {}rsqr!tt!231!
+!q\EFF {}icompraw!tt!231!
+!q\EFF {}rcompraw!tt!231!
+!q\EFF {}isqrraw!tt!231!
+!q\EFF {}rsqrraw!tt!231!
+!q\EFF {}bcompraw!tt!231!
+!powgi!tt!231!
+!q\EFF {}rpow!tt!231!
+!q\EFF {}bpowraw!tt!232!
+!q\EFF {}ipowraw!tt!232!
+!q\EFF {}bpowraw!tt!232!
+!q\EFF {}rpowraw!tt!232!
+!q\EFF {}bpowraw!tt!232!
+!q\EFF {}bsolve!tt!232!
+!q\EFF {}isolvep!tt!232!
+!q\EFF {}rsolvep!tt!232!
+!cornacchia!tt!232!
+!cornacchia2!tt!232!
+!prime\EFF {}orm_u!tt!232!
+!prime\EFF {}orm!tt!232!
+!q\EFF {}r3!tt!232!
+!q\EFF {}r5!tt!232!
+!q\EFF {}r_data_init!tt!233!
+!q\EFF {}r3_comp!tt!233!
+!q\EFF {}r3_pow!tt!233!
+!q\EFF {}r3_red!tt!233!
+!q\EFF {}r3_rho!tt!233!
+!q\EFF {}r3_to_q\EFF {}r!tt!233!
+!q\EFF {}r5_comp!tt!233!
+!q\EFF {}r5_pow!tt!233!
+!q\EFF {}r5_red!tt!233!
+!q\EFF {}r5_rho!tt!233!
+!q\EFF {}r5_dist!tt!233!
+!q\EFF {}r_to_q\EFF {}r5!tt!233!
+!q\EFF {}r5_to_q\EFF {}r!tt!233!
+!q\EFF {}r_to_q\EFF {}r5!tt!233!
+!ZM_hn\EFF {}!tt!233!
+!ZM_hn\EFF {}all!tt!233!
+!ZM_hn\EFF {}mod!tt!233!
+!ZM_hn\EFF {}!tt!233!
+!ZM_hn\EFF {}modid!tt!233!
+!ZM_hn\EFF {}modall!tt!234!
+!hn\EFF {}_MODID!tt!234!
+!hn\EFF {}_PART!tt!234!
+!hn\EFF {}_CENTER!tt!234!
+!ZM_hn\EFF {}all!tt!234!
+!ZM_hn\EFF {}perm!tt!234!
+!ZM_hn\EFF {}lll!tt!234!
+!ZM_hn\EFF {}all!tt!234!
+!LLL!rm!234!
+!ZM_hn\EFF {}center!tt!234!
+!hn\EFF {}_divscale!tt!234!
+!hn\EFF {}_solve!tt!235!
+!hn\EFF {}_invimage!tt!235!
+!hn\EFF {}divide!tt!235!
+!ZM_sn\EFF {}!tt!235!
+!ZM_sn\EFF {}all!tt!235!
+!ZM_sn\EFF {}all_i!tt!235!
+!ZM_sn\EFF {}clean!tt!235!
+!ZM_sn\EFF {}_group!tt!235!
+!matrixqz!tt!235!
+!QM_ImQ_hn\EFF {}!tt!235!
+!QM_ImZ_hn\EFF {}!tt!235!
+!QM_minors_coprime!tt!235!
+!hn\EFF {}!tt!236!
+!ZM_hn\EFF {}!tt!236!
+!hn\EFF {}mod!tt!236!
+!ZM_hn\EFF {}mod!tt!236!
+!hn\EFF {}modid!tt!236!
+!ZM_hn\EFF {}modid!tt!236!
+!hn\EFF {}all!tt!236!
+!hn\EFF {}lll!tt!236!
+!hn\EFF {}perm!tt!236!
+!smith!tt!236!
+!smithall!tt!236!
+!gsmith!tt!236!
+!gsmithall!tt!236!
+!RgM_hn\EFF {}all!tt!236!
+!ZM_hn\EFF {}all!tt!236!
+!smithclean!tt!236!
+!LLL!rm!236!
+!q\EFF {}lll0!tt!236!
+!lll!tt!236!
+!lllint!tt!236!
+!lllkerim!tt!236!
+!lllkerimgen!tt!236!
+!lllgen!tt!236!
+!q\EFF {}lllgram0!tt!236!
+!lllgram!tt!236!
+!lllgramint!tt!237!
+!lllgramkerim!tt!237!
+!lllgramkerimgen!tt!237!
+!lllgramgen!tt!237!
+!ZM_lll!tt!237!
+!LLL_GRAM!tt!237!
+!LLL_INPLACE!tt!237!
+!LLL_IM!tt!237!
+!LLL_KEEP_FIRST!tt!237!
+!LLL_KER!tt!237!
+!LLL_IM!tt!237!
+!LLL_INPLACE!tt!237!
+!LLL_ALL!tt!237!
+!lll\EFF {}p!tt!237!
+!ZM_lll!tt!237!
+!ZM_lll_norms!tt!237!
+!lllintpartial_inplace!tt!237!
+!lllintpartial!tt!237!
+!ZC_hn\EFF {}remdiv!tt!238!
+!ZM_hn\EFF {}divrem!tt!238!
+!ZC_hn\EFF {}rem!tt!238!
+!ZM_hn\EFF {}rem!tt!238!
+!ZC_reducemodmatrix!tt!238!
+!ZM_reducemodmatrix!tt!238!
+!ZC_reducemodmatrix!tt!238!
+!ZC_reducemodmatrix!tt!238!
+!ZC_reducemodlll!tt!238!
+!ZC_reducemodmatrix!tt!238!
+!ZM_reducemodlll!tt!238!
+!ZM_reducemodmatrix!tt!238!
+!reducemodinvertible!tt!238!
+!closemodinvertible!tt!238!
+!reducemodlll!tt!238!
+!RM_round_maxrank!tt!238!
+!n\EFF {}_get_Gtwist!tt!238!
+!\EFF {}actor!tt!239!
+!ellinit!tt!239!
+!ellinit!tt!239!
+!ell!tt!239!
+!checkell!tt!239!
+!checkell5!tt!239!
+!checkellpt!tt!239!
+!ell_get_type!tt!239!
+!t_ELL_Q!tt!239!
+!t_ELL_Qp!tt!239!
+!t_ELL_Fp!tt!239!
+!t_ELL_Fq!tt!239!
+!t_ELL_Rg!tt!239!
+!checkell_Fq!tt!239!
+!pari_err_TYPE!tt!239!
+!checkell_Q!tt!240!
+!pari_err_TYPE!tt!240!
+!checkell_Qp!tt!240!
+!pari_err_TYPE!tt!240!
+!ell_get_a1!tt!240!
+!ell_get_a2!tt!240!
+!ell_get_a3!tt!240!
+!ell_get_a4!tt!240!
+!ell_get_a6!tt!240!
+!ell_get_b2!tt!240!
+!ell_get_b4!tt!240!
+!ell_get_b6!tt!240!
+!ell_get_b8!tt!240!
+!ell_get_c4!tt!240!
+!ell_get_c6!tt!240!
+!ell_get_disc!tt!240!
+!ell_get_j!tt!240!
+!ellQ_get_N!tt!240!
+!ellQ_get_N\EFF {}a!tt!240!
+!ellrootno_global!tt!240!
+!elldatagenerators!tt!240!
+!ellanal_globalred!tt!240!
+!obj_\EFF {}ree!tt!240!
+!ellQp_get_p!tt!241!
+!ellQp_get_prec!tt!241!
+!ellQp_get_zero!tt!241!
+!ellQp_Tate_uni\EFF {}ormization!tt!241!
+!ellQp_u!tt!241!
+!ellQp_u2!tt!241!
+!ellQp_q!tt!241!
+!ellQp_ab!tt!241!
+!ellQp_root!tt!241!
+!ell\EFF {}\EFF {}_get_p!tt!241!
+!ell\EFF {}\EFF {}_get_\EFF {}ield!tt!241!
+!ell\EFF {}\EFF {}_get_card!tt!241!
+!ell\EFF {}\EFF {}_get_gens!tt!241!
+!ell\EFF {}\EFF {}_get_group!tt!241!
+!ell\EFF {}\EFF {}_get_o!tt!241!
+!ell\EFF {}\EFF {}_get_a4a6!tt!241!
+!ellR_get_prec!tt!242!
+!ellR_ab!tt!242!
+!ellR_omega!tt!242!
+!ellR_eta!tt!242!
+!ellR_roots!tt!242!
+!ellR_get_sign!tt!242!
+!ell_is_in\EFF {}!tt!242!
+!ellin\EFF {}!tt!242!
+!ellchangeinvert!tt!242!
+!ellap!tt!242!
+!ellsea!tt!242!
+!t_ELL_Fq!tt!242!
+!ell_get_type!tt!242!
+!t_ELL_Fq!tt!242!
+!t_ELL_Fq!tt!242!
+!FF_ellmul!tt!243!
+!FF_ellrandom!tt!243!
+!FF_ellorder!tt!243!
+!FF_ellcard!tt!243!
+!FF_ellgens!tt!243!
+!FF_elllog!tt!243!
+!FF_ellgroup!tt!243!
+!FF_ellweilpairing!tt!243!
+!FF_elltatepairing!tt!243!
+!elltrace_extension!tt!243!
+!Fp_ellj!tt!243!
+!Fp_ellcard!tt!243!
+!Fp_ellcard_SEA!tt!243!
+!ellsea!tt!243!
+!Fq_ellcard_SEA!tt!243!
+!ellsea!tt!243!
+!Fp_\EFF {}\EFF {}ellcard!tt!243!
+!Fp_ellgroup!tt!243!
+!Fp_ellgens!tt!243!
+!Fp_elldivpol!tt!244!
+!FpE_add!tt!244!
+!FpE_sub!tt!244!
+!FpE_dbl!tt!244!
+!FpE_neg!tt!244!
+!FpE_mul!tt!244!
+!FpE_changepoint!tt!244!
+!FpE_changepointinv!tt!244!
+!random_FpE!tt!244!
+!FpE_order!tt!244!
+!FpE_log!tt!244!
+!FpE_tatepairing!tt!244!
+!FpE_weilpairing!tt!244!
+!FpE_to_mod!tt!244!
+!RgE_to_FpE!tt!244!
+!Fl_elltrace!tt!244!
+!Fle_add!tt!244!
+!Fle_dbl!tt!244!
+!Fle_sub!tt!244!
+!Fle_mul!tt!244!
+!Fle_mulu!tt!245!
+!Fle_order!tt!245!
+!random_Fle!tt!245!
+!F2xq_ellcard!tt!245!
+!F2xq_ellgroup!tt!245!
+!F2xq_ellgens!tt!245!
+!F2xqE_changepoint!tt!245!
+!F2xqE_changepointinv!tt!245!
+!F2xqE_add!tt!245!
+!F2xqE_sub!tt!245!
+!F2xqE_dbl!tt!245!
+!F2xqE_neg!tt!245!
+!F2xqE_mul!tt!245!
+!random_F2xqE!tt!245!
+!F2xqE_order!tt!245!
+!F2xqE_log!tt!245!
+!F2xqE_tatepairing!tt!245!
+!F2xqE_weilpairing!tt!245!
+!RgE_to_F2xqE!tt!246!
+!Flxq_ellj!tt!246!
+!Flxq_ellcard!tt!246!
+!Flxq_ellgroup!tt!246!
+!Flxq_ellgens!tt!246!
+!FlxqE_changepoint!tt!246!
+!FlxqE_changepointinv!tt!246!
+!FlxqE_add!tt!246!
+!FlxqE_sub!tt!246!
+!FlxqE_dbl!tt!246!
+!FlxqE_neg!tt!246!
+!FlxqE_mul!tt!246!
+!random_FlxqE!tt!246!
+!FlxqE_order!tt!246!
+!FlxqE_log!tt!246!
+!FlxqE_tatepairing!tt!246!
+!FlxqE_weilpairing!tt!246!
+!RgE_to_FlxqE!tt!246!
+!FpXQ_ellj!tt!247!
+!FpXQ_ellcard!tt!247!
+!FpXQ_ellgroup!tt!247!
+!FpXQ_ellgens!tt!247!
+!FpXQ_elldivpol!tt!247!
+!Fq_elldivpolmod!tt!247!
+!FpXQE_changepoint!tt!247!
+!FpXQE_changepointinv!tt!247!
+!FpXQE_add!tt!247!
+!FpXQE_sub!tt!247!
+!FpXQE_dbl!tt!247!
+!FpXQE_neg!tt!247!
+!FpXQE_mul!tt!247!
+!random_FpXQE!tt!247!
+!FpXQE_log!tt!247!
+!FpXQE_order!tt!247!
+!FpXQE_tatepairing!tt!247!
+!FpXQE_weilpairing!tt!247!
+!RgE_to_FpXQE!tt!248!
+!hyperell_locally_soluble!tt!248!
+!n\EFF {}_hyperell_locally_soluble!tt!248!
+!threads!rm!251!
+!pari_thread_alloc!tt!251!
+!pari_thread_\EFF {}ree!tt!251!
+!pthread_join!tt!251!
+!pari_thread_init!tt!251!
+!pari_thread_start!tt!251!
+!pari_thread_close!tt!251!
+The End

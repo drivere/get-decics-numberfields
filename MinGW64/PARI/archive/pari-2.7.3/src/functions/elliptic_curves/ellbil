@@ -1,0 +1,13 @@
+Function: ellbil
+Section: elliptic_curves
+C-Name: bilhell
+Prototype: GGGp
+Help: ellbil(E,z1,z2): canonical bilinear form for the points z1,z2 on the
+ elliptic curve E. Either z1 or z2 can also be a vector/matrix of points.
+Doc:
+ if $z1$ and $z2$ are points on the elliptic
+ curve $E$ this function
+ computes the value of the canonical bilinear form on $z1$, $z2$:
+ $$ ( h(E,z1\kbd{+}z2) - h(E,z1) - h(E,z2) ) / 2 $$
+ where \kbd{+} denotes of course addition on $E$. In addition, $z1$ or $z2$
+ (but not both) can be vectors or matrices.

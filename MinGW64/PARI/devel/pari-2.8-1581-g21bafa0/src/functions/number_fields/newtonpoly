@@ -1,0 +1,13 @@
+Function: newtonpoly
+Section: number_fields
+C-Name: newtonpoly
+Prototype: GG
+Help: newtonpoly(x,p): Newton polygon of polynomial x with respect to the
+ prime p.
+Doc: gives the vector of the slopes of the Newton
+ polygon of the polynomial $x$ with respect to the prime number $p$. The $n$
+ components of the vector are in decreasing order, where $n$ is equal to the
+ degree of $x$. Vertical slopes occur iff the constant coefficient of $x$ is
+ zero and are denoted by \tet{LONG_MAX}, the biggest single precision
+ integer representable on the machine ($2^{31}-1$ (resp.~$2^{63}-1$) on 32-bit
+ (resp.~64-bit) machines), see \secref{se:valuation}.

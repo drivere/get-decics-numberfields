@@ -1,0 +1,122 @@
+This file contains messages produced while configuring
+  pari-2.7.2 
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure 
+
+/usr/bin/i686-w64-mingw32-g++ -o mingw-i686-ansi26244 ansi.c
+/usr/bin/i686-w64-mingw32-g++ -o mingw-i686-gnu26244 gnu.c
+/usr/bin/i686-w64-mingw32-g++ -fno-strict-aliasing -o mingw-i686-gnu26244 gnu.c
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing endian.c -o mingw-i686-endian26244
+endian.c: In function 'int main()':
+endian.c:17:20: warning: left shift count >= width of type [enabled by default]
+     if (x.l==(1UL<<62)) printf("-\n");
+                    ^
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_exp2.c -o mingw-i686-tmp26244 -lm
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_log2.c -o mingw-i686-tmp26244 -lm
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_strftime.c -o mingw-i686-tmp26244
+has_strftime.c: In function 'int main()':
+has_strftime.c:2:53: warning: deprecated conversion from string constant to 'char*' [-Wwrite-strings]
+ int main(){ struct tm *x = NULL; strftime("",1," ",x); return 0; }
+                                                     ^
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_getrusage.c -o mingw-i686-tmp26244
+has_getrusage.c:5:26: fatal error: sys/resource.h: No such file or directory
+ #include <sys/resource.h>
+                          ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_times.c -o mingw-i686-tmp26244
+has_times.c:2:23: fatal error: sys/times.h: No such file or directory
+ #include <sys/times.h>
+                       ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_sigaction.c -o mingw-i686-tmp26244
+has_sigaction.c: In function 'int main()':
+has_sigaction.c:4:20: error: aggregate 'main()::sigaction sa' has incomplete type and cannot be defined
+   struct sigaction sa, oldsa;
+                    ^
+has_sigaction.c:4:24: error: aggregate 'main()::sigaction oldsa' has incomplete type and cannot be defined
+   struct sigaction sa, oldsa;
+                        ^
+has_sigaction.c:7:26: error: 'sigemptyset' was not declared in this scope
+   sigemptyset(&sa.sa_mask);
+                          ^
+has_sigaction.c:8:17: error: 'SA_NODEFER' was not declared in this scope
+   sa.sa_flags = SA_NODEFER;
+                 ^
+has_sigaction.c:10:39: error: invalid use of incomplete type 'struct main()::sigaction'
+   (void)(sigaction(SIGINT, &sa, &oldsa));
+                                       ^
+has_sigaction.c:4:10: error: forward declaration of 'struct main()::sigaction'
+   struct sigaction sa, oldsa;
+          ^
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_TIOCGWINSZ.c -o mingw-i686-tmp26244
+has_TIOCGWINSZ.c:6:23: fatal error: sys/ioctl.h: No such file or directory
+ #include <sys/ioctl.h>
+                       ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_getrlimit.c -o mingw-i686-tmp26244
+has_getrlimit.c:3:26: fatal error: sys/resource.h: No such file or directory
+ #include <sys/resource.h>
+                          ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_stat.c -o mingw-i686-tmp26244
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_vsnprintf.c -o mingw-i686-tmp26244
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_waitpid.c -o mingw-i686-tmp26244
+has_waitpid.c:3:22: fatal error: sys/wait.h: No such file or directory
+ #include <sys/wait.h>
+                      ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_setsid.c -o mingw-i686-tmp26244
+has_setsid.c:3:16: error: 'setsid' was not declared in this scope
+ pid_t (*f)() = setsid;
+                ^
+has_setsid.c: In function 'int main()':
+has_setsid.c:4:25: error: 'setsid' was not declared in this scope
+ int main(){ return f != setsid; }
+                         ^
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_getenv.c -o mingw-i686-tmp26244
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_isatty.c -o mingw-i686-tmp26244
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_alarm.c -o mingw-i686-tmp26244
+has_alarm.c:2:35: error: 'alarm' was not declared in this scope
+ unsigned int (*f)(unsigned int) = alarm;
+                                   ^
+has_alarm.c: In function 'int main()':
+has_alarm.c:3:25: error: 'alarm' was not declared in this scope
+ int main(){ return f != alarm; }
+                         ^
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_dlopen.c -o mingw-i686-tmp26244
+/tmp/ccBVP8AC.o:has_dlopen.c:(.text.startup+0x1e): undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing has_dlopen.c -o mingw-i686-tmp26244 -ldl
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-i686-gmpv26244 gmp_version.c -lgmp
+In file included from /usr/include/features.h:399:0,
+                 from /usr/include/stdio.h:27,
+                 from gmp_version.c:1:
+/usr/include/gnu/stubs.h:7:27: fatal error: gnu/stubs-32.h: No such file or directory
+ # include <gnu/stubs-32.h>
+                           ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-i686-gmpv26244 ansi.c -lgmp
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-i686-rlv26244 rl_version.c -lreadline
+In file included from /usr/include/features.h:399:0,
+                 from /usr/include/stdio.h:27,
+                 from rl_version.c:1:
+/usr/include/gnu/stubs.h:7:27: fatal error: gnu/stubs-32.h: No such file or directory
+ # include <gnu/stubs-32.h>
+                           ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-i686-rlv26244 rl_version.c -lreadline -lncurses
+In file included from /usr/include/features.h:399:0,
+                 from /usr/include/stdio.h:27,
+                 from rl_version.c:1:
+/usr/include/gnu/stubs.h:7:27: fatal error: gnu/stubs-32.h: No such file or directory
+ # include <gnu/stubs-32.h>
+                           ^
+compilation terminated.
+/usr/bin/i686-w64-mingw32-g++ -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-i686-rlv26244 rl_version.c -lreadline -ltermcap
+In file included from /usr/include/features.h:399:0,
+                 from /usr/include/stdio.h:27,
+                 from rl_version.c:1:
+/usr/include/gnu/stubs.h:7:27: fatal error: gnu/stubs-32.h: No such file or directory
+ # include <gnu/stubs-32.h>
+                           ^
+compilation terminated.

@@ -1,0 +1,56 @@
+Function: intlaplaceinv
+Section: sums
+C-Name: intlaplaceinv0
+Prototype: V=GGEDGp
+Help: intlaplaceinv(X=sig,z,expr,{tab}): numerical integration on the line
+ real(X) = sig of expr(X)exp(zX)dz/(2*I*Pi), i.e. inverse Laplace transform of
+ expr at z. tab is as in intnum.
+Wrapper: (,,G)
+Description:
+  (gen,gen,gen,?gen):gen:prec intlaplaceinv(${3 cookie}, ${3 wrapper}, $1, $2, $4, prec)
+Doc: numerical integration of $(2i\pi)^{-1}\var{expr}(X)e^{Xz}$ with respect
+ to $X$ on the line $\Re(X)=sig$. In other words, inverse Laplace transform
+ of the function corresponding to \var{expr} at the value $z$.
+
+ $sig$ is coded as follows. Either it is a real number $\sigma$, equal to the
+ abscissa of integration, and then the integrand is assumed to
+ be slowly decreasing when the imaginary part of the variable tends to
+ $\pm\infty$. Or it is a two component vector $[\sigma,\alpha]$, where
+ $\sigma$ is as before, and either $\alpha=0$ for slowly decreasing functions,
+ or $\alpha>0$ for functions decreasing like $\exp(-\alpha t)$. Note that it
+ is not necessary to choose the exact value of $\alpha$. \var{tab} is as in
+ \kbd{intnum}.
+
+ It is often a good idea to use this function with a value of $m$ one or two
+ higher than the one chosen by default (which can be viewed thanks to the
+ function \kbd{intnumstep}), or to increase the abscissa of integration
+ $\sigma$. For example:
+
+ \bprog
+ ? \p 105
+ ? intlaplaceinv(x=2, 1, 1/x) - 1
+ time = 350 ms.
+ %1 = 7.37... E-55 + 1.72... E-54*I \\@com not so good
+ ? m = intnumstep()
+ %2 = 7
+ ? intlaplaceinv(x=2, 1, 1/x, m+1) - 1
+ time = 700 ms.
+ %3 = 3.95... E-97 + 4.76... E-98*I \\@com better
+ ? intlaplaceinv(x=2, 1, 1/x, m+2) - 1
+ time = 1400 ms.
+ %4 = 0.E-105 + 0.E-106*I \\@com perfect but slow.
+ ? intlaplaceinv(x=5, 1, 1/x) - 1
+ time = 340 ms.
+ %5 = -5.98... E-85 + 8.08... E-85*I \\@com better than \%1
+ ? intlaplaceinv(x=5, 1, 1/x, m+1) - 1
+ time = 680 ms.
+ %6 = -1.09... E-106 + 0.E-104*I \\@com perfect, fast.
+ ? intlaplaceinv(x=10, 1, 1/x) - 1
+ time = 340 ms.
+ %7 = -4.36... E-106 + 0.E-102*I \\@com perfect, fastest, but why $sig=10$?
+ ? intlaplaceinv(x=100, 1, 1/x) - 1
+ time = 330 ms.
+ %7 = 1.07... E-72 + 3.2... E-72*I \\@com too far now...
+ @eprog
+
+ \synt{intlaplaceinv}{void *E, GEN (*eval)(void*,GEN), GEN sig,GEN z, GEN tab, long prec}.

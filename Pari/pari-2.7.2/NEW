@@ -1,0 +1,733 @@
+This file highlights some of the novelties in PARI/GP 2.x compared to 1.39.15
+(last release in the 1.x series). The detailed Changelog is in CHANGES.
+Incompatible changes are described in COMPAT. See TODO for possible future
+improvements.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERSION 2.7 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[Configure]
+  - Configure --mt=pthread or --mt=mpi: GP now supports POSIX threads and MPI.
+    See doc/parallel.dvi for an introduction, and have a look at the new
+    parxxx GP functions.
+
+  - Configure -gcov: support for gcov/lcov. As a result, the regression suite
+    (make test-all) has been much expanded and lots of obscure bugs fixed. See
+        http://pari.math.u-bordeaux1.fr/lcov-report/
+    for current coverage test reports.
+
+  - Configure now generates a file 'config.log' to help diagnose problems
+    (contains all messages from compilers)
+
+[The GP language]
+
+  - Ranges and slices: [a..b], x[a..b], x[^a]
+    ? v = [2..8]
+    %1 = [2, 3, 4, 5, 6, 7, 8]
+    ? v[2..4]
+    %2 = [3, 4, 5]
+    ? v[^2]     \\ remove 2nd element
+    %3 = [2, 4, 5, 6, 7, 8]
+    ? M = matid(3); M[1..2, ^2]  \\ first two rows, remove 2nd col
+    %4 =
+    [1 0]
+
+    [0 0]
+
+  - Set notations:
+    ? [ p | p <- primes(10), isprime(p+2) ]
+    %1 = [3, 5, 11, 17, 29]
+
+  - Multiple assignments: [a,b,c] = V, for a = V[1], b = V[2], c = V[3]
+    ? [D,U,V] = matsnf(A, 1)    \\ returns SNF and transformation matrices
+
+  - Error trapping: iferr() + a new data type 't_ERROR' to represent error
+    contexts. See ??iferr
+
+     \\ Compute [B]P on a "curve over Z/NZ". If an exception occurs,
+     \\ we found a zero divisor in Z/NZ, thereby factoring N.
+     ECM(N, B = 1000!, nb = 100)=
+     {
+       for(a = 1, nb,
+         iferr(ellmul(ellinit([a,1], N), [0,1], B),
+           E, return(gcd(lift(component(E,2)),N)),
+           errname(E) == "e_INV"));
+     }
+     ? ECM(2^101-1)
+     %1 = 7432339208719
+
+  - Timeouts: alarm(delay, expr) spends 'delay' seconds trying to evaluate
+    'expr', then aborts returning a t_ERROR object.
+
+  - Multi-if: to simplify successive 'else' clauses
+      ? if (a == 1,     print("1"),          \
+            a < 0,      print("negative"),   \
+            isprime(a), print("prime"),      \
+            print("generic"))
+
+  - new function cmp() to "compare" arbitrary objects (transitive order
+    relation, returns 0 iff x === y). Useful for sets.
+
+  - new function getenv()
+
+[The GP calculator]
+
+  - parallel GP support: parapply, pareval, parfor, parforprime, parselect,
+    parsum, parvector. E.g.
+      ? parapply(factor, [2^256 + 1, 2^193 - 1])
+    will factor these two integers in parallel.
+
+  - forprime(p = a, b, ...) now iterates over arbitrary ranges of primes,
+    independently of 'primelimit'. Parameter 'b' can be omitted (no upper
+    limit). More generally, primelimit is now deprecated: libpari functions
+    can quickly produce their own primes without relying on (enough)
+    precomputed primes.
+
+  - new iterators:  forcomposite(), forpart() forqfvec(), to loop
+    over composite integers, (possibly restricted) partitions and integer
+    points in ellipsoids.
+
+  - GP debugger, new functions expanding the 'break loop' mechanism: dbg_up(),
+    dbg_down(), dbg_x(), breakpoint()
+
+  - liftall(), liftint(), liftpol() give more flexibility than lift() in
+    complicated situations
+
+  - characteristic(x) returns the "characteristic" of the base ring over which
+    x is defined.
+
+  - ffgen(p^f), as an alias for ffgen(ffinit(p,f))
+
+  - vecsum(v), as an alias for sum(i=1,#v,v[i])
+
+  - variable() no longer raise exceptions, but returns 0 if the object
+    has no main variable.
+
+  - getabstime() returns the CPU time elapsed since gp startup, providing a
+    reentrant version of gettime()
+
+  - %#n returns the time it took to compute history result %n
+
+  - new default 'linewrap'
+
+  - arbitrary GP 'defaults' can now be set via the command-line:
+      gp -D default=value
+    gp --primelimit lim (gp -p lim) and gp --stacksize=lim are deprecated.
+    Use the generic form  (-D parisize=lim or -D primelimit=lim)
+
+[Multiprecision Kernel & Transcendental functions]
+
+  - binary splitting: Catalan's constant, Pi, log(2) (to be expanded)
+
+  - logint(x,b) for floor(log(x) / log(b)), avoiding rounding problems
+
+  - sqrtnint(x,b) for floor(x^(1/b))
+
+  - expm1(x) for exp(x) - 1, but also accurate for x ~ 0
+
+[Polynomial Arithmetic & Power series]
+
+  - Mulders/Hanrot-Zimmerman short products for power series
+
+  - Allow t_SER arguments for gamma, lngamma, and psi around arbitrary
+    complex numbers (was either forbidden or limited to z = 0 or 1)
+
+  - seralgdep: to find linear relations with polynomial coefficients
+    ? s = 1+1/2*y+3/8*y^2-3/16*y^3+3/128*y^4+15/256*y^5-57/1024*y^6 + O(y^7);
+    ? seralgdep(s,2,2) \\ relation of degree <= 2, degree(coeffs) <= 2
+    %2 = -x^2 + (y^2 + y + 1)
+
+  - polgraeffe(f): returns g such that g(x^2) = f(x)f(-x)
+
+  - poliscyclo(), poliscycloprod(), polcyclofactors(): cyclotomic factors
+    of rational polynomials
+
+[Linear Algebra]
+  - port of the program ISOM by Bernd Souvignier for computation of
+    automorphisms and isomorphisms of lattices.
+    New GP functions: qfauto, qfisom, qfisominit, qfautoexport
+
+  - linear algebra routines now try to convert generic GP constructions
+    involving t_INTMODs or t_FFELTs to appropriate (faster, more memory
+    efficient) representations, then call routines in the libpari modular
+    kernel (FpM, Flm, F2m, FqM, FlxqM, F2xqM).
+
+  - add optional flag to mateigen to also return the eigenvalues
+
+  - charpoly() now selects an appropriate algorithm by itself, depending
+    on the input. Using a flag should no longer be necessary and is
+    deprecated.
+
+  - mathnf for matrices over K[X]
+
+  - mathnfmodid(x,D), where D = [d1,...,dn] compute the HNF of
+    concat(x,matdiagonal(D)); in a more efficient way
+
+  - matqr() to compute the QR-decomposition of a real square matrix;
+    mathouseholder() to apply a sequence of Householder transforms
+
+  - internal support for sparse matrices and Wiedemann algorithm; currently
+    only used by the discrete log algorithms.
+
+  - matinverseimage(A, t_MAT B) would treat individual columns B[,i]
+    independently and successively. Now use a single Gauss reduction.
+
+  - normlp(): true L^p norm [ N.B. the old norml2() is still available,
+    and returns the *square* of the L^2 norm ].
+
+  - clean generalizations of current norml2: qfnorm(), qfbil()
+
+[Elementary Number Theory]
+
+  - arithmetic functions now accept factorization matrices as input, you can
+    use any of f(N), f(factor(N)) or f([N, factor(N)]).
+
+  - arithmetic functions no longer apply componentwise to vector / matrix
+    arguments [ to allow passing factorization matrices ]: use apply()
+
+  - new convenience functions: hamming(), ispowerful(), digits() /
+    sumdigits(), ispolygonal(), istotient(), isprimepower()
+
+  - randomprime(), random([a,b])
+
+  - Bernoulli polynomials: bernpol() and sumformal()
+    ? sumformal(n^2)     \\ F such that F(b) = \sum_{n <= b} n^2
+    %1 = 1/3*n^3 + 1/2*n^2 + 1/6*n
+
+  - sumdivmult: to sum multiplicative expressions
+
+  - sieve algorithms for znlog() and fflog(), computing discrete logs in F_q^*
+
+[Elliptic curves & Arithmetic geometry]
+
+  - new dynamic implementation of the 'ell' data structure: ellinit is now
+    used to record the coefficients of the curve and the domain over which it
+    is defined. Further data is added to the structure on demand, if and when
+    it is needed, e.g. cardinality and group structure. See ??ellinit.
+
+  - elliptic curves functions no longer assume that a curve over Q is given by
+    a minimal model. A non-miminal model used to silently produce wrong
+    answers; no longer!
+
+  - allow ellinit(E / Qp) for arbitrary p (also p = 2) and reduction type
+    (no longer restricted to Tate curves)
+
+  - allow ellinit(E / Fq) for non-prime finite fields, incl. point counting
+    (SEA, Harley)
+
+  - allow ellinit(E / C)
+
+  - new function ellheegner() to find a non-torsion rational point on
+    E / Q of rank 1.
+
+  - new implementation of ellweilpairing / elltatepairing
+
+  - ellsearch now accepts both syntaxes allowed by ellconvertname(),
+    e.g. "11a3" / "11a" and [11,0,3] / [11,0]
+
+  - extend ellinit inputs: ellinit([a4, a6]). On singular curve, return []
+    instead of raising an error. New function ellfromj().
+
+  - genus2red: an implementation of Liu's algorithm to determine the
+     reduction of a genus 2 curve (at p > 2). Based on genus2reduction-0.3,
+       http://www.math.u-bordeaux1.fr/~liu/G2R/ (Cohen & Liu, 1994)
+    mostly rewritten from scratch, and fixing known problems in the original
+    implementation (so-called bug27, bug28). The regression bench contains a
+    check of at least one instance of each of Namikawa-Ueno's types + all
+    cases on which the original genus2reduction was known to fail.
+    CAVEAT: the interface will probably change & reduction at p = 2 not handled
+
+[Number Fields]
+
+  - maximal orders (when the discriminant is hard to factor): allow to specify
+    a list of primes at which the order nf.zk must be maximal. This [T, listP]
+    format supersedes the old addprimes() hack as well as rigid optional
+    flags for nfbasis, nfdisc, polredabs. (And no longer depends on the
+    global 'primelimit'...) See ??nfinit
+    ? T = polcompositum(x^5 - 101, polcyclo(7))[1];
+    ? nf = nfinit( [T, 10^3] );
+    ? nfcertify(nf)
+    %3 = []
+    A priori, nf.zk defines an order which is known to be maximal at all
+    p <= 10^3. The final certification step proves it is in fact
+    globally maximal.
+
+  - polredbest / rnfpolredbest: "best-effort" variants of polredabs /
+    rnfpolredabs. Not canonical but often smaller, and run in poly-time !
+
+  - idealprincipalunits: structure of the multiplicative group
+    (1 + pr) / (1 + pr^k), for a prime ideal pr
+    [ special case of idealstar, faster ]
+
+[COMPATIBILITY WARNING]
+
+  - lift(x,'v) / centerlift(x,'v) now only lift t_POLMODs in variable v,
+    no longer (most) t_INTMOD / t_PADICs met along the way
+
+  - rnf.pol (absolute defining polynomial / Q) has been renamed rnf.polabs.
+    rnf.pol is now the relative polynomial, defining the relative extension
+    over the base.
+
+  - as a side effect of the new %#n construction, all GP results are now stored
+    as history entries,  including the "void" object returned by functions
+    such as print() or for().
+
+  - renamed bezout() -> gcdext()
+
+  - renamed ellpow() -> ellmul()
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERSION 2.5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[Libpari Build & Configuration]
+  - 'Configure --tune' fine-tunes gp and the PARI library for a given host.
+    On some machines this leads to noticeable performance improvements,
+    esp. when using the GMP multiprecision kernel.
+
+  - 'Configure --enable-tls' makes libpari thread-safe, for multi-threaded
+    applications. See Appendix B in the "User's Guide to the PARI Library"
+
+[Multiprecision Kernel]
+  - The GMP library is now used by default if Configure can find it.
+
+  - Schoenhage-Strassen big integers multiplication to native kernel
+    (very useful if GMP not available)
+
+[Polynomial Arithmetic]
+  - faster multiplication of integer polynomials (Kronecker's trick)
+
+  - subquadratic gcd over prime finite fields
+
+  - special polynomials (polcyclo, polchebyshev, pollegendre...) are orders
+  of magnitude faster ( polcyclo(10^6): 1min 30s (2.3) -> 4ms (2.5) ) and
+  directly allow evaluation at a given point, e.g. polcyclo(n, 2) for Phi_n(2).
+
+  - issquare(t_POL) now works reliably over prime finite fields ( we used
+  to have  issquare(Mod(1,2)*(x^2+1)) -> 0, or error messages in more
+  complicated cases ).
+
+  - charpoly no longer assumes that the characteristic is 0 or large enough
+    (Berkowitz division-free algorithm).
+
+[Linear Algebra]
+  - all LLL variants use an implementation of NGuyen & Stehle's L^2
+    algorithm : stabler, much faster
+
+  - better resultants
+
+[Elliptic curves]
+  - ellap() now uses the SEA algorithm (port of GP's ellsea package).
+  - discrete logarithm [ elllog() ], group structure of E(Fp) [ ellgroup() ],
+  - division polynomials [ elldivpol() ]
+  - Tate and Weil pairings [ elltatepairing() / ellweilpairing() ]
+
+[Number Fields]
+  - Class-field theoretic functions (e.g. bnfinit) no longer cheat on Bach's
+    constant. They now use safe bounds by default, correct under GRH, and no
+    slowdown has been observed.
+  - bnfinit: huge improvements for fields of large degree or admitting
+    non-trivial automorphisms (series of patches by Loic Grenie).
+  - faster quadhilbert(D < 0) [ Hilbert class field via CM ]
+  - Frobenius elements [ idealfrobenius() ]
+  - ramification groups [ idealramgroups() ]
+
+[GP defaults]
+  - new default "factor_proven" to guarantee that all integer factorizations
+    outputs proven primes (the default is to be happy with strong pseudoprimes).
+
+  - new defaults "graphcolormap" and "graphcolors" to allow arbitrary
+    colormaps in hi-res plots.
+
+  - new default 'histfile', to save your typing history in between sessions !
+
+[GP data structures]
+  - Lists now grow as needed, without imposing an awkward maximal length.
+    v = List()  is now sufficient to initialize an empty list, instead of
+    v = listcreate(100) to initialize a list which wouldn't grow past 100
+    elements.
+
+  - New GP type to handle non-prime finite fields in a reasonably efficient
+    way. E.g:
+    ? T = ffinit(7,5); \\ irreducible of degree 5 in F_7[x]
+    ? t = ffgen(T); \\ The element x mod (T,p) in Fp[x] / (T) ~ F_{7^5}
+    %2 = x  \\ this has type t_FFELT
+    ? t^10 \\ handled like Mod(x, T) but faster, and less cumbersome
+    %3 = 5*x^4 + 5*x^2 + 5*x + 6
+    ? fforder(t)
+    %4 = 5602  \\ multiplicative order
+    ? g = ffprimroot(t); \\ primitive element
+    ? fflog(g^1000,g)
+    %6 = 1000
+
+  - In GP-2.3, it was not possible to use the same identifier for
+  variables and functions; in GP-2.5 there is nothing wrong with defining
+    f(x,y)=x^2+y^2
+  then setting f = 1 (thereby deleting the user function). In fact, the
+  distinction between variables and functions has been abolished: anonymous
+  functions (closures) may be defined and assigned to variables, e.g.
+  the old f(x,y) = x^2+y^2 is now an alias for  f = (x,y) -> x^2+y^2
+
+[GP]
+  - the debugger, or "break loop", is now enabled by default
+    [ set breakloop = 0 in your gprc to disable it ], and no longer
+    controlled by trap(). The debugger is more verbose:
+    ? f(x) = g(x);
+    ? g(y) = 1/y;
+    ? f(0)
+      ***   at top-level: f(0)
+      ***                 ^----
+      ***   in function f: g(x)
+      ***                  ^----
+      ***   in function g: 1/y
+      ***                   ^--
+      *** _/_: division by zero
+      ***   Break loop: type 'break' to go back to GP
+    break> y
+    0
+
+  - all GP functions are now understood by GP2C
+
+  - formatted printing : printf(), Strprintf()
+
+  - alarm(n) to abort a lengthy computation after n seconds.
+
+  - === "isidentical" operator, much stricter than ==
+
+  - The introducion of anonymous functions had a number of useful side effects;
+  for instance, it made possible two new functions select() and apply(), as
+  well as arbitrary comparisons in vecsort():
+
+   \\ primes in { i^2+1 : i <= 50 }
+   ? select(x->isprime(x), vector(50,i,i^2+1))
+   %1 = [2, 5, 17, 37, 101, 197, 257, 401, 577, 677, 1297, 1601]
+
+   ? apply(x->x^2, [1,2,3,4])
+   %2 = [1, 4, 9, 16]
+
+   \\ sorts a vector of polynomials by increasing discriminant
+   ? vecsort( v, (x,y) -> sign(poldisc(x) - poldisc(y)) )
+
+[Main Backward Compatibility issues] see the 'COMPAT' file in the distribution
+for the full list.
+  - The main issue with existing GP scripts has to do with the scope of
+    private variables (my vs. local), see section 2.6 in User's Manual.
+    Indeed, variables implicitly scoped to loop or function bodies are now
+    lexically scoped. From GP-2.5 on, in constructs like
+      for(i = 1, 10, g())
+      f(i) = g()
+    the index i is truly local to the loop/function body. It is no longer seen
+    by the function g(), as used to be the case in GP-2.3.
+
+    One can declare lexicaly-scoped variable anywhere using the construct
+    my(x, y, z, t), possibly with initializations: my(x = 1, y = x).
+    The old "local" keyword keeps the same semantic (dynamic scoping) and is
+    mostly obsolete, outside of very specific situations beyond the scope of
+    these release notes.
+
+  - function calls *must* include parentheses. I.e. typing 'f()' calls the
+    function f without arguments as expected, typing 'f' returns an anonymous
+    function with the same definition as f; for instance, v[1] = f is valid,
+    assigning the closure f to the first entry of vector v.
+
+  - private "prime table" (addprimes) must now contain primes only: its
+    entries are now used in all arithmetic functions
+
+  - The pseudo-random number generator has been changed. The old linear
+    congruential generator has been replaced by Brent's XORGEN, which uses
+    a Linear Feedback Shift Register: pseudo-random sequences are much
+    better behaved, e.g. matdet(matrix(5,5,i,j, random())) is no longer
+    guaranteed to be divisible by 2^90 or so. There is no simple way to
+    emulate GP-2.3 pseudo-random sequences in GP-2.5.
+
+  - PariEmacs is no longer distributed with PARI/GP. The "PARI Emacs shell"
+    is available as a separate package, to be downloaded once if at all.
+
+  - | and & were accepted as aliases for || and && respectively. This
+    construction still works in GP-2.5, but is scheduled to disappear. We
+    strongly advise to update scripts to use the proper '||' and '&&'
+    constructions.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERSION 2.3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   * The GP2C compiler is available at
+
+         http://pari.math.u-bordeaux.fr/download.html#gp2c
+
+    GP2C compiles GP scripts to the C language, easing the task of writing
+    PARI programs. It can transparently compile them to object code and
+    load the resulting functions in gp. Low-level gp2c-compiled scripts
+    typically run 3 or 4 times faster. Minor hand editing (specifying types)
+    typically gains a further factor 2.
+
+   * Cremona's database of elliptic curves is available through the 'elldata'
+     package [ to be downloaded separately ]
+     ? E = ellinit([1,1,0,10,10]);
+     ? id = ellidentify(E)[1]   \\ [1] = discard change of variables
+     %2 = ["69950b1", [1, 1, 0, 10, 10], [[-1, 1], [-1/4, 23/8]]]
+     \\ gives name and generators
+
+     ? E = ellinit("11a1"); E.disc
+     %3 = -161051
+
+     ? ellsearch(11); \\ all curves of conductor 11
+
+     ? forell(E, 10,20, print(E))   \\ iterate over curves of conductor 10-20
+     ["11a1", [0, -1, 1, -10, -20], []]
+     ...
+
+Kernel:
+
+   * Use 'Configure --with-gmp' to replace the native multiprecision kernel by
+     the GNU MP library (featuring asymptotically fast arithmetic).
+
+   * Cleanup of all architecture specific kernels (all macroized); added
+     support for x86_64, ppc64, hppa and hppa64, ia64, sparc64, m68k.
+
+   * Faster algorithms for "transcendental" functions (divide/conquer square
+     root, AGM for log and Pi, Newton for exp and most trigonometric functions,
+     AGM for inverse trigonometric functions, rewrite for gamma and zeta =>
+     faster Bernoulli, Mestre's AGM for ellheight)
+
+   * Faster and cleaner kernel for modular arithmetic. Try e.g.
+     factormod/factorff or polcompositum.
+
+   * Major internal cleanups: separate lgef for t_POLs is gone, zero t_SER
+     and t_POL now handled in a uniform way, heuristic soft copies in
+     t_INTMOD, t_POLMOD, t_PADIC are gone [ led to fatal errors in complex
+     scripts, no performance penalty ]
+
+   * The "syntax" of GP routines and operators are no longer hard-coded in
+     the sources, but maintained in a separate database (pari.desc). This
+     way, external tools like GP2C need not be modified when the GP language
+     is changed.
+
+Algebraic number Theory:
+   * Faster integral LLL (still not super fast, but getting better), and
+     polynomial factorization routines (over finite fields [ new modular
+     kernel ], Q or general number fields [ van Hoeij's algorithm ])
+
+   * Faster maximal order (round4 rewrite) and polredabs (esp. with flag
+     16: don't factor the discriminant; yields a canonical equation for a
+     field), faster ideal arithmetic (prime decomposition, approximation,
+     multiplication).
+
+   * Faster and more reliable class-field theoretic functions quadclassunit,
+     bnfinit, bnfisprincipal, bnrinit (and related functions, e.g. bnrconductor
+     or bnrdisc), rnfkummer, thue (fast enumeration of small solutions, don't
+     assume the full unit group is known).
+
+   * A set of fast routines for Galois theory (galoisininit, nfgaloisconj,
+     galoisisabelian, galoisfixedfield, galoissubfields, galoissubcyclo for
+     abelian fields, galoisidentify to identify large Galois fields up to
+     degree 127).
+
+     'galdata' package [ to be downloaded separately ]: polgalois is safer
+     and orders of magnitudes faster in tough cases, output is now
+     human readable
+     ? polgalois(x^11-2)
+     time = 1,759 ms.   \\ used to be ~ 1 hour
+     %1 = [110, -1, 4, "F_110(11)=11:10"]
+
+Miscellaneous:
+   * For convenience, the manual was split in two parts: the GP user's manual
+     and the libpari user's manual, the latter being substantially expanded.
+     Many formerly private functions have been renamed, specified,
+     cleaned up and documented.
+
+   * Initial implementation of the APR-CL primality prover, faster
+     compositeness tests (BPSW)
+
+   * A new set of fast numerical summation and integration routine,
+     variations on the Ooura-Mori "double exponential" method. See ??intnum
+     Library interface to all these functions and standard iterators (e.g.
+     forvec)
+
+   * Error messages now mention the GP function where the error occured.
+
+   * Input/output and convenience functions: Str(a,1,c) --> "a1c",
+     Strexpand("~") --> "/home/a2x/belabas", substvec (parallel substitutions),
+     substpol(expr, x^2, y), writebin (write objets in binary format for
+     fast retrieval), readvec (load a file's content into a vector)
+
+   * Support for new graphic libraries (Qt, FLTK) [ ==> hi-res plots now
+     also available under Mac OS X and Windows ]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERSION 2.1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+   * PARI/GP is now released under the GNU General Public License.
+
+   * PARI now has a CVS server which is intended for PARI lovers who want
+     the very latest bleeding edge release (see the CVS.txt file).
+
+   * Argument checks have been added to prevent unpredictable results when
+     the input is incorrect.
+
+   * Errors can be trapped to avoid abort and recover computations.
+
+   * extended on-line help:
+     ?? (no arguments)      opens the users'manual in xdvi,
+     ?? tutorial / refcard  opens tutorial / refcard in xdvi,
+     ??? keyword            searches for topic in the manual.
+
+   * Arithmetic: much faster integer factorization with several factoring
+     engines including Pollard Rho, SQUFOF, improved ECM, and an MPQS/PMPQS
+     implementation derived from LiDIA's, with kind permission from the LiDIA
+     team
+
+   * Polynomials:
+     - much faster factorization over Z[X] (van Hoeij's algorithm) or Fq[X]
+       (more efficient modular kernel), esp. when the polynomial is defined
+       over Fp.
+     - Ducos' subresultant algorithm for resultants
+
+   * Number field:
+     - improved ROUND 4 for computations of integral basis/discriminant
+     - faster polredabs / rnfpolredabs polynomial reductions functions
+     - Galois extensions of Q: Fixed fields, Galois conjugates using
+       Allombert's algorithm.
+
+   * Class group, ray-class group:
+     - improved bnf/bnr functions (faster, numerically stabler), in
+       particular bnfisprincipal
+     - computations of explicit defining equations of abelian extensions of
+       imaginery quadratic fields (using complex multiplication) of totally
+       real abelian extensions (using Stark units).
+
+   * Elliptic functions: Weierstrass and Weber functions.
+
+   * Plotting: support of gnuplot, new functions (possiblity to plot directly
+     in a file).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% VERSION 2.0 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The GP/PARI structure has been cleaned up.
+
+   * The whole configuration process has been automated, and a Configure
+     file is provided. Just typing `./Configure' should see you home in most
+     cases.
+
+   * PARI is now available as a dynamic library, thanks to Louis Granboulan.
+     (you can link GP with it, if you wish to). This saves a tremendous
+     amount of disk space, and is generally more convenient as you don't need
+     to re-link your files when updating the library (or when debugging.
+     or profiling, or...).
+
+   * types now have a symbolic mnemonic name (e.g t_INT for an integer,
+     t_VEC for a vector, and so on).
+
+   * General speed-up (depends on your applications, about 40% for our
+     generic testing file).
+
+   * Experimental module loading structure (the actual function tree
+     has not yet been cut into modules, but for the GP specific functions).
+
+==========================================================================
+Many new or improved functions in the PARI library.
+
+   * MANY class-field related functions. In particular:
+     - is it now possible to try and remove the GRH assumption on class group
+     computations.
+     - ray class groups computations (including discrete log).
+     - explicit defining equations in simple cases (Kummer extensions of prime
+       degree, quadratic base field).
+
+   * computation of Galois groups up to degree 11
+
+   * roots is now entirely reliable, thanks to Xavier Gourdon.
+
+   * some core routines have been optimized: Karatsuba fast multiplication,
+     a specific function gsqr() for squarings,...
+
+   * input/output is much more flexible now:
+     - a function GENtostring has been added, generalizing gitoascii to any
+     PARI object (with a simpler syntax: GENtostring(g) returns a malloc'ed
+     string containing g as gp would print it).
+
+     - readexpr has a relative freadexpr (for filtered readexpr), which enables
+     you to use input containing whitespaces.
+
+     - you can use GENs in formatted output, a la printf.
+
+   * improved garbage collecting.
+
+   * private variables can be created without an explicit readexpr(), using
+     fetch_var() and delete_var().
+
+==========================================================================
+GP has been completely re-written:
+
+   * lowercase/uppercase are now significant. All predefined constants
+     (Euler, I, Pi) have been renamed (as well, the o() notation for series
+     and padics has been superseded by O()).
+
+     for (i=1,10, print(i)) will not yield an error anymore.
+
+   * human-readable error messages, including a caret to indicate where
+     a GP syntax error occurred.
+
+   * function names were renamed according to a more logical scheme. The
+     file new.dico provides a translation (available under GP using "whatnow")
+
+   * You can retrieve basic information from complicated objects using member
+     functions. For instance x.disc will yield the discriminant of x, whether
+     it was created by nfinit (aka initalg), bnfinit (aka buchinit), ellinit
+     (aka initell).
+
+   * A `gprc' file is available to set "permanent" defaults (such as
+     global variables, aliases, custom user functions, etc...).  For instance,
+     you can put all your scripts in some special directories, and
+     point them out to GP using "path". See misc/gprc.dft for examples.
+
+     The function "default" enables to change most defaults under gp.
+     For instance: default(compatible, 2) will give you back the former gp
+     function names and helpmessages. [default(compatible, 3) undoes the
+     lowercaps/uppercaps changes as well]. Try "default".
+
+   * basic C idiosyncrasies such as for instance i++ (for i=i+1), i<<1
+     (for left shift) or i+=j (for i=i+j) are now allowed within GP scripts.
+     /* */ multi-line comments are understood.
+
+   * lists and (primitive) string support have been added. Characters can be
+     quoted with the usual meaning. As a result, set functions can now be
+     used with arbitrary elements.
+
+   * if your terminal supports color (variants of color_xterm for instance),
+     you can tell GP to highlight its output in different (user configurable)
+     colors. This is done by fiddling with the default "colors".
+
+   * The familiar functions "break", "next" and "return" are now available.
+     These should supersede the buggy label/goto provided in older versions.
+
+   * Enhanced on-line help. If you have perl on your system, try
+     ?? function-name (e.g ?? bnfinit)
+     This is provided by external scripts which can be used independently,
+     outside of the GP session.
+
+   * If readline is installed on your system, a context-dependent completion
+     (not yet user-programmable) is now available (try hitting <TAB> here and
+     there). Try ?? readline.
+
+   * many functions now have default arguments (shown between braces {} in
+     the on-line description). gp first reads user-supplied arguments, and
+     then fills in the arg list with these default values. Optional args can
+     be entirely omitted, comma included (for a function with no mandatory
+     arguments, even parentheses are optional !). For instance:
+
+       Mat = Mat()
+       bnfclassunit(x^2+1,0) = bnfclassunit(x^2+1)
+       bnfclassunit(x^2+1,,[0.2,0.2]) = bnfclassunit(x^2+1,0,[0.2,0.2])
+
+       The "else" part of the "if" function can be entirely omitted.
+       if (a,1) is now correct; of course, the former syntax if (a,1,) is
+       still valid.
+
+   * functions "extern" and "system" have been added to interface with
+     external programs (UNIX only). You can do for instance
+     extern("myprog"), or system("ls -l *.gp").
+
+   * even better, "install" enables you to load any function provided by
+     a dynamically linked library, and have the GP interpreter use it. This
+     makes it easy to have your own customized version of GP with your own set
+     of functions on startup (you can document them using "addhelp").
+
+   * On 32-bit machines, maximum number of variables has been increased from
+     254 to 16382. Arrays can have up to 16777214 elements (instead of 65534).
+     In addition vector/matrix operations in GP now perform orders of
+     magnitudes faster than in version 1.39

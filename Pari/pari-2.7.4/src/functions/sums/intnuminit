@@ -1,0 +1,31 @@
+Function: intnuminit
+Section: sums
+C-Name: intnuminit
+Prototype: GGD0,L,p
+Help: intnuminit(a,b,{m=0}): initialize tables for integrations from a to b.
+ See help for intnum for coding of a and b. Possible types: compact interval,
+ semi-compact (one extremity at + or - infinity) or R, and very slowly, slowly
+ or exponentially decreasing, or sine or cosine oscillating at infinities.
+Doc: initialize tables for integration from
+ $a$ to $b$, where $a$ and $b$ are coded as in \kbd{intnum}. Only the
+ compactness, the possible existence of singularities, the speed of decrease
+ or the oscillations at infinity are taken into account, and not the values.
+ For instance {\tt intnuminit(-1,1)} is equivalent to {\tt intnuminit(0,Pi)},
+ and {\tt intnuminit([0,-1/2],[1])} is equivalent to {\tt
+ intnuminit([-1],[-1,-1/2])}. If $m$ is not given, it is computed according to
+ the current precision. Otherwise the integration step is $1/2^m$. Reasonable
+ values of $m$ are $m=6$ or $m=7$ for $100$ decimal digits, and $m=9$ for
+ $1000$ decimal digits.
+
+ The result is technical, but in some cases it is useful to know the output.
+ Let $x=\phi(t)$ be the change of variable which is used. \var{tab}[1] contains
+ the integer $m$ as above, either given by the user or computed from the default
+ precision, and can be recomputed directly using the function \kbd{intnumstep}.
+ \var{tab}[2] and \var{tab}[3] contain respectively the abscissa and weight
+ corresponding to $t=0$ ($\phi(0)$ and $\phi'(0)$). \var{tab}[4] and
+ \var{tab}[5] contain the abscissas and weights corresponding to positive
+ $t=nh$ for $1\le n\le N$ and $h=1/2^m$ ($\phi(nh)$ and $\phi'(nh)$). Finally
+ \var{tab}[6] and \var{tab}[7] contain either the abscissas and weights
+ corresponding to negative $t=nh$ for $-N\le n\le -1$, or may be empty (but
+ not always) if $\phi(t)$ is an odd function (implicitly we would have
+ $\var{tab}[6]=-\var{tab}[4]$ and $\var{tab}[7]=\var{tab}[5]$).

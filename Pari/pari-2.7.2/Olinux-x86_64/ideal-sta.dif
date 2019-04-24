@@ -1,0 +1,13 @@
+*** ../src/test/32/ideal	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:51:24.204948269 -0700
+***************
+*** 144,147 ****
+  [14, 0]~
+    *** nfinit: Warning: non-monic polynomial. Result of the form [nf,c].
+  [[2, [0, 1]~, 2, 1, [0, -2; 1, 0]]]
+! Total time spent: 8
+--- 144,147 ----
+  [14, 0]~
+    *** nfinit: Warning: non-monic polynomial. Result of the form [nf,c].
+  [[2, [0, 1]~, 2, 1, [0, -2; 1, 0]]]
+! Total time spent: 3

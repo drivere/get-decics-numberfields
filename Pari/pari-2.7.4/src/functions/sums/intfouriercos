@@ -1,0 +1,18 @@
+Function: intfouriercos
+Section: sums
+C-Name: intfourcos0
+Prototype: V=GGGEDGp
+Help: intfouriercos(X=a,b,z,expr,{tab}): numerical integration from a to b
+ of cos(2*Pi*z*X)*expr(X) from a to b, where a, b, and tab are as in intnum.
+ This is the cosine-Fourier transform if a=-infty and b=+infty.
+Wrapper: (,,,G)
+Description:
+  (gen,gen,gen,gen,?gen):gen:prec intfouriercos(${4 cookie}, ${4 wrapper}, $1, $2, $3, $5, prec)
+Doc: numerical
+ integration of $\var{expr}(X)\cos(2\pi zX)$ from $a$ to $b$, in other words
+ Fourier cosine transform (from $a$ to $b$) of the function represented by
+ \var{expr}. Endpoints $a$ and $b$ are coded as in \kbd{intnum}, and are not
+ necessarily at infinity, but if they are, oscillations (i.e. $[[\pm1],\alpha
+ I]$) are forbidden.
+
+ \synt{intfouriercos}{void *E, GEN (*eval)(void*,GEN), GEN a, GEN b, GEN z, GEN tab, long prec}.

@@ -1,0 +1,45 @@
+Function: _def_compatible
+Class: default
+Section: default
+C-Name: sd_compatible
+Prototype:
+Help:
+Doc: The GP function names and syntax
+ have changed tremendously between versions 1.xx and 2.00. To help you cope
+ with this we provide some kind of backward compatibility, depending on the
+ value of this default:
+
+ \quad \kbd{compatible} = 0: no backward compatibility. In this mode, a very
+ handy function, to be described in \secref{se:whatnow}, is \kbd{whatnow},
+ which tells you what has become of your favorite functions, which \kbd{gp}
+ suddenly can't seem to remember.
+
+ \quad \kbd{compatible} = 1: warn when using obsolete functions, but
+ otherwise accept them. The output uses the new conventions though, and
+ there may be subtle incompatibilities between the behavior of former and
+ current functions, even when they share the same name (the current function
+ is used in such cases, of course!). We thought of this one as a transitory
+ help for \kbd{gp} old-timers. Thus, to encourage switching to \kbd{compatible}=0,
+ it is not possible to disable the warning.
+
+ \quad \kbd{compatible} = 2: use only the old function naming scheme (as
+ used up to version 1.39.15), but \emph{taking case into account}. Thus
+ \kbd{I} (${}=\sqrt{-1}$) is not the same as \kbd{i} (user variable, unbound
+ by default), and you won't get an error message using \kbd{i} as a loop
+ index as used to be the case.
+
+ \quad \kbd{compatible} = 3: try to mimic exactly the former behavior. This
+ is not always possible when functions have changed in a fundamental way.
+ But these differences are usually for the better (they were meant to,
+ anyway), and will probably not be discovered by the casual user.
+
+ One adverse side effect is that any user functions and aliases that have
+ been defined \emph{before} changing \kbd{compatible} will get erased if this
+ change modifies the function list, i.e.~if you move between groups
+ $\{0,1\}$ and $\{2,3\}$ (variables are unaffected). We of course strongly
+ encourage you to try and get used to the setting \kbd{compatible}=0.
+
+ Note that the default \tet{new_galois_format} is another compatibility setting,
+ which is completely independent of \kbd{compatible}.
+
+ The default value is \kbd{0}.

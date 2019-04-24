@@ -1,0 +1,126 @@
+Function: sumnum
+Section: sums
+C-Name: sumnum0
+Prototype: V=GGEDGD0,L,p
+Help: sumnum(X=a,sig,expr,{tab},{flag=0}): numerical summation of expr from
+ X = ceiling(a) to +infinity. sig is either a scalar or a two-component vector
+ coding the function's decrease rate at infinity. It is assumed that the
+ scalar part of sig is to the right of all poles of expr. If present, tab
+ must be initialized by sumnuminit. If flag is nonzero, assumes that
+ conj(expr(z)) = expr(conj(z)).
+Wrapper: (,,G)
+Description:
+  (gen,gen,gen,?gen,?small):gen:prec sumnum(${3 cookie}, ${3 wrapper}, $1, $2, $4, $5, prec)
+Doc: numerical summation of \var{expr}, the variable $X$ taking integer values
+ from ceiling of $a$ to $+\infty$, where \var{expr} is assumed to be a
+ holomorphic function $f(X)$ for $\Re(X)\ge \sigma$.
+
+ The parameter $\sigma\in\R$ is coded in the argument \kbd{sig} as follows: it
+ is either
+
+ \item a real number $\sigma$. Then the function $f$ is assumed to
+ decrease at least as $1/X^2$ at infinity, but not exponentially;
+
+ \item a two-component vector $[\sigma,\alpha]$, where $\sigma$ is as
+ before, $\alpha < -1$. The function $f$ is assumed to decrease like
+ $X^{\alpha}$. In particular, $\alpha\le-2$ is equivalent to no $\alpha$ at all.
+
+ \item a two-component vector $[\sigma,\alpha]$, where $\sigma$ is as
+ before, $\alpha > 0$. The function $f$ is assumed to decrease like
+ $\exp(-\alpha X)$. In this case it is essential that $\alpha$ be exactly the
+ rate of exponential decrease, and it is usually a good idea to increase
+ the default value of $m$ used for the integration step. In practice, if
+ the function is exponentially decreasing \kbd{sumnum} is slower and less
+ accurate than \kbd{sumpos} or \kbd{suminf}, so should not be used.
+
+ The function uses the \tet{intnum} routines and integration on the line
+ $\Re(s) = \sigma$. The optional argument \var{tab} is as in intnum, except it
+ must be initialized with \kbd{sumnuminit} instead of \kbd{intnuminit}.
+
+ When \var{tab} is not precomputed, \kbd{sumnum} can be slower than
+ \kbd{sumpos}, when the latter is applicable. It is in general faster for
+ slowly decreasing functions.
+
+
+ Finally, if $\fl$ is nonzero, we assume that the function $f$ to be summed is
+ of real type, i.e. satisfies $\overline{f(z)}=f(\overline{z})$, which
+ speeds up the computation.
+
+ \bprog
+ ? \p 308
+ ? a = sumpos(n=1, 1/(n^3+n+1));
+ time = 1,410 ms.
+ ? tab = sumnuminit(2);
+ time = 1,620 ms. \\@com slower but done once and for all.
+ ? b = sumnum(n=1, 2, 1/(n^3+n+1), tab);
+ time = 460 ms. \\@com 3 times as fast as \kbd{sumpos}
+ ? a - b
+ %4 = -1.0... E-306 + 0.E-320*I \\@com perfect.
+ ? sumnum(n=1, 2, 1/(n^3+n+1), tab, 1) - a; \\@com function of real type
+ time = 240 ms.
+ %2 = -1.0... E-306 \\@com twice as fast, no imaginary part.
+ ? c = sumnum(n=1, 2, 1/(n^2+1), tab, 1);
+ time = 170 ms. \\@com fast
+ ? d = sumpos(n=1, 1 / (n^2+1));
+ time = 2,700 ms. \\@com slow.
+ ? d - c
+ time = 0 ms.
+ %5 = 1.97... E-306 \\@com perfect.
+ @eprog
+
+ For slowly decreasing function, we must indicate singularities:
+ \bprog
+ ? \p 308
+ ? a = sumnum(n=1, 2, n^(-4/3));
+ time = 9,930 ms. \\@com slow because of the computation of $n^{-4/3}$.
+ ? a - zeta(4/3)
+ time = 110 ms.
+ %1 = -2.42... E-107 \\@com lost 200 decimals because of singularity at $\infty$
+ ? b = sumnum(n=1, [2,-4/3], n^(-4/3), /*omitted*/, 1); \\@com of real type
+ time = 12,210 ms.
+ ? b - zeta(4/3)
+ %3 = 1.05... E-300 \\@com better
+ @eprog
+
+ Since the \emph{complex} values of the function are used, beware of
+ determination problems. For instance:
+ \bprog
+ ? \p 308
+ ? tab = sumnuminit([2,-3/2]);
+ time = 1,870 ms.
+ ? sumnum(n=1,[2,-3/2], 1/(n*sqrt(n)), tab,1) - zeta(3/2)
+ time = 690 ms.
+ %1 = -1.19... E-305 \\@com fast and correct
+ ? sumnum(n=1,[2,-3/2], 1/sqrt(n^3), tab,1) - zeta(3/2)
+ time = 730 ms.
+ %2 = -1.55... \\@com nonsense. However
+ ? sumnum(n=1,[2,-3/2], 1/n^(3/2), tab,1) - zeta(3/2)
+ time = 8,990 ms.
+ %3 = -1.19... E-305 \\@com perfect, as $1/(n*\sqrt{n})$ above but much slower
+ @eprog
+
+ For exponentially decreasing functions, \kbd{sumnum} is given for
+ completeness, but one of \tet{suminf} or \tet{sumpos} should always be
+ preferred. If you experiment with such functions and \kbd{sumnum} anyway,
+ indicate the exact rate of decrease and increase $m$ by $1$ or $2$:
+
+ \bprog
+ ? suminf(n=1, 2^(-n)) - 1
+ time = 10 ms.
+ %1 = -1.11... E-308 \\@com fast and perfect
+ ? sumpos(n=1, 2^(-n)) - 1
+ time = 10 ms.
+ %2 = -2.78... E-308 \\@com also fast and perfect
+ ? sumnum(n=1,2, 2^(-n)) - 1
+ %3 = -1.321115060 E320 + 0.E311*I \\@com nonsense
+ ? sumnum(n=1, [2,log(2)], 2^(-n), /*omitted*/, 1) - 1 \\@com of real type
+ time = 5,860 ms.
+ %4 = -1.5... E-236 \\@com slow and lost $70$ decimals
+ ? m = intnumstep()
+ %5 = 9
+ ? sumnum(n=1,[2,log(2)], 2^(-n), m+1, 1) - 1
+ time = 11,770 ms.
+ %6 = -1.9... E-305 \\@com now perfect, but slow.
+ @eprog
+
+ \synt{sumnum}{void *E, GEN (*eval)(void*,GEN), GEN a,GEN sig,GEN tab,long flag, long prec}.

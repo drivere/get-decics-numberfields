@@ -1,0 +1,81 @@
+Function: polredabs
+Section: number_fields
+C-Name: polredabs0
+Prototype: GD0,L,
+Help: polredabs(T,{flag=0}): a smallest generating polynomial of the number
+ field for the T2 norm on the roots, with smallest index for the minimal T2
+ norm. flag is optional, whose binary digit mean 1: give the element whose
+ characteristic polynomial is the given polynomial. 4: give all polynomials
+ of minimal T2 norm (give only one of P(x) and P(-x)).
+Doc: returns a canonical defining polynomial $P$ for the number field
+ $\Q[X]/(T)$ defined by $T$, such that the sum of the squares of the modulus
+ of the roots (i.e.~the $T_2$-norm) is minimal. Different $T$ defining
+ isomorphic number fields will yield the same $P$. All $T$ accepted by
+ \tet{nfinit} are also allowed here, e.g. non-monic polynomials, or pairs
+ \kbd{[T, listP]} specifying that a non-maximal order may be used.
+
+ \misctitle{Warning 1} Using a \typ{POL} $T$ requires fully factoring the
+ discriminant of $T$, which may be very hard. The format \kbd{[T, listP]}
+ computes only a suborder of the maximal order and replaces this part of the
+ algorithm by a polynomial time computation. In that case the polynomial $P$
+ is a priori no longer canonical, and it may happen that it does not have
+ minimal $T_2$ norm. The routine attempts to certify the result independently
+ of this order computation (as per \tet{nfcertify}: we try to prove that the
+ order is maximal); if it fails, the routine returns $0$ instead of $P$.
+ In order to force an output in that case as well, you may either use
+ \tet{polredbest}, or \kbd{polredabs(,16)}, or
+ \bprog
+   polredabs([T, nfbasis([T, listP])])
+ @eprog\noindent (In all three cases, the result is no longer canonical.)
+
+ \misctitle{Warning 2} Apart from the factorization of the discriminant of
+ $T$, this routine runs in polynomial time for a \emph{fixed} degree.
+ But the complexity is exponential in the degree: this routine
+ may be exceedingly slow when the number field has many subfields, hence a
+ lot of elements of small $T_2$-norm. If you do not need a canonical
+ polynomial, the function \tet{polredbest} is in general much faster (it runs
+ in polynomial time), and tends to return polynomials with smaller
+ discriminants.
+
+ The binary digits of $\fl$ mean
+
+ 1: outputs a two-component row vector $[P,a]$, where $P$ is the default
+ output and \kbd{Mod(a, P)} is a root of the original $T$.
+
+ 4: gives \emph{all} polynomials of minimal $T_2$ norm; of the two polynomials
+ $P(x)$ and $\pm P(-x)$, only one is given.
+
+ 16: Possibly use a suborder of the maximal order, \emph{without} attempting to
+ certify the result as in Warning 1: we always return a polynomial and never
+ $0$. The result is a priori not canonical.
+
+ \bprog
+ ? T = x^16 - 136*x^14 + 6476*x^12 - 141912*x^10 + 1513334*x^8 \
+       - 7453176*x^6 + 13950764*x^4 - 5596840*x^2 + 46225
+ ? T1 = polredabs(T); T2 = polredbest(T);
+ ? [ norml2(polroots(T1)), norml2(polroots(T2)) ]
+ %3 = [88.0000000, 120.000000]
+ ? [ sizedigit(poldisc(T1)), sizedigit(poldisc(T2)) ]
+ %4 = [75, 67]
+ @eprog
+
+Variant: Instead of the above hardcoded numerical flags, one should use an
+ or-ed combination of
+
+ \item \tet{nf_PARTIALFACT}: possibly use a suborder of the maximal order,
+ \emph{without} attempting to certify the result.
+
+ \item \tet{nf_ORIG}: return $[P, a]$, where \kbd{Mod(a, P)} is a root of $T$.
+
+ \item \tet{nf_RAW}: return $[P, b]$, where \kbd{Mod(b, T)} is a root of $P$.
+ The algebraic integer $b$ is the raw result produced by the small vectors
+ enumeration in the maximal order; $P$ was computed as the characteristic
+ polynomial of \kbd{Mod(b, T)}. \kbd{Mod(a, P)} as in \tet{nf_ORIG}
+ is obtained with \tet{modreverse}.
+
+ \item \tet{nf_ADDZK}: if $r$ is the result produced with some of the above
+ flags (of the form $P$ or $[P,c]$), return \kbd{[r,zk]}, where \kbd{zk} is a
+ $\Z$-basis for the maximal order of $\Q[X]/(P)$.
+
+ \item \tet{nf_ALL}: return a vector of results of the above form, for all
+ polynomials of minimal $T_2$-norm.

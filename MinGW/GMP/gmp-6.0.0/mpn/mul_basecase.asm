@@ -1,0 +1,1 @@
+../mpn/x86/p6/mul_basecase.asm

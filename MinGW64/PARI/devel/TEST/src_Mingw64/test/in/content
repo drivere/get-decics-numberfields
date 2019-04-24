@@ -1,0 +1,7 @@
+default(realprecision,38);
+o=[2,1.0,Mod(1,3),2/3,ffgen(2^3),1/2+I/3,O(2^-3),quadgen(5),Mod(x/2,x^2),2*x,2/x, Qfb(1,2,4),Qfb(-1,2,4),[2,3/4], [1,2;3/2,4]];
+
+test(f)= [ print(iferr(f(p),E,E)) | p<-o ];
+test(denominator);
+test(numerator);
+test(content);

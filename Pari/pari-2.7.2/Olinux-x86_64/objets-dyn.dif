@@ -1,0 +1,13 @@
+*** ../src/test/32/objets	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:52:38.024817141 -0700
+***************
+*** 122,125 ****
+    *** _^_: impossible inverse in Fp_inv: Mod(131, 49649).
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 4
+--- 122,125 ----
+    *** _^_: impossible inverse in Fp_inv: Mod(131, 49649).
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 0

@@ -1,0 +1,27 @@
+default(parisize,"36M");
+checkiso(E1,E2,iso)=
+{
+  my([x,y,z]=substvec(iso,['x,'y],[X,Y])*Mod(1,Y^2-(X^3+E1.a4*X+E1.a6)));
+  my(z2=sqr(z),z4=sqr(z2),z6=z2*z4);
+  lift(y^2-(x^3+E2.a4*x*z4+E2.a6*z^6));
+}
+checkisov(E,V)=
+{
+  apply(v->my(E2=ellinit(v[1]));
+    checkiso(E,E2,v[2]), V);
+}
+check(V)=
+{
+  for(i=1,#V,
+    my(E=ellinit(ellfromj(V[i])));
+    my(Et=ellinit(elltwist(E,ellminimaltwist(E,1))));
+    my([L,M]=ellisomat(Et), [L2, M2] = ellisomat(Et, 1));
+    if (M!=M2, error("ellisomat:",i));
+    print(V[i],":",M,":",checkisov(Et,L)));
+}
+
+check([-2^15,-11^2,-11*131^3,-17^2*101^3/2,-17*373^3*2^-17,-96^3,-7*11^3,-7*137^3*2083^3,-960^3,-5280^3,-640320^3])
+check([0,1728,-3375, 8000, 54000, 287496, -12288000, 16581375])
+check([9938375/21952, 111284641/50625, -10218313/17576, -25/2]);
+ellisomat(ellinit([0,-1,1,-10,-20]))
+

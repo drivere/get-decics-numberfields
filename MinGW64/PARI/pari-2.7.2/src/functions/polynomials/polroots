@@ -1,0 +1,16 @@
+Function: polroots
+Section: polynomials
+C-Name: roots
+Prototype: Gp
+Help: polroots(x): complex roots of the polynomial x using
+ Schonhage's method, as modified by Gourdon.
+Doc: complex roots of the polynomial
+ \var{x}, given as a column vector where each root is repeated according to
+ its multiplicity. The precision is given as for transcendental functions: in
+ GP it is kept in the variable \kbd{realprecision} and is transparent to the
+ user, but it must be explicitly given as a second argument in library mode.
+
+ The algorithm used is a modification of A.~Sch\"onhage\sidx{Sch\"onage}'s
+ root-finding algorithm, due to and originally implemented by X.~Gourdon.
+ Barring bugs, it is guaranteed to converge and to give the roots to the
+ required accuracy.

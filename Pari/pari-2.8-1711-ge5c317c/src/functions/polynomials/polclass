@@ -1,0 +1,19 @@
+Function: polclass
+Section: polynomials
+C-Name: polclass
+Prototype: GD-1,L,Dn
+Help: polclass(D, {inv = 0}, {x = 'x}): return the Hilbert class polynomial for the disciminant D.
+Doc:
+ Return the Hilbert class polynomial for the imaginary quadratic
+ discriminant $D$ in the variable $x$.  If $inv$ is 0 (the default),
+ use the the modular $j$ function, if $inv$ is 1 use the
+ Weber-$f$ function, and if $inv$ is 5, use $\gamma_2 =
+ \sqrt[3]{j}$.
+ \bprog
+ ? polclass(-163)
+ %1 = x + 262537412640768000
+ ? polclass(-51, , 'z)
+ %2 = z^2 + 5541101568*z + 6262062317568
+ ? polclass(-151,1)
+ x^7 - x^6 + x^5 + 3*x^3 - x^2 + 3*x + 1
+ @eprog

@@ -1,0 +1,9 @@
+Function: issquarefree
+Section: number_theoretical
+C-Name: issquarefree
+Prototype: lG
+Help: issquarefree(x): true(1) if x is squarefree, false(0) if not.
+Description:
+ (gen):bool       issquarefree($1)
+Doc: true (1) if $x$ is squarefree, false (0) if not. Here $x$ can be an
+ integer or a polynomial.

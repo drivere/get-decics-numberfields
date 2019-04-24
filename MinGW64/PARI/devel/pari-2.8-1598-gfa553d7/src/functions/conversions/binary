@@ -1,0 +1,11 @@
+Function: binary
+Section: conversions
+C-Name: binaire
+Prototype: G
+Help: binary(x): gives the vector formed by the binary digits of x (x
+ integer).
+Doc:
+ outputs the vector of the binary digits of $|x|$.
+ Here $x$ can be an integer, a real number (in which case the result has two
+ components, one for the integer part, one for the fractional part) or a
+ vector/matrix.

@@ -1,0 +1,16 @@
+
+// This is a comment with a long in it.  Anyway to fix this?
+
+
+long some_func(long x, long y, long z)
+
+long func2(long *x,long* y)
+
+ulong func3(long x,long  y,long z)
+
+long
+func4(ulong, long)
+
+
+long x = (long)sqrt(a/b) + (long)c*d
+

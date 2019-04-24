@@ -1,0 +1,63 @@
+Function: ellmodulareqn
+Section: elliptic_curves
+C-Name: ellmodulareqn
+Prototype: LDnDn
+Help: ellmodulareqn(N,{x},{y}): return a vector [eqn, t] where eqn is a modular
+ equation of level N, for N<500, N prime. This requires the package seadata to
+ be installed.  The equation is either of canonical type (t=0) or of Atkin type
+ (t=1)
+Doc: return a vector [\kbd{eqn},$t$] where \kbd{eqn} is a modular equation of
+ level $N$, i.e.~a bivariate polynomial with integer coefficients; $t$
+ indicates the type of this equation: either \emph{canonical} ($t = 0$) or
+ \emph{Atkin} ($t = 1$). This function currently requires the package
+ \kbd{seadata} to be installed and is limited to $N<500$, $N$ prime.
+
+ Let $j$ be the $j$-invariant function. The polynomial \kbd{eqn} satisfies
+ the following functional equation, which allows to compute the values of the
+ classical modular polynomial $\Phi_N$ of prime level $N$, such that
+ $\Phi_N(j(\tau), j(N\tau)) = 0$, while being much smaller than the latter:
+
+ \item for canonical type:
+  $P(f(\tau),j(\tau)) = P(N^s/f(\tau),j(N\*\tau)) = 0$,
+  where $s = 12/\gcd(12,N-1)$;
+
+ \item for Atkin type:
+  $P(f(\tau),j(\tau)) = P(f(\tau),j(N\*\tau)) = 0$.
+
+ \noindent In both cases, $f$ is a suitable modular function (see below).
+
+ The following GP function returns values of the classical modular polynomial
+ by eliminating $f(\tau)$ in the above two equations, for $N\leq 31$ or
+ $N\in\{41,47,59,71\}$.
+
+ \bprog
+ classicaleqn(N, X='X, Y='Y)=
+ {
+   my(E=ellmodulareqn(N), P=E[1], t=E[2], Q, d);
+   if(poldegree(P,'y)>2,error("level unavailable in classicaleqn"));
+   if (t == 0,
+     my(s = 12/gcd(12,N-1));
+     Q = 'x^(N+1) * substvec(P,['x,'y],[N^s/'x,Y]);
+     d = N^(s*(2*N+1)) * (-1)^(N+1);
+   ,
+     Q = subst(P,'y,Y);
+     d = (X-Y)^(N+1));
+   polresultant(subst(P,'y,X), Q) / d;
+ }
+ @eprog
+
+ More precisely, let $W_N(\tau)={{-1}\over{N\*\tau}}$ be the Atkin-Lehner
+ involution; we have $j(W_N(\tau)) = j(N\*\tau)$ and the function $f$ also
+ satisfies:
+
+ \item for canonical type:
+    $f(W_N(\tau)) = N^s/f(\tau)$;
+
+ \item for Atkin type:
+    $f(W_N(\tau)) = f(\tau)$.
+
+ \noindent Furthermore, for an equation of canonical type, $f$ is the standard
+ $\eta$-quotient
+ $$f(\tau) = N^s \* \big(\eta(N\*\tau) / \eta(\tau) \big)^{2\*s},$$
+ where $\eta$ is Dedekind's eta function, which is invariant under
+ $\Gamma_0(N)$.

@@ -1,0 +1,13 @@
+*** ../src/test/32/analyz	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:49:36.440139697 -0700
+***************
+*** 5,8 ****
+  ? sum(x=1,100,sum(y=1,100,x/y,0.0));
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 24
+--- 5,8 ----
+  ? sum(x=1,100,sum(y=1,100,x/y,0.0));
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 20

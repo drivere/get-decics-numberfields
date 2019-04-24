@@ -1,0 +1,15 @@
+Function: factorcantor
+Section: number_theoretical
+C-Name: factcantor
+Prototype: GG
+Help: factorcantor(x,p): factorization mod p of the polynomial x using
+ Cantor-Zassenhaus.
+Doc: factors the polynomial $x$ modulo the
+ prime $p$, using distinct degree plus
+ \idx{Cantor-Zassenhaus}\sidx{Zassenhaus}. The coefficients of $x$ must be
+ operation-compatible with $\Z/p\Z$. The result is a two-column matrix, the
+ first column being the irreducible polynomials dividing $x$, and the second
+ the exponents. If you want only the \emph{degrees} of the irreducible
+ polynomials (for example for computing an $L$-function), use
+ $\kbd{factormod}(x,p,1)$. Note that the \kbd{factormod} algorithm is
+ usually faster than \kbd{factorcantor}.

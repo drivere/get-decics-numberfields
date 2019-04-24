@@ -1,0 +1,25 @@
+Function: forell
+Section: programming/control
+C-Name: forell0
+Prototype: vVLLI
+Help: forell(E,a,b,seq): execute seq for each elliptic curves E of conductor
+ between a and b in the elldata database.
+Wrapper: (,,,vG)
+Description:
+ (,small,small,closure):void  forell(${4 cookie}, ${4 wrapper}, $2, $3)
+Doc: evaluates \var{seq}, where the formal variable $E = [\var{name}, M, G]$
+ ranges through all elliptic curves of conductors from $a$ to $b$. In this
+ notation \var{name} is the curve name in Cremona's elliptic  curve  database,
+ $M$ is the minimal model, $G$ is a $\Z$-basis of the free part of the
+ Mordell-Weil group $E(\Q)$.
+ \bprog
+ ? forell(E, 1, 500, my([name,M,G] = E); \
+     if (#G > 1, print(name)))
+ 389a1
+ 433a1
+ 446d1
+ @eprog\noindent
+ The \tet{elldata} database must be installed and contain data for the
+ specified conductors.
+
+ \synt{forell}{void *data, long (*call)(void*,GEN), long a, long b}.

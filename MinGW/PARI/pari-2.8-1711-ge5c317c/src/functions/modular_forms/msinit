@@ -1,0 +1,23 @@
+Function: msinit
+Section: modular_forms
+C-Name: msinit
+Prototype: GGD0,L,
+Help: msinit(G, V, {sign=0}): given G a finite index subgroup of SL(2,Z)
+ and a finite dimensional representation V of GL(2,Q), creates a space of
+ modular symbols, the G-module Hom_G(Div^0(P^1 Q), V). This is canonically
+ isomorphic to H^1_c(X(G), V), and allows to compute modular forms for G.
+ If sign is present and non-zero, it must be +1 or -1 and we consider
+ the subspace defined by Ker (Sigma - sign), where Sigma is induced by
+ [-1,0;0,1]. Currently the only supported groups are the Gamma_0(N), coded by
+ the integer N. The only supported representation is V_k = Q[X,Y]_{k-2}, coded
+ by the integer k >= 2.
+Doc: given $G$ a finite index subgroup of $\text{SL}(2,\Z)$
+ and a finite dimensional representation $V$ of $\text{GL}(2,\Q)$, creates a
+ space of modular symbols, the $G$-module $\text{Hom}_G(\text{Div}^0(\P^1
+ (\Q)), V)$. This is canonically isomorphic to $H^1_c(X(G), V)$, and allows to
+ compute modular forms for $G$. If \emph{sign} is present and non-zero, it
+ must be $\pm1$ and we consider the subspace defined by $\text{Ker} (\sigma -
+ \var{sign})$, where $\sigma$ is induced by \kbd{[-1,0;0,1]}. Currently the
+ only supported groups are the $\Gamma_0(N)$, coded by the integer $N > 1$.
+ The only supported representation is $V_k = \Q[X,Y]_{k-2}$, coded by the
+ integer $k \geq 2$.

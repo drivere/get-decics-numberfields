@@ -1,0 +1,12 @@
+Function: ellpadiclog
+Section: elliptic_curves
+C-Name: ellpadiclog
+Prototype: GGLG
+Help: ellpadiclog(E,p,n,P): returns the logarithm of P (in the kernel of
+ reduction) to absolute p-adic precision p^n.
+Doc: Given $E$ defined over $K = \Q$ or $\Q_p$ and $P = [x,y]$ on $E(K)$ in the
+ kernel of reduction mod $p$, let $t(P) = -x/y$ be the formal group
+ parameter; this function returns $L(t)$, where $L$ denotes the formal
+ logarithm (mapping  the formal group of $E$  to the additive formal group)
+ attached to the canonical invariant differential:
+ $dL = dx/(2y + a_1x + a_3)$.

@@ -1,0 +1,19 @@
+Function: polzagier
+Section: polynomials
+C-Name: polzag
+Prototype: LL
+Help: polzagier(n,m): Zagier's polynomials of index n,m.
+Doc: creates Zagier's polynomial $P_n^{(m)}$ used in
+ the functions \kbd{sumalt} and \kbd{sumpos} (with $\fl=1$). One must have $m\le
+ n$. The exact definition can be found in ``Convergence acceleration of
+ alternating series'', Cohen et al., Experiment.~Math., vol.~9, 2000, pp.~3--12.
+
+ %@article {MR2001m:11222,
+ %    AUTHOR = {Cohen, Henri and Rodriguez Villegas, Fernando and Zagier, Don},
+ %     TITLE = {Convergence acceleration of alternating series},
+ %   JOURNAL = {Experiment. Math.},
+ %    VOLUME = {9},
+ %      YEAR = {2000},
+ %    NUMBER = {1},
+ %     PAGES = {3--12},
+ %}

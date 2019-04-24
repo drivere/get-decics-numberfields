@@ -1,0 +1,13 @@
+*** ../src/test/64/compat	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:49:38.042136851 -0700
+***************
+*** 2590,2593 ****
+  ? getheap()
+  [721, 98442]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 132
+--- 2590,2593 ----
+  ? getheap()
+  [721, 98442]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 121

@@ -1,0 +1,6 @@
+Function: ellbil
+Section: elliptic_curves
+C-Name: bilhell
+Prototype: GGGp
+Help: ellbil(E,z1,z2): deprecated alias for ellheight(E,P,Q).
+Doc: deprecated alias for \kbd{ellheight(E,P,Q)}.

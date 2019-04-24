@@ -1,0 +1,21 @@
+Function: forstep
+Section: programming/control
+C-Name: forstep
+Prototype: vV=GGGI
+Help: forstep(X=a,b,s,seq): the sequence is evaluated, X going from a to b
+ in steps of s (can be a vector of steps).
+Doc: evaluates \var{seq},
+ where the formal variable $X$ goes from $a$ to $b$, in increments of $s$.
+ Nothing is done if $s>0$ and $a>b$ or if $s<0$ and $a<b$. $s$ must be in
+ $\R^*$ or a vector of steps $[s_1,\dots,s_n]$. In the latter case, the
+ successive steps are used in the order they appear in $s$.
+
+ \bprog
+ ? forstep(x=5, 20, [2,4], print(x))
+ 5
+ 7
+ 11
+ 13
+ 17
+ 19
+ @eprog

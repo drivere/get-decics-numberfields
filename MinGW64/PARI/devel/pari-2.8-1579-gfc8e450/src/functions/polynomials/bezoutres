@@ -1,0 +1,6 @@
+Function: bezoutres
+Section: polynomials
+C-Name: polresultantext0
+Prototype: GGDn
+Help: bezoutres(A,B,{v}): deprecated alias for polresultantext
+Doc: deprecated alias for \kbd{polresultantext}

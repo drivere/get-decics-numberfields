@@ -1,0 +1,12 @@
+Function: matsolve
+Section: linear_algebra
+C-Name: gauss
+Prototype: GG
+Help: matsolve(M,B): solution of MX=B (M matrix, B column vector).
+Doc: $M$ being an invertible matrix and $B$ a column
+ vector, finds the solution $X$ of $MX=B$, using Dixon $p$-adic lifting method
+ if $M$ and $B$ are integral and Gaussian elimination otherwise. This
+ has the same effect as, but is faster, than $M^{-1}*B$.
+
+Variant: For integral input, the function
+ \fun{GEN}{ZM_gauss}{GEN M,GEN B} is also available.

@@ -1,0 +1,26 @@
+Function: msissymbol
+Section: modular_forms
+C-Name: msissymbol
+Prototype: lGG
+Help: msissymbol(M,s): M being a full modular symbol space, as given by msinit,
+ check whether s is a modular symbol associated to M
+Doc:
+ $M$ being a full modular symbol space, as given by \kbd{msinit},
+ check whether $s$ is a modular symbol associated to $M$.
+ \bprog
+ ? M = msinit(7,8, 1); \\ M_8(Gamma_0(7))^+
+ ? N = msnew(M)[1];
+ ? s = N[,1];
+ ? msissymbol(M, s)
+ %4 = 1
+ ? S = mseval(M,s);
+ ? msissymbol(M, S)
+ %6 = 1
+ ? [g,R] = mspathgens(M); g
+ %7 = [[+oo, 0], [0, 1/2], [1/2, 1]]
+ ? #R  \\ 3 relations among the generators g_i
+ %8 = 3
+ ? T = S; T[3]++; \\ randomly perturb S(g_3)
+ ? msissymbol(M, T)
+ %10 = 0  \\ no longer satisfies the relations
+ @eprog

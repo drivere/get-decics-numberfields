@@ -1,0 +1,25 @@
+J. E. Cremona Elliptic Curve Data for PARI/GP
+=============================================
+
+This is the PARI/GP version of J. E. Cremona Elliptic Curve Data
+<http://www.warwick.ac.uk/staff/J.E.Cremona/ftp/data/INDEX.html>
+
+This package contains elliptic curves defined over the rationals representing
+all isogeny classes for all conductor less than 350000. Theses data are needed
+by ellsearch, ellidentify and ellgenerators and require PARI/GP 2.2.11 and up.
+
+Note that the numbering of curves inside isogeny classes follows the update
+from 11/04/2012.
+
+See <http://pari.math.u-bordeaux.fr/packages.html> for other PARI/GP packages.
+
+===============================
+PARI/GP is free software; you can redistribute it and/or modify it under the
+terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later
+version. It is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY WHATSOEVER.
+
+Check the License for details. You should have received a copy of it, along
+with the package; see the file 'COPYING'. If not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.

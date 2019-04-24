@@ -1,0 +1,31 @@
+Function: qfbil
+Section: linear_algebra
+C-Name: qfbil
+Prototype: GGDG
+Help: qfbil(x,y,{q}): evaluate the bilinear form q (symmetric matrix)
+ at (x,y); if q omitted, use the standard Euclidean scalar product.
+Doc: evaluate the bilinear form $q$ (symmetric matrix)
+ at the vectors $(x,y)$; if $q$ omitted, use the standard Euclidean scalar
+ product, corresponding to the identity matrix.
+
+ Roughly equivalent to \kbd{x\til * q * y}, but a little faster and
+ more convenient (does not distinguish between column and row vectors):
+ \bprog
+ ? x = [1,2,3]~; y = [-1,0,1]~; qfbil(x,y)
+ %1 = 2
+ ? q = [1,2,3;2,2,-1;3,-1,0]; qfbil(x,y, q)
+ %2 = -13
+ ? for(i=1,10^6, qfbil(x,y,q))
+ %3 = 568ms
+ ? for(i=1,10^6, x~*q*y)
+ %4 = 717ms
+ @eprog\noindent The associated quadratic form is also available, as
+ \tet{qfnorm}, slightly faster:
+ \bprog
+ ? for(i=1,10^6, qfnorm(x,q))
+ time = 444ms
+ ? for(i=1,10^6, qfnorm(x))
+ time = 176 ms.
+ ? for(i=1,10^6, qfbil(x,y))
+ time = 208 ms.
+ @eprog

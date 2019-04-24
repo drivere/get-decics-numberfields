@@ -1,0 +1,52 @@
+Vs=[0,1/2,10-I,1+128*I];
+Vx=[19+236*I,1/10,-1/10,I/10,-I/10,1/10-I/10,100,-100,100+1001*I];
+
+test(fun, p) =
+{
+  my (P = 1/10.^(p-1));
+  for (i=1,#Vs,
+    for (j=1,#Vx,
+      my (v,w, s = Vs[i], x = Vx[j]);
+      default(realprecision, p);      v = fun(s, x);
+      default(realprecision, p + 38); w = fun(s, x);
+\\      e = abs((v-w)/w);
+      e = if (abs(w) < 1, abs(v-w), abs((v-w)/w));
+      if (e > P, printf("%9s, %13s: %.1e\n", s,x,e));
+    )
+  );
+}
+
+test(incgam, 19)
+test(incgam, 38)
+test(incgam, 100)
+
+mylog(x)=if(x==0, "oo", round(log(abs(x))/log(10)));
+
+Vs=[1/10+1/5*I,-1/10,-1/10,-1/10+2/5*I,-1/10+2/5*I,2/5*I,2/5*I,-2/5*I,-2/5*I,-1,-1,-20,-200001/10000];
+Vx=[13/10,1/10000,13/10,13/10,1/10000,11/10,1/10000,11/10,1/10000,1/10000,11/10,11/10,11/10];
+
+default(realprecision, 100);
+VR = vector(#Vs,j,incgam(Vs[j]*1.,Vx[j]*1.));
+test(fun, prec)=
+{
+  default(realprecision,prec);
+  for(j=1,#Vs,
+    res = fun(Vs[j]*1.,Vx[j]*1.) - VR[j];
+    print(j, ": ", mylog(res))
+  );
+}
+test(incgam, 38)
+test(incgam, 76)
+
+default(realprecision, 38);
+incgam(1/2,10^8)
+eint1(-0.3-95*I)
+eint1(100)
+incgam(-10+1e-100,1)
+eint1(2,5)
+\p1000
+eint1(100)
+\p481
+eint1(150)
+
+eint1(0)

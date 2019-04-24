@@ -1,0 +1,8 @@
+Function: for
+Section: programming/control
+C-Name: forpari
+Prototype: vV=GGI
+Help: for(X=a,b,seq): the sequence is evaluated, X going from a up to b.
+Doc: evaluates \var{seq}, where
+ the formal variable $X$ goes from $a$ to $b$. Nothing is done if $a>b$.
+ $a$ and $b$ must be in $\R$.

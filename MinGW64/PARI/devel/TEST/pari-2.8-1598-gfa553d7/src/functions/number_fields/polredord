@@ -1,0 +1,11 @@
+Function: polredord
+Section: number_fields
+C-Name: polredord
+Prototype: G
+Help: polredord(x): reduction of the polynomial x, staying in the same order.
+Doc: finds polynomials with reasonably small
+ coefficients and of the same degree as that of $x$ defining suborders of the
+ order defined by $x$. One of the polynomials always defines $\Q$ (hence
+ is equal to $(x-1)^n$, where $n$ is the degree), and another always defines
+ the same order as $x$ if $x$ is irreducible. Useless function: try
+ \kbd{polredbest}.

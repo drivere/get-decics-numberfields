@@ -1,0 +1,49 @@
+Function: ffgen
+Section: number_theoretical
+C-Name: ffgen
+Prototype: GDn
+Help: ffgen(q,{v}): return a generator X mod P(X) for the finite field with
+ q elements. If v is given, the variable name is used to display g, else the
+ variable 'x' is used. Alternative syntax, q = P(X) an irreducible
+ polynomial with t_INTMOD
+ coefficients, return the generator X mod P(X) of the finite field defined
+ by P. If v is given, the variable name is used to display g, else the
+ variable of the polynomial P is used.
+
+Doc: return a \typ{FFELT} generator for the finite field with $q$ elements;
+ $q = p^f$ must be a prime power. This functions computes an irreducible
+ monic polynomial $P\in\F_p[X]$ of degree~$f$ (via \tet{ffinit}) and
+ returns $g = X \pmod{P(X)}$. If \kbd{v} is given, the variable name is used
+ to display $g$, else the variable $x$ is used.
+ \bprog
+ ? g = ffgen(8, 't);
+ ? g.mod
+ %2 = t^3 + t^2 + 1
+ ? g.p
+ %3 = 2
+ ? g.f
+ %4 = 3
+ ? ffgen(6)
+  ***   at top-level: ffgen(6)
+  ***                 ^--------
+  *** ffgen: not a prime number in ffgen: 6.
+ @eprog\noindent Alternative syntax: instead of a prime power $q=p^f$, one may
+ input the pair $[p,f]$:
+ \bprog
+ ? g = ffgen([2,4], 't);
+ ? g.p
+ %2 = 2
+ ? g.mod
+ %3 = t^4 + t^3 + t^2 + t + 1
+ @eprog\noindent Finally, one may input
+ directly the polynomial $P$ (monic, irreducible, with \typ{INTMOD}
+ coefficients), and the function returns the generator $g = X \pmod{P(X)}$,
+ inferring $p$ from the coefficients of $P$. If \kbd{v} is given, the
+ variable name is used to display $g$, else the variable of the polynomial
+ $P$ is used. If $P$ is not irreducible, we create an invalid object and
+ behaviour of functions dealing with the resulting \typ{FFELT}
+ is undefined; in fact, it is much more costly to test $P$ for
+ irreducibility than it would be to produce it via \kbd{ffinit}.
+Variant:
+ To create a generator for a prime finite field, the function
+ \fun{GEN}{p_to_GEN}{GEN p, long v} returns \kbd{1+ffgen(x*Mod(1,p),v)}.

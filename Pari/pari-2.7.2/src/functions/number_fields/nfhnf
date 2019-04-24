@@ -1,0 +1,13 @@
+Function: nfhnf
+Section: number_fields
+C-Name: nfhnf
+Prototype: GG
+Help: nfhnf(nf,x): if x=[A,I], gives a pseudo-basis of the module sum A_jI_j
+Doc: given a pseudo-matrix $(A,I)$, finds a
+ pseudo-basis in \idx{Hermite normal form} of the module it generates.
+Variant: Also available:
+
+ \fun{GEN}{rnfsimplifybasis}{GEN bnf, GEN x} simplifies the pseudo-basis
+ given by $x = (A,I)$. The ideals in the list $I$ are integral, primitive and
+ either trivial (equal to the full ring of integer) or non-principal.
+

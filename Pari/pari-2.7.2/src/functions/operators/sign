@@ -1,0 +1,10 @@
+Function: sign
+Section: operators
+C-Name: gsigne
+Prototype: iG
+Help: sign(x): sign of x, of type integer, real or fraction
+Description:
+ (mp):small          signe($1)
+ (gen):small        gsigne($1)
+Doc: \idx{sign} ($0$, $1$ or $-1$) of $x$, which must be of
+ type integer, real or fraction.

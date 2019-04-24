@@ -1,0 +1,17 @@
+Function: _def_parisize
+Class: default
+Section: default
+C-Name: sd_parisize
+Prototype:
+Help:
+Doc: \kbd{gp}, and in fact any program using the PARI
+ library, needs a \tev{stack} in which to do its computations. \kbd{parisize}
+ is the stack size, in bytes. It is strongly recommended you increase this
+ default (using the \kbd{-s} command-line switch, or a \tet{gprc}) if you can
+ afford it. Don't increase it beyond the actual amount of RAM installed on
+ your computer or \kbd{gp} will spend most of its time paging.
+
+ In case of emergency, you can use the \tet{allocatemem} function to
+ increase \kbd{parisize}, once the session is started.
+
+ The default value is 4M, resp.~8M on a 32-bit, resp.~64-bit machine.

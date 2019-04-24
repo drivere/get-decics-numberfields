@@ -1,0 +1,53 @@
+Function: sumnumalt
+Section: sums
+C-Name: sumnumalt0
+Prototype: V=GGEDGD0,L,p
+Help: sumnumalt(X=a,sig,expr,{tab},{flag=0}): numerical summation of (-1)^X
+ expr(X)
+ from X = ceiling(a) to +infinity. Note that the (-1)^X must not be included.
+ sig is either a scalar or a two-component vector coded as in intnum, and the
+ scalar part is larger than all the real parts of the poles of expr. Uses intnum,
+ hence tab is as in intnum. If flag is nonzero, assumes that the function to
+ be summed satisfies conj(f(z))=f(conj(z)), and then up to twice faster.
+Wrapper: (,,G)
+Description:
+  (gen,gen,gen,?gen,?small):gen:prec sumnumalt(${3 cookie}, ${3 wrapper}, $1, $2, $4, $5, prec)
+Doc: numerical
+ summation of $(-1)^X\var{expr}(X)$, the variable $X$ taking integer values from
+ ceiling of $a$ to $+\infty$, where \var{expr} is assumed to be a holomorphic
+ function for $\Re(X)\ge sig$ (or $sig[1]$).
+
+ \misctitle{Warning} This function uses the \kbd{intnum} routines and is
+ orders of magnitude slower than \kbd{sumalt}. It is only given for
+ completeness and should not be used in practice.
+
+ \misctitle{Warning 2} The expression \var{expr} must \emph{not} include the
+ $(-1)^X$ coefficient. Thus $\kbd{sumalt}(n=a,(-1)^nf(n))$ is (approximately)
+ equal to $\kbd{sumnumalt}(n=a,sig,f(n))$.
+
+ $sig$ is coded as in \kbd{sumnum}. However for slowly decreasing functions
+ (where $sig$ is coded as $[\sigma,\alpha]$ with $\alpha<-1$), it is not
+ really important to indicate $\alpha$. In fact, as for \kbd{sumalt}, the
+ program will often give meaningful results (usually analytic continuations)
+ even for divergent series. On the other hand the exponential decrease must be
+ indicated.
+
+ \var{tab} is as in \kbd{intnum}, but if used must be initialized with
+ \kbd{sumnuminit}. If $\fl$ is nonzero, assumes that the function $f$ to be
+ summed is of real type, i.e. satisfies $\overline{f(z)}=f(\overline{z})$, and
+ then twice faster when \var{tab} is precomputed.
+
+ \bprog
+ ? \p 308
+ ? tab = sumnuminit(2, /*omitted*/, -1); \\@com abscissa $\sigma=2$, alternating sums.
+ time = 1,620 ms. \\@com slow, but done once and for all.
+ ? a = sumnumalt(n=1, 2, 1/(n^3+n+1), tab, 1);
+ time = 230 ms. \\@com similar speed to \kbd{sumnum}
+ ? b = sumalt(n=1, (-1)^n/(n^3+n+1));
+ time = 0 ms. \\@com infinitely faster!
+ ? a - b
+ time = 0 ms.
+ %1 = -1.66... E-308 \\@com perfect
+ @eprog
+
+ \synt{sumnumalt}{void *E, GEN (*eval)(void*,GEN), GEN a, GEN sig, GEN tab, long flag, long prec}.

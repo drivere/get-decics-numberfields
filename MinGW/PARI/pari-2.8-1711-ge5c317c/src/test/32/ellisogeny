@@ -1,0 +1,8 @@
+  ***   at top-level: ellisogenyapply(x,x)
+  ***                 ^--------------------
+  *** ellisogenyapply: incorrect type in checkellisog (t_POL).
+  ***   at top-level: ellisogenyapply([f,g
+  ***                 ^--------------------
+  *** ellisogenyapply: incorrect type in checkellpt (t_INT).
+1
+Total time spent: 88

@@ -1,0 +1,7 @@
+  ***   at top-level: 1.<<2^60
+  ***                     ^----
+  ***   overflow in t_INT-->long assignment.
+  ***   at top-level: 1.>>2^60
+  ***                     ^----
+  ***   overflow in t_INT-->long assignment.
+Total time spent: 0

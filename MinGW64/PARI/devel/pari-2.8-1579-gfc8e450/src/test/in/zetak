@@ -1,0 +1,28 @@
+default(realprecision,38);
+do(p) = {
+  my(v = [-3,3,2,0,1/2+I]);
+  my(znf = zetakinit(p));
+  for(i=1,#v, print(zetak(znf,v[i])));
+}
+
+allocatemem(20*10^6);
+do(y^2-3);
+do(y^2+3);
+do(y^3-4*y+2);
+do(y^3-2);
+do(y^5-3*y^2+y+2);
+zeta(3+O(5^10))
+zeta(1 + I/100)
+zeta(1000.5)
+zeta(1000)
+zeta(100)
+zeta(31)
+zeta(100+100*I)
+zeta(60+I)
+zeta(-1000+I)
+zeta(2+O(2^10))
+zeta(2^64)
+zeta(-2^64)
+iferr(zeta(-1-2^64),E,E)
+zeta(2+1e-101*I)
+zeta(1.01)

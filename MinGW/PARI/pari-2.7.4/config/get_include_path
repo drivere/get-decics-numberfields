@@ -1,0 +1,17 @@
+incpth="`echo $C_INCLUDE_PATH | sed -e \"s%\([^$dir_sep]*\)$dir_sep*%\1 \1/readline %g\"`"
+case "$osname" in
+  os2);;
+  cygwin*) incpth="$incpth\
+    $cygtop/usr/local/include\
+    $cygtop/usr/include\
+    $cygtop/H-${arch}-cygwin32/${arch}-cygwin32/include\
+    ";;
+  *) incpth="$incpth\
+    /usr/local/include\
+    /usr/include\
+    /opt/include\
+    /opt/local/include\
+    /opt/gnu/include\
+    ";;
+esac
+basic_include_path=$incpth

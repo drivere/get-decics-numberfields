@@ -1,0 +1,33 @@
+Function: ellisomat
+Section: elliptic_curves
+C-Name: ellisomat
+Prototype: GD0,L,
+Help: ellisomat(E, {fl=0}): E being an elliptic curve over Q, return a list of
+ representatives of the isomorphism classes of elliptic curves isogenous to E,
+ with the corresponding isogenies from E and the matrix of the degrees of the
+ isogenies between the curves. If the flag fl is 1, the isogenies are not computed,
+ which speed up the computation.
+Doc:
+ Given an elliptic curve $E$ defined over $\Q$, compute representatives of the
+ isomorphism classes of elliptic curves $\Q$-isogenous to $E$. The function
+ returns a vector $[L,M]$ where $L$ is a list of couples $[E_i, f_i]$, where
+ $E_i$ is an elliptic curve and $f_i$ is a rationale isogeny from $E$ to $E_i$,
+ and $M$ is the matrix such that $M_{i,j}$ is the degree of the isogeny between
+ $E_i$ and $E_j$.
+ Furthermore the first curve $E_1$ is isomorphic to $E$ by $f_1$.
+ If the flag $\var{fl}=1$, the $f_i$ are not computed, and $L$ is actually the
+ list of the curves $E_i$.
+ \bprog
+ ? E = ellinit("14a1");
+ ? [L,M]=ellisomat(E);
+ ? L
+ ? apply(x->x[1],L)
+ %3 = [[215/48,-5291/864],[-675/16,6831/32],[-8185/48,-742643/864],
+ ? L[2]
+ %4 = [[-675/16,6831/32],[x^3+3/4*x^2+19/2*x-311/12,
+        1/2*x^4+(y+1)*x^3+(y-4)*x^2+(-9*y+23)*x+(55*y+55/2),x+1/3]]
+ ? M
+ %5 = [1,3,3,2,6,6;3,1,9,6,2,18;3,9,1,6,18,2;2,6,6,1,3,3;6,2,18,3,1,9;6,18,2,3,9,1]
+ ? apply(E->ellidentify(ellinit(E[1]))[1][1],L)
+ %6 = ["14a1","14a4","14a3","14a2","14a6","14a5"]
+ @eprog

@@ -1,0 +1,13 @@
+*** ../src/test/32/idealappr	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:51:24.220948240 -0700
+***************
+*** 6,9 ****
+    ***                 ^--------------------
+    *** idealtwoelt: domain error in idealtwoelt2: element mod ideal != 0
+  [0, 0]~
+! Total time spent: 0
+--- 6,9 ----
+    ***                 ^--------------------
+    *** idealtwoelt: domain error in idealtwoelt2: element mod ideal != 0
+  [0, 0]~
+! Total time spent: 1

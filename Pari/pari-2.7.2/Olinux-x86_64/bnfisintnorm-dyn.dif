@@ -1,0 +1,13 @@
+*** ../src/test/32/bnfisintnorm	2014-03-25 01:59:21.000000000 -0700
+--- gp.out	2015-05-12 08:49:37.416137963 -0700
+***************
+*** 768,771 ****
+  ? bnfisintnorm(bnfinit('y^2+93),54647)
+  []
+  ? print("Total time spent: ",gettime);
+! Total time spent: 512
+--- 768,771 ----
+  ? bnfisintnorm(bnfinit('y^2+93),54647)
+  []
+  ? print("Total time spent: ",gettime);
+! Total time spent: 392

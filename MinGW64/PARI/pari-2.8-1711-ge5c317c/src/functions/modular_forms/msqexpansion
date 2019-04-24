@@ -1,0 +1,25 @@
+Function: msqexpansion
+Section: modular_forms
+C-Name: msqexpansion
+Prototype: GGDP
+Help: msqexpansion(M,projH,{B = seriesprecision}): M being a full modular
+ symbol space, as given by msinit, and projH being a projector on a
+ Hecke-simple subspace, return the Fourier coefficients [a_n, n <= B]
+ of the corresponding normalized newform. If B omitted, use seriesprecision
+Doc:
+ $M$ being a full modular symbol space, as given by \kbd{msinit},
+ and \var{projH} being a projector on a Hecke-simple subspace (as given
+ by \tet{mssplit}), return the Fourier coefficients $a_n$, $n\leq B$ of the
+ corresponding normalized newform. If $B$ is omitted, use
+ \kbd{seriesprecision}.
+
+ This function uses a naive $O(B^2 d^3)$
+ algorithm, where $d = O(kN)$ is the dimension of $M_k(\Gamma_0(N))$.
+ \bprog
+ ? M = msinit(11,2, 1); \\ M_2(Gamma_0(11))^+
+ ? L = mssplit(M, msnew(M));
+ ? msqexpansion(M,L[1], 20)
+ %3 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2, 1, -2, 4, 4, -1, -4, -2, 4, 0, 2]
+ ? ellan(ellinit("11a1"), 20)
+ %4 = [1, -2, -1, 2, 1, 2, -2, 0, -2, -2, 1, -2, 4, 4, -1, -4, -2, 4, 0, 2]
+ @eprog

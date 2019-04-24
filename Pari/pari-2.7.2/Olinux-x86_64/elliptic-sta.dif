@@ -1,0 +1,13 @@
+*** ../src/test/32/elliptic	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:50:54.235001506 -0700
+***************
+*** 126,129 ****
+   28*w))]
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 32
+--- 126,129 ----
+   28*w))]
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 18

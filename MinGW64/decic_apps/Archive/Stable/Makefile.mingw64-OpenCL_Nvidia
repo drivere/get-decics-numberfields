@@ -1,0 +1,66 @@
+
+BOINC_DIR = /home/eric/BOINC_Project/MinGW64/BOINC/boinc-v2
+BOINC_API_DIR = $(BOINC_DIR)/api
+BOINC_LIB_DIR = $(BOINC_DIR)/lib
+BOINC_SCHED_DIR = $(BOINC_DIR)/sched
+BOINC_DB_DIR = $(BOINC_DIR)/db
+
+PARI = /home/eric/BOINC_Project/MinGW64/PARI/pari-2.8-1711-ge5c317c
+
+LIBGMP = /home/eric/BOINC_Project/MinGW64/GMP/lib
+
+GMPINC = /home/eric/BOINC_Project/MinGW64/GMP/include
+
+# Location of Nvidia headers and libraries.
+NVIDIA_PATH = /usr/local/cuda
+NVIDIA_INC  = $(NVIDIA_PATH)/include
+
+LIB_OPENCL = /usr/lib64/wine/fakedlls  # opencl.dll is in here
+
+
+CC = /usr/bin/x86_64-w64-mingw32-g++
+#CC = /usr/bin/x86_64-w64-mingw32-gcc
+
+OPT = -O3
+
+OBase := Omingw-x86_64
+O     := $(OBase)-OpenCL_Nvidia
+
+
+INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(GMPINC) -I$(PARI)/src/headers -I$(PARI)/$(OBase) -I$(NVIDIA_INC)
+
+#LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L/usr/x86_64-w64-mingw32/sys-root/mingw/lib -lboinc_api -lboinc -lpari -lm -lgmp
+#LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L$(LIBGMP) -lboinc_api -lboinc -lpari -lm -l:libgmp.a
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L$(LIBGMP) -L$(LIB_OPENCL) -lboinc_api -lboinc -lpari -lm -l:libgmp.a -l:opencl.dll
+
+
+# NOTE: The first line was used to build the cpu version
+#PREPROC_DEFS = -DMINGW -DMINGW64 -DAPP_VERSION_GPU_OPENCL -DBOINC_GPU_PLATFORM=PROC_TYPE_NVIDIA_GPU
+PREPROC_DEFS = -DMINGW64 -DAPP_VERSION_GPU_OPENCL -DBOINC_GPU_PLATFORM=PROC_TYPE_NVIDIA_GPU
+
+CXXFLAGS = $(OPT) -Wall -w -fmax-errors=5 $(PREPROC_DEFS) $(INCLUDES)
+
+
+
+################################################################################
+
+# Target rules
+
+all: build
+
+build: $(O) $(O)/GetDecics
+
+
+$(O)/%.o: %.cpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+$(O)/boinc_opencl.o: $(BOINC_API_DIR)/boinc_opencl.cpp $(BOINC_API_DIR)/boinc_opencl.h
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o
+	$(CC) -static $(CXXFLAGS) -o $@ $+ $(LIBS) -pthread
+
+clean:
+	rm -r -f $(O)
+
+$(O): ;	mkdir -p $(O)

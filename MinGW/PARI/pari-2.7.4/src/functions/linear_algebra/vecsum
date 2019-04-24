@@ -1,0 +1,6 @@
+Function: vecsum
+Section: linear_algebra
+C-Name: vecsum
+Prototype: G
+Help: vecsum(v): return the sum of the component of the vector v
+Doc: return the sum of the component of the vector $v$

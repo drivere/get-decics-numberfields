@@ -1,0 +1,14 @@
+Function: _def_strictmatch
+Class: default
+Section: default
+C-Name: sd_strictmatch
+Prototype:
+Help:
+Doc: this toggle is either 1 (on) or 0 (off). If on, unused characters after a
+ sequence has been
+ processed will produce an error. Otherwise just a warning is printed. This
+ can be useful when you are unsure how many parentheses you have to close
+ after complicated nested loops. Please do not use this; find a decent
+ text-editor instead.
+
+ The default value is \kbd{1}.

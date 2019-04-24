@@ -1,0 +1,21 @@
+Function: rnfidealup
+Section: number_fields
+C-Name: rnfidealup
+Prototype: GG
+Help: rnfidealup(rnf,x): lifts the ideal x (of the base field) to the
+ relative field.
+Doc: let $\var{rnf}$ be a relative number
+ field extension $L/K$ as output by \kbd{rnfinit} and let $x$ be an ideal of
+ $K$. This function returns the ideal $x\Z_L$ as an absolute ideal of $L/\Q$,
+ in the form of a $\Z$-basis, given by a vector of polynomials (modulo
+ \kbd{rnf.pol}).
+
+ The reason why we do not return the customary HNF in terms of a fixed
+ $\Z$-basis for $\Z_L$ is precisely that no such basis has been explicitly
+ specified. On the other hand, if you already computed an (absolute) \var{nf}
+ structure \kbd{Labs} associated to $L$, then
+ \bprog
+   xabs = rnfidealup(L, x);
+   xLabs = mathnf(matalgtobasis(Labs, xabs));
+ @eprog\noindent computes a traditional HNF \kbd{xLabs} for $x$ in terms of
+ the fixed $\Z$-basis \kbd{Labs.zk}.

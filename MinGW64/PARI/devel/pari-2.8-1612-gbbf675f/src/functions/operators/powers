@@ -1,0 +1,8 @@
+Function: powers
+Section: operators
+C-Name: gpowers
+Prototype: GL
+Description:
+ (gen, small):vec  gpowers($1, $2)
+Help: powers(x,n): return the vector [1,x,...,x^n]
+Doc: return the vector $[1,x,\dots,x^n]$.

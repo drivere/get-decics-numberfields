@@ -1,0 +1,50 @@
+23:37:40 (9163): Can't open init data file - running in standalone mode
+Checkpoint Flag = 0.
+ a5 Starting Index =  0.
+a22 Starting Value = -1000000000.
+a21 Starting Value = -1000000000.
+a32 Starting Value = -1000000000.
+a31 Starting Value = -1000000000.
+PolyCount starting value = 0.
+Stat Count 1 = 0.
+Stat Count 2 = 0.
+Stat Count 3 = 0.
+Elapsed Time = 0 (sec).
+Entering MartinetSearch routine...
+Disc Bound = 120000000000.00000000
+Reading file in:
+    K = y^2 - 73
+    TgtFlag = 0
+    a1 Index = 9
+    NumVals_a5 = 1
+    a5 values:
+        -49 + -10w
+    a22_L = -2
+    a22_U = -2
+    a21_L = 42
+    a21_U = 42
+    a32_L = 23
+    a32_U = 44
+|dK| = 73
+Signature = [2,0]
+a11 = -1
+a12 = 2
+sig1a1 = -10.544003745317531167871648326239706435
+sig2a1 = 6.5440037453175311678716483262397064346
+Ca1_pre = 30.800000
+Opening output file out
+Now starting the Martinet search:
+
+Doing case a5 = -49 + -10w...
+  2nd part of Martinet bound = 18.978846.
+  Martinet bound = 49.778846.
+  a22_L = -2.
+  a22_U = -2.
+  a22 = -2.
+    a21_L = 42.
+    a21_U = 42.
+    a21 = 42.
+      a32_L = 23.
+      a32_U = 44.
+The search has finished.
+23:39:39 (9163): called boinc_finish(0)

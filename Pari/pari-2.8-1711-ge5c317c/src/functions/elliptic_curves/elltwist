@@ -1,0 +1,22 @@
+Function: elltwist
+Section: elliptic_curves
+C-Name: elltwist
+Prototype: GDG
+Help: elltwist(E,P): returns the coefficients [a1,a2,a3,a4,a6] of
+ the twist of the elliptic curve E by the quadratic extension defined by
+ the polynomial P of degree 2.
+Doc: returns the coefficients $[a_1,a_2,a_3,a_4,a_6]$ of the twist of the
+ elliptic curve $E$ by the quadratic extension defined by the polynomial $P$ of
+ degree $2$.
+
+ Example: Twist by an extension of discriminant $D$:
+ \bprog
+ ? elltwist(ellinit([0,a2,0,a4,a6]),x^2-D/4)
+ %1 = [0,D*a2,0,D^2*a4,D^3*a6]
+ @eprog
+ Twist by the Artin-Shreier extension given by $x^2+x+T$ in
+ characteristic $2$:
+ \bprog
+ ? lift(elltwist(ellinit([a1,a2,a3,a4,a6]*Mod(1,2)),x^2+x+T))
+ %1 = [a1,a2+a1^2*T,a3,a4,a6+a3^2*T]
+ @eprog

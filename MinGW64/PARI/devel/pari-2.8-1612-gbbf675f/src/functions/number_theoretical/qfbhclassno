@@ -1,0 +1,9 @@
+Function: qfbhclassno
+Section: number_theoretical
+C-Name: hclassno
+Prototype: G
+Help: qfbhclassno(x): Hurwitz-Kronecker class number of x>0.
+Doc: \idx{Hurwitz class number} of $x$, where
+ $x$ is non-negative and congruent to 0 or 3 modulo 4. For $x > 5\cdot
+ 10^5$, we assume the GRH, and use \kbd{quadclassunit} with default
+ parameters.

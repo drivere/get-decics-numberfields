@@ -1,0 +1,13 @@
+*** ../src/test/32/err	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:51:02.659986540 -0700
+***************
+*** 587,590 ****
+    ***   at top-level: trap(e_INV,INFINITY,log(0))
+    ***                                     ^-------
+    *** log: domain error in log: argument = 0
+! Total time spent: 20
+--- 587,590 ----
+    ***   at top-level: trap(e_INV,INFINITY,log(0))
+    ***                                     ^-------
+    *** log: domain error in log: argument = 0
+! Total time spent: 17

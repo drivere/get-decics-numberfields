@@ -1,0 +1,12 @@
+Function: plotlinetype
+Class: highlevel
+Section: graphic
+C-Name: rectlinetype
+Prototype: vLL
+Help: plotlinetype(w,type): change the type of following lines in rectwindow
+ w. type -2 corresponds to frames, -1 to axes, larger values may correspond
+ to something else. w=-1 changes highlevel plotting.
+Doc: change the type of lines subsequently plotted in rectwindow $w$.
+ \var{type} $-2$ corresponds to frames, $-1$ to axes, larger values may
+ correspond to something else. $w = -1$ changes highlevel plotting. This is
+ only taken into account by the \kbd{gnuplot} interface.

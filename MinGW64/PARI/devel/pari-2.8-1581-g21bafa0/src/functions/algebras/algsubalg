@@ -1,0 +1,17 @@
+Function: algsubalg
+Section: algebras
+C-Name: algsubalg
+Prototype: GG
+Help: algsubalg(al,B): subalgebra of al with basis B.
+Doc: \var{al} being a table algebra output by \tet{algtableinit} and \var{B}
+ being a basis of a subalgebra of \var{al} represented by a matrix, returns an
+ algebra isomorphic to \var{B}.
+ \bprog
+ ? mt = [matid(3), [0,0,0; 1,1,0; 0,0,0], [0,0,1; 0,0,0; 1,0,1]];
+ ? A = algtableinit(mt,2);
+ ? B = algsubalg(A,[1,0; 0,0; 0,1]);
+ ? algdim(A)
+ %4 = 3
+ ? algdim(B)
+ %5 = 2
+ @eprog

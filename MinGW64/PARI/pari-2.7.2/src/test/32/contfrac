@@ -1,0 +1,69 @@
+  ***   at top-level: contfrac(1,[],-1)
+  ***                 ^-----------------
+  *** contfrac: domain error in contfrac: nmax < 0
+  ***   at top-level: contfracpnqn(Vecsmal
+  ***                 ^--------------------
+  *** contfracpnqn: incorrect type in pnqn (t_VECSMALL).
+
+[1 0]
+
+[0 1]
+
+[;]
+[;]
+
+[1 2]
+
+[0 1]
+
+
+[2]
+
+[1]
+
+
+[2]
+
+[1]
+
+
+[10 3]
+
+[ 7 2]
+
+
+[1]
+
+[1]
+
+
+[1 3]
+
+[1 2]
+
+
+[1 3 10]
+
+[1 2  7]
+
+
+[144 22]
+
+[ 33  5]
+
+
+[4]
+
+[1]
+
+
+[4 22]
+
+[1  5]
+
+
+[4 22 144]
+
+[1  5  33]
+
+Total time spent: 0

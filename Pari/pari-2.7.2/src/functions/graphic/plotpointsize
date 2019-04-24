@@ -1,0 +1,9 @@
+Function: plotpointsize
+Class: highlevel
+Section: graphic
+C-Name: rectpointsize
+Prototype: vLG
+Help: plotpointsize(w,size): change the "size" of following points in
+ rectwindow w. w=-1 changes global value.
+Doc: changes the ``size'' of following points in rectwindow $w$. If $w = -1$,
+ change it in all rectwindows. This only works in the \kbd{gnuplot} interface.

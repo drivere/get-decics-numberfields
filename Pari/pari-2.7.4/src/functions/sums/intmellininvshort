@@ -1,0 +1,43 @@
+Function: intmellininvshort
+Section: sums
+C-Name: intmellininvshort
+Prototype: GGGp
+Help: intmellininvshort(sig,z,tab): numerical integration on the
+ line real(X) = sig (or sig[1]) of s(X)z^(-X)dX/(2*I*Pi), i.e. inverse Mellin
+ transform of s at z. sig is coded as follows: either it is real, and then
+ by default assume s(X) decreases like exp(-X). Or sig = [sigR, al], sigR is
+ the abscissa of integration, and al = 0 for slowly decreasing functions, or
+ al > 0 if s(X) decreases like exp(-al*X). Compulsory table tab has been
+ precomputed using the command intfuncinit(t=[[-1],sig[2]],[[1],sig[2]],s)
+ (with possibly its two optional additional parameters), where sig[2] = 1
+ if not given. Orders of magnitude faster than intmellininv.
+Doc: numerical integration
+ of $(2i\pi)^{-1}s(X)z^{-X}$ with respect to $X$ on the line $\Re(X)=sig$.
+ In other words, inverse Mellin transform of $s(X)$ at the value $z$.
+ Here $s(X)$ is implicitly contained in \var{tab} in \kbd{intfuncinit} format,
+ typically
+ \bprog
+ tab = intfuncinit(T = [-1], [1], s(sig + I*T))
+ @eprog\noindent
+ or similar commands. Take the example of the inverse Mellin transform of
+ $\Gamma(s)^3$ given in \kbd{intmellininv}:
+
+ \bprog
+ ? \p 105
+ ? oo = [1]; \\@com for clarity
+ ? A = intmellininv(s=2,4, gamma(s)^3);
+ time = 2,500 ms. \\@com not too fast because of $\Gamma(s)^3$.
+ \\ @com function of real type, decreasing as $\exp(-3\pi/2\cdot |t|)$
+ ? tab = intfuncinit(t=[-oo, 3*Pi/2],[oo, 3*Pi/2], gamma(2+I*t)^3, 1);
+ time = 1,370 ms.
+ ? intmellininvshort(2,4, tab) - A
+ time = 50 ms.
+ %4 = -1.26... - 3.25...E-109*I \\@com 50 times faster than \kbd{A} and perfect.
+ ? tab2 = intfuncinit(t=-oo, oo, gamma(2+I*t)^3, 1);
+ ? intmellininvshort(2,4, tab2)
+ %6 = -1.2...E-42 - 3.2...E-109*I  \\@com 63 digits lost
+ @eprog\noindent
+ In the computation of \var{tab}, it was not essential to include the
+ \emph{exact} exponential decrease of $\Gamma(2+it)^3$. But as the last
+ example shows, a rough indication \emph{must} be given, otherwise slow
+ decrease is assumed, resulting in catastrophic loss of accuracy.

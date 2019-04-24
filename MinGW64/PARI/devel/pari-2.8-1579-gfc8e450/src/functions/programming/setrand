@@ -1,0 +1,10 @@
+Function: setrand
+Section: programming/specific
+C-Name: setrand
+Prototype: vG
+Help: setrand(n): reset the seed of the random number generator to n.
+Doc: reseeds the random number generator using the seed $n$. No value is
+ returned. The seed is either a technical array output by \kbd{getrand}, or a
+ small positive integer, used to generate deterministically a suitable state
+ array. For instance, running a randomized computation starting by
+ \kbd{setrand(1)} twice will generate the exact same output.

@@ -1,0 +1,32 @@
+Function: nffactor
+Section: number_fields
+C-Name: nffactor
+Prototype: GG
+Help: nffactor(nf,T): factor polynomial T in number field nf.
+Doc: factorization of the univariate
+ polynomial $T$ over the number field $\var{nf}$ given by \kbd{nfinit}; $T$
+ has coefficients in $\var{nf}$ (i.e.~either scalar, polmod, polynomial or
+ column vector). The factors are sorted by increasing degree.
+
+ The main variable of $\var{nf}$ must be of \emph{lower}
+ priority than that of $T$, see \secref{se:priority}. However if
+ the polynomial defining the number field occurs explicitly  in the
+ coefficients of $T$ as modulus of a \typ{POLMOD} or as a \typ{POL}
+ coefficient, its main variable must be \emph{the same} as the main variable
+ of $T$. For example,
+ \bprog
+ ? nf = nfinit(y^2 + 1);
+ ? nffactor(nf, x^2 + y); \\@com OK
+ ? nffactor(nf, x^2 + Mod(y, y^2+1)); \\ @com OK
+ ? nffactor(nf, x^2 + Mod(z, z^2+1)); \\ @com WRONG
+ @eprog
+
+ It is possible to input a defining polynomial for \var{nf}
+ instead, but this is in general less efficient since parts of an \kbd{nf}
+ structure will then be computed internally. This is useful in two
+ situations: when you do not need the \kbd{nf} elsewhere, or when you cannot
+ compute the field discriminant due to integer factorization difficulties. In
+ the latter case, if you must use a partial discriminant factorization (as
+ allowed by both \tet{nfdisc} or \tet{nfbasis}) to build a partially correct
+ \var{nf} structure, always input \kbd{nf.pol} to \kbd{nffactor}, and not your
+ makeshift \var{nf}: otherwise factors could be missed.

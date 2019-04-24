@@ -1,0 +1,64 @@
+Function: ellpadicL
+Section: elliptic_curves
+C-Name: ellpadicL
+Prototype: GGLD0,L,DGDG
+Help: ellpadicL(E, p, n, {r = 0}, {D}, {char}): returns the value
+  on a character of the derivative of order r of the L-function of
+  the elliptic curve E (twisted by D > 0, if present). For the moment, only
+  the case of the trivial character is implemented
+Doc:
+  The $p$-adic $L$ function is defined on the set of continuous characters
+  of $\text{Gal}(\Q(\mu_{p^{\infty}})/ \Q)$, identified to $\Z_p^*$
+  via the cyclotomic character $\chi_p$ with values in $\overline{Q_p}^*$.
+  Denote by $tau:\Z_p^*\to\Z_p^*$ the Teichm\"uller character.
+
+  When $E$ has good supersingular reduction, the $L$ function takes its
+  values in $\Q_p \otimes H^1_{dR}(E/\Q)$ and satisfies
+  $$(1-p^{-1} F)^{-2} L_p(E, \tau^0)= (L(E,1) / \Omega) \cdot \omega$$
+  where $F$ is the Frobenius, $L(E,1)$ is the value of the complex $L$
+  function at $1$, $\omega$ is the N\'eron differential
+  and $\Omega$ its associated period on $E(\R)$. Here, $\tau^0$ represents
+  the trivial character.
+
+  The derivative is taken at $s=1$ along $\langle\chi_p^s\rangle$.
+  In other words, the function $L_p$ is defined as
+  $\int_{\Z_p^*} d \mu$ for a certain $p$-adic distribution $\mu$ on
+  $\Z_p^*$, and we have
+   $$L_p^{(r)}(E, \tau^0) = \int_{\Z_p^*} \log_p^r(a) d\mu(a).$$
+  The function returns the components of $L_p{(r)}(E,\tau^0)$ in
+  the basis $(\omega, F(\omega))$.
+  \smallskip
+
+  When $E$ has ordinary good reduction, this method only defines
+  the projection of $L_p(E,\tau^0)$ on the $\alpha$-eigenspace,
+  where $\alpha$ is the unit eigenvalue for $F$. This is what the function
+  returns. This value satisfies
+  $$(1- \alpha^{-1})^{-2} L_{p,\alpha}(E,\tau^0)= L(E,1) / \Omega.$$
+
+  \bprog
+  ? cxL(e) = bestappr( ellL1(e,0) / e.omega[1] );
+
+  ? e = ellinit("17a1"); p=3; \\ supersingular
+  ? L = ellpadicL(e,p,4);
+  ? F = [0,-p;1,ellap(e,p)]; \\ Frobenius matrix in the basis (omega,F(omega)
+  ? (1-p^(-1)*F)^-2 * L~ / cxL(e)
+  %4 = [1 + O(3^4), O(3^4)]~
+
+  ? p=5; ap = ellap(e,p); \\ ordinary
+  ? L = ellpadicL(e,p,4);
+  ? al = padicappr(x^2 - ap*x + p, ap + O(p^7))[1];
+  ? (1-al^(-1))^(-2) * L / cxL(e)
+  %8 = 1 + O(5^4)
+
+  ? e = ellinit("116a1"); p=3; \\ supersingular
+  ? L = ellpadicL(e,p,4);
+  ? F = [0,-p; 1,ellap(e,p)];
+  ? (1-p^(-1)*F)^-2*L~ / cxL(e)
+  %12 = [1 + O(3^4), O(3^5)]~
+
+  ? e = ellinit("26b1"); p=3;
+  ? L = ellpadicL(e,p,4);
+  ? F = [0,-p;1,ellap(e,p)];
+  ? (1-p^(-1)*F)^-2*L~ / cxL(e)
+  %16 = [1 + O(3^4), O(3^5)]~
+  @eprog

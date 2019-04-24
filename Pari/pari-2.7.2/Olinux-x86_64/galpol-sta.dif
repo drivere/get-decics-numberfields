@@ -1,0 +1,13 @@
+*** ../src/test/32/galpol	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:51:21.163953671 -0700
+***************
+*** 19,22 ****
+    ***                 ^-------------------
+    *** galoisgetpol: domain error in galoisgetpol: s > 1
+  [96, 161]
+! Total time spent: 3624
+--- 19,22 ----
+    ***                 ^-------------------
+    *** galoisgetpol: domain error in galoisgetpol: s > 1
+  [96, 161]
+! Total time spent: 2413

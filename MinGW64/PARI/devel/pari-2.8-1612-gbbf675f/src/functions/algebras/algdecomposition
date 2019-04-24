@@ -1,0 +1,9 @@
+Function: algdecomposition
+Section: algebras
+C-Name: alg_decomposition
+Prototype: G
+Help: algdecomposition(al): semisimple decomposition of the algebra al.
+Doc: \var{al} being a table algebra output by \tet{algtableinit}, returns
+ $[J,[al_1,\dots,al_n]]$ where $J$ is a basis of the Jacobson radical of
+ \var{al} and $al_1,\dots,al_n$ are the simple factors of the semisimple
+ algebra $al/J$.

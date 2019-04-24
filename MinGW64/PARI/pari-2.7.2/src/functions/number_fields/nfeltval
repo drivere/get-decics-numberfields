@@ -1,0 +1,12 @@
+Function: nfeltval
+Section: number_fields
+C-Name: nfval
+Prototype: lGGG
+Help: nfeltval(nf,x,pr): valuation of element x at the prime pr as output by
+ idealprimedec.
+Doc: given an element $x$ in
+ \var{nf} and a prime ideal \var{pr} in the format output by
+ \kbd{idealprimedec}, computes the valuation at \var{pr} of the
+ element $x$. The same result can be obtained using
+ \kbd{idealval(\var{nf},x,\var{pr})}, since $x$ is then converted to a
+ principal ideal.

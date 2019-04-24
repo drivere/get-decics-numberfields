@@ -1,0 +1,53 @@
+
+BOINC_DIR = /home/eric/BOINC_Project/MinGW64/BOINC/boinc-v2
+BOINC_API_DIR = $(BOINC_DIR)/api
+BOINC_LIB_DIR = $(BOINC_DIR)/lib
+BOINC_SCHED_DIR = $(BOINC_DIR)/sched
+BOINC_DB_DIR = $(BOINC_DIR)/db
+
+#PARI = /home/eric/BOINC_Project/MinGW64/PARI/pari-2.7.2
+#PARI = /home/eric/BOINC_Project/MinGW64/PARI/pari-2.7.4
+PARI = /home/eric/BOINC_Project/MinGW64/PARI/pari-2.8-1711-ge5c317c
+
+LIBGMP = /home/eric/BOINC_Project/MinGW64/GMP/lib
+#LIBGMP = /home/eric/BOINC_Project/MinGW64/GMP-6.1.2/lib
+#LIBGMP = /usr/x86_64-w64-mingw32/sys-root/mingw/lib
+
+#GMPINC = /usr/x86_64-w64-mingw32/sys-root/mingw/include
+GMPINC = /home/eric/BOINC_Project/MinGW64/GMP/include
+#GMPINC = /home/eric/BOINC_Project/MinGW64/GMP-6.1.2/include
+
+
+
+CC = /usr/bin/x86_64-w64-mingw32-g++
+#CC = /usr/bin/x86_64-w64-mingw32-gcc
+
+OPT = -O3
+
+O = Omingw-x86_64
+
+INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(GMPINC) -I$(PARI)/src/headers -I$(PARI)/$(O)
+#INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(PARI)/src/headers -I$(PARI)/$(O)
+
+#LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(O) -L/usr/x86_64-w64-mingw32/sys-root/mingw/lib -lboinc_api -lboinc -lpari -lm -lgmp
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(O) -L$(LIBGMP) -lboinc_api -lboinc -lpari -lm -l:libgmp.a
+
+
+CXXFLAGS = $(OPT) -Wall -w -fmax-errors=5 -DMINGW -DMINGW64 -DAPP_VERSION_CPU_STD $(INCLUDES)
+
+
+PROGS = $(O)/GetDecics
+
+
+all: $(O) $(PROGS)
+
+clean:
+	rm -r -f $(O)
+
+$(O): ;	mkdir -p $(O)
+
+$(O)/%.o: %.cpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_cpu.o
+	$(CC) -static $(CXXFLAGS) -o $@ $+ $(LIBS) -pthread

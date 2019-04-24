@@ -1,0 +1,41 @@
+nfeltmulmodpr(nfinit(x),x,x,1);
+v=[0,1/3,y,z,[1,1/3]~, [1,1,1/3]~];
+test(P) =
+{ my(f);
+  print(K.pol, ": ", P);
+  f=[nfeltdivmodpr,nfeltmulmodpr];
+  for (i=1,#v,
+    for (j=i,#v,
+      print("*",[i,j],":");
+      for (k=1, #f,
+        print(iferr(f[k](K,v[i],v[j],P),E,E))
+      )
+    )
+  );
+  f=[(K,x,P)->nfeltpowmodpr(K,x,-3,P),nfeltreducemodpr];
+  for(i=1,#v,
+    print("*",i,":");
+    for(k=1, #f,  print(iferr(f[k](K,v[i],P),E,E)))
+  )
+}
+K=nfinit(y^2+1);
+P = nfmodprinit(K,idealprimedec(K,2)[1]); test(P);
+P = nfmodprinit(K,idealprimedec(K,3)[1]); test(P);
+K=nfinit(y^3-9);
+P = nfmodprinit(K,idealprimedec(K,3)[1]); test(P);
+P = nfmodprinit(K,idealprimedec(K,2)[2]); test(P);
+K=nfinit(y^2-1105);
+P = nfmodprinit(K,idealprimedec(K,2)[1]);
+nfeltreducemodpr(K,(-y+1)/2,P)
+nffactormod(K, x^3+y*x^2+y*x+1, P)
+m=[1,y;[1/2,1/2]~,1]; v = [1,y]~
+nfkermodpr(K, m, P)
+nfsolvemodpr(K, m, v, P)
+m=[y,y^2;y^2,y^3]
+nfkermodpr(K, m, P)
+nfsolvemodpr(K, m, v, P)
+nfsolvemodpr(K, m, m, P)
+
+K=nfinit(charpoly(Mod(2*x+1,polcyclo(51))));
+P=idealprimedec(K,2)[1];
+nfeltreducemodpr(K,P.gen[2],nfmodprinit(K,P))

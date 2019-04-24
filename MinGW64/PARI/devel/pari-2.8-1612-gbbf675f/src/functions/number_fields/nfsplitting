@@ -1,0 +1,26 @@
+Function: nfsplitting
+Section: number_fields
+C-Name: nfsplitting
+Prototype: GDG
+Help: nfsplitting(nf,{d}): defining polynomial for the splitting field of
+ the number field nf; if d is given, it must be the degree of the splitting
+ field
+Doc: defining polynomial for the splitting field of \var{nf};
+ if $d$ is given, it must be the degree of the splitting field. It
+ is possible to input a defining polynomial $T$ instead but this is in
+ general less efficient.
+ \bprog
+ ? K = nfinit(x^3-2);
+ ? nfsplitting(K)
+ %2 = x^6 + 108
+ ?  nfsplitting(x^8-2)
+ %3 = x^16 + 272*x^8 + 64
+ @eprog\noindent
+ The complexity of the algorithm is polynomial in the degree $d$ of the
+ splitting field and the bitsize of $T$; if $d$ is large the result will
+ likely be unusable, e.g. \kbd{nfinit} will not be an option:
+ \bprog
+ ? nfsplitting(x^6-x-1)
+ [... degree 720 polynomial deleted ...]
+ time = 11,020 ms.
+ @eprog

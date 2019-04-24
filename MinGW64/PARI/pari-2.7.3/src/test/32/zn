@@ -1,0 +1,45 @@
+Mod(1, 2)
+Mod(3, 4)
+  ***   at top-level: znprimroot(8)
+  ***                 ^-------------
+  *** znprimroot: domain error in znprimroot: argument = 8
+Mod(5, 9223372036854775837)
+Mod(5, 85070591730234616400799229995519050569)
+Mod(5, 170141183460469232801598459991038101138)
+Mod(5, 170141183460469232801598459991038101138)
+Mod(5, 170141183460469232801598459991038101138)
+[2, [2], [-1]]
+[1, [], []]
+[4, [4], [Mod(7, 10)]]
+[6, [6], [Mod(3, 14)]]
+[216, [36, 6], [Mod(2, 247), Mod(160, 247)]]
+[216, [36, 6], [Mod(2, 247), Mod(160, 247)]]
+[216, [36, 6], [Mod(2, 247), Mod(160, 247)]]
+[2, [2], [-1]]
+  *** _^_: Warning: Mod(a,b)^n with n >> b : wasteful.
+Mod(84, 148)
+[599, 599, 599, 599]
+[1000000003700000003419, 1000000003700000003419, 1000000003700000003419, 100
+0000003700000003419]
+[]
+[]
+[]
+[]
+1
+48
+[]
+[]
+[]
+194
+Mod(1, 2)
+945843084768538962295343
+error("incorrect type in generic discrete logarithm (order factorization) (t
+_COMPLEX).")
+error("incorrect type in generic discrete logarithm (order factorization) (t
+_INT).")
+error("incorrect type in generic discrete logarithm (order factorization) (t
+_MAT).")
+error("incorrect type in generic discrete logarithm (order factorization) (t
+_MAT).")
+[]
+Total time spent: 1392

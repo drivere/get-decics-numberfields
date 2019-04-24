@@ -1,0 +1,8 @@
+vector(10, k, stirling(11,k))
+vector(11, k, stirling(12,k))
+vector(10, k, stirling(11,k, 2))
+vector(11, k, stirling(12,k, 2))
+v = vector(5!,i,numtoperm(5, i-1))
+if(vecsort(v,lex)!=v,error("numtoperm"));
+vector(#v, i, permtonum(v[i]))
+stirling(100,0)

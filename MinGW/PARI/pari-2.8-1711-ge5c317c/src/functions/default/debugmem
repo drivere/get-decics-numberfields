@@ -1,0 +1,16 @@
+Function: _def_debugmem
+Class: default
+Section: default
+C-Name: sd_debugmem
+Prototype:
+Help:
+Doc: memory debugging level. If it is non-zero, \kbd{gp} will regularly print
+ information on memory usage. If it's greater than 2, it will indicate any
+ important garbage collecting and the function it is taking place in
+ (see~\b{gm}).
+
+ \noindent {\bf Important Note:} As it noticeably slows down the performance,
+ the first functionality (memory usage) is disabled if you're not running a
+ version compiled for debugging (see Appendix~A).
+
+ The default value is \kbd{0} (no debugging messages).

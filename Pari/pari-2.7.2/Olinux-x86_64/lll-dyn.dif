@@ -1,0 +1,13 @@
+*** ../src/test/32/lll	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:51:50.243902015 -0700
+***************
+*** 75,78 ****
+  error("incorrect type in qflllgram [integer matrix] (t_MAT).")
+  [[;], [-x^2 + 852*x + 833561, x^5 + 1052503*x^4 - 898292021*x^3 - 8780356471
+  55*x^2 + 1; 1, -x^3 - 1053355*x^2]]
+! Total time spent: 8
+--- 75,78 ----
+  error("incorrect type in qflllgram [integer matrix] (t_MAT).")
+  [[;], [-x^2 + 852*x + 833561, x^5 + 1052503*x^4 - 898292021*x^3 - 8780356471
+  55*x^2 + 1; 1, -x^3 - 1053355*x^2]]
+! Total time spent: 0

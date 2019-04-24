@@ -1,0 +1,43 @@
+Function: idealstar
+Section: number_fields
+C-Name: idealstar0
+Prototype: GGD1,L,
+Help: idealstar(nf,I,{flag=1}): gives the structure of (Z_K/I)^*. flag is
+ optional, and can be 0: simply gives the structure as a 3-component vector v
+ such that v[1] is the order (i.e. eulerphi(I)), v[2] is a vector of cyclic
+ components, and v[3] is a vector giving the corresponding generators. If
+ flag=1 (default), gives idealstarinit, i.e. a 6-component vector
+ [I,v,fa,f2,U,V] where v is as above without the generators, fa is the prime
+ ideal factorisation of I and f2, U and V are technical but essential to work
+ in (Z_K/I)^*. Finally if flag=2, same as with flag=1 except that the
+ generators are also given.
+Doc: outputs a \var{bid} structure,
+ necessary for computing in the finite abelian group $G = (\Z_K/I)^*$. Here,
+ \var{nf} is a number field and $I$ is a \var{modulus}: either an ideal in any
+ form, or a row vector whose first component is an ideal and whose second
+ component is a row vector of $r_1$ 0 or 1. Ideals can also be given
+ by a factorization into prime ideals, as produced by \tet{idealfactor}.
+
+ This \var{bid} is used in \tet{ideallog} to compute discrete logarithms. It
+ also contains useful information which can be conveniently retrieved as
+ \kbd{\var{bid}.mod} (the modulus),
+ \kbd{\var{bid}.clgp} ($G$ as a finite abelian group),
+ \kbd{\var{bid}.no} (the cardinality of $G$),
+ \kbd{\var{bid}.cyc} (elementary divisors) and
+ \kbd{\var{bid}.gen} (generators).
+
+ If $\fl=1$ (default), the result is a \var{bid} structure without
+ generators.
+
+ If $\fl=2$, as $\fl=1$, but including generators, which wastes some time.
+
+ If $\fl=0$, only outputs $(\Z_K/I)^*$ as an abelian group,
+ i.e as a 3-component vector $[h,d,g]$: $h$ is the order, $d$ is the vector of
+ SNF\sidx{Smith normal form} cyclic components and $g$ the corresponding
+ generators.
+Variant: Instead the above hardcoded numerical flags, one should rather use
+ \fun{GEN}{Idealstar}{GEN nf, GEN ideal, long flag}, where \kbd{flag} is
+ an or-ed combination of \tet{nf_GEN} (include generators) and \tet{nf_INIT}
+ (return a full \kbd{bid}, not a group), possibly $0$. This offers
+ one more combination: gen, but no init.
+

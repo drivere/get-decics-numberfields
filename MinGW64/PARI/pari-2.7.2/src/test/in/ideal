@@ -1,0 +1,72 @@
+Qi = nfinit(x^2+1);
+idealintersect(Qi,0,1)
+Q = nfinit(y);
+idealaddtoone(Q,1,[;])
+idealaddtoone(Q,2,[;])
+idealaddtoone(Q,[;],[;])
+idealaddtoone(Q,[;],1)
+idealaddtoone(Q,[1,[;]])
+idealaddtoone(Q,[1,[;],Mat(1/2)])
+ideallog(Q,2,idealstar(Q,4,1))
+idealstar(Qi,matdiagonal([6,12]))
+P = idealprimedec(Qi,2)[1];
+idealprincipalunits(Qi,P,10)
+idealintersect(Qi, 1/2,1/2)
+ideallog(Q,1/2,idealstar(Q,3,1))
+
+K=nfinit(x^2-236*x+13384);\\ Q(sqrt(60)), in disguise
+idealhnf(K, qfbprimeform(60,2))
+
+K=nfinit(x^3-2);
+u=nfalgtobasis(K,x);v=nfalgtobasis(K,x^2);
+idealhnf(K,Mat([u,v]))
+idealhnf(K,1/4,1/6)
+idealhnf(K,4,[6,0,0]~)
+idealhnf(K,2,1/6)
+idealhnf(K,1/3,u/2)
+idealhnf(K,u,v/2)
+P = idealprimedec(K,5);
+idealval(K,P[1],P[2])
+idealval(K,P[2],P[1])
+idealval(K,P[2],P[2])
+P[1][2] += 5;
+idealval(K,P[1],P[1])
+idealmul(K,P[1],P[1].gen[2])
+idealnorm(K,P[1])
+idealinv(K,Mod(x,K.pol))
+idealpow(K,idealhnf(K,x),-2)
+v=[1,1/2,x,Mod(x,K.pol),P[1],[;],Mat(1),vector(5),[1,2,3;4,5,6;7,8,9],[1,2,3;0,4,5;0,0,6],I];
+for(i=1,#v, if(!nfisideal(K,v[i]),print(i)))
+idealred(K,2)
+idealred(K,[2,[;]])
+
+nf=nfinit(x^2+x+1);
+p = 67452192952521724999; pi = idealprimedec(nf,p)[1];
+q = 762234946175168528650011228121; qi = idealprimedec(nf,q)[1];
+f=idealfactor(nf, idealdiv(nf,pi,qi))
+id=idealfactorback(nf,f)
+idealnumden(nf,id)
+idealnumden(nf,pi)
+idealnumden(nf,1)
+idealnumden(nf,1/2)
+idealnumden(nf,x/2)
+nffactorback(nf, [3, x+1, [1,2]~], [1, 2, 3])
+
+test(nf,F,v)=
+{
+  my(Y = idealchinese(nf,F,v), P = F[,1], E = F[,2]);
+  for (i=1,#P, if( nfeltval(nf, nfeltadd(nf,v[i],-Y),P[i]) < E[i], error(i)));
+  Y;
+}
+v = [x,0,[0,1/7^4]~,Mod(x,nf.pol)];
+F = idealfactor(nf, 2*3*7);
+F[,2] *= 3;
+test(nf,F,v)
+F[,2] = [0,1,-2,3]~;
+test(nf,F,v)
+F[,2] = [1,1,1,1]~;
+test(nf,F,[1,0,0,0])
+test(nf,F,[0,1/11,0,0])
+
+K=nfinit(2*x^2+1);
+idealprimedec(K,2)

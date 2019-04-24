@@ -1,0 +1,62 @@
+Function: qfbclassno
+Section: number_theoretical
+C-Name: qfbclassno0
+Prototype: GD0,L,
+Help: qfbclassno(D,{flag=0}): class number of discriminant D using Shanks's
+ method by default. If (optional) flag is set to 1, use Euler products.
+Doc: ordinary class number of the quadratic
+ order of discriminant $D$. In the present version \vers, a $O(D^{1/2})$
+ algorithm is used for $D > 0$ (using Euler product and the functional
+ equation) so $D$ should not be too large, say $D < 10^8$, for the time to be
+ reasonable. On the other hand, for $D < 0$ one can reasonably compute
+ \kbd{qfbclassno($D$)} for $|D|<10^{25}$, since the routine uses
+ \idx{Shanks}'s method which is in $O(|D|^{1/4})$. For larger values of $|D|$,
+ see \kbd{quadclassunit}.
+
+ If $\fl=1$, compute the class number using \idx{Euler product}s and the
+ functional equation. However, it is in $O(|D|^{1/2})$.
+
+ \misctitle{Important warning} For $D < 0$, this function may give incorrect
+ results when the class group has many cyclic factors,
+ because implementing \idx{Shanks}'s method in full generality slows it down
+ immensely. It is therefore strongly recommended to double-check results using
+ either the version with $\fl = 1$ or the function \kbd{quadclassunit}.
+
+ \misctitle{Warning} Contrary to what its name implies, this routine does not
+ compute the number of classes of binary primitive forms of discriminant $D$,
+ which is equal to the \emph{narrow} class number. The two notions are the same
+ when $D < 0$ or the fundamental unit $\varepsilon$ has negative norm; when $D
+ > 0$ and $N\varepsilon > 0$, the number of classes of forms is twice the
+ ordinary class number. This is a problem which we cannot fix for backward
+ compatibility reasons. Use the following routine if you are only interested
+ in the number of classes of forms:
+ \bprog
+ QFBclassno(D) =
+ qfbclassno(D) * if (D < 0 || norm(quadunit(D)) < 0, 1, 2)
+ @eprog\noindent
+ Here are a few examples:
+ \bprog
+ ? qfbclassno(400000028)
+ time = 3,140 ms.
+ %1 = 1
+ ? quadclassunit(400000028).no
+ time = 20 ms. \\@com{ much faster}
+ %2 = 1
+ ? qfbclassno(-400000028)
+ time = 0 ms.
+ %3 = 7253 \\@com{ correct, and fast enough}
+ ? quadclassunit(-400000028).no
+ time = 0 ms.
+ %4 = 7253
+ @eprog\noindent
+ See also \kbd{qfbhclassno}.
+Variant: The following functions are also available:
+
+ \fun{GEN}{classno}{GEN D} ($\fl = 0$)
+
+ \fun{GEN}{classno2}{GEN D} ($\fl = 1$).
+
+ \noindent Finally
+
+ \fun{GEN}{hclassno}{GEN D} computes the class number of an imaginary
+ quadratic field by counting reduced forms, an $O(|D|)$ algorithm.

@@ -1,0 +1,81 @@
+Function: rnfinit
+Section: number_fields
+C-Name: rnfinit
+Prototype: GG
+Help: rnfinit(nf,pol): pol being an irreducible polynomial
+ defined over the number field nf, initializes a vector of data necessary for
+ working in relative number fields (rnf functions). See manual for technical
+ details.
+Doc: $\var{nf}$ being a number field in \kbd{nfinit}
+ format considered as base field, and \var{pol} a polynomial defining a relative
+ extension over $\var{nf}$, this computes data to work in the
+ relative extension. The main variable of \var{pol} must be of higher priority
+ (see \secref{se:priority}) than that of $\var{nf}$, and the coefficients of
+ \var{pol} must be in $\var{nf}$.
+
+ The result is a row vector, whose components are technical. In the following
+ description, we let $K$ be the base field defined by $\var{nf}$ and $L/K$
+ the large field associated to the \var{rnf}. Furthermore, we let
+ $m = [K:\Q]$ the degree of the base field, $n = [L:K]$ the relative degree,
+ $r_1$ and $r_2$ the number of real and complex places of $K$. Access to this
+ information via \emph{member functions} is preferred since the specific
+ data organization specified below will change in the future.
+
+ $\var{rnf}[1]$(\kbd{rnf.pol}) contains the relative polynomial \var{pol}.
+
+ $\var{rnf}[2]$ contains the integer basis $[A,d]$ of $K$, as
+ (integral) elements of $L/\Q$. More precisely, $A$ is a vector of
+ polynomial with integer coefficients, $d$ is a denominator, and the integer
+ basis is given by $A/d$.
+
+ $\var{rnf}[3]$ (\kbd{rnf.disc}) is a two-component row vector
+ $[\goth{d}(L/K),s]$ where $\goth{d}(L/K)$ is the relative ideal discriminant
+ of $L/K$ and $s$ is the discriminant of $L/K$ viewed as an element of
+ $K^*/(K^*)^2$, in other words it is the output of \kbd{rnfdisc}.
+
+ $\var{rnf}[4]$(\kbd{rnf.index}) is the ideal index $\goth{f}$, i.e.~such
+ that $d(pol)\Z_K=\goth{f}^2\goth{d}(L/K)$.
+
+ $\var{rnf}[5]$ is currently unused.
+
+ $\var{rnf}[6]$ is currently unused.
+
+ $\var{rnf}[7]$ (\kbd{rnf.zk}) is the pseudo-basis $(A,I)$ for the maximal
+ order $\Z_L$ as a $\Z_K$-module: $A$ is the relative integral pseudo basis
+ expressed as polynomials (in the variable of $pol$) with polmod coefficients
+ in $\var{nf}$, and the second component $I$ is the ideal list of the
+ pseudobasis in HNF.
+
+ $\var{rnf}[8]$ is the inverse matrix of the integral basis matrix, with
+ coefficients polmods in $\var{nf}$.
+
+ $\var{rnf}[9]$ is currently unused.
+
+ $\var{rnf}[10]$ (\kbd{rnf.nf}) is $\var{nf}$.
+
+ $\var{rnf}[11]$ is the output of \kbd{rnfequation(K, pol, 1)}. Namely, a
+ vector $[P, a, k]$ describing the \emph{absolute} extension
+ $L/\Q$: $P$ is an absolute equation, more conveniently obtained
+ as \kbd{rnf.polabs}; $a$ expresses the generator $\alpha = y \mod \kbd{K.pol}$
+ of the number field $K$ as an element of $L$, i.e.~a polynomial modulo the
+ absolute equation $P$;
+
+ $k$ is a small integer such that, if $\beta$ is an abstract root of \var{pol}
+ and $\alpha$ the generator of $K$ given above, then $P(\beta + k\alpha) = 0$.
+
+ \misctitle{Caveat.} Be careful if $k\neq0$ when dealing simultaneously with
+ absolute and relative quantities since $L = \Q(\beta + k\alpha) =
+ K(\alpha)$, and the generator chosen for the absolute extension is not the
+ same as for the relative one. If this happens, one can of course go on
+ working, but we advise to change the relative polynomial so that its root
+ becomes $\beta + k \alpha$. Typical GP instructions would be
+ \bprog
+   [P,a,k] = rnfequation(K, pol, 1);
+   if (k, pol = subst(pol, x, x - k*Mod(y, K.pol)));
+   L = rnfinit(K, pol);
+ @eprog
+
+ $\var{rnf}[12]$ is by default unused and set equal to 0. This field is used
+ to store further information about the field as it becomes available (which
+ is rarely needed, hence would be too expensive to compute during the initial
+ \kbd{rnfinit} call).

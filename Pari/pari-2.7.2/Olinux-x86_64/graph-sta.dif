@@ -1,0 +1,13 @@
+*** ../src/test/32/graph	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:51:24.159948349 -0700
+***************
+*** 62,65 ****
+  ? psdraw([0,10,10])
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 16
+--- 62,65 ----
+  ? psdraw([0,10,10])
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 6

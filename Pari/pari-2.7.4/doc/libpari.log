@@ -1,0 +1,117 @@
+This is TeX, Version 3.1415926 (TeX Live 2013) (format=tex 2013.11.19)  26 JUN 2015 20:43
+**libpari
+(./libpari.tex (./parimacro.tex
+\std=\read0
+ (./paricfg.tex)
+\toc=\write0
+\out=\write1
+\aux=\write2
+\index=\write3
+
+SECOND PASS
+(./libpari.aux)) [1
+\openout2 = `libpari.aux'.
+
+\appno=\count8
+\chapno=\count8
+\secno=\count8
+\subsecno=\count8
+\subsubsecno=\count8
+\euffam=\fam8
+] [2] (./libpari.toc [3] [4] [5] [6] [7] [8]) [9
+\openout0 = `libpari.toc'.
+
+]
+(./usersch4.tex [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
+[22] [23] [24] [25] [26] [27] [28] [29
+Reference `se:whatzero' on page 29 undefined on input line 1286
+] [30
+Reference `se:whatzero' on page 30 undefined on input line 1363
+Reference `se:compquad' on page 30 undefined on input line 1363
+Reference `se:priority' on page 30 undefined on input line 1363
+Reference `se:priority' on page 30 undefined on input line 1363
+] [31
+Reference `se:priority' on page 31 undefined on input line 1425
+] [32] [33
+Reference `se:priority' on page 33 undefined on input line 1551
+Reference `se:rempolmod' on page 33 undefined on input line 1551
+] [34
+Reference `se:priority' on page 34 undefined on input line 1627
+] [35] [36] [37] [38] [39
+Reference `se:defaults' on page 39 undefined on input line 1952
+Reference `se:install' on page 39 undefined on input line 1952
+] [40] [41] [42] [43] [44] (../examples/extgcd.c) [45] [46]) (./usersch5.tex
+[47] [48] [49] [50] [51] [52] [53] [54] [55] [56] [57] [58] [59] [60] [61]
+[62] [63] [64] [65] [66] [67
+Reference `se:strings' on page 67 undefined on input line 1469
+] [68
+Reference `se:addhelp' on page 68 undefined on input line 1528
+Reference `se:install' on page 68 undefined on input line 1528
+Reference `se:gprc' on page 68 undefined on input line 1528
+] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82]
+[83] [84] [85] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96] [97]
+[98] [99] [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] [110]
+[111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121] [122]
+[123] [124] [125] [126] [127] [128] [129] [130] [131] [132] [133] [134]
+[135] [136] [137] [138] [139] [140] [141] [142] [143] [144] [145] [146]
+[147] [148] [149] [150] [151] [152] [153] [154] [155] [156] [157] [158]
+[159] [160] [161] [162] [163] [164] [165] [166] [167] [168] [169] [170]
+[171] [172]
+Underfull \hbox (badness 10000) in paragraph at lines 8889--8892
+\tentt void gsup-norm_aux(GEN x, GEN *m, GEN *m2, long prec) \tenrm Low-level f
+unc-tion un-der-ly-ing
+
+\hbox(6.94444+2.22223)x428.99947, glue set 4.5559
+.\tentt v
+.\tentt o
+.\tentt i
+.\tentt d
+.\glue 5.24995
+.etc.
+
+[173] [174] [175] [176] [177] [178] [179] [180]
+Underfull \hbox (badness 10000) in paragraph at lines 9357--9363
+\tentt GEN trans_eval(const char *fun, GEN (*f) (GEN, long), GEN x, long prec) 
+\tenrm eval-u-ate
+
+\hbox(6.94444+2.22223)x428.99947, glue set 10.25165
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt t
+.etc.
+
+[181] [182] [183] [184] [185] [186] [187] [188] [189] [190] [191] [192]
+[193] [194] [195] [196] [197] [198] [199] [200] [201] [202] [203] [204]
+[205] [206] [207]) (./usersch6.tex [208] [209] [210] [211] [212] [213] [214]
+[215] [216] [217] [218] [219] [220] [221] [222] [223] [224] [225] [226]
+[227] [228]
+Underfull \hbox (badness 10000) in paragraph at lines 1429--1432
+\tentt GEN polmod_nffix2(const char *f, GEN T, GEN P, GEN x, int lift) \tenrm a
+s \tentt polmod_nffix\tenrm ,
+
+\hbox(6.94444+2.22223)x428.99947, glue set 5.05923
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt p
+.etc.
+
+[229] [230] [231] [232] [233] [234] [235] [236] [237] [238]) (./usersch7.tex
+[239] [240] [241] [242] [243] [244] [245] [246] [247] [248]) (./appb.tex
+(../examples/extgcd.c [249
+Reference `se:install' on page 249 undefined on input line 33
+]) [250]) (./appd.tex [251] (../examples/thread.c [252]) [253]) (./index.tex
+[254
+\fullhsize=\dimen20
+\leftcolumn=\box20
+\dbox=\box20
+\dfillskip=\skip20
+\interskipa=\skip20
+\interskipb=\skip20
+] [255] [256] [257] [258] [259] [260] [261] [262] [263] [264] [265]
+[266] [267] [268] [269] [270] [271] [272] [273] [274] [275] [276] [277]
+[278] [279] [280] [281] [282] [283] [284] [285] [286] [287]) [288] )
+Output written on libpari.dvi (288 pages, 1484820 bytes).

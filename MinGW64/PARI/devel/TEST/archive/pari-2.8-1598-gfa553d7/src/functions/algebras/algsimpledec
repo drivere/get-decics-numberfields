@@ -1,0 +1,15 @@
+Function: algsimpledec
+Section: algebras
+C-Name: algsimpledec
+Prototype: GD0,L,
+Help: algsimpledec(al,{flag=0}): decomposition into simple algebras of the
+ semisimple algebra al.
+Doc: \var{al} being the output of \tet{algtableinit} representing a semisimple
+ algebra, returns a \typ{VEC} $[\var{al}_1,\var{al}_2,\dots,\var{al}_n]$ such
+ that~\var{al} is isomorphic to the direct sum of the simple algebras
+ $\var{al}_i$. When $\var{flag}=1$, each component is instead a \typ{VEC}
+ $[\var{al}_i,\var{proj}_i,\var{lift}_i]$ where $\var{proj}_i$
+ and~$\var{lift}_i$ are matrices respectively representing the projection map
+ on the $i$-th factor and a section of it.
+
+ \misctitle{Warning} The images of the $\var{lift}_i$ are not guaranteed to form a direct sum.

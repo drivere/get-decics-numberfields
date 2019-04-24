@@ -1,0 +1,12 @@
+Function: bnrisconductor
+Section: number_fields
+C-Name: bnrisconductor0
+Prototype: lGDGDG
+Help: bnrisconductor(A,{B},{C}): returns 1 if the modulus is the
+ conductor of the subfield of the ray class field given by A,B,C (see
+ bnrdisc), and 0 otherwise. Slightly faster than bnrconductor if this is the
+ only desired result.
+Doc: $A$, $B$, $C$ represent
+ an extension of the base field, given by class field theory
+ (see~\secref{se:CFT}). Outputs 1 if this modulus is the conductor, and 0
+ otherwise. This is slightly faster than \kbd{bnrconductor}.

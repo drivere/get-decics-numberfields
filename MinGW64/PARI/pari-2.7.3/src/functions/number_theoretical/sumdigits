@@ -1,0 +1,11 @@
+Function: sumdigits
+Section: number_theoretical
+C-Name: sumdigits
+Prototype: G
+Help: sumdigits(n): sum of (decimal) digits in the integer n.
+Doc: sum of (decimal) digits in the integer $n$.
+ \bprog
+ ? sumdigits(123456789)
+ %1 = 45
+ @eprog\noindent Other bases that 10 are not supported. Note that the sum of
+ bits in $n$ is returned by \tet{hammingweight}.

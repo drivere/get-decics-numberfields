@@ -1,0 +1,13 @@
+*** ../src/test/32/genus2red	2014-09-04 06:11:22.000000000 -0700
+--- gp.out	2015-05-12 08:51:24.144948375 -0700
+***************
+*** 715,718 ****
+  II-II-0] pages 159-174", []]], [5, [5, [Mod(0, 5), Mod(0, 5)]], ["[I{0}-II-0
+  ] page 159", []]]]]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 72
+--- 715,718 ----
+  II-II-0] pages 159-174", []]], [5, [5, [Mod(0, 5), Mod(0, 5)]], ["[I{0}-II-0
+  ] page 159", []]]]]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 46

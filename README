@@ -1,0 +1,49 @@
+This is the general build process:
+
+1. First build pari:
+The objective here is to get the library: libpari.a
+Here is what works on linux:
+  a. Can download from here: https://pari.math.u-bordeaux.fr/download.html
+  b. Untar and cd into pari directory
+  c. ./Configure
+  d. make all
+  e. make install-lib-sta  (This basically copies the static library to /usr/local/lib/)
+
+
+2. Next, build the boinc libraries:
+The objective of this step is to get the following 2 libraries:
+libboinc.a, and libboinc_api.a
+Here is what works on linux:
+  a. Clone the boinc git repo: https://github.com/BOINC/boinc
+  b. cd boinc/
+  c. ./_autosetup
+  d. ./configure --disable-client --disable-server
+  e. make
+  f. make install (This copies the libraries to /usr/local/lib)
+
+
+3. Next, build the GetDecics app.
+There is a makefile for the various gpu types.  For example, to build the Nvidia 
+openCL version, you would do:
+     make -f Makefile.openCL_Nvidia
+The makefiles will need to be modified so that the compiler can find the source 
+files (both pari and boinc) and the libraries.
+There is also a dependency on the gmp library, so that will need to be installed.
+And obviously, openCL headers and libOpenCL will need to be present (and makefile
+changed accordingly).
+
+
+4. To test the executable:
+  a. cp executable into the test directory.
+  b. Make sure init_data.xml corresponds to the right gpu type.
+  c. Setup a link named "in" for the dat file you want to test
+     (e.g. ln -fs sf5_DS-14x11_Grp10973of705883.dat in)
+  d. Then run it: ./GetDecics
+     There are 2 optional command line arguments that can override defaults:
+     ./GetDecics --numBlocks XX --threadsPerBlock YY
+     (for my AMD card, I needed to use numBlocks=threadsPerBlock=64, otherwise
+      I got an out of resources error).
+
+A successful run will produce some output files.  If there are problems, stderr.txt 
+may have some clues.  The important file is called "out".  There are truth files in 
+the test directory for comparison (old cpu versions, so they have long run times).

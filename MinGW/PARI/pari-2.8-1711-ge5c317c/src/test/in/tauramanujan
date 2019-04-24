@@ -1,0 +1,3 @@
+tauvec(N) = Vec(q*eta(q + O(q^N))^24);
+N = 10^3; vector(N, n, tauramanujan(n)) == tauvec(N)
+tauramanujan(10^6+3)

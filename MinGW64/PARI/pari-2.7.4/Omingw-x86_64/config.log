@@ -1,0 +1,131 @@
+This file contains messages produced while configuring
+  pari-2.7.4 
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure 
+
+x86_64-w64-mingw32-gcc -D__USE_MINGW_ANSI_STDIO -o mingw-x86_64-ansi28587 ansi.c
+x86_64-w64-mingw32-gcc -o mingw-x86_64-gnu28587 gnu.c
+x86_64-w64-mingw32-gcc -D__USE_MINGW_ANSI_STDIO -fno-strict-aliasing -o mingw-x86_64-gnu28587 gnu.c
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO endian.c -o mingw-x86_64-endian28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_exp2.c -o mingw-x86_64-tmp28587 -lm
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_log2.c -o mingw-x86_64-tmp28587 -lm
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_strftime.c -o mingw-x86_64-tmp28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getrusage.c -o mingw-x86_64-tmp28587
+has_getrusage.c:5:26: fatal error: sys/resource.h: No such file or directory
+ #include <sys/resource.h>
+                          ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_times.c -o mingw-x86_64-tmp28587
+has_times.c:2:23: fatal error: sys/times.h: No such file or directory
+ #include <sys/times.h>
+                       ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_sigaction.c -o mingw-x86_64-tmp28587
+has_sigaction.c: In function 'main':
+has_sigaction.c:4:20: error: storage size of 'sa' isn't known
+   struct sigaction sa, oldsa;
+                    ^
+has_sigaction.c:4:24: error: storage size of 'oldsa' isn't known
+   struct sigaction sa, oldsa;
+                        ^
+has_sigaction.c:7:3: warning: implicit declaration of function 'sigemptyset' [-Wimplicit-function-declaration]
+   sigemptyset(&sa.sa_mask);
+   ^
+has_sigaction.c:8:17: error: 'SA_NODEFER' undeclared (first use in this function)
+   sa.sa_flags = SA_NODEFER;
+                 ^
+has_sigaction.c:8:17: note: each undeclared identifier is reported only once for each function it appears in
+has_sigaction.c:10:3: warning: implicit declaration of function 'sigaction' [-Wimplicit-function-declaration]
+   (void)(sigaction(SIGINT, &sa, &oldsa));
+   ^
+has_sigaction.c:4:24: warning: unused variable 'oldsa' [-Wunused-variable]
+   struct sigaction sa, oldsa;
+                        ^
+has_sigaction.c:4:20: warning: unused variable 'sa' [-Wunused-variable]
+   struct sigaction sa, oldsa;
+                    ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_TIOCGWINSZ.c -o mingw-x86_64-tmp28587
+has_TIOCGWINSZ.c:6:23: fatal error: sys/ioctl.h: No such file or directory
+ #include <sys/ioctl.h>
+                       ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getrlimit.c -o mingw-x86_64-tmp28587
+has_getrlimit.c:3:26: fatal error: sys/resource.h: No such file or directory
+ #include <sys/resource.h>
+                          ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_stat.c -o mingw-x86_64-tmp28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_vsnprintf.c -o mingw-x86_64-tmp28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_waitpid.c -o mingw-x86_64-tmp28587
+has_waitpid.c:3:22: fatal error: sys/wait.h: No such file or directory
+ #include <sys/wait.h>
+                      ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_setsid.c -o mingw-x86_64-tmp28587
+has_setsid.c:3:16: error: 'setsid' undeclared here (not in a function)
+ pid_t (*f)() = setsid;
+                ^
+has_setsid.c: In function 'main':
+has_setsid.c:4:1: warning: control reaches end of non-void function [-Wreturn-type]
+ int main(){ return f != setsid; }
+ ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getenv.c -o mingw-x86_64-tmp28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_isatty.c -o mingw-x86_64-tmp28587
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_alarm.c -o mingw-x86_64-tmp28587
+has_alarm.c:2:35: error: 'alarm' undeclared here (not in a function)
+ unsigned int (*f)(unsigned int) = alarm;
+                                   ^
+has_alarm.c: In function 'main':
+has_alarm.c:3:1: warning: control reaches end of non-void function [-Wreturn-type]
+ int main(){ return f != alarm; }
+ ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_dlopen.c -o mingw-x86_64-tmp28587
+has_dlopen.c:2:19: fatal error: dlfcn.h: No such file or directory
+ #include <dlfcn.h>
+                   ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_dlopen.c -o mingw-x86_64-tmp28587 -ldl
+has_dlopen.c:2:19: fatal error: dlfcn.h: No such file or directory
+ #include <dlfcn.h>
+                   ^
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/home/eric/BOINC_Project/MinGW64/GMP/include -o mingw-x86_64-gmpv28587 gmp_version.c -L/home/eric/BOINC_Project/MinGW64/GMP/lib -lgmp
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/usr/include -o mingw-x86_64-rlv28587 rl_version.c -L/lib64 -lreadline
+In file included from rl_version.c:1:0:
+/usr/include/stdio.h:102:19: error: conflicting types for 'ssize_t'
+ typedef __ssize_t ssize_t;
+                   ^
+In file included from /usr/x86_64-w64-mingw32/sys-root/mingw/include/crtdefs.h:10:0,
+                 from /usr/x86_64-w64-mingw32/sys-root/mingw/include/stddef.h:7,
+                 from /usr/lib64/gcc/x86_64-w64-mingw32/4.8.3/include/stddef.h:1,
+                 from /usr/include/stdio.h:33,
+                 from rl_version.c:1:
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/_mingw.h:387:35: note: previous declaration of 'ssize_t' was here
+ __MINGW_EXTENSION typedef __int64 ssize_t;
+                                   ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/usr/include -o mingw-x86_64-rlv28587 rl_version.c -L/lib64 -lreadline -L/lib64 -lncurses
+In file included from rl_version.c:1:0:
+/usr/include/stdio.h:102:19: error: conflicting types for 'ssize_t'
+ typedef __ssize_t ssize_t;
+                   ^
+In file included from /usr/x86_64-w64-mingw32/sys-root/mingw/include/crtdefs.h:10:0,
+                 from /usr/x86_64-w64-mingw32/sys-root/mingw/include/stddef.h:7,
+                 from /usr/lib64/gcc/x86_64-w64-mingw32/4.8.3/include/stddef.h:1,
+                 from /usr/include/stdio.h:33,
+                 from rl_version.c:1:
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/_mingw.h:387:35: note: previous declaration of 'ssize_t' was here
+ __MINGW_EXTENSION typedef __int64 ssize_t;
+                                   ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/usr/include -o mingw-x86_64-rlv28587 rl_version.c -L/lib64 -lreadline -L/lib64 -ltermcap
+In file included from rl_version.c:1:0:
+/usr/include/stdio.h:102:19: error: conflicting types for 'ssize_t'
+ typedef __ssize_t ssize_t;
+                   ^
+In file included from /usr/x86_64-w64-mingw32/sys-root/mingw/include/crtdefs.h:10:0,
+                 from /usr/x86_64-w64-mingw32/sys-root/mingw/include/stddef.h:7,
+                 from /usr/lib64/gcc/x86_64-w64-mingw32/4.8.3/include/stddef.h:1,
+                 from /usr/include/stdio.h:33,
+                 from rl_version.c:1:
+/usr/x86_64-w64-mingw32/sys-root/mingw/include/_mingw.h:387:35: note: previous declaration of 'ssize_t' was here
+ __MINGW_EXTENSION typedef __int64 ssize_t;
+                                   ^

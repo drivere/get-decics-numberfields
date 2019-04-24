@@ -1,0 +1,12 @@
+Function: nfeltmulmodpr
+Section: number_fields
+C-Name: nfmulmodpr
+Prototype: GGGG
+Help: nfeltmulmodpr(nf,x,y,pr): element x.y modulo pr in nf, where pr is in
+ modpr format (see nfmodprinit).
+Doc: given two elements $x$ and
+ $y$ in \var{nf} and \var{pr} a prime ideal in \kbd{modpr} format (see
+ \tet{nfmodprinit}), computes their product $x*y$ modulo the prime ideal
+ \var{pr}.
+Variant: This function is normally useless in library mode. Project your
+ inputs to the residue field using \kbd{nf\_to\_Fq}, then work there.

@@ -1,0 +1,13 @@
+*** ../src/test/32/modular	2014-07-31 10:03:38.000000000 -0700
+--- gp.out	2015-05-12 08:51:51.269900192 -0700
+***************
+*** 65,68 ****
+  Mod(2, 7)
+    *** _^_: Warning: Mod(a,b)^n with n >> b : wasteful.
+  Mod(4, 7)
+! Total time spent: 4
+--- 65,68 ----
+  Mod(2, 7)
+    *** _^_: Warning: Mod(a,b)^n with n >> b : wasteful.
+  Mod(4, 7)
+! Total time spent: 0

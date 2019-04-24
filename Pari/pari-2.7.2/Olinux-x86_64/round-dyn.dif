@@ -1,0 +1,13 @@
+*** ../src/test/32/round	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:37.271711900 -0700
+***************
+*** 83,86 ****
+  [[1, 2], -oo]
+  [[0, 0; 0, 0], -oo]
+  error("incorrect type in gtrunc (t_STR).")
+! Total time spent: 4
+--- 83,86 ----
+  [[1, 2], -oo]
+  [[0, 0; 0, 0], -oo]
+  error("incorrect type in gtrunc (t_STR).")
+! Total time spent: 0

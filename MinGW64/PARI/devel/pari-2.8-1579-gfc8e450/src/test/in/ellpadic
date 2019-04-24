@@ -1,0 +1,81 @@
+default(parisize,"40M");
+
+e=ellinit([1,-1,1,-1,-14]);
+E=ellinit([0,0,0,-e.c4/48,-e.c6/864]);
+P=[1,-1/4;0,1];
+{
+  forprime(p=3,40,if(p==17,next);
+  A=ellpadicfrobenius(e,p,10);
+  B=ellpadicfrobenius(E,p,10);
+  if(P*B!=A*P,error(p)));
+}
+
+E=ellinit([1,-1,1,0,0]);P=[0,0];
+ellpadicheight(E,2,4, P)
+ellpadicheight(E,3,4, P)
+ellpadicheight(E,5,4, P)
+E=ellinit([0,-1,1,-10,-20]);P=[5,5];
+ellpadicheight(E,19,6, P)
+ellpadicheight(E,19,0, P)
+ellpadicL(E,2,5)
+
+E=ellinit([0,1,1,-9,-15]);
+ellpadicL(E,2,5)
+
+E=ellinit([0,0,1,-4,2]);P=[-2,1];
+ellpadicheight(E,3,5, P)
+P2 = ellmul(E,P,2);
+ellpadiclog(E,3,5,P)
+ellpadiclog(E,3,5,P2)
+E=ellinit([0,0,1,-7,6]);
+P=[-2,3]; P2=ellmul(E,P,2);
+Q=[-1,3]; Q2=ellmul(E,Q,2);
+R=[0,2];
+ellpadicheight(E,2,5, P,Q2)
+ellpadicheight(E,2,5, P2,Q)
+ellpadicheightmatrix(E,5,5, [P,Q,R])
+ellpadicheight(E,[3,[1,2]],5, P)
+ellpadicheight(E,[3,[1,2]],5, P,Q)
+M=ellpadicheightmatrix(E,[5,[1,0]],5, [P,Q,R])
+N=ellpadicheightmatrix(E,[5,[0,1]],5, [P,Q,R])
+matdet(M)
+matdet(N)
+
+E=ellinit([-577/48,14689/864]);
+ellpadics2(E,43,6)
+E=ellinit([1,0,1,-460,-3830]);
+ellpadics2(E,5,6)
+E=ellinit([0,0,1,-1,0]);
+ellpadics2(E,5,6)
+
+E=ellinit([1, -1, 1, 0, 0]);
+ellpadicfrobenius(E,5,7)
+E=ellinit([0,0,1,-4,2]);
+ellpadicfrobenius(E,3,5)
+
+e=ellinit([1,-1,1,-1,-14]);p=3;\\supersingular
+L=ellpadicL(e,p,4)
+F=[0,-p;1,ellap(e,p)];\\Frobeniusmatrixinthebasis(omega,F(omega)
+Lf=(1-p^{-1}*F)^-2*L~
+Lf/bestappr(ellL1(e,0)/e.omega[1])
+
+p=5;\\ordinary
+L=ellpadicL(e,p,4)
+al=polrootspadic(x^2-ellap(e,p)*x+p,p,7)[2];
+(1-al^(-1))^(-2)*L/bestappr(ellL1(e,0)/e.omega[1])
+
+e=ellinit([-4831,-129242]);p=3;\\supersingular
+L=ellpadicL(e,p,4);
+F=[0,-p;1,ellap(e,p)];
+Lf=(1-p^{-1}*F)^-2*L~;
+Lf/bestappr(ellL1(e,0)/e.omega[1])
+
+e=ellinit([1,-1,1,-3,3]);p=3;
+L=ellpadicL(e,p,4);
+F=[0,-p;1,ellap(e,p)];
+Lf=(1-p^{-1}*F)^-2*L~;
+Lf/bestappr(ellL1(e,0)/e.omega[1])
+
+e=ellinit([0,0,1,-4,2]);p=3;n=3;
+ellpadicL(e,p,n)
+

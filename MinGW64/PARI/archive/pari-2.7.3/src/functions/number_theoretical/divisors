@@ -1,0 +1,16 @@
+Function: divisors
+Section: number_theoretical
+C-Name: divisors
+Prototype: G
+Help: divisors(x): gives a vector formed by the divisors of x in increasing
+ order.
+Description:
+ (gen):vec        divisors($1)
+Doc: creates a row vector whose components are the
+ divisors of $x$. The factorization of $x$ (as output by \tet{factor}) can
+ be used instead.
+
+ By definition, these divisors are the products of the irreducible
+ factors of $n$, as produced by \kbd{factor(n)}, raised to appropriate
+ powers (no negative exponent may occur in the factorization). If $n$ is
+ an integer, they are the positive divisors, in increasing order.

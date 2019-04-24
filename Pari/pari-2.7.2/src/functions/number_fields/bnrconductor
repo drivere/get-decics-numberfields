@@ -1,0 +1,26 @@
+Function: bnrconductor
+Section: number_fields
+C-Name: bnrconductor0
+Prototype: GDGDGD0,L,
+Help: bnrconductor(A,{B},{C},{flag=0}): conductor f of the subfield of
+ the ray class field given by A,B,C. flag is optional and
+ can be 0: default, 1: returns [f, Cl_f, H], H subgroup of the ray class
+ group modulo f defining the extension, 2: returns [f, bnr(f), H].
+Doc: conductor $f$ of the subfield of a ray class field as defined by $[A,B,C]$
+ (of type \kbd{[\var{bnr}]},
+ \kbd{[\var{bnr}, \var{subgroup}]},
+ \kbd{[\var{bnf}, \var{modulus}]} or
+ \kbd{[\var{bnf}, \var{modulus}, \var{subgroup}]},
+ \secref{se:CFT})
+
+ If $\fl = 0$, returns $f$.
+
+ If $\fl = 1$, returns $[f, Cl_f, H]$, where $Cl_f$ is the ray class group
+ modulo $f$, as a finite abelian group; finally $H$ is the subgroup of $Cl_f$
+ defining the extension.
+
+ If $\fl = 2$, returns $[f, \var{bnr}(f), H]$, as above except $Cl_f$ is
+ replaced by a \kbd{bnr} structure, as output by $\tet{bnrinit}(,f,1)$.
+Variant:
+ Also available is \fun{GEN}{bnrconductor}{GEN bnr, GEN H, long flag}
+

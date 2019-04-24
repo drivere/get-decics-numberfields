@@ -1,0 +1,45 @@
+
+BOINC_DIR = /home/eric/BOINC_Project/MinGW/BOINC/boinc-v2
+BOINC_API_DIR = $(BOINC_DIR)/api
+BOINC_LIB_DIR = $(BOINC_DIR)/lib
+BOINC_SCHED_DIR = $(BOINC_DIR)/sched
+BOINC_DB_DIR = $(BOINC_DIR)/db
+
+#PARI = /home/eric/BOINC_Project/MinGW/PARI/pari-2.7.2
+#PARI = /home/eric/BOINC_Project/MinGW/PARI/pari-2.7.4
+PARI = /home/eric/BOINC_Project/MinGW/PARI/pari-2.8-1711-ge5c317c
+
+LIBGMP = /home/eric/BOINC_Project/MinGW/GMP/lib
+
+GMPINC = /home/eric/BOINC_Project/MinGW/GMP/include
+
+
+CC = /usr/bin/i686-w64-mingw32-g++
+OPT = -O3
+
+O = Omingw-i686
+
+INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(GMPINC) -I$(PARI)/src/headers -I$(PARI)/$(O)
+
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(O) -L$(LIBGMP) -lboinc_api -lboinc -lpari -lm -l:libgmp.a
+
+
+#CXXFLAGS = $(OPT) -DMINGW $(INCLUDES)
+CXXFLAGS = $(OPT) -Wall -w -fmax-errors=5 -DMINGW -D__USE_MINGW_ANSI_STDIO -DAPP_VERSION_CPU_STD $(INCLUDES)
+
+
+PROGS = $(O)/GetDecics
+
+
+all: $(O) $(PROGS)
+
+clean:
+	rm -r -f $(O)
+
+$(O): ;	mkdir -p $(O)
+
+$(O)/%.o: %.cpp
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_cpu.o
+	$(CC) -static $(CXXFLAGS) -o $@ $+ $(LIBS) -pthread

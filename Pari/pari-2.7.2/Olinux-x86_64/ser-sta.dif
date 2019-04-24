@@ -1,0 +1,13 @@
+*** ../src/test/32/ser	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:53:40.919705420 -0700
+***************
+*** 35,38 ****
+    ***   at top-level: Ser("")
+    ***                 ^-------
+    *** Ser: incorrect type in gtoser (t_STR).
+! Total time spent: 0
+--- 35,38 ----
+    ***   at top-level: Ser("")
+    ***                 ^-------
+    *** Ser: incorrect type in gtoser (t_STR).
+! Total time spent: 1

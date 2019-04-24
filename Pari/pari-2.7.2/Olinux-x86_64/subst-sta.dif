@@ -1,0 +1,13 @@
+*** ../src/test/32/subst	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:54:16.930641454 -0700
+***************
+*** 21,24 ****
+    ***                 ^--------------------
+    *** subst: forbidden substitution t_INT , t_MAT (1x2).
+  4*y^2 + O(y^3)
+! Total time spent: 0
+--- 21,24 ----
+    ***                 ^--------------------
+    *** subst: forbidden substitution t_INT , t_MAT (1x2).
+  4*y^2 + O(y^3)
+! Total time spent: 1

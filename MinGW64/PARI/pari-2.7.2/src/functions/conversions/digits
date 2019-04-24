@@ -1,0 +1,8 @@
+Function: digits
+Section: conversions
+C-Name: digits
+Prototype: GDG
+Help: digits(x,{b=10}): gives the vector formed by the digits of x in base b (x and b
+ integers).
+Doc:
+ outputs the vector of the digits of $|x|$ in base $b$, where $x$ and $b$ are integers.

@@ -1,0 +1,4 @@
+K=bnfinit(a^4-3*a^2+253009);B=bnrinit(K,9,1);G=galoisinit(K);
+[H|H<-subgrouplist(B,3), bnrisgalois(B,G,H)]
+M=bnrgaloismatrix(B,G)
+[H|H<-subgrouplist(B,3), bnrisgalois(B,M,H)]

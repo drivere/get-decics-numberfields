@@ -1,0 +1,69 @@
+
+# Location of BOINC libraries
+BOINC_DIR = /home/eric/BOINC_Project/boinc
+BOINC_API_DIR = $(BOINC_DIR)/api
+BOINC_LIB_DIR = $(BOINC_DIR)/lib
+BOINC_SCHED_DIR = $(BOINC_DIR)/sched
+BOINC_DB_DIR = $(BOINC_DIR)/db
+
+# Location of PARI library
+PARI = /home/eric/BOINC_Project/Pari/pari-2.8-1711-ge5c317c
+
+# Location of AMD headers and libraries.
+AMD_PATH = /opt/rocm/opencl
+AMD_INC  = $(AMD_PATH)/include
+AMD_LIB  = $(AMD_PATH)/lib/x86_64
+
+
+system  := $(shell uname -s | tr A-Z a-z )
+hw      := $(shell uname -m)
+OBase   := O$(system)-$(hw)
+O       := $(OBase)-OpenCL_AMD
+
+CC  = g++
+
+INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(PARI)/src/headers -I$(PARI)/$(OBase) -I$(AMD_INC)
+
+#LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L$(AMD_LIB) -lamdocl64 -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a -lpthread
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L$(AMD_LIB) -lOpenCL -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a -lpthread
+
+#CXXFLAGS = -O3 -Wall -Werror -fmax-errors=4
+CXXFLAGS = -O3 -fmax-errors=4
+
+#STATIC_FLAGS = -static-libgcc -static-libstdc++ -static
+STATIC_FLAGS = -static-libgcc -static-libstdc++
+
+PREPROC_DEFS = -DAPP_VERSION_GPU_OPENCL -DBOINC_GPU_PLATFORM=PROC_TYPE_AMD_GPU
+
+
+################################################################################
+
+# Target rules
+
+all: build
+
+build: $(O) $(O)/GetDecics
+
+
+$(O)/polDiscTest_gpuOpenCL.o: polDiscTest_gpuOpenCL.cpp
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/GetDecics.o: GetDecics.cpp GetDecics.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/openCL_GetDecics.o: openCL_GetDecics.cpp openCL_GetDecics.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/boinc_opencl.o: $(BOINC_API_DIR)/boinc_opencl.cpp $(BOINC_API_DIR)/boinc_opencl.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) -c -o $@ $<
+
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o
+	$(CC) $(CXXFLAGS) $(STATIC_FLAGS) -o $@ $+ $(LIBS)
+
+$(O): ;	mkdir -p $(O)
+
+clean:
+	rm -r -f $(O)

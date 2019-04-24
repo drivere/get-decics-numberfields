@@ -1,0 +1,33 @@
+This file contains messages produced while configuring
+  pari-2.7.2 
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure 
+
+/usr/bin/gcc -o mingw-x86_64-ansi12061 ansi.c
+/usr/bin/gcc -o mingw-x86_64-gnu12061 gnu.c
+/usr/bin/gcc -fno-strict-aliasing -o mingw-x86_64-gnu12061 gnu.c
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing endian.c -o mingw-x86_64-endian12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_exp2.c -o mingw-x86_64-tmp12061 -lm
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_log2.c -o mingw-x86_64-tmp12061 -lm
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_strftime.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_getrusage.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_sigaction.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_TIOCGWINSZ.c -o mingw-x86_64-tmp12061
+has_TIOCGWINSZ.c: In function ‘main’:
+has_TIOCGWINSZ.c:10:7: warning: unused variable ‘status’ [-Wunused-variable]
+   int status = ioctl(0, TIOCGWINSZ, &s);
+       ^
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_getrlimit.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_stat.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_vsnprintf.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_waitpid.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_setsid.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_getenv.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_isatty.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_alarm.c -o mingw-x86_64-tmp12061
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_dlopen.c -o mingw-x86_64-tmp12061
+/tmp/ccglL96P.o: In function `main':
+has_dlopen.c:(.text.startup+0xf): undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing has_dlopen.c -o mingw-x86_64-tmp12061 -ldl
+/usr/bin/gcc -O3 -Wall -fno-strict-aliasing -I/usr/include -o mingw-x86_64-gmpv12061 gmp_version.c -L/lib64 -lgmp

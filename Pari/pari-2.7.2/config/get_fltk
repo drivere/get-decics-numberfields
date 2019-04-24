@@ -1,0 +1,24 @@
+if test -z "$with_fltk"; then
+  with_fltk=yes
+fi
+FLTKDIR=
+case "$with_fltk" in
+yes)
+   pth=$libpth; lib=fltk; . ./locatelib
+   if test -n "$fltk"; then
+     FLTKDIR=`dirname $fltk | sed -e 's/lib\/$//'`
+   fi
+   ;;
+*) if test ! -d "$with_fltk"; then
+    echo "### FLTK directory '$with_fltk' not found"
+  else
+    FLTKDIR=$with_fltk
+  fi;;
+esac
+if test -n "$FLTKDIR"; then
+  echo "Using FLTK library, FLTKDIR = $FLTKDIR"
+  FLTK_LIBS="`fltk-config --ldflags` -lstdc++"
+else
+  echo "### FLTK not found. Building without FLTK support"
+  FLTK_LIBS=
+fi

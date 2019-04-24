@@ -1,0 +1,90 @@
+Function: vecsort
+Section: linear_algebra
+C-Name: vecsort0
+Prototype: GDGD0,L,
+Help: vecsort(x,{cmpf},{flag=0}): sorts the vector of vectors (or matrix) x in
+ ascending order, according to the comparison function cmpf, if not omitted.
+ (If cmpf is an integer, sort according to the value of the k-th component
+ of each entry.) Binary digits of flag (if present) mean: 1: indirect sorting,
+ return the permutation instead of the permuted vector, 2: sort using
+ lexicographic order, 4: use descending instead of ascending order, 8: remove
+ duplicate entries.
+Description:
+ (vecsmall,?gen):vecsmall       vecsort0($1, $2, 0)
+ (vecsmall,?gen,small):vecsmall vecsort0($1, $2, $3)
+ (vec, , ?0):vec                sort($1)
+ (vec, , 1):vecsmall            indexsort($1)
+ (vec, , 2):vec                 lexsort($1)
+ (vec, gen):vec                 vecsort0($1, $2, 0)
+ (vec, ?gen, 1):vecsmall        vecsort0($1, $2, 1)
+ (vec, ?gen, 3):vecsmall        vecsort0($1, $2, 3)
+ (vec, ?gen, 5):vecsmall        vecsort0($1, $2, 5)
+ (vec, ?gen, 7):vecsmall        vecsort0($1, $2, 7)
+ (vec, ?gen, 9):vecsmall        vecsort0($1, $2, 9)
+ (vec, ?gen, 11):vecsmall       vecsort0($1, $2, 11)
+ (vec, ?gen, 13):vecsmall       vecsort0($1, $2, 13)
+ (vec, ?gen, 15):vecsmall       vecsort0($1, $2, 15)
+ (vec, ?gen, #small):vec        vecsort0($1, $2, $3)
+ (vec, ?gen, small):gen         vecsort0($1, $2, $3)
+Doc: sorts the vector $x$ in ascending order, using a mergesort method.
+ $x$ must be a list, vector or matrix (seen as a vector of its columns).
+ Note that mergesort is stable, hence the initial ordering of ``equal''
+ entries (with respect to the sorting criterion) is not changed.
+
+ If \kbd{cmpf} is omitted, we use the standard comparison function
+ \kbd{lex}, thereby restricting the possible types for the elements of $x$
+ (integers, fractions or reals and vectors of those). If \kbd{cmpf} is
+ present, it is understood as a comparison function and we sort according to
+ it. The following possibilities exist:
+
+ \item an integer $k$: sort according to the value of the $k$-th
+ subcomponents of the components of~$x$.
+
+ \item a vector: sort lexicographically according to the components listed in
+ the vector. For example, if $\kbd{cmpf}=\kbd{[2,1,3]}$, sort with respect to
+ the second component, and when these are equal, with respect to the first,
+ and when these are equal, with respect to the third.
+
+ \item a comparison function (\typ{CLOSURE}), with two arguments $x$ and $y$,
+ and returning an integer which is $<0$, $>0$ or $=0$ if $x<y$, $x>y$ or
+ $x=y$ respectively. The \tet{sign} function is very useful in this context:
+ \bprog
+ ? vecsort([3,0,2; 1,0,2]) \\ sort columns according to lex order
+ %1 =
+ [0 2 3]
+
+ [0 2 1]
+ ? vecsort(v, (x,y)->sign(y-x))            \\@com reverse sort
+ ? vecsort(v, (x,y)->sign(abs(x)-abs(y)))  \\@com sort by increasing absolute value
+ ? cmpf(x,y) = my(dx = poldisc(x), dy = poldisc(y)); sign(abs(dx) - abs(dy))
+ ? vecsort([x^2+1, x^3-2, x^4+5*x+1], cmpf)
+ @eprog\noindent
+ The last example used the named \kbd{cmpf} instead of an anonymous function,
+ and sorts polynomials with respect to the absolute value of their
+ discriminant. A more efficient approach would use precomputations to ensure
+ a given discriminant is computed only once:
+ \bprog
+ ? DISC = vector(#v, i, abs(poldisc(v[i])));
+ ? perm = vecsort(vector(#v,i,i), (x,y)->sign(DISC[x]-DISC[y]))
+ ? vecextract(v, perm)
+ @eprog\noindent Similar ideas apply whenever we sort according to the values
+ of a function which is expensive to compute.
+
+ \noindent The binary digits of \fl\ mean:
+
+ \item 1: indirect sorting of the vector $x$, i.e.~if $x$ is an
+ $n$-component vector, returns a permutation of $[1,2,\dots,n]$ which
+ applied to the components of $x$ sorts $x$ in increasing order.
+ For example, \kbd{vecextract(x, vecsort(x,,1))} is equivalent to
+ \kbd{vecsort(x)}.
+
+ \item 4: use descending instead of ascending order.
+
+ \item 8: remove ``duplicate'' entries with respect to the sorting function
+ (keep the first occurring entry).  For example:
+ \bprog
+   ? vecsort([Pi,Mod(1,2),z], (x,y)->0, 8)   \\@com make everything compare equal
+   %1 = [3.141592653589793238462643383]
+   ? vecsort([[2,3],[0,1],[0,3]], 2, 8)
+   %2 = [[0, 1], [2, 3]]
+ @eprog

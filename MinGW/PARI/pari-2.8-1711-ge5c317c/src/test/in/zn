@@ -1,0 +1,55 @@
+znprimroot(2)
+znprimroot(4)
+znprimroot(8)
+p=9223372036854775837;
+znprimroot(p)
+znprimroot(p^2)
+znprimroot(2*p^2)
+znprimroot([2,1;p,2])
+znprimroot([2*p^2,[2,1;p,2]])
+znstar(0)
+znstar(1)
+znstar(10)
+znstar(14)
+znstar(247)
+znstar(-247)
+znstar(factor(-247))
+znstar(factor(0))
+Mod(10,148)^(2^64)
+do(n)= {
+  g = Mod(3,n); phi = eulerphi(n); G = g^(phi-1);
+  o = znorder(g, phi); fo = factor(o);
+  [znlog(G,g), znlog(G,g,o), znlog(G,g,fo), znlog(G,g,[o,fo])];
+}
+do(2^5*5^3*7)
+do(2^3*5^2*nextprime(10^10)^2)
+
+znlog(7,Mod(3,8),znorder(Mod(3,8)))
+znlog(7,Mod(3,8))
+znlog(0,Mod(3,4))
+znlog(0,Mod(3,4),1)
+znlog(1,Mod(3,4))
+znlog(1,Mod(3,4),1)
+znlog(0,Mod(2,4))
+znlog(0,Mod(2,4),1)
+znlog(6,Mod(2,7),znorder(Mod(2,7)))
+znlog(3,Mod(3,8),znorder(Mod(3,8)))
+znlog(5,Mod(2,401))
+
+znlog(7,3+O(2^3))
+znlog(7,3+O(2^3), znorder(Mod(3,8)))
+znlog(7,3+O(7^3))
+znlog(2,3+O(7^3))
+
+{
+for (i = 1,10^4,
+  d = eulerphi(i);
+  if (!istotient(d, &n) || eulerphi(n) != d, error(i)))
+}
+Mod(1,2)-Mod(2,4)
+
+p=2^80+13; znlog(Mod(3,p),Mod(2,p))
+
+g=Mod(3,11);
+v=[I,-1,Mat(1),matid(2)/2,Mat([5,1])];
+a=Mod(-1,11); for(i=1,#v, print(iferr(znlog(a,g,v[i]),E,E)));

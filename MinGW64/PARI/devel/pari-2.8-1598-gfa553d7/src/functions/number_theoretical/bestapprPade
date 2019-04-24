@@ -1,0 +1,43 @@
+Function: bestapprPade
+Section: number_theoretical
+C-Name: bestapprPade
+Prototype: GD-1,L,
+Help: bestappr(x, {B}): returns a rational function approximation to x.
+ This function applies to series, polmods, and rational functions of course.
+ Otherwise it applies recursively to all components.
+Doc: using variants of the extended Euclidean algorithm, returns a rational
+ function approximation $a/b$ to $x$, whose denominator is limited
+ by $B$, if present. If $B$ is omitted, return the best approximation
+ affordable given the input accuracy; if you are looking for true rational
+ functions, presumably approximated to sufficient accuracy, you should first
+ try that option. Otherwise, $B$ must be a non-negative real (impose
+ $0 \leq \text{degree}(b) \leq B$).
+
+ \item If $x$ is a \typ{RFRAC} or \typ{SER}, this function uses continued
+ fractions.
+ \bprog
+ ? bestapprPade((1-x^11)/(1-x)+O(x^11))
+ %1 = 1/(-x + 1)
+ ? bestapprPade([1/(1+x+O(x^10)), (x^3-2)/(x^3+1)], 1)
+ %2 =  [1/(x + 1), -2]
+ @eprog
+
+ \item If $x$ is a \typ{POLMOD} modulo $N$ or a \typ{SER} of precision $N =
+ t^k$, this function performs rational modular reconstruction modulo $N$. The
+ routine then returns the unique rational function $a/b$ in coprime
+ polynomials, with $\text{degree}(b)\leq B$ which is congruent to $x$ modulo
+ $N$. Omitting $B$ amounts to choosing it of the order of $N/2$. If rational
+ reconstruction is not possible (no suitable $a/b$ exists), returns $[]$.
+ \bprog
+ ? bestapprPade(Mod(1+x+x^2+x^3+x^4, x^4-2))
+ %1 = (2*x - 1)/(x - 1)
+ ? % * Mod(1,x^4-2)
+ %2 = Mod(x^3 + x^2 + x + 3, x^4 - 2)
+ ? bestapprPade(Mod(1+x+x^2+x^3+x^5, x^9))
+ %2 = []
+ ? bestapprPade(Mod(1+x+x^2+x^3+x^5, x^10))
+ %3 = (2*x^4 + x^3 - x - 1)/(-x^5 + x^3 + x^2 - 1)
+ @eprog\noindent
+ The function applies recursively to components of complex objects
+ (polynomials, vectors, \dots). If rational reconstruction fails for even a
+ single entry, return $[]$.

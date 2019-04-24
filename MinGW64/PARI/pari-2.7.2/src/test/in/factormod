@@ -1,0 +1,29 @@
+print(lift(factorcantor(x^1024+1,12289)))
+setrand(4); lift(factormod(y^3-3*y-1,2238004061))
+\\#1451
+lift(factormod(x^31+x^30+x^29+x^28+x^26+x^24+x^23+x^21+x^16+x^15+x^14+x^11+x^10+x^9+x^8+x^7+x^3+x^2+x,2))
+polrootsmod(x^16-1,41,1)
+polrootsmod(x^5+x^2-4*x+2,5,1)
+polrootsmod(Pol(0),2)
+polrootsmod(Pol(1),2)
+factorcantor(x^3+x,2)
+factormod(Pol(0),2)
+factormod(Pol(1),2)
+factormod((x^2+x+1)*(x^3+x),2, 1)
+polrootsmod(x^5+4*x^4+2*x^3+x^2+4*x+2,7)
+
+p=2^64+13;
+polrootsmod(Pol(0),p)
+polrootsmod(Pol(1),p)
+polrootsmod(x,p)
+polrootsmod(2*x+1,p)
+factormod(x^2+1,p)
+factormod(x^2+1,p,1)
+factormod(x^2+3,p,1)
+
+factorcantor(x^2+1,p)
+factorcantor(Pol(0),p)
+factorcantor(Pol(1),p)
+
+polisirreducible((x^2+x+1)*Mod(1,2))
+polisirreducible((x^2+1)*Mod(1,p))

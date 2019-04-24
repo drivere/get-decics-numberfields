@@ -1,0 +1,28 @@
+Function: ellanalyticrank
+Section: elliptic_curves
+C-Name: ellanalyticrank
+Prototype: GDGp
+Help: ellanalyticrank(e, {eps}): returns the order of vanishing at s=1
+ of the L-function of the elliptic curve e and the value of the first
+ non-zero derivative. To determine this order, it is assumed that any
+ value less than eps is zero. If no value of eps is given, a value of
+ half the current precision is used.
+Doc: returns the order of vanishing at $s=1$ of the $L$-function of the
+ elliptic curve $e$ and the value of the first non-zero derivative. To
+ determine this order, it is assumed that any value less than \kbd{eps} is
+ zero. If no value of \kbd{eps} is given, a value of half the current
+ precision is used.
+ \bprog
+ ? e = ellinit("11a1"); \\ rank 0
+ ? ellanalyticrank(e)
+ %2 = [0, 0.2538418608559106843377589233]
+ ? e = ellinit("37a1"); \\ rank 1
+ ? ellanalyticrank(e)
+ %4 = [1, 0.3059997738340523018204836835]
+ ? e = ellinit("389a1"); \\ rank 2
+ ? ellanalyticrank(e)
+ %6 = [2, 1.518633000576853540460385214]
+ ? e = ellinit("5077a1"); \\ rank 3
+ ? ellanalyticrank(e)
+ %8 = [3, 10.39109940071580413875185035]
+ @eprog

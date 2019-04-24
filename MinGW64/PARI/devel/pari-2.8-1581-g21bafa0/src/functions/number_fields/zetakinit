@@ -1,0 +1,28 @@
+Function: zetakinit
+Section: number_fields
+C-Name: initzeta
+Prototype: Gp
+Help: zetakinit(bnf): compute number field information necessary to use zetak.
+ bnf may also be an irreducible polynomial.
+Doc: computes a number of initialization data
+ concerning the number field associated to \kbd{bnf} so as to be able
+ to compute the \idx{Dedekind} zeta and lambda functions, respectively
+ $\kbd{zetak}(x)$ and $\kbd{zetak}(x,1)$, at the current real precision. If
+ you do not need the \kbd{bnfinit} data somewhere else, you may call it
+ with an irreducible polynomial instead of a \var{bnf}: it will call
+ \kbd{bnfinit} itself.
+
+ The result is a 9-component vector $v$ whose components are very technical
+ and cannot really be used except through the \kbd{zetak} function.
+
+ This function is very inefficient and should be rewritten. It needs to
+ computes millions of coefficients of the corresponding Dirichlet series if
+ the precision is big. Unless the discriminant is small it will not be able
+ to handle more than 9 digits of relative precision. For instance,
+ \kbd{zetakinit(x\pow 8 - 2)} needs 440MB of memory at default precision.
+
+ This function will fail with the message
+ \bprog
+  *** bnrL1: overflow in zeta_get_N0 [need too many primes].
+ @eprog\noindent if the approximate functional equation requires us to sum
+ too many terms (if the discriminant of the number field is too large).

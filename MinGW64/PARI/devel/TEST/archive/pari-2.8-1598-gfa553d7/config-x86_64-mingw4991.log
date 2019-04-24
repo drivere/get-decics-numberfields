@@ -1,0 +1,6 @@
+This file contains messages produced while configuring
+  pari-2.8.0 [ development git-fa553d7 ]
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure 
+
+x86_64-w64-mingw32-gcc -o mingw-x86_64-ansi4991 ansi.c

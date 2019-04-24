@@ -1,0 +1,296 @@
+This is TeX, Version 3.14159265 (TeX Live 2014) (preloaded format=tex 2015.8.24)  6 SEP 2015 13:29
+**libpari
+(./libpari.tex (./parimacro.tex
+\std=\read0
+ (./paricfg.tex)
+\toc=\write0
+\out=\write1
+\aux=\write2
+\index=\write3
+
+SECOND PASS
+(./libpari.aux)) [1
+\openout2 = `libpari.aux'.
+
+\appno=\count8
+\chapno=\count8
+\secno=\count8
+\subsecno=\count8
+\subsubsecno=\count8
+\euffam=\fam8
+] [2] (./libpari.toc [3] [4] [5] [6] [7] [8] [9]) [10
+\openout0 = `libpari.toc'.
+
+]
+(./usersch4.tex [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
+[23] [24] [25] [26] [27] [28] [29
+Reference `se:whatzero' on page 29 undefined on input line 1287
+] [30
+Reference `se:whatzero' on page 30 undefined on input line 1364
+Reference `se:compquad' on page 30 undefined on input line 1364
+Reference `se:priority' on page 30 undefined on input line 1364
+Reference `se:priority' on page 30 undefined on input line 1364
+] [31
+Reference `se:priority' on page 31 undefined on input line 1426
+] [32] [33
+Reference `se:priority' on page 33 undefined on input line 1563
+] [34
+Reference `se:rempolmod' on page 34 undefined on input line 1631
+Reference `se:priority' on page 34 undefined on input line 1631
+] [35] [36] [37] [38] [39
+Reference `se:defaults' on page 39 undefined on input line 1959
+Reference `se:install' on page 39 undefined on input line 1959
+] [40] [41] [42] [43] [44] (../examples/extgcd.c) [45] [46]) (./usersch5.tex
+[47] [48] [49]
+Underfull \hbox (badness 10000) in paragraph at lines 210--213
+\tentt int gp_handle_exception(long err) \tenrm if the \tentt break-loop \tenrm
+ de-fault is en-abled and
+
+\hbox(6.94444+2.22223)x428.99947, glue set 6.77158
+.\tentt i
+.\tentt n
+.\tentt t
+.\glue 5.24995
+.\tentt g
+.etc.
+
+[50] [51] [52] [53] [54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64]
+[65] [66] [67] [68
+Reference `se:strings' on page 68 undefined on input line 1561
+] [69
+Reference `se:addhelp' on page 69 undefined on input line 1620
+Reference `se:install' on page 69 undefined on input line 1620
+Reference `se:gprc' on page 69 undefined on input line 1620
+] [70] [71] [72] [73] [74]
+Underfull \hbox (badness 10000) in paragraph at lines 1934--1936
+\tentt ulong Fl_addmulmul_pre(ulong x0, ulong y0, ulong x1, ulong y1, ulong p, 
+ulong pi)
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt u
+.\tentt l
+.\tentt o
+.\tentt n
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1940--1943
+\tentt GEN Fl_powers_pre(ulong x, long n, ulong p, ulong pi) \tenrm re-turns $[
+\tentt x[]\teni ; [] ; \tentt x[]\tenrm ]$ as a
+
+\hbox(8.14003+2.5)x428.99947, glue set 6.79045
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt F
+.etc.
+
+[75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89]
+[90] [91] [92] [93] [94] [95] [96] [97] [98] [99] [100] [101] [102] [103]
+[104] [105]
+Underfull \hbox (badness 10000) in paragraph at lines 4207--4209
+\tentt long FpX_nbfact_Frobenius(GEN f, GEN XP, GEN p)\tenrm , as \tentt FpX[]n
+bfact\tenrm , where \tentt XP =
+
+\hbox(6.94444+2.22223)x428.99947, glue set 7.57414
+.\tentt l
+.\tentt o
+.\tentt n
+.\tentt g
+.\glue 5.24995
+.etc.
+
+[106] [107] [108] [109]
+Underfull \hbox (badness 10000) in paragraph at lines 4460--4463
+\tentt GEN gener_Fq_local(GEN T, GEN p, GEN L) \tenrm as \tentt pgener_Fp_local
+ \tenrm (if $\teni T$ \tenrm is \tentt NULL\tenrm ) or
+
+\hbox(7.5+2.5)x428.99947, glue set 4.77927
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+[110] [111] [112] [113] [114] [115] [116]
+Underfull \hbox (badness 10000) in paragraph at lines 5018--5021
+\tentt ulong Flx_eval_powers_pre(GEN P, GEN y, ulong p, ulong pi)\tenrm , $\ten
+i y$ \tenrm be-ing the vec-tor
+
+\hbox(6.94444+2.22223)x428.99947, glue set 5.49672
+.\tentt u
+.\tentt l
+.\tentt o
+.\tentt n
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 5022--5024
+\tentt ulong Flx_Flv_multieval(GEN P, GEN v, ulong y, ulong p) \tenrm re-turns 
+the vec-tor
+
+\hbox(6.94444+2.22223)x428.99947, glue set 11.68933
+.\tentt u
+.\tentt l
+.\tentt o
+.\tentt n
+.\tentt g
+.etc.
+
+[117] [118] [119] [120] [121] [122] [123] [124] [125] [126] [127] [128]
+Underfull \hbox (badness 10000) in paragraph at lines 5827--5831
+\tentt GEN ZpX_ZpXQ_liftroot_ea(GEN f, GEN a, GEN T, GEN p, long e, void *E, in
+t
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt Z
+.etc.
+
+[129] [130] [131] [132] [133] [134] [135] [136] [137] [138] [139] [140]
+[141] [142] [143] [144] [145] [146] [147] [148] [149] [150] [151] [152]
+[153] [154] [155] [156] [157] [158] [159] [160] [161] [162] [163] [164]
+[165] [166] [167] [168] [169] [170] [171] [172] [173] [174] [175] [176]
+[177] [178] [179] [180] [181]
+Underfull \hbox (badness 10000) in paragraph at lines 9586--9589
+\tentt void gsup-norm_aux(GEN x, GEN *m, GEN *m2, long prec) \tenrm Low-level f
+unc-tion un-der-ly-ing
+
+\hbox(6.94444+2.22223)x428.99947, glue set 4.5559
+.\tentt v
+.\tentt o
+.\tentt i
+.\tentt d
+.\glue 5.24995
+.etc.
+
+[182] [183] [184] [185] [186] [187] [188] [189] [190]
+Underfull \hbox (badness 10000) in paragraph at lines 10082--10088
+\tentt GEN trans_eval(const char *fun, GEN (*f) (GEN, long), GEN x, long prec) 
+\tenrm eval-u-ate
+
+\hbox(6.94444+2.22223)x428.99947, glue set 10.25165
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt t
+.etc.
+
+[191] [192] [193] [194] [195] [196] [197] [198] [199] [200] [201] [202]
+[203] [204] [205] [206]
+Underfull \hbox (badness 10000) in paragraph at lines 11026--11030
+\tentt hashentry * hash_select(hashtable *h, void *k, void *E, int(*select)(voi
+d
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt h
+.\tentt a
+.\tentt s
+.\tentt h
+.\tentt e
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 11036--11042
+\tentt hashentry* hash_remove_select(hashtable *h, void *k, void *E, int(*selec
+t)(void
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt h
+.\tentt a
+.\tentt s
+.\tentt h
+.\tentt e
+.etc.
+
+[207] [208] [209]
+Underfull \hbox (badness 10000) in paragraph at lines 11202--11205
+\tentt GEN mat-slice(GEN A, long i1, long i2, long j1, long j2) \tenrm re-turn 
+the sub-ma-trix
+
+\hbox(6.94444+2.22223)x428.99947, glue set 8.96709
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt m
+.etc.
+
+[210] [211] [212] [213] [214] [215] [216] [217] [218] [219] [220]
+Underfull \hbox (badness 10000) in paragraph at lines 11859--11863
+\tentt GEN obj_checkbuild_prec(GEN S, long tag, GEN (*build)(GEN,long), GEN (*p
+r)(GEN),
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt o
+.etc.
+
+) (./usersch6.tex [221] [222] [223] [224] [225] [226] [227] [228] [229]
+[230] [231] [232] [233] [234] [235] [236] [237] [238] [239] [240] [241]
+[242] [243]
+Underfull \hbox (badness 10000) in paragraph at lines 1482--1485
+\tentt GEN polmod_nffix2(const char *f, GEN T, GEN P, GEN x, int lift) \tenrm a
+s \tentt polmod_nffix\tenrm ,
+
+\hbox(6.94444+2.22223)x428.99947, glue set 5.05923
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt p
+.etc.
+
+[244] [245] [246] [247] [248] [249] [250] [251] [252] [253] [254])
+(./usersch7.tex [255] [256] [257] [258] [259] [260] [261]
+Underfull \hbox (badness 10000) in paragraph at lines 524--527
+\tentt void Fl_elltwist(ulong a4, ulong a6, ulong p, ulong *pt_a4, ulong *pt_a6
+) \tenrm Set
+
+\hbox(6.94444+2.22223)x428.99947, glue set 17.11844
+.\tentt v
+.\tentt o
+.\tentt i
+.\tentt d
+.\glue 5.24995
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 528--531
+\tentt void Fl_elltwist_disc(ulong a4, ulong a6, ulong D, ulong p, ulong *pt_a4
+, ulong
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt v
+.\tentt o
+.\tentt i
+.\tentt d
+.\glue 5.24995
+.etc.
+
+[262] [263] [264] [265] [266]) (./appb.tex (../examples/extgcd.c [267
+Reference `se:install' on page 267 undefined on input line 33
+]) [268]) (./appd.tex [269] (../examples/thread.c [270]) [271]) (./index.tex
+[272
+\fullhsize=\dimen20
+\leftcolumn=\box20
+\dbox=\box20
+\dfillskip=\skip20
+\interskipa=\skip20
+\interskipb=\skip20
+] [273] [274] [275] [276] [277] [278] [279] [280] [281] [282] [283]
+[284] [285] [286] [287] [288] [289] [290] [291] [292] [293] [294] [295]
+[296] [297] [298] [299] [300] [301] [302] [303] [304] [305] [306] [307]
+[308]) [309] )
+Output written on libpari.dvi (309 pages, 1592184 bytes).

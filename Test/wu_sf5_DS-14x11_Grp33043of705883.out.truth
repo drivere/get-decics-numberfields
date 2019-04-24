@@ -1,0 +1,10 @@
+x^10 - 80*x^8 - 480*x^7 + 3220*x^6 + 8656*x^5 + 72800*x^4 + 612960*x^3 + 1124160*x^2 + 2239360*x + 7513984
+x^10 - 80*x^8 + 120*x^7 + 2420*x^6 - 8944*x^5 + 800*x^4 + 104960*x^3 - 503040*x^2 - 599040*x + 7133184
+x^10 - 80*x^8 - 80*x^7 + 2420*x^6 + 10656*x^5 - 71200*x^4 - 311040*x^3 + 2647360*x^2 - 7063040*x + 9257984
+x^10 - 80*x^8 + 120*x^7 - 380*x^6 + 17456*x^5 + 112800*x^4 - 1599040*x^3 + 7472960*x^2 - 20093440*x + 23312384
+#   The search is complete. Stats:
+#   Inspected 62485322 polynomials.
+#   Num Polys passing PolDisc test = 109 (0.000174441%).
+#   Num Polys passing irreducibility test = 93 (85.3211%).
+#   Num Polys passing field disc test = 4 (4.30108%).
+#   Elapsed Time = 7291 (sec)

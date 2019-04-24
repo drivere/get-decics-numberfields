@@ -1,0 +1,13 @@
+*** ../src/test/64/incgam	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:51:25.953945162 -0700
+***************
+*** 70,73 ****
+    ***   at top-level: eint1(0)
+    ***                 ^--------
+    *** eint1: domain error in eint1: x = 0
+! Total time spent: 84
+--- 70,73 ----
+    ***   at top-level: eint1(0)
+    ***                 ^--------
+    *** eint1: domain error in eint1: x = 0
+! Total time spent: 65

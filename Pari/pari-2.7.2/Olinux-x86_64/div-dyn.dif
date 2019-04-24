@@ -1,0 +1,13 @@
+*** ../src/test/32/div	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:49:39.610134066 -0700
+***************
+*** 907,910 ****
+    *** divrem: forbidden division t_INT \ t_STR.
+  2
+  x
+! Total time spent: 0
+--- 907,910 ----
+    *** divrem: forbidden division t_INT \ t_STR.
+  2
+  x
+! Total time spent: 3

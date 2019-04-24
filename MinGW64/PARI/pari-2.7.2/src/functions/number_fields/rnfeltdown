@@ -1,0 +1,26 @@
+Function: rnfeltdown
+Section: number_fields
+C-Name: rnfeltdown
+Prototype: GG
+Help: rnfeltdown(rnf,x): expresses x on the base field if possible; returns
+ an error otherwise.
+Doc: $\var{rnf}$ being a relative number
+ field extension $L/K$ as output by \kbd{rnfinit} and $x$ being an element of
+ $L$ expressed as a polynomial or polmod with polmod coefficients, computes
+ $x$ as an element of $K$ as a polmod, assuming $x$ is in $K$ (otherwise a
+ domain error occurs).
+ \bprog
+ ? K = nfinit(y^2+1); L = rnfinit(K, x^2-y);
+ ? L.pol
+ %2 = x^4 + 1
+ ? rnfeltdown(L, Mod(x^2, L.pol))
+ %3 = Mod(y, y^2 + 1)
+ ? rnfeltdown(L, Mod(y, x^2-y))
+ %4 = Mod(y, y^2 + 1)
+ ? rnfeltdown(L, Mod(y,K.pol))
+ %5 = Mod(y, y^2 + 1)
+ ? rnfeltdown(L, Mod(x, L.pol))
+  ***   at top-level: rnfeltdown(L,Mod(x,x
+  ***                 ^--------------------
+  *** rnfeltdown: domain error in rnfeltdown: element not in the base field
+ @eprog

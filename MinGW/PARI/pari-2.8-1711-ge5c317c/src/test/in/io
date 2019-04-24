@@ -1,0 +1,23 @@
+F="io-testfile";
+del()=system(Str("rm -f ", F));
+del()
+write(F, 123)
+write(F, 456)
+write1(F, "a",7)
+write1(F, "b")
+write(F)
+writetex(F, 1/2)
+readstr(F)
+del()
+\\
+write(F, 1)
+write(F, "1+2")
+readvec(F)
+del()
+\\
+writebin(F,1)
+read(F)
+del()
+writebin(F)
+read(F)
+del()

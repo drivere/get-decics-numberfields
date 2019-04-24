@@ -1,0 +1,2822 @@
+!libpari!tt!5!
+!gp!tt!5!
+!GP!tt!5!
+!gp2c!tt!5!
+!t_INT!tt!7!
+!integer!rm!7!
+!t_REAL!tt!7!
+!real number!rm!7!
+!t_INTMOD!tt!7!
+!intmod!it!7!
+!t_FRAC!tt!7!
+!rational number!rm!7!
+!t_FFELT!tt!7!
+!\EFF {}inite \EFF {}ield element!rm!7!
+!t_COMPLEX!tt!7!
+!complex number!rm!7!
+!t_PADIC!tt!7!
+!p-adic number!rm!7!
+!t_QUAD!tt!7!
+!quadratic number!rm!7!
+!t_POLMOD!tt!7!
+!polmod!it!7!
+!t_POL!tt!7!
+!polynomial!rm!7!
+!t_SER!tt!7!
+!power series!rm!7!
+!t_RFRAC!tt!7!
+!rational \EFF {}unction!rm!7!
+!t_VEC!tt!7!
+!row vector!rm!7!
+!t_COL!tt!7!
+!column vector!rm!7!
+!t_MAT!tt!7!
+!matrix!rm!7!
+!t_LIST!tt!7!
+!list!rm!7!
+!t_STR!tt!7!
+!string!rm!7!
+!t_CLOSURE!tt!7!
+!t_ERROR!tt!7!
+!t_INFINITY!tt!7!
+!scalar type!rm!7!
+!t_QFR!tt!7!
+!t_QFI!tt!7!
+!t_VECSMALL!tt!7!
+!vecsmall!rm!7!
+!GEN!tt!8!
+!integer!rm!8!
+!real number!rm!8!
+!intmod!rm!8!
+!rational number!rm!8!
+!p-adic number!rm!8!
+!polmod!rm!8!
+!\EFF {}inite \EFF {}ield element!rm!8!
+!complex number!rm!8!
+!quadratic number!rm!8!
+!polynomial!rm!8!
+!power series!rm!8!
+!vector!rm!8!
+!matrix!rm!8!
+!zero!rm!9!
+!accuracy!rm!9!
+!de\EFF {}ault precision!rm!9!
+!apply!tt!10!
+!gp!tt!13!
+!gprc!tt!13!
+!pre\EFF {}erences \EFF {}ile!rm!13!
+!expression!rm!15!
+!expression sequence!rm!15!
+!histsize!tt!16!
+!editing characters!rm!16!
+!backslash character!rm!16!
+!brace characters!rm!16!
+!integer!rm!17!
+!t_INT!tt!17!
+!real number!rm!17!
+!t_REAL!tt!17!
+!realprecision!tt!18!
+!intmod!rm!18!
+!t_INTMOD!tt!18!
+!rational number!rm!18!
+!t_FRAC!tt!18!
+!\EFF {}inite \EFF {}ield element!rm!19!
+!t_FFELT!tt!19!
+!\EFF {}\EFF {}init!tt!19!
+!\EFF {}\EFF {}gen!tt!19!
+!\EFF {}\EFF {}gen!tt!19!
+!complex number!rm!19!
+!t_COMPLEX!tt!19!
+!I!tt!19!
+!p-adic number!rm!19!
+!t_PADIC!tt!19!
+!quadratic number!rm!20!
+!t_QUAD!tt!20!
+!polmod!rm!20!
+!t_POLMOD!tt!20!
+!number \EFF {}ield!rm!20!
+!\EFF {}inite \EFF {}ield!rm!20!
+!variable (priority)!rm!20!
+!variable!rm!20!
+!polynomial!rm!21!
+!t_POL!tt!21!
+!power series!rm!22!
+!t_SER!tt!22!
+!Ser!tt!22!
+!Pol!tt!22!
+!Polrev!tt!22!
+!rational \EFF {}unction!rm!22!
+!t_RFRAC!tt!22!
+!binary quadratic \EFF {}orm!rm!22!
+!t_QFR!tt!22!
+!t_QFI!tt!22!
+!row vector!rm!23!
+!column vector!rm!23!
+!t_VEC!tt!23!
+!t_COL!tt!23!
+!Vec!tt!23!
+!vector!tt!23!
+!vectorv!tt!23!
+!Vec!tt!23!
+!Col!tt!23!
+!Vecrev!tt!23!
+!Colrev!tt!23!
+!matrix!rm!24!
+!t_MAT!tt!24!
+!Mat!tt!24!
+!matrix!tt!24!
+!Vec!tt!26!
+!Mat!tt!26!
+!list!rm!26!
+!t_LIST!tt!26!
+!string!rm!26!
+!character string!rm!26!
+!t_STR!tt!26!
+!t_VECSMALL!tt!26!
+!t_CLOSURE!tt!27!
+!t_ERROR!tt!27!
+!i\EFF {}err!tt!27!
+!t_INFINITY!tt!27!
+!operator!rm!27!
+!priority!rm!28!
+!lvalue!it!28!
+!lvalue!tt!28!
+!numerical derivation!rm!29!
+!lvalue!it!30!
+!variable!rm!31!
+!\EFF {}ree variable!rm!31!
+!variable (priority)!rm!32!
+!varhigher!tt!32!
+!variable!tt!32!
+!gprc!tt!33!
+!numerator!tt!33!
+!denominator!tt!33!
+!content!tt!33!
+!content!tt!33!
+!denominator!tt!33!
+!divrem!tt!33!
+!variable scope!rm!34!
+!eval!tt!34!
+!lexical scoping!rm!34!
+!dynamic scoping!rm!35!
+!Perl!tt!35!
+!my!tt!35!
+!local!tt!35!
+!eval!tt!36!
+!user de\EFF {}ined \EFF {}unctions!rm!37!
+!my!tt!38!
+!strictargs!tt!40!
+!Riemann zeta-\EFF {}unction!rm!40!
+!zeta \EFF {}unction!rm!41!
+!recursion!rm!42!
+!multivariate polynomial!rm!42!
+!recursion depth!rm!42!
+!deep recursion!rm!42!
+!ulimit!tt!43!
+!limit!tt!43!
+!stacksize!tt!43!
+!member \EFF {}unctions!rm!44!
+!bid!it!44!
+!ell!it!44!
+!galois!it!44!
+!\EFF {}\EFF {}!it!44!
+!n\EFF {}!it!44!
+!bn\EFF {}!it!44!
+!bnr!it!44!
+!prid!it!44!
+!ell!it!44!
+!string!rm!45!
+!keyword!rm!45!
+!concat!tt!45!
+!print!tt!46!
+!Str!tt!46!
+!string context!it!46!
+!Str!tt!47!
+!addhelp!tt!47!
+!de\EFF {}ault!tt!47!
+!error!tt!47!
+!extern!tt!47!
+!plotstring!tt!47!
+!plotterm!tt!47!
+!read!tt!47!
+!readvec!tt!47!
+!system!tt!47!
+!print!tt!47!
+!write!tt!47!
+!alias!tt!47!
+!de\EFF {}ault!tt!47!
+!install!tt!47!
+!trap!tt!47!
+!whatnow!tt!47!
+!eval!tt!47!
+!generic matrix!rm!47!
+!matrix!rm!47!
+!history!rm!47!
+!error recovery!rm!49!
+!error trapping!it!50!
+!i\EFF {}err!tt!50!
+!break loop!it!50!
+!error!tt!50!
+!next!tt!50!
+!break!tt!50!
+!return!tt!50!
+!next!tt!50!
+!break!tt!50!
+!return!tt!50!
+!dbg_up!tt!51!
+!dbg_down!tt!51!
+!dbg_x!tt!51!
+!dbg_err!tt!51!
+!breakloop!tt!52!
+!install!tt!53!
+!Math::Pari!tt!54!
+!CLISP!tt!54!
+!Perl!rm!54!
+!Python!rm!54!
+!Lisp!rm!54!
+!de\EFF {}aults!rm!54!
+!pre\EFF {}erences \EFF {}ile!rm!54!
+!parisizemax!tt!54!
+!time expansion!tt!55!
+!str\EFF {}time!tt!55!
+!environment expansion!tt!55!
+!\EFF {}ilename!rm!55!
+!read!tt!55!
+!write!tt!55!
+!log!tt!56!
+!simpli\EFF {}y!tt!56!
+!tutorial!rm!56!
+!re\EFF {}erence card!rm!56!
+!gphelp!tt!56!
+!available commands!rm!56!
+!de\EFF {}aults!rm!57!
+!echo!tt!57!
+!debug!tt!57!
+!debug\EFF {}iles!tt!57!
+!debugmem!tt!57!
+!log!tt!57!
+!output!tt!57!
+!realprecision!tt!57!
+!seriesprecision!tt!57!
+!quit!tt!57!
+!binary \EFF {}ile!tt!57!
+!compress!tt!57!
+!gzip!tt!57!
+!stack!it!57!
+!heap!it!57!
+!internal longword \EFF {}ormat!rm!57!
+!version number!rm!58!
+!write!tt!58!
+!internal representation!rm!58!
+!dbg_x!tt!58!
+!startup!rm!58!
+!pre\EFF {}erences \EFF {}ile!rm!58!
+!gprc!tt!58!
+!GPRC!tt!60!
+!line editor!rm!60!
+!completion!rm!60!
+!Vi!rm!61!
+!dvi!rm!62!
+!Emacs!rm!62!
+!\EFF {}lag!it!63!
+!binary \EFF {}lag!rm!64!
+!ploth!tt!64!
+!pointer!it!64!
+!pointer!it!64!
+!gneg!tt!65!
+!sum!rm!65!
+!gadd!tt!65!
+!di\EFF {}\EFF {}erence!rm!65!
+!gsub!tt!65!
+!product!rm!65!
+!scalar product!rm!65!
+!gmul!tt!65!
+!gsqr!tt!65!
+!quotient!rm!65!
+!Taylor series!rm!65!
+!gdiv!tt!65!
+!Euclidean quotient!rm!65!
+!gdivent!tt!66!
+!Euclidean quotient!rm!66!
+!gdivround!tt!66!
+!Euclidean remainder!rm!66!
+!gmod!tt!66!
+!powering!rm!66!
+!inverse!rm!67!
+!gpow!tt!67!
+!cmp!tt!67!
+!cmp_universal!tt!68!
+!divrem!tt!68!
+!divrem!tt!68!
+!gdiventres!tt!68!
+!lex!tt!68!
+!lexcmp!tt!69!
+!max!tt!69!
+!gmax!tt!69!
+!min!tt!69!
+!gmin!tt!69!
+!powers!tt!69!
+!gpowers!tt!69!
+!shi\EFF {}t!tt!69!
+!gshi\EFF {}t!tt!69!
+!shi\EFF {}tmul!tt!69!
+!gmul2n!tt!69!
+!sign!tt!69!
+!sign!rm!69!
+!gsigne!tt!69!
+!vecmax!tt!69!
+!vecmax0!tt!70!
+!vecmax!tt!70!
+!vecmin!tt!70!
+!vecmin0!tt!70!
+!vecmin!tt!70!
+!Boolean operators!rm!70!
+!comparison operators!rm!70!
+!inclusive or!rm!70!
+!and!rm!70!
+!or!rm!70!
+!not!rm!70!
+!Col!tt!70!
+!gtocol0!tt!71!
+!gtocol!tt!71!
+!Colrev!tt!71!
+!gtocolrev0!tt!71!
+!gtocolrev!tt!71!
+!List!tt!71!
+!gtolist!tt!71!
+!listcreate!tt!71!
+!Map!tt!71!
+!mapput!tt!71!
+!gtomap!tt!71!
+!Mat!tt!71!
+!gtomat!tt!72!
+!Mod!tt!72!
+!li\EFF {}t!tt!73!
+!centerli\EFF {}t!tt!73!
+!gmodulo!tt!73!
+!Pol!tt!73!
+!Polrev!tt!73!
+!gtopoly!tt!74!
+!Polrev!tt!74!
+!Pol!tt!74!
+!gtopolyrev!tt!74!
+!Q\EFF {}b!tt!74!
+!binary quadratic \EFF {}orm!rm!74!
+!Shanks!rm!74!
+!Q\EFF {}b0!tt!74!
+!q\EFF {}i!tt!74!
+!q\EFF {}r!tt!74!
+!Ser!tt!75!
+!Polrev!tt!75!
+!gtoser!tt!75!
+!Set!tt!75!
+!cmp!tt!75!
+!gtoset!tt!76!
+!Str!tt!76!
+!strtoGEN!tt!76!
+!GENtostr!tt!76!
+!Strchr!tt!76!
+!Strchr!tt!76!
+!Strexpand!tt!76!
+!environment expansion!rm!76!
+!environment variable!rm!76!
+!Strtex!tt!76!
+!Vec!tt!76!
+!i\EFF {}err!tt!77!
+!gtovec!tt!77!
+!gtovec0!tt!77!
+!Vecrev!tt!77!
+!gtovecrev0!tt!77!
+!gtovecrev!tt!77!
+!Vecsmall!tt!77!
+!Strchr!tt!77!
+!gtovecsmall0!tt!77!
+!gtovecsmall!tt!77!
+!binary!tt!77!
+!binaire!tt!77!
+!bitand!tt!77!
+!and!tt!77!
+!bitwise and!rm!77!
+!gbitand!tt!78!
+!ibitand!tt!78!
+!bitneg!tt!78!
+!bitwise negation!rm!78!
+!gbitneg!tt!78!
+!bitnegimply!tt!78!
+!gbitnegimply!tt!78!
+!ibitnegimply!tt!78!
+!bitor!tt!78!
+!bitwise inclusive or!rm!78!
+!or!tt!78!
+!gbitor!tt!78!
+!ibitor!tt!78!
+!bittest!tt!78!
+!gbittest!tt!78!
+!bittest!tt!78!
+!int_bit!tt!78!
+!bitxor!tt!79!
+!or!tt!79!
+!bitwise exclusive or!rm!79!
+!gbitxor!tt!79!
+!ibitxor!tt!79!
+!ceil!tt!79!
+!gceil!tt!79!
+!centerli\EFF {}t!tt!79!
+!li\EFF {}t!tt!79!
+!bestappr!tt!79!
+!centerli\EFF {}t!tt!79!
+!characteristic!tt!79!
+!characteristic!tt!79!
+!component!tt!79!
+!code words!rm!79!
+!polcoe\EFF {}\EFF {}!tt!79!
+!x[n]!tt!79!
+!x[m,n]!tt!79!
+!x[m,]!tt!79!
+!x[,n]!tt!79!
+!compo!tt!80!
+!conj!tt!80!
+!gconj!tt!80!
+!conjvec!tt!80!
+!conjvec!tt!80!
+!denominator!tt!80!
+!denom!tt!81!
+!digits!tt!81!
+!digits!tt!81!
+!\EFF {}loor!tt!81!
+!g\EFF {}loor!tt!81!
+!\EFF {}rac!tt!81!
+!g\EFF {}rac!tt!81!
+!\EFF {}romdigits!tt!81!
+!\EFF {}romdigits!tt!81!
+!hammingweight!tt!81!
+!hammingweight!tt!81!
+!imag!tt!81!
+!gimag!tt!81!
+!length!tt!81!
+!glength!tt!82!
+!li\EFF {}t!tt!82!
+!truncate!tt!82!
+!li\EFF {}tint!tt!82!
+!li\EFF {}tpol!tt!82!
+!centerli\EFF {}t!tt!82!
+!li\EFF {}t0!tt!83!
+!li\EFF {}t!tt!83!
+!li\EFF {}tall!tt!83!
+!truncate!tt!83!
+!li\EFF {}tall!tt!83!
+!li\EFF {}tint!tt!83!
+!truncate!tt!83!
+!li\EFF {}tint!tt!83!
+!li\EFF {}tpol!tt!83!
+!li\EFF {}tpol!tt!83!
+!norm!tt!83!
+!gnorm!tt!83!
+!numerator!tt!83!
+!numer!tt!84!
+!numtoperm!tt!84!
+!permtonum!tt!84!
+!numtoperm!tt!84!
+!oo!tt!84!
+!mkoo!tt!84!
+!padicprec!tt!84!
+!LONG_MAX!tt!84!
+!padicprec!tt!84!
+!permtonum!tt!84!
+!numtoperm!tt!84!
+!permtonum!tt!84!
+!precision!tt!84!
+!truncate!tt!85!
+!precision0!tt!85!
+!gprec!tt!85!
+!precision!tt!85!
+!random!tt!85!
+!ellordinate!tt!85!
+!getrand!tt!86!
+!setrand!tt!86!
+!genrand!tt!86!
+!ellrandom!tt!86!
+!\EFF {}\EFF {}random!tt!86!
+!real!tt!86!
+!greal!tt!86!
+!round!tt!86!
+!round0!tt!87!
+!grndtoi!tt!87!
+!ground!tt!87!
+!simpli\EFF {}y!tt!87!
+!simpli\EFF {}y!tt!87!
+!sizebyte!tt!87!
+!gsizebyte!tt!87!
+!gsizeword!tt!87!
+!sizedigit!tt!87!
+!sizedigit!tt!88!
+!truncate!tt!88!
+!trunc0!tt!88!
+!gtrunc!tt!88!
+!gcvtoi!tt!88!
+!valuation!tt!88!
+!gpvaluation!tt!88!
+!gvaluation!tt!88!
+!LONG_MAX!tt!88!
+!varhigher!tt!88!
+!varlower!tt!88!
+!varhigher!tt!89!
+!variable!tt!89!
+!varhigher!tt!90!
+!gpolvar!tt!90!
+!gvar!tt!90!
+!gvar!tt!90!
+!variables!tt!90!
+!variables_vec!tt!90!
+!variables_vecsmall!tt!90!
+!varlower!tt!91!
+!varhigher!tt!91!
+!varlower!tt!92!
+!precision!rm!92!
+!realprecision!tt!92!
+!seriesprecision!tt!93!
+!powering!rm!93!
+!gpow!tt!94!
+!Catalan!tt!94!
+!mpcatalan!tt!94!
+!Euler!tt!94!
+!mpeuler!tt!94!
+!I!tt!94!
+!gen_I!tt!94!
+!Pi!tt!94!
+!mppi!tt!94!
+!abs!tt!94!
+!gabs!tt!94!
+!acos!tt!94!
+!gacos!tt!94!
+!acosh!tt!94!
+!gacosh!tt!94!
+!agm!tt!94!
+!agm!tt!94!
+!arg!tt!95!
+!garg!tt!95!
+!asin!tt!95!
+!gasin!tt!95!
+!asinh!tt!95!
+!gasinh!tt!95!
+!atan!tt!95!
+!gatan!tt!95!
+!atanh!tt!95!
+!gatanh!tt!95!
+!bern\EFF {}rac!tt!95!
+!Bernoulli numbers!rm!95!
+!bern\EFF {}rac!tt!95!
+!bernpol!tt!95!
+!Bernoulli polynomial!rm!95!
+!bernpol!tt!95!
+!bernreal!tt!95!
+!Bernoulli numbers!rm!95!
+!bernreal!tt!95!
+!bernvec!tt!95!
+!Bernoulli numbers!rm!95!
+!bernvec!tt!96!
+!besselh1!tt!96!
+!hbessel1!tt!96!
+!besselh2!tt!96!
+!hbessel2!tt!96!
+!besseli!tt!96!
+!ibessel!tt!96!
+!besselj!tt!96!
+!jbessel!tt!96!
+!besseljh!tt!96!
+!jbesselh!tt!96!
+!besselk!tt!96!
+!kbessel!tt!96!
+!besseln!tt!96!
+!nbessel!tt!96!
+!cos!tt!96!
+!gcos!tt!96!
+!cosh!tt!96!
+!gcosh!tt!96!
+!cotan!tt!96!
+!gcotan!tt!96!
+!cotanh!tt!96!
+!gcotanh!tt!96!
+!dilog!tt!96!
+!dilog!tt!97!
+!eint1!tt!97!
+!veceint1!tt!97!
+!eint1!tt!97!
+!er\EFF {}c!tt!97!
+!ger\EFF {}c!tt!97!
+!eta!tt!97!
+!Dedekind!rm!97!
+!eta0!tt!97!
+!trueeta!tt!97!
+!exp!tt!97!
+!gexp!tt!97!
+!Qp_exp!tt!97!
+!expm1!tt!97!
+!gexpm1!tt!98!
+!gamma!tt!98!
+!gamma-\EFF {}unction!rm!98!
+!ggamma!tt!98!
+!Qp_gamma!tt!98!
+!gammah!tt!98!
+!ggammah!tt!98!
+!gammamellininv!tt!98!
+!gammamellininvinit!tt!98!
+!gammamellininv!tt!99!
+!gammamellininvasymp!tt!99!
+!gammamellininvasymp!tt!99!
+!gammamellininvinit!tt!99!
+!gammamellininv!tt!99!
+!gammamellininvinit!tt!99!
+!hyperu!tt!99!
+!hyperu!tt!100!
+!incgam!tt!100!
+!incgam0!tt!100!
+!incgam!tt!100!
+!incgamc!tt!100!
+!incgamc!tt!100!
+!lambertw!tt!100!
+!glambertW!tt!100!
+!lngamma!tt!100!
+!glngamma!tt!101!
+!log!tt!101!
+!glog!tt!101!
+!Qp_log!tt!101!
+!polylog!tt!101!
+!polylog0!tt!102!
+!gpolylog!tt!102!
+!psi!tt!102!
+!gpsi!tt!102!
+!sin!tt!102!
+!gsin!tt!102!
+!sinc!tt!102!
+!gsinc!tt!102!
+!sinh!tt!102!
+!gsinh!tt!102!
+!sqr!tt!102!
+!gsqr!tt!102!
+!sqrt!tt!102!
+!gsqrt!tt!103!
+!Qp_sqrt!tt!103!
+!sqrtn!tt!103!
+!gsqrtn!tt!103!
+!Qp_sqrt!tt!103!
+!tan!tt!103!
+!gtan!tt!103!
+!tanh!tt!103!
+!gtanh!tt!103!
+!teichmuller!tt!104!
+!teich!tt!104!
+!theta!tt!104!
+!theta!tt!104!
+!thetanullk!tt!104!
+!thetanullk!tt!104!
+!vecthetanullk!tt!104!
+!vecthetanullk_tau!tt!104!
+!weber!tt!104!
+!weber0!tt!104!
+!weber\EFF {}!tt!104!
+!weber\EFF {}1!tt!104!
+!weber\EFF {}2!tt!104!
+!zeta!tt!104!
+!Riemann zeta-\EFF {}unction!rm!104!
+!Euler-Maclaurin!rm!104!
+!Bernoulli numbers!rm!104!
+!gzeta!tt!104!
+!zetamult!tt!104!
+!zetamult!tt!104!
+!Euler totient \EFF {}unction!rm!105!
+!Moebius!rm!105!
+!Shanks SQUFOF!rm!105!
+!Pollard Rho!rm!105!
+!ECM!rm!105!
+!MPQS!rm!105!
+!moebius!tt!105!
+!issquare\EFF {}ree!tt!105!
+!addprimes!tt!106!
+!\EFF {}actor_proven!tt!106!
+!addprimes!tt!106!
+!bestappr!tt!106!
+!bestappr!tt!107!
+!bestapprPade!tt!107!
+!bestapprPade!tt!107!
+!bezout!tt!107!
+!gcdext0!tt!107!
+!bigomega!tt!107!
+!bigomega!tt!107!
+!binomial!tt!107!
+!binomial coe\EFF {}\EFF {}icient!rm!107!
+!binomial!tt!108!
+!binomialuu!tt!108!
+!vecbinome!tt!108!
+!chinese!tt!108!
+!chinese!tt!108!
+!chinese1!tt!108!
+!content!tt!108!
+!content!tt!109!
+!cont\EFF {}rac!tt!109!
+!continued \EFF {}raction!rm!109!
+!Engel expansion!rm!110!
+!Egyptian \EFF {}raction!rm!110!
+!cont\EFF {}rac0!tt!110!
+!gboundc\EFF {}!tt!110!
+!gc\EFF {}!tt!110!
+!gc\EFF {}2!tt!110!
+!cont\EFF {}racpnqn!tt!110!
+!cont\EFF {}racpnqn!tt!110!
+!pnqn!tt!110!
+!core!tt!110!
+!core0!tt!111!
+!core!tt!111!
+!core2!tt!111!
+!coredisc!tt!111!
+!quaddisc!tt!111!
+!coredisc0!tt!111!
+!coredisc!tt!111!
+!coredisc2!tt!111!
+!dirdiv!tt!111!
+!Dirichlet series!rm!111!
+!dirdiv!tt!111!
+!direuler!tt!111!
+!Dirichlet series!rm!111!
+!Euler product!rm!111!
+!sigma!tt!111!
+!direuler!tt!111!
+!dirmul!tt!111!
+!Dirichlet series!rm!111!
+!dirmul!tt!111!
+!divisors!tt!111!
+!\EFF {}actor!tt!111!
+!divisors!tt!111!
+!eulerphi!tt!112!
+!Euler totient \EFF {}unction!rm!112!
+!eulerphi!tt!112!
+!\EFF {}actor!tt!112!
+!\EFF {}actorint!tt!112!
+!\EFF {}actor_proven!tt!112!
+!\EFF {}actormod!tt!113!
+!\EFF {}actor\EFF {}\EFF {}!tt!113!
+!\EFF {}actorn\EFF {}!tt!113!
+!van Hoeij!rm!113!
+!n\EFF {}\EFF {}actor!tt!114!
+!gp_\EFF {}actor0!tt!114!
+!\EFF {}actor!tt!114!
+!bound\EFF {}act!tt!114!
+!\EFF {}actor0!tt!114!
+!\EFF {}actorback!tt!114!
+!\EFF {}actorback2!tt!115!
+!\EFF {}actorback!tt!115!
+!\EFF {}actorcantor!tt!115!
+!Cantor-Zassenhaus!rm!115!
+!Zassenhaus!rm!115!
+!\EFF {}actcantor!tt!115!
+!\EFF {}actor\EFF {}\EFF {}!tt!115!
+!\EFF {}actor\EFF {}\EFF {}!tt!116!
+!\EFF {}actorial!tt!116!
+!mp\EFF {}actr!tt!116!
+!mp\EFF {}act!tt!116!
+!\EFF {}actorint!tt!116!
+!Shanks SQUFOF!rm!116!
+!Pollard Rho!rm!116!
+!Lenstra!rm!116!
+!ECM!rm!116!
+!MPQS!rm!116!
+!LiDIA!rm!116!
+!ispseudoprime!tt!116!
+!\EFF {}actor_proven!tt!116!
+!addprimes!tt!116!
+!debug!tt!116!
+!\EFF {}actorint!tt!116!
+!\EFF {}actormod!tt!116!
+!Berlekamp!rm!116!
+!\EFF {}actormod0!tt!116!
+!\EFF {}\EFF {}gen!tt!116!
+!\EFF {}\EFF {}init!tt!116!
+!\EFF {}\EFF {}gen!tt!117!
+!p_to_GEN!tt!117!
+!\EFF {}\EFF {}init!tt!117!
+!\EFF {}\EFF {}gen!tt!117!
+!\EFF {}\EFF {}init!tt!117!
+!\EFF {}\EFF {}log!tt!117!
+!\EFF {}\EFF {}primroot!tt!117!
+!znlog!tt!117!
+!\EFF {}\EFF {}log!tt!118!
+!\EFF {}\EFF {}nbirred!tt!118!
+!\EFF {}\EFF {}nbirred0!tt!118!
+!\EFF {}\EFF {}nbirred!tt!118!
+!\EFF {}\EFF {}sumnbirred!tt!118!
+!\EFF {}\EFF {}order!tt!118!
+!\EFF {}\EFF {}order!tt!118!
+!\EFF {}\EFF {}primroot!tt!118!
+!\EFF {}\EFF {}log!tt!118!
+!\EFF {}\EFF {}order!tt!118!
+!\EFF {}\EFF {}primroot!tt!119!
+!\EFF {}ibonacci!tt!119!
+!\EFF {}ibo!tt!119!
+!gcd!tt!119!
+!bezout!tt!119!
+!Euclid!rm!119!
+!subresultant algorithm!rm!119!
+!polresultant!tt!120!
+!gcdext!tt!120!
+!ggcd0!tt!120!
+!ggcd!tt!120!
+!content!tt!120!
+!gcdext!tt!120!
+!extended gcd!rm!120!
+!Bezout relation!rm!120!
+!gcdext0!tt!120!
+!hilbert!tt!120!
+!Hilbert symbol!rm!120!
+!hilbert!tt!120!
+!is\EFF {}undamental!tt!120!
+!is\EFF {}undamental!tt!120!
+!ispolygonal!tt!121!
+!ispolygonal!tt!121!
+!ispower!tt!121!
+!ispower!tt!121!
+!gisanypower!tt!121!
+!ispower\EFF {}ul!tt!121!
+!ispower\EFF {}ul!tt!121!
+!isprime!tt!121!
+!ispseudoprime!tt!121!
+!ispseudoprime!tt!121!
+!gisprime!tt!122!
+!isprimepower!tt!122!
+!isprimepower!tt!122!
+!ispseudoprime!tt!122!
+!isprime!tt!122!
+!gispseudoprime!tt!122!
+!ispseudoprimepower!tt!122!
+!ispseudoprime!tt!122!
+!ispseudoprimepower!tt!123!
+!issquare!tt!123!
+!issquareall!tt!123!
+!issquare!tt!123!
+!gissquare!tt!123!
+!gissquareall!tt!123!
+!issquare\EFF {}ree!tt!123!
+!issquare\EFF {}ree!tt!123!
+!istotient!tt!123!
+!istotient!tt!124!
+!kronecker!tt!124!
+!Kronecker symbol!rm!124!
+!Legendre symbol!rm!124!
+!kronecker!tt!124!
+!lcm!tt!124!
+!glcm0!tt!124!
+!logint!tt!124!
+!logint0!tt!125!
+!moebius!tt!125!
+!Moebius!rm!125!
+!moebius!tt!125!
+!nextprime!tt!125!
+!ispseudoprime!tt!125!
+!nextprime!tt!125!
+!numbpart!tt!125!
+!partitions!tt!125!
+!numbpart!tt!125!
+!numdiv!tt!125!
+!numdiv!tt!125!
+!omega!tt!125!
+!omega!tt!126!
+!partitions!tt!126!
+!numbpart!tt!126!
+!partitions!tt!126!
+!polroots\EFF {}\EFF {}!tt!126!
+!polroots\EFF {}\EFF {}!tt!127!
+!precprime!tt!127!
+!ispseudoprime!tt!127!
+!precprime!tt!127!
+!prime!tt!127!
+!prime!tt!127!
+!primepi!tt!127!
+!primepi!tt!127!
+!primes!tt!127!
+!primes0!tt!128!
+!q\EFF {}bclassno!tt!128!
+!quadclassunit!tt!128!
+!quadclassunit!tt!128!
+!Shanks!rm!128!
+!q\EFF {}bclassno0!tt!129!
+!classno!tt!129!
+!classno2!tt!129!
+!hclassno!tt!129!
+!q\EFF {}bcompraw!tt!129!
+!composition!rm!129!
+!reduction!rm!129!
+!q\EFF {}bcompraw!tt!129!
+!q\EFF {}bhclassno!tt!129!
+!Hurwitz class number!rm!129!
+!hclassno!tt!129!
+!q\EFF {}bnucomp!tt!129!
+!composition!rm!129!
+!Shanks!rm!129!
+!nucomp!tt!129!
+!nudupl!tt!129!
+!q\EFF {}bnupow!tt!129!
+!Shanks!rm!129!
+!nupow!tt!129!
+!q\EFF {}bpowraw!tt!129!
+!reduction!rm!129!
+!q\EFF {}bpowraw!tt!129!
+!q\EFF {}bprime\EFF {}orm!tt!129!
+!prime\EFF {}orm!tt!129!
+!q\EFF {}bred!tt!130!
+!reduction!rm!130!
+!Shanks!rm!130!
+!q\EFF {}bred0!tt!130!
+!redimag!tt!130!
+!redreal!tt!130!
+!rhoreal!tt!130!
+!redrealnod!tt!130!
+!rhorealnod!tt!130!
+!q\EFF {}bredsl2!tt!130!
+!q\EFF {}bredsl2!tt!130!
+!q\EFF {}bsolve!tt!130!
+!bn\EFF {}isprincipal!tt!130!
+!q\EFF {}bsolve!tt!130!
+!quadclassunit!tt!130!
+!Buchmann-McCurley!rm!130!
+!q\EFF {}bclassno!tt!130!
+!quadregula!tt!130!
+!bn\EFF {}init!tt!130!
+!bn\EFF {}narrow!tt!131!
+!quadclassunit0!tt!131!
+!Buchquad!tt!131!
+!quaddisc!tt!131!
+!quaddisc!tt!131!
+!quadgen!tt!131!
+!omega!rm!131!
+!quadgen!tt!131!
+!quadhilbert!tt!131!
+!Hilbert class \EFF {}ield!rm!131!
+!Schertz!rm!132!
+!Stark units!rm!132!
+!quadhilbert!tt!132!
+!quadpoly!tt!132!
+!quadpoly0!tt!132!
+!quadray!tt!132!
+!bnrstark!tt!132!
+!quadray!tt!132!
+!quadregulator!tt!132!
+!quadregulator!tt!132!
+!quadunit!tt!132!
+!\EFF {}undamental units!rm!132!
+!quadunit!tt!132!
+!randomprime!tt!132!
+!ispseudoprime!tt!132!
+!randomprime!tt!132!
+!removeprimes!tt!132!
+!removeprimes!tt!132!
+!sigma!tt!132!
+!sumdivk!tt!132!
+!sumdiv!tt!132!
+!sqrtint!tt!132!
+!sqrtint!tt!133!
+!sqrtnint!tt!133!
+!sqrtint!tt!133!
+!sqrtnint!tt!133!
+!stirling!tt!133!
+!Stirling number!rm!133!
+!stirling!tt!133!
+!stirling1!tt!133!
+!stirling2!tt!133!
+!sumdedekind!tt!133!
+!Dedekind sum!rm!133!
+!sumdedekind!tt!134!
+!sumdigits!tt!134!
+!hammingweight!tt!134!
+!sumdigits0!tt!134!
+!sumdigits!tt!134!
+!tauramanujan!tt!134!
+!quadclassunit!tt!134!
+!tauramanujan!tt!134!
+!zncoppersmith!tt!134!
+!Coppersmith!rm!134!
+!LLL!rm!134!
+!polrootsmod!tt!134!
+!polrootspadic!tt!134!
+!zncoppersmith!tt!135!
+!znlog!tt!135!
+!znlog!tt!136!
+!znorder!tt!137!
+!znorder!tt!137!
+!order!tt!137!
+!znprimroot!tt!137!
+!znprimroot!tt!137!
+!znstar!tt!137!
+!znstar!tt!137!
+!Weierstrass equation!rm!137!
+!ellinit!tt!137!
+!ell!it!137!
+!ell!it!137!
+!member \EFF {}unctions!rm!137!
+!a1!tt!138!
+!a2!tt!138!
+!a3!tt!138!
+!a4!tt!138!
+!a6!tt!138!
+!b2!tt!138!
+!b4!tt!138!
+!b6!tt!138!
+!b8!tt!138!
+!c4!tt!138!
+!c6!tt!138!
+!disc!tt!138!
+!j!tt!138!
+!ellperiods!tt!138!
+!area!tt!138!
+!roots!tt!138!
+!omega!tt!138!
+!eta!tt!139!
+!ellzeta!tt!139!
+!p!tt!139!
+!roots!tt!139!
+!tate!tt!139!
+!p!tt!139!
+!no!tt!139!
+!cyc!tt!140!
+!gen!tt!140!
+!group!tt!140!
+!ellgenerators!tt!140!
+!ellidenti\EFF {}y!tt!140!
+!ellsearch!tt!140!
+!\EFF {}orell!tt!140!
+!elldata!tt!140!
+!ellinit!tt!140!
+!gen!tt!140!
+!n\EFF {}!tt!140!
+!ellL1!tt!140!
+!ellanalyticrank!tt!140!
+!ellL1!tt!141!
+!elladd!tt!141!
+!elladd!tt!141!
+!ellak!tt!141!
+!Taniyama-Shimura-Weil conjecture!rm!141!
+!akell!tt!141!
+!ellan!tt!141!
+!anell!tt!141!
+!anellsmall!tt!141!
+!ellanalyticrank!tt!141!
+!ellanalyticrank!tt!142!
+!ellap!tt!142!
+!seadata!tt!142!
+!SEA!tt!142!
+!ellap!tt!143!
+!ellbil!tt!143!
+!bilhell!tt!143!
+!ellcard!tt!143!
+!ellgroup!tt!143!
+!ellcard!tt!143!
+!ellcard!tt!143!
+!ellchangecurve!tt!143!
+!ellchangecurve!tt!143!
+!ellchangepoint!tt!143!
+!ellchangepoint!tt!143!
+!ellchangepointinv!tt!143!
+!ellchangepointinv!tt!143!
+!ellchangepointinv!tt!144!
+!ellconvertname!tt!144!
+!elldata!tt!144!
+!ellconvertname!tt!144!
+!elldivpol!tt!144!
+!elldivpol!tt!144!
+!elleisnum!tt!144!
+!ellperiods!tt!144!
+!elleisnum!tt!145!
+!elleta!tt!145!
+!elleta!tt!145!
+!ell\EFF {}ormaldi\EFF {}\EFF {}erential!tt!145!
+!seriesprecision!tt!145!
+!ell\EFF {}ormaldi\EFF {}\EFF {}erential!tt!145!
+!ell\EFF {}ormalexp!tt!145!
+!ell\EFF {}ormallog!tt!145!
+!ell\EFF {}ormalexp!tt!146!
+!ell\EFF {}ormallog!tt!146!
+!ell\EFF {}ormallog!tt!146!
+!ell\EFF {}ormalpoint!tt!146!
+!seriesprecision!tt!146!
+!ell\EFF {}ormalpoint!tt!146!
+!ell\EFF {}ormalw!tt!146!
+!seriesprecision!tt!146!
+!ell\EFF {}ormalw!tt!147!
+!ell\EFF {}romeqn!tt!147!
+!ell\EFF {}romeqn!tt!147!
+!ell\EFF {}romj!tt!147!
+!ell\EFF {}romj!tt!147!
+!ellgenerators!tt!147!
+!Mordell-Weil group!rm!147!
+!elldata!tt!147!
+!ellinit!tt!147!
+!ellgenerators!tt!148!
+!ellglobalred!tt!148!
+!Tamagawa number!rm!148!
+!ellminimalmodel!tt!148!
+!Birch and Swinnerton-Dyer conjecture!rm!148!
+!minimal model!rm!148!
+!ellglobalred!tt!148!
+!ellgroup!tt!148!
+!ellgroup0!tt!149!
+!ellgroup!tt!149!
+!ellheegner!tt!149!
+!ellheegner!tt!150!
+!ellheight!tt!150!
+!ellheight0!tt!150!
+!ellheight!tt!150!
+!ellheightmatrix!tt!150!
+!Mordell-Weil group!rm!150!
+!ellheightmatrix!tt!150!
+!ellidenti\EFF {}y!tt!150!
+!elldata!tt!150!
+!Mordell-Weil group!rm!150!
+!ellidenti\EFF {}y!tt!150!
+!ellinit!tt!150!
+!ell!tt!150!
+!elldata!tt!150!
+!\EFF {}\EFF {}gen!tt!150!
+!ellinit!tt!151!
+!ell!it!151!
+!ellinit!tt!152!
+!ellisdivisible!tt!152!
+!ellisdivisible!tt!152!
+!ellisogeny!tt!152!
+!ellisogeny!tt!153!
+!ellisogenyapply!tt!153!
+!ellisogeny!tt!153!
+!ellisogenyapply!tt!153!
+!ellisomat!tt!153!
+!ellisomat!tt!153!
+!ellisoncurve!tt!153!
+!ellisoncurve!tt!154!
+!oncurve!tt!154!
+!ellissupersingular!tt!154!
+!ellissupersingular!tt!154!
+!elljissupersingular!tt!154!
+!ellj!tt!154!
+!jell!tt!154!
+!elllocalred!tt!154!
+!Kodaira!rm!154!
+!Tamagawa number!rm!154!
+!elllocalred!tt!154!
+!elllog!tt!154!
+!znlog!tt!154!
+!elllog!tt!155!
+!elllseries!tt!155!
+!elllseries!tt!155!
+!ellminimalmodel!tt!155!
+!minimal model!rm!155!
+!ellminimalmodel!tt!155!
+!ellminimaltwist!tt!155!
+!ellminimaltwist0!tt!155!
+!ellminimaltwist!tt!155!
+!ellminimaltwistcond!tt!155!
+!ellmodulareqn!tt!155!
+!ellmodulareqn!tt!156!
+!ellmul!tt!156!
+!ellmul!tt!157!
+!ellneg!tt!157!
+!ellneg!tt!157!
+!ellnonsingularmultiple!tt!157!
+!ellnonsingularmultiple!tt!157!
+!ellorder!tt!157!
+!ellorder!tt!158!
+!orderell!tt!158!
+!ellordinate!tt!158!
+!ellordinate!tt!158!
+!ellpadicL!tt!158!
+!ellpadicL!tt!159!
+!ellpadic\EFF {}robenius!tt!159!
+!ellpadic\EFF {}robenius!tt!160!
+!ellpadicheight!tt!160!
+!ellpadicheight0!tt!161!
+!ellpadicheightmatrix!tt!161!
+!ellpadicheight!tt!161!
+!ellpadicheightmatrix!tt!161!
+!ellpadiclog!tt!161!
+!ellpadiclog!tt!161!
+!ellpadics2!tt!161!
+!ellpadics2!tt!161!
+!ellperiods!tt!161!
+!ellperiods!tt!162!
+!ellpointtoz!tt!162!
+!zell!tt!162!
+!ellpow!tt!163!
+!ellmul!tt!163!
+!ellrootno!tt!163!
+!Mordell-Weil group!rm!163!
+!ellrootno!tt!163!
+!ellsearch!tt!163!
+!elldata!tt!163!
+!ellconvertname!tt!163!
+!Mordell-Weil group!rm!163!
+!ellsearch!tt!163!
+!ellsearchcurve!tt!163!
+!ellsigma!tt!163!
+!ellperiods!tt!163!
+!ellsigma!tt!164!
+!ellsub!tt!164!
+!ellsub!tt!164!
+!elltaniyama!tt!164!
+!seriesprecision!tt!164!
+!Weil curve!rm!164!
+!elltaniyama!tt!164!
+!elltatepairing!tt!164!
+!elltatepairing!tt!164!
+!elltors!tt!164!
+!elltors!tt!164!
+!elltwist!tt!164!
+!elltwist!tt!165!
+!ellweilpairing!tt!165!
+!ellweilpairing!tt!165!
+!ellwp!tt!165!
+!ellperiods!tt!165!
+!ellwp0!tt!165!
+!ellwp!tt!165!
+!ellwpseries!tt!165!
+!ellxn!tt!165!
+!ellxn!tt!165!
+!ellzeta!tt!165!
+!ellperiods!tt!165!
+!elleta!tt!166!
+!ellzeta!tt!166!
+!ellztopoint!tt!166!
+!Weierstrass $\wp$-\EFF {}unction!rm!166!
+!pointell!tt!166!
+!genus2red!tt!166!
+!genus2red!tt!168!
+!hyperellcharpoly!tt!168!
+!hyperellcharpoly!tt!168!
+!hyperellpadic\EFF {}robenius!tt!168!
+!hyperellpadic\EFF {}robenius!tt!168!
+!msinit!tt!169!
+!msatkinlehner!tt!169!
+!msatkinlehner!tt!169!
+!mscuspidal!tt!169!
+!mscuspidal!tt!170!
+!mseisenstein!tt!170!
+!mseisenstein!tt!170!
+!mseval!tt!170!
+!mspathgens!tt!170!
+!mseval!tt!171!
+!ms\EFF {}romell!tt!171!
+!ms\EFF {}romell!tt!171!
+!mshecke!tt!171!
+!mshecke!tt!172!
+!msinit!tt!172!
+!msinit!tt!172!
+!msissymbol!tt!172!
+!msissymbol!tt!172!
+!msnew!tt!172!
+!msnew!tt!173!
+!mspathgens!tt!173!
+!mspathgens!tt!173!
+!mspathlog!tt!173!
+!mspathgens!tt!173!
+!mspathlog!tt!174!
+!msqexpansion!tt!174!
+!mssplit!tt!174!
+!msqexpansion!tt!174!
+!mssplit!tt!174!
+!mssplit!tt!175!
+!msstar!tt!175!
+!msstar!tt!175!
+!n\EFF {}!it!175!
+!n\EFF {}init!tt!175!
+!bn\EFF {}!it!175!
+!bn\EFF {}init!tt!175!
+!bnr!it!175!
+!algebraic number!it!175!
+!ideal!it!175!
+!ideal (extended)!rm!176!
+!idealred!tt!176!
+!\EFF {}amat!it!176!
+!n\EFF {}\EFF {}actorback!tt!176!
+!ideallog!tt!176!
+!character!it!176!
+!subgroup!it!176!
+!rn\EFF {}!it!177!
+!ideal list!it!177!
+!pseudo-matrix!it!177!
+!integral pseudo-matrix!it!177!
+!projective module!it!177!
+!pseudo-basis!it!177!
+!Hermite normal \EFF {}orm!rm!177!
+!modulus!it!177!
+!bid!it!178!
+!bnrinit!tt!178!
+!member \EFF {}unctions!rm!179!
+!bid!tt!179!
+!bn\EFF {}!tt!179!
+!clgp!tt!179!
+!cyc!tt!179!
+!Smith normal \EFF {}orm!rm!179!
+!gen (member \EFF {}unction)!rm!179!
+!no!tt!179!
+!di\EFF {}\EFF {}!tt!179!
+!codi\EFF {}\EFF {}!tt!179!
+!disc!tt!179!
+!\EFF {}u!tt!179!
+!\EFF {}undamental units!rm!179!
+!index!tt!179!
+!index!rm!179!
+!mod!tt!179!
+!n\EFF {}!tt!179!
+!pol!tt!179!
+!r1!tt!179!
+!r2!tt!179!
+!reg!tt!179!
+!roots!tt!179!
+!sign!tt!179!
+!t2!tt!179!
+!tu!tt!179!
+!zk!tt!179!
+!zkst!tt!179!
+!\EFF {}utu!tt!179!
+!tu\EFF {}u!tt!179!
+!GRH!rm!180!
+!Buchmann!rm!180!
+!GRH!rm!180!
+!bn\EFF {}certi\EFF {}y!tt!181!
+!GRH!rm!181!
+!bn\EFF {}certi\EFF {}y0!tt!181!
+!bn\EFF {}certi\EFF {}y!tt!181!
+!bn\EFF {}compress!tt!181!
+!bn\EFF {}init!tt!181!
+!snb\EFF {}!it!181!
+!bn\EFF {}!it!181!
+!bn\EFF {}compress!tt!182!
+!bn\EFF {}decodemodule!tt!182!
+!decodemodule!tt!182!
+!bn\EFF {}init!tt!182!
+!Buchmann!rm!182!
+!\EFF {}undamental units!rm!182!
+!bn\EFF {}isprincipal!tt!183!
+!Smith normal \EFF {}orm!rm!183!
+!bnrisprincipal!tt!183!
+!bn\EFF {}init0!tt!183!
+!Buchall!tt!183!
+!n\EFF {}_FORCE!tt!183!
+!Buchall_param!tt!183!
+!bn\EFF {}isintnorm!tt!183!
+!GRH!rm!183!
+!bn\EFF {}isnorm!tt!183!
+!bn\EFF {}isintnorm!tt!183!
+!bn\EFF {}isintnormabs!tt!183!
+!bn\EFF {}isnorm!tt!184!
+!Galois!rm!184!
+!GRH!rm!184!
+!bn\EFF {}isintnorm!tt!184!
+!bn\EFF {}isnorm!tt!184!
+!bn\EFF {}isprincipal!tt!184!
+!principal ideal!rm!184!
+!bn\EFF {}isprincipal0!tt!185!
+!n\EFF {}_GEN!tt!185!
+!n\EFF {}_FORCE!tt!185!
+!bn\EFF {}issunit!tt!185!
+!bn\EFF {}issunit!tt!185!
+!bn\EFF {}isunit!tt!185!
+!bn\EFF {}isunit!tt!185!
+!bn\EFF {}narrow!tt!185!
+!Smith normal \EFF {}orm!rm!185!
+!buchnarrow!tt!186!
+!bn\EFF {}signunit!tt!186!
+!signunits!tt!186!
+!bn\EFF {}sunit!tt!186!
+!bn\EFF {}sunit!tt!186!
+!bnrL1!tt!186!
+!character!rm!186!
+!bnrL1!tt!187!
+!bnrclassno!tt!187!
+!bnrclassnolist!tt!187!
+!bnrclassno0!tt!187!
+!bnrclassno!tt!187!
+!bnrclassnolist!tt!187!
+!bnrclassno!tt!187!
+!bnrclassnolist!tt!188!
+!bnrconductor!tt!188!
+!bnrinit!tt!188!
+!bnrconductor0!tt!188!
+!bnrconductor!tt!188!
+!bnrconductoro\EFF {}char!tt!188!
+!character!rm!188!
+!bnrconductoro\EFF {}char!tt!188!
+!bnrdisc!tt!188!
+!bnrdisc0!tt!188!
+!bnrdisclist!tt!189!
+!bn\EFF {}decodemodule!tt!189!
+!bnrclassno!tt!189!
+!bnrdisc!tt!189!
+!bnrdisclist0!tt!189!
+!bnrgaloisapply!tt!189!
+!bnrgaloismatrix!tt!189!
+!bnrgaloisapply!tt!189!
+!bnrgaloismatrix!tt!190!
+!bnrgaloismatrix!tt!190!
+!bnrautmatrix!tt!190!
+!bnrinit!tt!190!
+!idealstar!tt!190!
+!ideal\EFF {}actor!tt!190!
+!bnrinit0!tt!190!
+!Buchray!tt!190!
+!bnrisconductor!tt!190!
+!bnrisconductor0!tt!190!
+!bnrisgalois!tt!190!
+!galoisinit!tt!190!
+!bnrisgalois!tt!191!
+!bnrisprincipal!tt!191!
+!bnrisprincipal!tt!191!
+!isprincipalray!tt!191!
+!bnrrootnumber!tt!191!
+!character!rm!191!
+!Artin L-\EFF {}unction!rm!191!
+!Artin root number!rm!191!
+!bnrrootnumber!tt!191!
+!bnrstark!tt!192!
+!galoissubcyclo!tt!192!
+!Stark units!rm!192!
+!rn\EFF {}kummer!tt!192!
+!bnrstark!tt!192!
+!dirzetak!tt!192!
+!Dedekind!rm!192!
+!Dirichlet series!rm!192!
+!dirzetak!tt!192!
+!\EFF {}actorn\EFF {}!tt!192!
+!Trager!rm!192!
+!n\EFF {}\EFF {}actor!tt!192!
+!van Hoeij!rm!192!
+!pol\EFF {}n\EFF {}!tt!193!
+!galoisexport!tt!193!
+!galoisinit!tt!193!
+!galoissub\EFF {}ields!tt!193!
+!galoisexport!tt!193!
+!galois\EFF {}ixed\EFF {}ield!tt!193!
+!galoisinit!tt!193!
+!n\EFF {}sub\EFF {}ield!tt!194!
+!galois\EFF {}ixed\EFF {}ield!tt!194!
+!galoisgetpol!tt!194!
+!galoisinit!tt!194!
+!n\EFF {}galoisconj!tt!194!
+!galoisgetpol!tt!194!
+!galoisnbpol!tt!194!
+!galoisidenti\EFF {}y!tt!194!
+!galoisinit!tt!194!
+!galoisexport!tt!194!
+!galoisidenti\EFF {}y!tt!194!
+!galoisinit!tt!195!
+!n\EFF {}init!tt!195!
+!galoisinit!tt!196!
+!galoisisabelian!tt!196!
+!galoisisabelian!tt!196!
+!galoisisnormal!tt!196!
+!galoisisnormal!tt!196!
+!galoispermtopol!tt!196!
+!galoispermtopol!tt!196!
+!galoissubcyclo!tt!196!
+!galoissubcyclo!tt!197!
+!galoissub\EFF {}ields!tt!197!
+!galoissub\EFF {}ields!tt!197!
+!galoissubgroups!tt!197!
+!galoissubgroups!tt!198!
+!idealadd!tt!198!
+!idealadd!tt!198!
+!idealaddtoone!tt!198!
+!idealaddtoone0!tt!199!
+!idealappr!tt!199!
+!idealappr0!tt!199!
+!idealchinese!tt!199!
+!idealchinese!tt!199!
+!idealcoprime!tt!199!
+!idealcoprime!tt!199!
+!idealdiv!tt!199!
+!idealdiv0!tt!199!
+!idealdiv!tt!199!
+!idealdivexact!tt!199!
+!ideal\EFF {}actor!tt!199!
+!ideal\EFF {}actor!tt!199!
+!ideal\EFF {}actorback!tt!199!
+!idealred!tt!200!
+!n\EFF {}\EFF {}actorback!tt!200!
+!ideal\EFF {}actorback!tt!200!
+!ideal\EFF {}robenius!tt!200!
+!ideal\EFF {}robenius!tt!200!
+!idealhn\EFF {}!tt!201!
+!Hermite normal \EFF {}orm!rm!201!
+!idealhn\EFF {}0!tt!202!
+!idealhn\EFF {}!tt!202!
+!idealintersect!tt!202!
+!idealintersect!tt!202!
+!idealinv!tt!202!
+!ideal (extended)!rm!202!
+!idealinv!tt!202!
+!ideallist!tt!202!
+!bnrclassnolist!tt!202!
+!bnrdisclist!tt!202!
+!ideallistarch!tt!203!
+!ideallist0!tt!203!
+!ideallistarch!tt!203!
+!ideallist!tt!203!
+!ideallist!tt!203!
+!ideallistarch!tt!203!
+!ideallog!tt!203!
+!znlog!tt!204!
+!ideallog!tt!204!
+!idealmin!tt!204!
+!idealmin!tt!204!
+!idealmul!tt!204!
+!ideal (extended)!rm!204!
+!idealmul0!tt!204!
+!idealmul!tt!204!
+!idealmulred!tt!204!
+!idealnorm!tt!204!
+!idealnorm!tt!204!
+!idealnumden!tt!204!
+!idealnumden!tt!204!
+!idealpow!tt!204!
+!ideal (extended)!rm!204!
+!idealpow0!tt!205!
+!idealpow!tt!205!
+!idealpows!tt!205!
+!idealpowred!tt!205!
+!idealprimedec!tt!205!
+!prid!it!205!
+!idealprimedec_limit_\EFF {}!tt!205!
+!idealprincipalunits!tt!205!
+!idealprimedec!tt!205!
+!idealstar!tt!205!
+!idealprincipalunits!tt!206!
+!idealramgroups!tt!206!
+!rami\EFF {}ication group!rm!206!
+!idealramgroups!tt!206!
+!idealred!tt!206!
+!LLL!rm!206!
+!Buchmann!rm!206!
+!principal ideal!rm!207!
+!idealpow!tt!207!
+!bn\EFF {}init!tt!207!
+!bn\EFF {}isprincipal!tt!207!
+!idealred0!tt!207!
+!idealstar!tt!207!
+!ideal\EFF {}actor!tt!207!
+!ideallog!tt!208!
+!Smith normal \EFF {}orm!rm!208!
+!idealstar0!tt!208!
+!Idealstar!tt!208!
+!n\EFF {}_GEN!tt!208!
+!n\EFF {}_INIT!tt!208!
+!idealtwoelt!tt!208!
+!idealtwoelt0!tt!208!
+!idealtwoelt!tt!208!
+!idealtwoelt2!tt!208!
+!idealval!tt!208!
+!gpidealval!tt!208!
+!idealval!tt!208!
+!LONG_MAX!tt!208!
+!matalgtobasis!tt!208!
+!n\EFF {}algtobasis!tt!208!
+!matalgtobasis!tt!208!
+!matbasistoalg!tt!208!
+!n\EFF {}basistoalg!tt!208!
+!matbasistoalg!tt!208!
+!modreverse!tt!208!
+!modreverse!tt!209!
+!newtonpoly!tt!209!
+!LONG_MAX!tt!209!
+!newtonpoly!tt!209!
+!n\EFF {}algtobasis!tt!209!
+!algtobasis!tt!209!
+!n\EFF {}basis!tt!210!
+!integral basis!rm!210!
+!round 4!rm!210!
+!Ford!rm!210!
+!Pauli!rm!210!
+!Roblot!rm!210!
+!addprimes!tt!211!
+!n\EFF {}certi\EFF {}y!tt!211!
+!n\EFF {}basis!tt!211!
+!n\EFF {}basistoalg!tt!211!
+!basistoalg!tt!212!
+!n\EFF {}certi\EFF {}y!tt!212!
+!n\EFF {}certi\EFF {}y!tt!212!
+!n\EFF {}compositum!tt!212!
+!compositum!rm!212!
+!n\EFF {}compositum!tt!213!
+!n\EFF {}detint!tt!213!
+!n\EFF {}detint!tt!213!
+!n\EFF {}disc!tt!213!
+!\EFF {}ield discriminant!rm!213!
+!n\EFF {}disc!tt!213!
+!n\EFF {}basis!tt!213!
+!n\EFF {}eltadd!tt!213!
+!n\EFF {}add!tt!214!
+!n\EFF {}eltdiv!tt!214!
+!n\EFF {}div!tt!214!
+!n\EFF {}eltdiveuc!tt!214!
+!n\EFF {}diveuc!tt!214!
+!n\EFF {}eltdivmodpr!tt!214!
+!n\EFF {}modprinit!tt!214!
+!n\EFF {}divmodpr!tt!214!
+!n\EFF {}eltdivrem!tt!214!
+!n\EFF {}divrem!tt!214!
+!n\EFF {}eltmod!tt!214!
+!n\EFF {}mod!tt!214!
+!n\EFF {}eltmul!tt!214!
+!n\EFF {}mul!tt!214!
+!n\EFF {}eltmulmodpr!tt!214!
+!n\EFF {}modprinit!tt!214!
+!n\EFF {}mulmodpr!tt!214!
+!n\EFF {}eltnorm!tt!214!
+!n\EFF {}norm!tt!214!
+!n\EFF {}eltpow!tt!214!
+!n\EFF {}pow!tt!214!
+!n\EFF {}inv!tt!214!
+!n\EFF {}sqr!tt!214!
+!n\EFF {}eltpowmodpr!tt!214!
+!n\EFF {}modprinit!tt!214!
+!n\EFF {}powmodpr!tt!215!
+!n\EFF {}eltreduce!tt!215!
+!n\EFF {}reduce!tt!215!
+!n\EFF {}eltreducemodpr!tt!215!
+!n\EFF {}reducemodpr!tt!215!
+!n\EFF {}elttrace!tt!215!
+!n\EFF {}trace!tt!215!
+!n\EFF {}eltval!tt!215!
+!gpn\EFF {}valrem!tt!215!
+!n\EFF {}valrem!tt!215!
+!LONG_MAX!tt!215!
+!n\EFF {}\EFF {}actor!tt!215!
+!n\EFF {}disc!tt!216!
+!n\EFF {}basis!tt!216!
+!n\EFF {}\EFF {}actor!tt!216!
+!n\EFF {}\EFF {}actorback!tt!216!
+!n\EFF {}\EFF {}actorback!tt!216!
+!n\EFF {}\EFF {}actormod!tt!216!
+!idealprimedec!tt!216!
+!modprinit!tt!216!
+!n\EFF {}\EFF {}actormod!tt!217!
+!n\EFF {}galoisapply!tt!217!
+!Galois!rm!217!
+!galoisapply!tt!217!
+!n\EFF {}galoisconj!tt!217!
+!Galois!rm!217!
+!LLL!rm!218!
+!galoisinit!tt!218!
+!galoisconj0!tt!218!
+!galoisconj!tt!218!
+!n\EFF {}grunwaldwang!tt!218!
+!n\EFF {}grunwaldwang!tt!219!
+!n\EFF {}hilbert!tt!219!
+!Hilbert symbol!rm!219!
+!n\EFF {}hilbert0!tt!219!
+!n\EFF {}hilbert!tt!219!
+!n\EFF {}hn\EFF {}!tt!219!
+!Hermite normal \EFF {}orm!rm!219!
+!n\EFF {}hn\EFF {}0!tt!219!
+!n\EFF {}hn\EFF {}!tt!219!
+!rn\EFF {}simpli\EFF {}ybasis!tt!219!
+!n\EFF {}hn\EFF {}mod!tt!219!
+!Hermite normal \EFF {}orm!rm!219!
+!n\EFF {}hn\EFF {}mod!tt!219!
+!n\EFF {}init!tt!219!
+!idealinv!tt!220!
+!n\EFF {}newprec!tt!220!
+!n\EFF {}basis!tt!221!
+!n\EFF {}basis!tt!221!
+!addprimes!tt!221!
+!n\EFF {}certi\EFF {}y!tt!221!
+!polredbest!tt!221!
+!n\EFF {}init0!tt!221!
+!n\EFF {}init!tt!221!
+!n\EFF {}initred!tt!221!
+!n\EFF {}initred2!tt!221!
+!n\EFF {}initall!tt!221!
+!n\EFF {}_RED!tt!221!
+!n\EFF {}_ORIG!tt!221!
+!n\EFF {}_RED!tt!221!
+!n\EFF {}_ROUND2!tt!221!
+!n\EFF {}_PARTIALFACT!tt!221!
+!n\EFF {}isideal!tt!221!
+!isideal!tt!221!
+!n\EFF {}isincl!tt!221!
+!n\EFF {}\EFF {}actor!tt!221!
+!n\EFF {}isincl!tt!222!
+!n\EFF {}isisom!tt!222!
+!n\EFF {}isincl!tt!222!
+!n\EFF {}isisom!tt!222!
+!n\EFF {}kermodpr!tt!222!
+!n\EFF {}kermodpr!tt!222!
+!n\EFF {}modprinit!tt!222!
+!modpr!tt!222!
+!n\EFF {}modprinit!tt!222!
+!n\EFF {}newprec!tt!222!
+!n\EFF {}newprec!tt!222!
+!bn\EFF {}newprec!tt!222!
+!bnrnewprec!tt!222!
+!n\EFF {}roots!tt!222!
+!addprimes!tt!222!
+!n\EFF {}roots!tt!222!
+!n\EFF {}rootsQ!tt!222!
+!n\EFF {}rootso\EFF {}1!tt!222!
+!rootso\EFF {}1!tt!223!
+!rootso\EFF {}1_kannan!tt!223!
+!n\EFF {}sn\EFF {}!tt!223!
+!Smith normal \EFF {}orm!rm!223!
+!n\EFF {}sn\EFF {}0!tt!223!
+!n\EFF {}sn\EFF {}!tt!223!
+!n\EFF {}solvemodpr!tt!223!
+!n\EFF {}solvemodpr!tt!223!
+!n\EFF {}splitting!tt!224!
+!n\EFF {}splitting!tt!224!
+!n\EFF {}sub\EFF {}ields!tt!224!
+!galoissub\EFF {}ields!tt!224!
+!Galois!rm!224!
+!sub\EFF {}ield!rm!224!
+!n\EFF {}sub\EFF {}ields!tt!224!
+!polcompositum!tt!224!
+!compositum!rm!224!
+!polcompositum0!tt!225!
+!compositum!tt!225!
+!compositum2!tt!225!
+!polgalois!tt!225!
+!Galois!rm!225!
+!galdata!tt!225!
+!new_galois_\EFF {}ormat!tt!226!
+!polgalois!tt!226!
+!new_galois_\EFF {}ormat!tt!226!
+!polred!tt!226!
+!polredbest!tt!226!
+!n\EFF {}init!tt!226!
+!primelimit!tt!227!
+!addprimes!tt!227!
+!polred!tt!227!
+!polred2!tt!227!
+!polredabs!tt!227!
+!n\EFF {}init!tt!227!
+!n\EFF {}certi\EFF {}y!tt!227!
+!polredbest!tt!227!
+!polredbest!tt!227!
+!polredabs0!tt!228!
+!n\EFF {}_PARTIALFACT!tt!228!
+!n\EFF {}_ORIG!tt!228!
+!n\EFF {}_RAW!tt!228!
+!n\EFF {}_ORIG!tt!228!
+!modreverse!tt!228!
+!n\EFF {}_ADDZK!tt!228!
+!n\EFF {}_ALL!tt!228!
+!polredbest!tt!228!
+!n\EFF {}init!tt!228!
+!polredabs!tt!228!
+!polredabs!tt!229!
+!polredbest!tt!229!
+!polredord!tt!229!
+!polredord!tt!229!
+!poltschirnhaus!tt!229!
+!tschirnhaus!tt!229!
+!rn\EFF {}algtobasis!tt!229!
+!rn\EFF {}algtobasis!tt!229!
+!rn\EFF {}basis!tt!229!
+!rn\EFF {}basis!tt!230!
+!rn\EFF {}basistoalg!tt!230!
+!rn\EFF {}basistoalg!tt!230!
+!rn\EFF {}charpoly!tt!230!
+!rn\EFF {}charpoly!tt!230!
+!rn\EFF {}conductor!tt!230!
+!Abelian extension!rm!230!
+!rn\EFF {}conductor!tt!230!
+!rn\EFF {}dedekind!tt!230!
+!Dedekind!rm!230!
+!rn\EFF {}dedekind!tt!231!
+!rn\EFF {}det!tt!231!
+!rn\EFF {}det!tt!231!
+!rn\EFF {}disc!tt!231!
+!rn\EFF {}disc\EFF {}!tt!231!
+!rn\EFF {}eltabstorel!tt!231!
+!rn\EFF {}eltabstorel!tt!232!
+!rn\EFF {}eltdown!tt!232!
+!rn\EFF {}eltdown!tt!232!
+!rn\EFF {}eltnorm!tt!232!
+!rn\EFF {}eltnorm!tt!232!
+!rn\EFF {}eltreltoabs!tt!232!
+!rn\EFF {}eltreltoabs!tt!233!
+!rn\EFF {}elttrace!tt!233!
+!rn\EFF {}elttrace!tt!233!
+!rn\EFF {}eltup!tt!233!
+!rn\EFF {}eltup!tt!233!
+!rn\EFF {}equation!tt!233!
+!rn\EFF {}equation0!tt!234!
+!rn\EFF {}equation!tt!234!
+!rn\EFF {}equation2!tt!234!
+!rn\EFF {}hn\EFF {}basis!tt!234!
+!rn\EFF {}hn\EFF {}basis!tt!234!
+!rn\EFF {}idealabstorel!tt!234!
+!rn\EFF {}idealabstorel!tt!235!
+!rn\EFF {}idealdown!tt!235!
+!rn\EFF {}idealdown!tt!235!
+!rn\EFF {}idealhn\EFF {}!tt!235!
+!rn\EFF {}idealhn\EFF {}!tt!235!
+!rn\EFF {}idealmul!tt!235!
+!rn\EFF {}idealmul!tt!235!
+!rn\EFF {}idealnormabs!tt!235!
+!rn\EFF {}idealnormabs!tt!236!
+!rn\EFF {}idealnormrel!tt!236!
+!rn\EFF {}idealnormrel!tt!236!
+!rn\EFF {}idealreltoabs!tt!236!
+!rn\EFF {}idealreltoabs!tt!236!
+!rn\EFF {}idealtwoelt!tt!236!
+!rn\EFF {}idealtwoelement!tt!236!
+!rn\EFF {}idealup!tt!236!
+!rn\EFF {}idealup!tt!236!
+!rn\EFF {}init!tt!236!
+!rn\EFF {}init!tt!238!
+!rn\EFF {}isabelian!tt!238!
+!rn\EFF {}isabelian!tt!238!
+!rn\EFF {}is\EFF {}ree!tt!238!
+!rn\EFF {}is\EFF {}ree!tt!238!
+!rn\EFF {}isnorm!tt!238!
+!rn\EFF {}isnorminit!tt!238!
+!GRH!rm!238!
+!rn\EFF {}isnorminit!tt!238!
+!Galois!rm!238!
+!rn\EFF {}isnorm!tt!238!
+!rn\EFF {}isnorminit!tt!238!
+!rn\EFF {}isnorm!tt!238!
+!rn\EFF {}isnorm!tt!239!
+!rn\EFF {}isnorminit!tt!239!
+!rn\EFF {}kummer!tt!239!
+!rn\EFF {}kummer!tt!239!
+!rn\EFF {}lllgram!tt!239!
+!rn\EFF {}lllgram!tt!239!
+!rn\EFF {}normgroup!tt!239!
+!Abelian extension!rm!239!
+!rn\EFF {}normgroup!tt!239!
+!rn\EFF {}polred!tt!239!
+!rn\EFF {}polredbest!tt!239!
+!rn\EFF {}polred!tt!239!
+!rn\EFF {}polredabs!tt!239!
+!rn\EFF {}polredbest!tt!239!
+!rn\EFF {}polredbest!tt!240!
+!rn\EFF {}polredabs!tt!240!
+!rn\EFF {}polredbest!tt!240!
+!rn\EFF {}polredabs!tt!240!
+!rn\EFF {}polredbest!tt!241!
+!rn\EFF {}pseudobasis!tt!241!
+!rn\EFF {}pseudobasis!tt!241!
+!rn\EFF {}steinitz!tt!241!
+!Steinitz class!rm!241!
+!rn\EFF {}steinitz!tt!241!
+!subgrouplist!tt!241!
+!bnrstark!tt!242!
+!rn\EFF {}kummer!tt!242!
+!subgrouplist0!tt!242!
+!zetak!tt!242!
+!Dedekind!rm!242!
+!gzetakall!tt!242!
+!glambdak!tt!242!
+!gzetak!tt!242!
+!zetakinit!tt!242!
+!Dedekind!rm!242!
+!initzeta!tt!243!
+!algabsdim!tt!244!
+!alginit!tt!244!
+!algtableinit!tt!244!
+!algabsdim!tt!244!
+!algadd!tt!244!
+!algadd!tt!244!
+!algalgtobasis!tt!244!
+!alginit!tt!244!
+!algbasistoalg!tt!244!
+!algalgtobasis!tt!245!
+!algaut!tt!245!
+!alginit!tt!245!
+!algaut!tt!245!
+!algb!tt!245!
+!alginit!tt!245!
+!algb!tt!245!
+!algbasis!tt!245!
+!alginit!tt!245!
+!algbasis!tt!245!
+!algbasistoalg!tt!245!
+!alginit!tt!245!
+!algalgtobasis!tt!245!
+!algbasistoalg!tt!246!
+!algcenter!tt!246!
+!algtableinit!tt!246!
+!alginit!tt!246!
+!gp_algcenter!tt!246!
+!algcentralproj!tt!246!
+!algtableinit!tt!246!
+!alg_centralproj!tt!246!
+!algchar!tt!247!
+!alginit!tt!247!
+!algtableinit!tt!247!
+!algchar!tt!247!
+!algcharpoly!tt!247!
+!algtableinit!tt!247!
+!alginit!tt!247!
+!algcharpoly!tt!247!
+!algdecomposition!tt!247!
+!algtableinit!tt!247!
+!alg_decomposition!tt!247!
+!algdegree!tt!247!
+!alginit!tt!247!
+!algdegree!tt!247!
+!algdim!tt!247!
+!alginit!tt!247!
+!algtableinit!tt!247!
+!algdim!tt!247!
+!algdisc!tt!247!
+!alginit!tt!247!
+!algdisc!tt!248!
+!algdivl!tt!248!
+!algdivl!tt!248!
+!algdivr!tt!248!
+!algdivr!tt!248!
+!alghasse!tt!248!
+!alginit!tt!248!
+!alghasse!tt!248!
+!alghasse\EFF {}!tt!248!
+!alginit!tt!248!
+!alghasse\EFF {}!tt!249!
+!alghassei!tt!249!
+!alginit!tt!249!
+!alghassei!tt!249!
+!algindex!tt!249!
+!algindex!tt!249!
+!alginit!tt!249!
+!n\EFF {}init!tt!249!
+!alginit!tt!251!
+!alginv!tt!251!
+!alginv!tt!252!
+!alginvbasis!tt!252!
+!alginit!tt!252!
+!alginvbasis!tt!252!
+!algisassociative!tt!252!
+!algtableinit!tt!252!
+!algisassociative!tt!252!
+!algiscommutative!tt!252!
+!algtableinit!tt!252!
+!alginit!tt!252!
+!algiscommutative!tt!252!
+!algisdivision!tt!252!
+!alginit!tt!252!
+!algisdivision!tt!253!
+!algisdivl!tt!253!
+!algisdivl!tt!253!
+!algisinv!tt!253!
+!algisinv!tt!253!
+!algisrami\EFF {}ied!tt!253!
+!alginit!tt!253!
+!algisrami\EFF {}ied!tt!254!
+!algissemisimple!tt!254!
+!algtableinit!tt!254!
+!alginit!tt!254!
+!algissemisimple!tt!254!
+!algissimple!tt!254!
+!algtableinit!tt!254!
+!alginit!tt!254!
+!algissimple!tt!255!
+!algissplit!tt!255!
+!alginit!tt!255!
+!algissplit!tt!255!
+!algmul!tt!255!
+!algmul!tt!255!
+!algmultable!tt!255!
+!algtableinit!tt!255!
+!alginit!tt!255!
+!gp_algmultable!tt!256!
+!algneg!tt!256!
+!algneg!tt!256!
+!algnorm!tt!256!
+!algtableinit!tt!256!
+!alginit!tt!256!
+!algnorm!tt!256!
+!algpoleval!tt!256!
+!algpoleval!tt!257!
+!algpow!tt!257!
+!algpow!tt!257!
+!algprimesubalg!tt!257!
+!algtableinit!tt!257!
+!algprimesubalg!tt!257!
+!algquotient!tt!257!
+!algtableinit!tt!257!
+!alg_quotient!tt!257!
+!algradical!tt!257!
+!algtableinit!tt!257!
+!algradical!tt!258!
+!algrami\EFF {}iedplaces!tt!258!
+!alginit!tt!258!
+!algrami\EFF {}iedplaces!tt!258!
+!algrandom!tt!258!
+!algrandom!tt!258!
+!algrelmultable!tt!258!
+!alginit!tt!258!
+!algrelmultable!tt!259!
+!algsimpledec!tt!259!
+!algtableinit!tt!259!
+!algsimpledec!tt!259!
+!algsplittingdata!tt!259!
+!alginit!tt!259!
+!algsplittingdata!tt!260!
+!algsplitting\EFF {}ield!tt!260!
+!alginit!tt!260!
+!algsplitting\EFF {}ield!tt!260!
+!algsplittingmatrix!tt!260!
+!alginit!tt!260!
+!algsplittingmatrix!tt!261!
+!algsqr!tt!261!
+!algsqr!tt!261!
+!algsub!tt!261!
+!algsub!tt!261!
+!algsubalg!tt!261!
+!algtableinit!tt!261!
+!algsubalg!tt!261!
+!algtableinit!tt!261!
+!alginit!tt!261!
+!algtableinit!tt!262!
+!algtensor!tt!262!
+!algtableinit!tt!262!
+!alginit!tt!262!
+!algtensor!tt!262!
+!algtrace!tt!262!
+!algtableinit!tt!262!
+!alginit!tt!262!
+!algtrace!tt!262!
+!algtype!tt!263!
+!alginit!tt!263!
+!algtableinit!tt!263!
+!algtableinit!tt!263!
+!alginit!tt!263!
+!alginit!tt!263!
+!algtype!tt!263!
+!O!tt!264!
+!ggrando!tt!264!
+!zeropadic!tt!264!
+!zeroser!tt!264!
+!bezoutres!tt!264!
+!polresultantext0!tt!264!
+!deriv!tt!264!
+!deriv!tt!264!
+!di\EFF {}\EFF {}op!tt!264!
+!di\EFF {}\EFF {}op0!tt!265!
+!di\EFF {}\EFF {}op!tt!265!
+!eval!tt!265!
+!geval!tt!265!
+!\EFF {}actorpadic!tt!265!
+!round 4!rm!266!
+!Zassenhaus!rm!266!
+!truncate!tt!266!
+!\EFF {}actorpadic!tt!266!
+!int\EFF {}ormal!tt!266!
+!\EFF {}ormal integration!rm!266!
+!integ!tt!266!
+!padicappr!tt!266!
+!padicappr!tt!267!
+!Zp_appr!tt!267!
+!padic\EFF {}ields!tt!267!
+!padic\EFF {}ields0!tt!267!
+!padic\EFF {}ields!tt!267!
+!polchebyshev!tt!267!
+!Chebyshev!rm!267!
+!polchebyshev_eval!tt!267!
+!polchebyshev!tt!267!
+!polchebyshev1!tt!267!
+!polchebyshev2!tt!267!
+!polclass!tt!267!
+!polclass!tt!267!
+!polcoe\EFF {}\EFF {}!tt!267!
+!polcoe\EFF {}\EFF {}0!tt!268!
+!polcyclo!tt!268!
+!polcyclo_eval!tt!268!
+!polcyclo!tt!268!
+!polcyclo\EFF {}actors!tt!268!
+!polcyclo\EFF {}actors!tt!268!
+!poldegree!tt!268!
+!gppoldegree!tt!268!
+!poldegree!tt!268!
+!-LONG_MAX!tt!268!
+!poldisc!tt!269!
+!subresultant algorithm!rm!269!
+!poldisc0!tt!269!
+!poldiscreduced!tt!269!
+!reduceddiscsmith!tt!269!
+!polgrae\EFF {}\EFF {}e!tt!269!
+!Grae\EFF {}\EFF {}e!rm!269!
+!polgrae\EFF {}\EFF {}e!tt!269!
+!polhenselli\EFF {}t!tt!269!
+!polhenselli\EFF {}t!tt!269!
+!polhermite!tt!269!
+!Hermite!rm!269!
+!polhermite_eval!tt!269!
+!polhermite!tt!269!
+!polinterpolate!tt!269!
+!interpolating polynomial!rm!269!
+!polint!tt!269!
+!poliscyclo!tt!270!
+!poliscyclo!tt!270!
+!poliscycloprod!tt!270!
+!poliscycloprod!tt!270!
+!polisirreducible!tt!270!
+!isirreducible!tt!270!
+!pollead!tt!270!
+!pollead!tt!270!
+!pollegendre!tt!270!
+!Legendre polynomial!rm!270!
+!pollegendre_eval!tt!270!
+!pollegendre!tt!270!
+!polmodular!tt!270!
+!polmodular!tt!271!
+!polmodular_ZXX!tt!271!
+!polmodular_ZM!tt!271!
+!Fp_polmodular_evalx!tt!271!
+!polrecip!tt!271!
+!polrecip!tt!271!
+!polresultant!tt!271!
+!polresultantext!tt!271!
+!subresultant algorithm!rm!271!
+!polresultant0!tt!271!
+!polresultantext!tt!271!
+!polresultantext0!tt!272!
+!polresultantext!tt!272!
+!polroots!tt!272!
+!Sch\"onage!rm!272!
+!roots!tt!272!
+!polrootsmod!tt!272!
+!rootmod0!tt!272!
+!polrootspadic!tt!272!
+!truncate!tt!272!
+!rootpadic!tt!272!
+!polrootsreal!tt!272!
+!realroots!tt!273!
+!polsturm!tt!273!
+!polrootsreal!tt!273!
+!RgX_sturmpart!tt!273!
+!sturm!tt!273!
+!sturmpart!tt!273!
+!polsubcyclo!tt!273!
+!galoissubcyclo!tt!274!
+!polsubcyclo!tt!274!
+!polsylvestermatrix!tt!274!
+!sylvestermatrix!tt!274!
+!polsym!tt!274!
+!symmetric powers!rm!274!
+!polsym!tt!274!
+!poltchebi!tt!274!
+!polchebyshev1!tt!274!
+!polzagier!tt!274!
+!polzag!tt!274!
+!serconvol!tt!274!
+!Hadamard product!rm!274!
+!convol!tt!274!
+!serlaplace!tt!274!
+!laplace!tt!274!
+!serreverse!tt!274!
+!serreverse!tt!275!
+!subst!tt!275!
+!gsubst!tt!275!
+!substpol!tt!275!
+!gsubstpol!tt!275!
+!gde\EFF {}late!tt!275!
+!substvec!tt!275!
+!gsubstvec!tt!276!
+!sum\EFF {}ormal!tt!276!
+!\EFF {}ormal sum!rm!276!
+!sum\EFF {}ormal!tt!276!
+!taylor!tt!276!
+!Ser!tt!276!
+!tayl!tt!276!
+!thue!tt!276!
+!thueinit!tt!276!
+!thue!tt!277!
+!thueinit!tt!277!
+!thue!tt!277!
+!GRH!rm!278!
+!thue!tt!278!
+!thueinit!tt!278!
+!mathn\EFF {}!tt!278!
+!q\EFF {}lll!tt!278!
+!algdep!tt!279!
+!algebraic dependence!rm!279!
+!subst!tt!279!
+!polroots!tt!279!
+!polrootspadic!tt!279!
+!lindep!tt!279!
+!algdep0!tt!279!
+!algdep!tt!279!
+!charpoly!tt!280!
+!characteristic polynomial!rm!280!
+!charpoly0!tt!280!
+!charpoly!tt!280!
+!caract!tt!280!
+!carhess!tt!280!
+!carberkowitz!tt!280!
+!caradj!tt!280!
+!matadjoint!tt!280!
+!concat!tt!280!
+!matconcat!tt!280!
+!Mat!tt!281!
+!matconcat!tt!281!
+!concat!tt!282!
+!concat1!tt!282!
+!\EFF {}orq\EFF {}vec!tt!282!
+!\EFF {}orq\EFF {}vec0!tt!282!
+!\EFF {}orq\EFF {}vec!tt!282!
+!lindep!tt!282!
+!linear dependence!rm!282!
+!lindep0!tt!283!
+!lindep!tt!283!
+!lindep2!tt!283!
+!padic_lindep!tt!283!
+!Xadic_lindep!tt!283!
+!deplin!tt!283!
+!matadjoint!tt!283!
+!adjoint matrix!rm!283!
+!matadjoint0!tt!283!
+!adj!tt!283!
+!adjsa\EFF {}e!tt!283!
+!matcompanion!tt!283!
+!matcompanion!tt!283!
+!matconcat!tt!283!
+!matconcat!tt!285!
+!matdet!tt!285!
+!det0!tt!285!
+!det!tt!285!
+!det2!tt!285!
+!ZM_det!tt!285!
+!matdetint!tt!285!
+!detint!tt!285!
+!matdiagonal!tt!285!
+!matconcat!tt!285!
+!diagonal!tt!286!
+!mateigen!tt!286!
+!q\EFF {}jacobi!tt!286!
+!mateigen!tt!286!
+!eigen!tt!286!
+!mat\EFF {}robenius!tt!287!
+!mat\EFF {}robenius!tt!287!
+!mathess!tt!287!
+!hess!tt!287!
+!mathilbert!tt!287!
+!Hilbert matrix!rm!287!
+!mathilbert!tt!287!
+!mathn\EFF {}!tt!287!
+!Hermite normal \EFF {}orm!rm!287!
+!matsn\EFF {}!tt!287!
+!LLL!rm!287!
+!Mat!tt!288!
+!mathn\EFF {}0!tt!289!
+!hn\EFF {}!tt!289!
+!hn\EFF {}all!tt!289!
+!mathn\EFF {}mod!tt!289!
+!Hermite normal \EFF {}orm!rm!289!
+!hn\EFF {}mod!tt!289!
+!mathn\EFF {}modid!tt!289!
+!Hermite normal \EFF {}orm!rm!289!
+!hn\EFF {}modid!tt!289!
+!mathouseholder!tt!289!
+!Householder trans\EFF {}orm!rm!289!
+!mathouseholder!tt!289!
+!matid!tt!289!
+!matid!tt!289!
+!matimage!tt!289!
+!matimage0!tt!289!
+!image!tt!289!
+!matimagecompl!tt!290!
+!imagecompl!tt!290!
+!matindexrank!tt!290!
+!vecextract!tt!290!
+!indexrank!tt!290!
+!matintersect!tt!290!
+!idealintersect!tt!290!
+!n\EFF {}hn\EFF {}!tt!290!
+!intersect!tt!290!
+!matinverseimage!tt!290!
+!inverseimage!tt!290!
+!matisdiagonal!tt!290!
+!isdiagonal!tt!290!
+!matker!tt!290!
+!matker0!tt!291!
+!ker!tt!291!
+!keri!tt!291!
+!matkerint!tt!291!
+!LLL!rm!291!
+!matkerint0!tt!291!
+!kerint!tt!291!
+!Q_primpart!tt!291!
+!matmuldiagonal!tt!291!
+!matmuldiagonal!tt!291!
+!matmultodiagonal!tt!291!
+!matmultodiagonal!tt!291!
+!matpascal!tt!291!
+!Pascal triangle!rm!291!
+!matqpascal!tt!291!
+!matpascal!tt!291!
+!matqr!tt!291!
+!QR-decomposition!rm!291!
+!Householder trans\EFF {}orm!rm!291!
+!matqr!tt!291!
+!matrank!tt!291!
+!rank!tt!291!
+!matrix!tt!291!
+!matrixqz!tt!292!
+!matrixqz0!tt!292!
+!matsize!tt!292!
+!matsize!tt!292!
+!matsn\EFF {}!tt!292!
+!elementary divisors!rm!292!
+!Smith normal \EFF {}orm!rm!292!
+!matsn\EFF {}0!tt!293!
+!matsolve!tt!293!
+!gauss!tt!293!
+!ZM_gauss!tt!293!
+!matsolvemod!tt!293!
+!matsolvemod0!tt!293!
+!gaussmodulo!tt!293!
+!gaussmodulo2!tt!293!
+!matsupplement!tt!293!
+!suppl!tt!294!
+!mattranspose!tt!294!
+!gtrans!tt!294!
+!minpoly!tt!294!
+!minimal polynomial!rm!294!
+!minpoly!tt!294!
+!norml2!tt!294!
+!gnorml2!tt!294!
+!normlp!tt!294!
+!gnormlp!tt!295!
+!q\EFF {}auto!tt!295!
+!q\EFF {}auto0!tt!295!
+!q\EFF {}auto!tt!295!
+!q\EFF {}autoexport!tt!295!
+!q\EFF {}auto!tt!295!
+!q\EFF {}autoexport!tt!295!
+!q\EFF {}bil!tt!296!
+!q\EFF {}norm!tt!296!
+!q\EFF {}bil!tt!296!
+!q\EFF {}gaussred!tt!296!
+!decomposition into squares!rm!296!
+!q\EFF {}gaussred!tt!296!
+!q\EFF {}gaussred_positive!tt!296!
+!q\EFF {}isom!tt!297!
+!q\EFF {}isom0!tt!297!
+!q\EFF {}isom!tt!297!
+!q\EFF {}isominit!tt!297!
+!q\EFF {}isominit0!tt!297!
+!q\EFF {}isominit!tt!297!
+!q\EFF {}jacobi!tt!297!
+!jacobi!tt!298!
+!q\EFF {}lll!tt!298!
+!LLL!rm!298!
+!q\EFF {}lll0!tt!298!
+!lll!tt!298!
+!lllint!tt!298!
+!lllkerim!tt!298!
+!q\EFF {}lllgram!tt!298!
+!q\EFF {}lll!tt!298!
+!q\EFF {}lllgram0!tt!299!
+!lllgram!tt!299!
+!lllgramint!tt!299!
+!lllgramkerim!tt!299!
+!q\EFF {}minim!tt!299!
+!Leech lattice!rm!300!
+!minimal vector!rm!300!
+!q\EFF {}minim0!tt!300!
+!minim!tt!300!
+!minim2!tt!300!
+!minim_raw!tt!300!
+!q\EFF {}norm!tt!300!
+!q\EFF {}bil!tt!301!
+!q\EFF {}norm!tt!301!
+!q\EFF {}param!tt!301!
+!q\EFF {}param!tt!301!
+!q\EFF {}per\EFF {}ection!tt!301!
+!per\EFF {}!tt!301!
+!q\EFF {}rep!tt!301!
+!q\EFF {}minim!tt!302!
+!q\EFF {}rep0!tt!302!
+!q\EFF {}sign!tt!302!
+!q\EFF {}sign!tt!302!
+!q\EFF {}solve!tt!302!
+!q\EFF {}solve!tt!302!
+!seralgdep!tt!302!
+!algebraic dependence!rm!302!
+!seralgdep!tt!303!
+!setbinop!tt!303!
+!setbinop!tt!303!
+!setintersect!tt!303!
+!setintersect!tt!303!
+!setisset!tt!303!
+!setisset!tt!303!
+!setminus!tt!303!
+!setminus!tt!303!
+!setsearch!tt!303!
+!cmp!tt!304!
+!listsort!tt!304!
+!setsearch!tt!304!
+!setunion!tt!304!
+!setunion!tt!304!
+!trace!tt!304!
+!gtrace!tt!304!
+!vecextract!tt!304!
+!extract0!tt!305!
+!vecsearch!tt!305!
+!vecsort!tt!306!
+!vecsearch!tt!306!
+!vecsort!tt!306!
+!sign!tt!306!
+!vecsort0!tt!307!
+!vecsum!tt!307!
+!vecsum!tt!307!
+!vector!tt!307!
+!vectorsmall!tt!308!
+!vectorv!tt!308!
+!vector!tt!308!
+!numerical integration!rm!308!
+!intnum!tt!308!
+!asympnum!tt!309!
+!asympnum!tt!309!
+!asympnum0!tt!309!
+!cont\EFF {}raceval!tt!310!
+!cont\EFF {}raceval!tt!310!
+!cont\EFF {}racinit!tt!310!
+!cont\EFF {}racinit!tt!310!
+!derivnum!tt!310!
+!derivnum!tt!310!
+!deriv\EFF {}un!tt!310!
+!intcirc!tt!310!
+!intcirc!tt!310!
+!int\EFF {}uncinit!tt!310!
+!int\EFF {}uncinit!tt!312!
+!intnum!tt!312!
+!intnuminit!tt!313!
+!sumalt!tt!316!
+!intnum!tt!316!
+!intnumgauss!tt!316!
+!intnumgauss0!tt!317!
+!intnumgaussinit!tt!317!
+!intnumgauss!tt!317!
+!intnumgaussinit!tt!317!
+!intnuminit!tt!318!
+!int\EFF {}uncinit!tt!318!
+!intnuminit!tt!318!
+!intnumromb!tt!318!
+!intnum!tt!318!
+!in\EFF {}inity!rm!319!
+!intnumromb!tt!319!
+!limitnum!tt!319!
+!limitnum!tt!320!
+!limitnum0!tt!320!
+!prod!tt!320!
+!eta!tt!320!
+!produit!tt!321!
+!prodeuler!tt!321!
+!Euler product!rm!321!
+!prodeuler!tt!321!
+!prodin\EFF {}!tt!321!
+!in\EFF {}inite product!rm!321!
+!prodin\EFF {}!tt!321!
+!prodin\EFF {}1!tt!321!
+!solve!tt!321!
+!zbrent!tt!321!
+!sum!tt!321!
+!somme!tt!321!
+!sumalt!tt!321!
+!alternating series!rm!321!
+!polzagier!tt!321!
+!sumin\EFF {}!tt!322!
+!sumalt!tt!322!
+!sumalt2!tt!322!
+!sumdiv!tt!322!
+!sumdivmult!tt!323!
+!sumdivmult!tt!323!
+!sumin\EFF {}!tt!323!
+!in\EFF {}inite sum!rm!323!
+!sumalt!tt!323!
+!sumpos!tt!323!
+!sumin\EFF {}!tt!323!
+!sumnum!tt!323!
+!sumnummonien!tt!323!
+!sumnum!tt!325!
+!sumnuminit!tt!325!
+!intnum!tt!325!
+!sumnuminit!tt!326!
+!sumnummonien!tt!326!
+!sumnummonien0!tt!326!
+!sumnummonieninit!tt!326!
+!sumnummonieninit!tt!328!
+!sumpos!tt!328!
+!sumalt!tt!328!
+!sumalt!tt!328!
+!sumalt!tt!328!
+!sumpos!tt!328!
+!sumpos2!tt!328!
+!Qt!tt!328!
+!\EFF {}ltk!tt!328!
+!PostScript!tt!329!
+!ps\EFF {}ile!tt!329!
+!plot!tt!330!
+!plotbox!tt!330!
+!plotclip!tt!330!
+!plotcopy!tt!330!
+!plotcolor!tt!330!
+!graphcolormap!tt!330!
+!plotcopy!tt!330!
+!plotcursor!tt!330!
+!plotdraw!tt!330!
+!ploth!tt!330!
+!parametric plot!it!331!
+!recursive plot!it!331!
+!plotscale!tt!331!
+!plotrecth!tt!331!
+!plothraw!tt!332!
+!plothsizes!tt!332!
+!plotinit!tt!332!
+!plothsizes!tt!332!
+!plotkill!tt!332!
+!plotlines!tt!333!
+!plotlinetype!tt!333!
+!plotmove!tt!333!
+!plotpoints!tt!333!
+!plotpointsize!tt!333!
+!plotpointtype!tt!333!
+!plotrbox!tt!333!
+!plotrecth!tt!333!
+!plotrecthraw!tt!333!
+!plotrline!tt!333!
+!plotrmove!tt!334!
+!plotrpoint!tt!334!
+!plotscale!tt!334!
+!plotstring!tt!334!
+!psdraw!tt!334!
+!psploth!tt!334!
+!psplothraw!tt!334!
+!programming!rm!334!
+!break!tt!335!
+!breakpoint!tt!335!
+!dbg_down!tt!335!
+!dbg_err!tt!335!
+!i\EFF {}err!tt!335!
+!dbg_up!tt!336!
+!dbg_up!tt!336!
+!dbg_down!tt!336!
+!dbg_x!tt!336!
+!\EFF {}or!tt!336!
+!\EFF {}orcomposite!tt!336!
+!\EFF {}ordiv!tt!336!
+!divisors!tt!336!
+!\EFF {}orell!tt!337!
+!elldata!tt!337!
+!\EFF {}orell!tt!337!
+!\EFF {}orpart!tt!337!
+!\EFF {}orpart!tt!338!
+!\EFF {}orprime!tt!338!
+!\EFF {}orstep!tt!338!
+!\EFF {}orsubgroup!tt!339!
+!Smith normal \EFF {}orm!rm!339!
+!subgroup!rm!339!
+!subgrouplist!tt!339!
+!galoissubcyclo!tt!339!
+!galois\EFF {}ixed\EFF {}ield!tt!339!
+!Galois!rm!339!
+!\EFF {}orsubgroup!tt!339!
+!\EFF {}orvec!tt!339!
+!i\EFF {}!tt!340!
+!i\EFF {}err!tt!340!
+!component!tt!340!
+!error(E)!tt!340!
+!pari_malloc!tt!342!
+!pari_realloc!tt!342!
+!alarm!tt!343!
+!error!tt!343!
+!next!tt!343!
+!return!tt!343!
+!sel\EFF {}!tt!344!
+!until!tt!344!
+!while!tt!344!
+!Strprint\EFF {}!tt!344!
+!addhelp!tt!344!
+!addhelp!tt!344!
+!addhelp!tt!345!
+!alarm!tt!345!
+!\EFF {}actor_add_primes!tt!345!
+!gp_alarm!tt!345!
+!alias!tt!345!
+!alias0!tt!346!
+!allocatemem!tt!346!
+!parisizemax!tt!347!
+!parisizemax!tt!347!
+!parisize!tt!347!
+!parisizemax!tt!347!
+!breakloop!tt!347!
+!gp_allocatemem!tt!348!
+!apply!tt!348!
+!genapply!tt!349!
+!de\EFF {}ault!tt!349!
+!de\EFF {}ault0!tt!349!
+!errname!tt!349!
+!errname!tt!349!
+!error!tt!349!
+!extern!tt!349!
+!gpextern!tt!349!
+!externstr!tt!349!
+!externstr!tt!349!
+!\EFF {}old!tt!349!
+!gen\EFF {}old!tt!350!
+!getabstime!tt!350!
+!getwalltime!tt!350!
+!getabstime!tt!350!
+!getenv!tt!350!
+!gp_getenv!tt!350!
+!getheap!tt!350!
+!getheap!tt!350!
+!getrand!tt!350!
+!random!tt!350!
+!setrand!tt!350!
+!getrand!tt!350!
+!getstack!tt!350!
+!getstack!tt!350!
+!gettime!tt!350!
+!getabstime!tt!350!
+!getwalltime!tt!350!
+!gettime!tt!350!
+!getwalltime!tt!350!
+!getwalltime!tt!351!
+!global!tt!351!
+!inline!tt!351!
+!input!tt!351!
+!gp_input!tt!351!
+!install!tt!351!
+!system!tt!351!
+!gpinstall!tt!352!
+!kill!tt!352!
+!quote!rm!352!
+!kill0!tt!353!
+!listcreate!tt!353!
+!listinsert!tt!353!
+!listinsert!tt!353!
+!listkill!tt!353!
+!listkill!tt!353!
+!listpop!tt!353!
+!listpop0!tt!353!
+!listput!tt!353!
+!listput0!tt!353!
+!listsort!tt!353!
+!cmp!tt!353!
+!setsearch!tt!353!
+!listsort!tt!354!
+!localprec!tt!354!
+!realprecision!tt!354!
+!solve!tt!354!
+!intnum!tt!354!
+!local!tt!354!
+!my!tt!354!
+!mapdelete!tt!355!
+!mapdelete!tt!355!
+!mapget!tt!355!
+!mapget!tt!355!
+!mapisde\EFF {}ined!tt!355!
+!mapisde\EFF {}ined!tt!356!
+!mapput!tt!356!
+!mapget!tt!356!
+!mapput!tt!356!
+!print!tt!356!
+!print1!tt!356!
+!print\EFF {}!tt!356!
+!print\EFF {}!tt!359!
+!printsep!tt!359!
+!printsep1!tt!359!
+!printtex!tt!359!
+!log!tt!359!
+!log\EFF {}ile!rm!359!
+!quit!tt!359!
+!read!tt!359!
+!binary \EFF {}ile!tt!359!
+!allocatemem!tt!359!
+!gp_read_\EFF {}ile!tt!360!
+!readstr!tt!360!
+!readstr!tt!360!
+!readvec!tt!360!
+!gp_readvec_\EFF {}ile!tt!360!
+!gp_readvec_stream!tt!360!
+!select!tt!360!
+!genselect!tt!361!
+!genindexselect!tt!361!
+!setrand!tt!361!
+!setrand!tt!361!
+!system!tt!361!
+!gpsystem!tt!361!
+!trap!tt!361!
+!i\EFF {}err!tt!361!
+!trap!tt!361!
+!trap0!tt!362!
+!type!tt!362!
+!type0!tt!362!
+!uninline!tt!362!
+!version!tt!362!
+!pari_version!tt!363!
+!warning!tt!363!
+!whatnow!tt!363!
+!write!tt!363!
+!write1!tt!364!
+!writebin!tt!364!
+!write!tt!364!
+!read!tt!364!
+!gzip!tt!364!
+!binary \EFF {}ile!rm!364!
+!gpwritebin!tt!364!
+!writetex!tt!364!
+!parapply!tt!364!
+!parapply!tt!365!
+!pareval!tt!365!
+!pareval!tt!365!
+!par\EFF {}or!tt!365!
+!par\EFF {}orprime!tt!365!
+!par\EFF {}orvec!tt!365!
+!parselect!tt!365!
+!parselect!tt!365!
+!parsum!tt!365!
+!parvector!tt!366!
+!parisize!tt!366!
+!parisizemax!tt!366!
+!TeXstyle!tt!366!
+!breakloop!tt!366!
+!colors!tt!366!
+!compatible!tt!367!
+!datadir!tt!367!
+!debug!tt!367!
+!debug\EFF {}iles!tt!367!
+!debugmem!tt!367!
+!echo!tt!367!
+!de\EFF {},\EFF {}actor_add_primes!tt!367!
+!addprimes!tt!367!
+!removeprimes!tt!367!
+!de\EFF {},\EFF {}actor_proven!tt!367!
+!addprimes!tt!367!
+!\EFF {}ormat!tt!368!
+!scienti\EFF {}ic \EFF {}ormat!rm!368!
+!\EFF {}ixed \EFF {}loating point \EFF {}ormat!rm!368!
+!print\EFF {}!tt!368!
+!Strprint\EFF {}!tt!368!
+!graphcolormap!tt!368!
+!plotcolor!tt!368!
+!graphcolors!tt!368!
+!graphcolormap!tt!368!
+!help!tt!368!
+!hist\EFF {}ile!tt!369!
+!histsize!tt!369!
+!lines!tt!369!
+!linewrap!tt!369!
+!log!tt!369!
+!TeXstyle!tt!369!
+!log\EFF {}ile!tt!369!
+!nbthreads!tt!369!
+!de\EFF {},new_galois_\EFF {}ormat!tt!370!
+!polgalois!tt!370!
+!output!tt!370!
+!raw \EFF {}ormat!it!370!
+!prettymatrix \EFF {}ormat!it!370!
+!external prettyprint!it!370!
+!prettyprinter!tt!370!
+!tex2mail!tt!370!
+!parisize!tt!370!
+!stack!it!370!
+!gprc!tt!370!
+!parisizemax!tt!370!
+!parisizemax!tt!370!
+!stack!it!370!
+!parisizemax!tt!370!
+!path!tt!370!
+!prettyprinter!tt!371!
+!tex2mail!tt!371!
+!primelimit!tt!371!
+!n\EFF {}_PARTIALFACT!tt!371!
+!n\EFF {}basis!tt!371!
+!n\EFF {}disc!tt!371!
+!n\EFF {}init!tt!371!
+!prompt!tt!371!
+!str\EFF {}time!tt!371!
+!de\EFF {},prompt_cont!tt!372!
+!ps\EFF {}ile!tt!372!
+!readline!tt!372!
+!cmdtool!tt!372!
+!realprecision!tt!372!
+!\EFF {}ormat!tt!372!
+!recover!tt!373!
+!secure!tt!373!
+!system!tt!373!
+!extern!tt!373!
+!seriesprecision!tt!373!
+!simpli\EFF {}y!tt!373!
+!automatic simpli\EFF {}ication!rm!373!
+!sopath!tt!373!
+!install!tt!373!
+!install!tt!373!
+!strictargs!tt!374!
+!strictmatch!tt!374!
+!threadsize!tt!374!
+!stack!it!374!
+!threadsizemax!tt!374!
+!stack!it!374!
+!timer!tt!374!
+!timer!tt!374!
+!CPU time!rm!375!
+!PariEmacs!tt!377!
+The End

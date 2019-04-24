@@ -1,0 +1,14 @@
+Function: polclass
+Section: polynomials
+C-Name: polclass
+Prototype: GDn
+Help: polclass(D, {x = 'x}): return the Hilbert class polynomial for the disciminant D.
+Doc:
+ Return the Hilbert class polynomial for the $j$ function for the imaginary quadratic
+ discriminant $D$ in the variable $x$.
+ \bprog
+ ? polclass(-163)
+ %1 = x + 262537412640768000
+ ? polclass(-51, 'z)
+ %2 = z^2 + 5541101568*z + 6262062317568
+ @eprog

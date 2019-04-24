@@ -1,0 +1,13 @@
+*** ../src/test/32/ellglobalred	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:50:54.156001646 -0700
+***************
+*** 17,20 ****
+  error("domain error in ellsearch: conductor <= 0")
+  error("incorrect type in ellsearch (t_STR).")
+  error("incorrect type in ellsearch (t_COMPLEX).")
+! Total time spent: 1240
+--- 17,20 ----
+  error("domain error in ellsearch: conductor <= 0")
+  error("incorrect type in ellsearch (t_STR).")
+  error("incorrect type in ellsearch (t_COMPLEX).")
+! Total time spent: 852

@@ -1,0 +1,26 @@
+Function: denominator
+Section: conversions
+C-Name: denom
+Prototype: G
+Help: denominator(x): denominator of x (or lowest common denominator in case
+ of an array).
+Doc:
+ denominator of $x$. The meaning of this
+ is clear when $x$ is a rational number or function. If $x$ is an integer
+ or a polynomial, it is treated as a rational number or function,
+ respectively, and the result is equal to $1$. For polynomials, you
+ probably want to use
+ \bprog
+ denominator( content(x) )
+ @eprog\noindent
+ instead. As for modular objects, \typ{INTMOD} and \typ{PADIC} have
+ denominator $1$, and the denominator of a \typ{POLMOD} is the denominator
+ of its (minimal degree) polynomial representative.
+
+ If $x$ is a recursive structure, for instance a vector or matrix, the lcm
+ of the denominators of its components (a common denominator) is computed.
+ This also applies for \typ{COMPLEX}s and \typ{QUAD}s.
+
+ \misctitle{Warning} Multivariate objects are created according to variable
+ priorities, with possibly surprising side effects ($x/y$ is a polynomial, but
+ $y/x$ is a rational function). See \secref{se:priority}.

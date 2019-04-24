@@ -1,0 +1,53 @@
+Function: ellap
+Section: elliptic_curves
+C-Name: ellap
+Prototype: GDG
+Help: ellap(E,{p}): computes the trace of Frobenius a_p for the elliptic
+ curve E, defined over Q or a finite field.
+Doc:
+ Let $E$ be an \var{ell} structure as output by \kbd{ellinit}, defined over
+ $\Q$ or a finite field $\F_q$. The argument $p$ is best left omitted if the
+ curve is defined over a finite field, and must be a prime number otherwise.
+ This function computes the trace of Frobenius $t$ for the elliptic curve $E$,
+ defined by the equation $\#E(\F_q) = q+1 - t$.
+
+ If the curve is defined over $\Q$, $p$ must be explicitly given and the
+ function computes the trace of the reduction over $\F_p$.
+ The trace of Frobenius is also the $a_p$ coefficient in the curve $L$-series
+ $L(E,s) = \sum_n a_n n^{-s}$, whence the function name. The equation must be
+ integral at $p$ but need not be minimal at $p$; of course, a minimal model
+ will be more efficient.
+ \bprog
+ ? E = ellinit([0,1]);  \\ y^2 = x^3 + 0.x + 1, defined over Q
+ ? ellap(E, 7) \\ 7 necessary here
+ %2 = -4       \\ #E(F_7) = 7+1-(-4) = 12
+ ? ellcard(E, 7)
+ %3 = 12       \\ OK
+
+ ? E = ellinit([0,1], 11);  \\ defined over F_11
+ ? ellap(E)       \\ no need to repeat 11
+ %4 = 0
+ ? ellap(E, 11)   \\ ... but it also works
+ %5 = 0
+ ? ellgroup(E, 13) \\ ouch, inconsistent input!
+    ***   at top-level: ellap(E,13)
+    ***                 ^-----------
+    *** ellap: inconsistent moduli in Rg_to_Fp:
+      11
+      13
+
+ ? Fq = ffgen(ffinit(11,3), 'a); \\ defines F_q := F_{11^3}
+ ? E = ellinit([a+1,a], Fq);  \\ y^2 = x^3 + (a+1)x + a, defined over F_q
+ ? ellap(E)
+ %8 = -3
+ @eprog
+
+ \misctitle{Algorithms used} If $E/\F_q$ has CM by a principal imaginary
+ quadratic order we use a fast explicit formula (involving essentially Kronecker
+ symbols and Cornacchia's algorithm), in $O(\log q)^2$.
+ Otherwise, we use Shanks-Mestre's baby-step/giant-step method, which runs in
+ time $\tilde{O}(q^{1/4})$ using $\tilde{O}(q^{1/4})$ storage, hence becomes
+ unreasonable when $q$ has about 30~digits. If the \tet{seadata} package is
+ installed, the \tet{SEA} algorithm becomes available, heuristically in
+ $\tilde{O}(\log q)^4$, and primes of the order of 200~digits become feasible.
+ In very small characteristic (2,3,5,7 or $13$), we use Harley's algorithm.

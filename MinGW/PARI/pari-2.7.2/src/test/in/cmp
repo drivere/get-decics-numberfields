@@ -1,0 +1,17 @@
+test(f,g)=[cmp(f,f), cmp(f,g), cmp(g,f)]
+
+test(()->1, ()->2)
+test(1.,2.)
+test(1,2)
+test(Vecsmall([1,2]),Vecsmall([1,3]))
+test(List([1,2]),List([1,3]))
+test(x,x+1)
+test(x,y)
+test(O(x),x+O(x^2))
+
+1 > "a"
+1. > "a"
+1/2 > "a"
+"a" > 0
+Mod(1,3) > 0
+lex(Vecsmall([1,2]),Vecsmall([1,3]))

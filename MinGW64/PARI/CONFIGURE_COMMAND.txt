@@ -1,0 +1,1 @@
+CC=x86_64-w64-mingw32-gcc CFLAGS=-D__USE_MINGW_ANSI_STDIO GMPINCLUDE=-I/home/eric/BOINC_Project/MinGW64/GMP/include with_gmp=/home/eric/BOINC_Project/MinGW64/GMP RUNTEST=../runwine64.sh ./Configure --host=x86_64-mingw

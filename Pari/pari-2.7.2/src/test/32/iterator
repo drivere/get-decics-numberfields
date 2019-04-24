@@ -1,0 +1,22 @@
+4
+6
+8
+9
+10
+6
+8
+9
+10
+6
+8
+9
+10
+12
+6
+8
+9
+6
+  ***   at top-level: forcomposite(a=6,12,print(a);a=1)
+  ***                                     ^-------------
+  ***   index read-only: was changed to 1.
+Total time spent: 0

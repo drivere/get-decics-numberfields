@@ -1,0 +1,16 @@
+Function: bernvec
+Section: transcendental
+C-Name: bernvec
+Prototype: L
+Help: bernvec(x): Vector of rational Bernoulli numbers B_0, B_2,...up to
+ B_(2x).
+Doc: creates a vector containing, as rational numbers,
+ the \idx{Bernoulli numbers} $B_0$, $B_2$,\dots, $B_{2x}$.
+ This routine is obsolete. Use \kbd{bernfrac} instead each time you need a
+ Bernoulli number in exact form.
+
+ \misctitle{Note} This routine is implemented using repeated independent
+ calls to \kbd{bernfrac}, which is faster than the standard recursion in exact
+ arithmetic. It is only kept for backward compatibility: it is not faster than
+ individual calls to \kbd{bernfrac}, its output uses a lot of memory space,
+ and coping with the index shift is awkward.

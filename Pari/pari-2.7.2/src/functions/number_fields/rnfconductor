@@ -1,0 +1,19 @@
+Function: rnfconductor
+Section: number_fields
+C-Name: rnfconductor
+Prototype: GG
+Help: rnfconductor(bnf,pol): conductor of the Abelian extension
+ of bnf defined by pol. The result is [conductor,rayclassgroup,subgroup],
+ where conductor is the conductor itself, rayclassgroup the structure of the
+ corresponding full ray class group, and subgroup the HNF defining the norm
+ group (Artin or Takagi group) on the given generators rayclassgroup[3].
+Doc: given $\var{bnf}$
+ as output by \kbd{bnfinit}, and \var{pol} a relative polynomial defining an
+ \idx{Abelian extension}, computes the class field theory conductor of this
+ Abelian extension. The result is a 3-component vector
+ $[\var{conductor},\var{rayclgp},\var{subgroup}]$, where \var{conductor} is
+ the conductor of the extension given as a 2-component row vector
+ $[f_0,f_\infty]$, \var{rayclgp} is the full ray class group corresponding to
+ the conductor given as a 3-component vector [h,cyc,gen] as usual for a group,
+ and \var{subgroup} is a matrix in HNF defining the subgroup of the ray class
+ group on the given generators gen.

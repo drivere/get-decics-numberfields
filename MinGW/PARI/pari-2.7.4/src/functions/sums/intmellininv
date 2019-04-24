@@ -1,0 +1,43 @@
+Function: intmellininv
+Section: sums
+C-Name: intmellininv0
+Prototype: V=GGEDGp
+Help: intmellininv(X=sig,z,expr,{tab}): numerical integration on the
+ line real(X) = sig (or sig[1]) of expr(X)z^(-X)dX/(2*I*Pi), i.e. inverse Mellin
+ transform of s at x. sig is coded as follows: either it is real, and then
+ by default assume s(z) decreases like exp(-z). Or sig = [sigR, al], sigR is
+ the abscissa of integration, and al = 0 for slowly decreasing functions, or
+ al > 0 if s(z) decreases like exp(-al*z). tab is as in intnum. Use
+ intmellininvshort if several values must be computed.
+Wrapper: (,,G)
+Description:
+  (gen,gen,gen,?gen):gen:prec intmellininv(${3 cookie}, ${3 wrapper}, $1, $2, $4, prec)
+Doc: numerical
+ integration of $(2i\pi)^{-1}\var{expr}(X)z^{-X}$ with respect to $X$ on the
+ line $\Re(X)=sig$,  in other words, inverse Mellin transform of
+ the function corresponding to \var{expr} at the value $z$.
+
+ $sig$ is coded as follows. Either it is a real number $\sigma$, equal to the
+ abscissa of integration, and then the integrated is assumed to decrease
+ exponentially fast, of the order of $\exp(-t)$ when the imaginary part of the
+ variable tends to $\pm\infty$. Or it is a two component vector
+ $[\sigma,\alpha]$, where $\sigma$ is as before, and either $\alpha=0$ for
+ slowly decreasing functions, or $\alpha>0$ for functions decreasing like
+ $\exp(-\alpha t)$, such as gamma products. Note that it is not necessary to
+ choose the exact value of $\alpha$, and that $\alpha=1$ (equivalent to $sig$
+ alone) is usually sufficient. \var{tab} is as in \kbd{intnum}.
+
+ As all similar functions, this function is provided for the convenience of
+ the user, who could use \kbd{intnum} directly. However it is in general
+ better to use \kbd{intmellininvshort}.
+
+ \bprog
+ ? \p 105
+ ? intmellininv(s=2,4, gamma(s)^3);
+ time = 1,190 ms. \\@com reasonable.
+ ? \p 308
+ ? intmellininv(s=2,4, gamma(s)^3);
+ time = 51,300 ms. \\@com slow because of $\Gamma(s)^3$.
+ @eprog\noindent
+
+ \synt{intmellininv}{void *E, GEN (*eval)(void*,GEN), GEN sig, GEN z, GEN tab, long prec}.

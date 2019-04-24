@@ -1,0 +1,12 @@
+Function: psdraw
+Class: highlevel
+Section: graphic
+C-Name: postdraw_flag
+Prototype: vGD0,L,
+Help: psdraw(list, {flag=0}): same as plotdraw, except that the output is a
+ PostScript program in psfile (pari.ps by default), and flag!=0 scales the
+ plot from size of the current output device to the standard PostScript
+ plotting size.
+Doc: same as \kbd{plotdraw}, except that the output is a PostScript program
+ appended to the \kbd{psfile}, and flag!=0 scales the plot from size of the
+ current output device to the standard PostScript plotting size

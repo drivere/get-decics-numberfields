@@ -1,0 +1,46 @@
+checkfeq(P,q)=
+{
+  my(M=minpoly(Mod(x+q/x,P)));
+  if(poldegree(M)!=poldegree(P)/2,error([P,q,M]));
+  M;
+}
+{
+  for(g=1,6,
+    for(n=1,2*g,
+      H=hyperellcharpoly(n*(x^(2*g+1)-2*x^n+1)*Mod(1,19));
+      printsep(":",g,n,checkfeq(H,19))))
+}
+
+{
+  for(g=1,5,
+    for(n=1,2*g+1,
+      H=hyperellcharpoly(n*(x^(2*g+2)-3*x^n+1)*Mod(1,29));
+      printsep(":",g,n,checkfeq(H,29))))
+}
+
+{
+  forprime(p=3,7,
+    H=hyperellcharpoly((x^6+x+1)*Mod(1,p));
+    print(checkfeq(H,p)));
+  forprime(p=3,11,
+    H=hyperellcharpoly((x^10+x+1)*Mod(1,p));
+    print(checkfeq(H,p)));
+  forprime(p=3,7,
+    g=ffgen(ffinit(p,3),'g);
+    H=hyperellcharpoly((x^6+g*x+1));
+    print(checkfeq(H,p^3)));
+}
+
+g=ffgen(ffinit(79,2),'g);
+P=hyperellcharpoly(x^5+g*x^3+2*x+5);checkfeq(P,79^2)
+P=hyperellcharpoly(g*(x^5+g*x^3+2*x+5));checkfeq(P,79^2)
+P=hyperellcharpoly(x^5+Mod('g,g.mod*Mod(1,79))*x^3+2*x+5);checkfeq(P,79^2)
+P=hyperellcharpoly(x^6+g*x^3+2*x+5);checkfeq(P,79^2)
+P=hyperellcharpoly(g*(x^6+g*x^3+2*x+5));checkfeq(P,79^2)
+P=hyperellcharpoly((x^7+x^3+2*x+5)*Mod(1,79));checkfeq(P,79)
+P=hyperellcharpoly((x^8+x^3+2*x+5)*Mod(1,79));checkfeq(P,79)
+P=hyperellcharpoly([x^5+x+1,x]*Mod(1,79));checkfeq(P,79)
+P=hyperellcharpoly((x^3+x+1)*ffgen(3^2)^0);checkfeq(P,9)
+
+hyperellcharpoly((256*a^5+5)*Mod(1,5))
+hyperellcharpoly((256*a^5+5)*ffgen(5^2))

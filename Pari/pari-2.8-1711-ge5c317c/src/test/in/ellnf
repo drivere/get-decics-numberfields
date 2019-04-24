@@ -1,0 +1,32 @@
+\\package:elldata
+K=nfinit(t^3-2);
+e=ellinit([t+1,t^2 - (t^3+(t+1)*t)], K);
+P=[t,t];
+ellisoncurve(e, P)
+elladd(e, P,P)
+ellmul(e, P,3)
+ellordinate(e, t)
+ellordinate(e, t+1)
+elldivpol(e, 3)
+ellfromj(Mod(t,t^3-2))
+ellinit(e, idealprimedec(K,2)[1])
+e5 = ellinit(e, idealprimedec(K,5)[1])
+
+{
+  K = nfinit(t);
+  forell(E, 1, 1000,
+    my(e,N,f,P,loc1,loc2);
+    e = ellinit(E[2],1);
+    eK= ellinit(E[2],K);
+    N = ellconvertname(E[1])[1];
+    f = factor(N)[,1];
+    for(i=1, #f,
+      my(p = f[i]);
+      if(p<=3, next);
+      P=idealprimedec(K,p)[1];
+      A=elllocalred(e,P.p);
+      B=elllocalred(eK,P);
+      if(A!=B, error(E[2]))
+    )
+  )
+}

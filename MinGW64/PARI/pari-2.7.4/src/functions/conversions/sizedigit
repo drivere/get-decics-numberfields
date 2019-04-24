@@ -1,0 +1,10 @@
+Function: sizedigit
+Section: conversions
+C-Name: sizedigit
+Prototype: lG
+Help: sizedigit(x): maximum number of decimal digits minus one of (the
+ coefficients of) x.
+Doc:
+ outputs a quick bound for the number of decimal
+ digits of (the components of) $x$, off by at most $1$. If you want the
+ exact value, you can use \kbd{\#Str(x)}, which is slower.

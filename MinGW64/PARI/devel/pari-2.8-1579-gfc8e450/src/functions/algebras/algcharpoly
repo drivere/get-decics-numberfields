@@ -1,0 +1,21 @@
+Function: algcharpoly
+Section: algebras
+C-Name: algcharpoly
+Prototype: GGDn
+Help: algcharpoly(al,b,{v='x}): (reduced) characteristic polynomial of b in
+ \var{al}, with respect to the variable $v$.
+
+Doc: Given an element $b$ in \var{al}, returns its characteristic polynomial
+ as a polynomial in the variable $v$. If \var{al} is a table algebra output
+ by \tet{algtableinit}, returns the absolute characteristic polynomial of
+ \var{b}, which is an element of $\F_p[v]$ or~$\Q[v]$; if \var{al} is a
+ central simple algebra output by \tet{alginit}, returns the reduced
+ characteristic polynomial of \var{b}, which is an element of $K[v]$ where~$K$
+ is the center of \var{al}.
+ \bprog
+ ? al = alginit(nfinit(y), [-1,-1]); \\ (-1,-1)_Q
+ ? algcharpoly(al, [0,1]~)
+ %2 = x^2 + 1
+ @eprog
+
+ Also accepts a square matrix with coefficients in \var{al}.

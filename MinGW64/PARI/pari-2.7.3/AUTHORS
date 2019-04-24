@@ -1,0 +1,134 @@
+The PARI/GP project started around 1985 in the Laboratoire A2X (Universite
+Bordeaux 1, France)  and a first version was written by  Christian  Batut,
+Dominique Bernardi, Henri Cohen and Michel Olivier and maintained by Henri
+Cohen till 1995. Karim Belabas took over the maintainance between 1995 and
+2001,  the project has been jointly maintained by Bill Allombert and Karim
+Belabas since 2002.
+
+A great  number  of people  have contributed  code through  the successive
+stages which eventually resulted in the present version  of PARI/GP.  Even
+more people, too numerous to list, contributed by testing,  reporting bugs
+or suggesting improvements, Igor Schein foremost among them.
+
+We would like to thank them all here.
+
+Current lead developers:
+
+  Bill ALLOMBERT (Bordeaux)
+  Karim BELABAS (Bordeaux)
+
+Major contributors (large modules written or rewritten from scratch):
+
+  Bill ALLOMBERT: GP2C, the GP parser, extension of the GP language
+    (my, closures), GMP kernel, modular kernel, ffinit, galois* routines,
+    subcyclo, black-box groups, the elldata and galdata package,
+    multithread model, PARI description system, FLTK support, Bug tracking
+    system, administration of pari.math.u-bordeaux.fr, the
+    http://pari.math.u-bordeaux.fr website
+  Christian BATUT: 68k multiprecision kernel, Linear algebra, lattices
+  Karim BELABAS: current project leader, native multiprecision kernel, modular
+    kernel, polynomial arithmetic, polynomial factorization (finite fields,
+    number fields), LLL, primality and compositeness tests, number fields,
+    polgalois and the galdata package, transcendental functions, install(),
+    extension of the GP language (next/break/return, local, op=, default()),
+    gphelp, Configure, readline, man pages, documentation layout, reference card
+    and user's manuals, the FAQ, the http://pari.math.u-bordeaux.fr website
+    the PARI resource pages.
+  Dominique BERNARDI: the original gp interpreter, ECM, elliptic curves
+  Henri COHEN: original designer and project leader, native multiprecision
+    kernel, arithmetic functions, LLL, transcendental functions, number fields,
+    elliptic curves
+  Francisco DIAZ Y DIAZ: number fields (class groups, units)
+  Yves EICHENLAUB: original polgalois implementation
+  Xavier GOURDON: polroots, initial Karatsuba/Toom Cook/fft implementations
+  Louis GRANBOULAN: breakup of monolithic PARI into modules, first GMP
+    kernel, first Configure
+  Loic GRENIE: bnfinit() rewrite, openMP / MPI implementations
+  Bruno HAIBLE: micro assembly implementations, DOS/Windows support
+  Guillaume HANROT: thue, zncoppersmith
+  Pascal LETARD: basic number field (round2, initial round4)
+  Jean-Francois MESTRE: elliptic curves
+  Gerhard NIKLASCH: binary powering, integer extended gcd and rational
+    reconstruction, primality and compositeness test, integer factorization,
+    documentation layout, AIX and Solaris support, first PARI web site.
+  Michel OLIVIER: 68k multiprecision kernel, number fields, original polgalois
+    and nfsubfields implementation
+  Thomas PAPANIKOlAOU: MPQS integration, Pari-Lidia project
+  Xavier ROBLOT: MPQS integration, Stark, original nffactor
+  Denis SIMON: Norm equations, S-units, Hilbert symbols
+  Emmanuel TOLLIS: primedec, zetak
+  Ilya ZAKHAREVITCH: prime sieves, gphelp, tex2mail, major cleanup of the
+    graphics and GP parser code, gnuplot support, readline support,
+    OS/2 support, DOS/EMX support
+
+Other contributors: the 2 or 3 letter code refer to the CHANGES file. Please,
+kindly remind us if you have been forgotten!
+
+   = Karim Belabas (maintainer)
+AF = Aurimas Fiseras
+AM = Alex V. Myltsev
+AMe= Anton Mellit
+AW = Aleksander Wittlin
+AS = Andy Stubbs
+BA = Bill Allombert
+BD = Bill Daly
+BG = Brian Gladman
+BH = Bruno Haible
+BK = Bruce Kaskel
+CB = Cliff Bergman
+CG = Charles Greathouse
+CW = Carl Witty
+DB = Dominique Bernardi
+DCa= David Carlisle
+DC = Dan Christensen
+DE = Denis Excoffier
+DF = David Ford
+DS = Denis Simon
+EP = Esa Peuha
+GH = Guillaume Hanrot
+GN = Gerhard Niklasch
+GT = Glenn Thobe
+GTo= Gonzalo Tornaria
+HC = Henri Cohen
+HR = Harvey Rose
+IK = Iwao Kimura
+IM = Ivan Middleton
+IS = Igor Schein
+ISo= Ignat Soroko
+IZ = Ilya Zakharevich
+JD = Jeroen Demeyer
+JJ = John Jones
+JM = Jerome Milan
+JS = Juhana Sadeharju
+KO = Kiyoshi Ohgishi
+KPN= Klaus-Peter Nischke
+LG = Louis Granboulan
+LGr= Loic Grenie
+LM = Lorenz Minder
+MA = Michael Abshoff
+MD = Mark Dickinson
+MH = Marije Huizing
+MS = Michael Stoll
+MSo= Michael Somos
+MW = Mark Watkins
+NS = Nils Skoruppa
+OR = Olivier Ramare
+OV = Oliver Voigt
+PB = Peter Bruin
+PC = Phil Carmody
+PM = Peter Montgomery
+PMo= Pascal Molin
+PW = Paul van Wamelen
+RB = Remi Butel
+RM = Richard J. Mathar
+RS = Ralf Stephan
+RR = Randall Rathbun
+SC = Sylvain Chevillard
+SG = Scott Garee
+TH = Teluhiko Hilano
+TP = Thomas Papanikolaou
+VB = Vasili Burdo
+VBr= Volker Braun
+VL = Vincent Lefevre
+XR = Xavier Roblot
+YU = Yoshiaki Uchikawa

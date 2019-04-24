@@ -1,0 +1,75 @@
+This file contains messages produced while configuring
+  pari-2.8.0 [ development git-e5c317c ]
+to aid debugging if Configure makes a mistake. Command line was
+  > ./Configure --host=x86_64-mingw
+
+x86_64-w64-mingw32-gcc -D__USE_MINGW_ANSI_STDIO -o mingw-x86_64-ansi16899 ansi.c
+x86_64-w64-mingw32-gcc -o mingw-x86_64-gnu16899 gnu.c
+x86_64-w64-mingw32-gcc -D__USE_MINGW_ANSI_STDIO -fno-strict-aliasing -o mingw-x86_64-gnu16899 gnu.c
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO endian.c -o mingw-x86_64-endian16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_exp2.c -o mingw-x86_64-tmp16899 -lm
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_log2.c -o mingw-x86_64-tmp16899 -lm
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_strftime.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getrusage.c -o mingw-x86_64-tmp16899
+has_getrusage.c:5:26: fatal error: sys/resource.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_times.c -o mingw-x86_64-tmp16899
+has_times.c:2:23: fatal error: sys/times.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_gettimeofday.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_sigaction.c -o mingw-x86_64-tmp16899
+has_sigaction.c: In function 'main':
+has_sigaction.c:4:20: error: storage size of 'sa' isn't known
+   struct sigaction sa, oldsa;
+                    ^
+has_sigaction.c:4:24: error: storage size of 'oldsa' isn't known
+   struct sigaction sa, oldsa;
+                        ^
+has_sigaction.c:7:3: warning: implicit declaration of function 'sigemptyset' [-Wimplicit-function-declaration]
+   sigemptyset(&sa.sa_mask);
+   ^
+has_sigaction.c:8:17: error: 'SA_NODEFER' undeclared (first use in this function)
+   sa.sa_flags = SA_NODEFER;
+                 ^
+has_sigaction.c:8:17: note: each undeclared identifier is reported only once for each function it appears in
+has_sigaction.c:10:10: warning: implicit declaration of function 'sigaction' [-Wimplicit-function-declaration]
+   (void)(sigaction(SIGINT, &sa, &oldsa));
+          ^
+has_sigaction.c:4:24: warning: unused variable 'oldsa' [-Wunused-variable]
+   struct sigaction sa, oldsa;
+                        ^
+has_sigaction.c:4:20: warning: unused variable 'sa' [-Wunused-variable]
+   struct sigaction sa, oldsa;
+                    ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_TIOCGWINSZ.c -o mingw-x86_64-tmp16899
+has_TIOCGWINSZ.c:6:23: fatal error: sys/ioctl.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getrlimit.c -o mingw-x86_64-tmp16899
+has_getrlimit.c:3:26: fatal error: sys/resource.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_stat.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_vsnprintf.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_mmap.c -o mingw-x86_64-tmp16899
+has_mmap.c:2:22: fatal error: sys/mman.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_waitpid.c -o mingw-x86_64-tmp16899
+has_waitpid.c:3:22: fatal error: sys/wait.h: No such file or directory
+compilation terminated.
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_setsid.c -o mingw-x86_64-tmp16899
+has_setsid.c:3:16: error: 'setsid' undeclared here (not in a function)
+ pid_t (*f)() = setsid;
+                ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_getenv.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_isatty.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_alarm.c -o mingw-x86_64-tmp16899
+has_alarm.c:2:35: error: 'alarm' undeclared here (not in a function)
+ unsigned int (*f)(unsigned int) = alarm;
+                                   ^
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_system.c -o mingw-x86_64-tmp16899
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_dlopen.c -o mingw-x86_64-tmp16899
+/tmp/ccLMSnH2.o:has_dlopen.c:(.text.startup+0x13): undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO has_dlopen.c -o mingw-x86_64-tmp16899 -ldl
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/home/eric/BOINC_Project/MinGW64/GMP/include -o mingw-x86_64-gmp16899 gmp_version.c -L/home/eric/BOINC_Project/MinGW64/GMP/lib -lgmp
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -I/home/eric/BOINC_Project/MinGW64/GMP/include -o mingw-x86_64-gmp16899 gmp_mismatch.c -L/home/eric/BOINC_Project/MinGW64/GMP/lib -lgmp
+x86_64-w64-mingw32-gcc -O3 -Wall -fno-strict-aliasing -D__USE_MINGW_ANSI_STDIO -o mingw-x86_64-rlv16899 rl_version.c -lreadline

@@ -1,0 +1,13 @@
+*** ../src/test/32/digits	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:49:39.516134233 -0700
+***************
+*** 29,32 ****
+    ***   at top-level: binary(I)
+    ***                 ^---------
+    *** binary: incorrect type in binary (t_COMPLEX).
+! Total time spent: 112
+--- 29,32 ----
+    ***   at top-level: binary(I)
+    ***                 ^---------
+    *** binary: incorrect type in binary (t_COMPLEX).
+! Total time spent: 60

@@ -1,0 +1,13 @@
+*** ../src/test/32/set	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:40.940705383 -0700
+***************
+*** 22,25 ****
+    ***   at top-level: setbinop(x->x,X)
+    ***                 ^----------------
+    *** setbinop: incorrect type in setbinop [function needs exactly 2 arguments] (t_CLOSURE).
+! Total time spent: 4
+--- 22,25 ----
+    ***   at top-level: setbinop(x->x,X)
+    ***                 ^----------------
+    *** setbinop: incorrect type in setbinop [function needs exactly 2 arguments] (t_CLOSURE).
+! Total time spent: 1

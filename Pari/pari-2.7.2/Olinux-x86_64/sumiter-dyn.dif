@@ -1,0 +1,13 @@
+*** ../src/test/32/sumiter	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:54:17.078641191 -0700
+***************
+*** 40,43 ****
+  1.0000000000000000000000000000000000000
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 8
+--- 40,43 ----
+  1.0000000000000000000000000000000000000
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 25

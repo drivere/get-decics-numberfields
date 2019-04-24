@@ -1,0 +1,18 @@
+Function: bnfdecodemodule
+Section: number_fields
+C-Name: decodemodule
+Prototype: GG
+Help: bnfdecodemodule(nf,m): given a coded module m as in bnrdisclist,
+ gives the true module.
+Doc: if $m$ is a module as output in the
+ first component of an extension given by \kbd{bnrdisclist}, outputs the
+ true module.
+ \bprog
+ ? K = bnfinit(x^2+23); L = bnrdisclist(K, 10); s = L[1][2]
+ %1 = [[Mat([8, 1]), [[0, 0, 0]]], [Mat([9, 1]), [[0, 0, 0]]]]
+ ? bnfdecodemodule(K, s[1][1])
+ %2 =
+ [2 0]
+
+ [0 1]
+ @eprog

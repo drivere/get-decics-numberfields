@@ -1,0 +1,11 @@
+Function: isfundamental
+Section: number_theoretical
+C-Name: isfundamental
+Prototype: lG
+Help: isfundamental(x): true(1) if x is a fundamental discriminant
+ (including 1), false(0) if not.
+Description:
+ (int):bool       Z_isfundamental($1)
+ (gen):bool       isfundamental($1)
+Doc: true (1) if $x$ is equal to 1 or to the discriminant of a quadratic
+ field, false (0) otherwise.

@@ -1,0 +1,10 @@
+Function: numtoperm
+Section: conversions
+C-Name: numtoperm
+Prototype: LG
+Help: numtoperm(n,k): permutation number k (mod n!) of n letters (n
+ C-integer).
+Doc: generates the $k$-th permutation (as a row vector of length $n$) of the
+ numbers $1$ to $n$. The number $k$ is taken modulo $n!\,$, i.e.~inverse
+ function of \tet{permtonum}. The numbering used is the standard lexicographic
+ ordering, starting at $0$.

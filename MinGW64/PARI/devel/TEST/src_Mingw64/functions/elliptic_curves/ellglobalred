@@ -1,0 +1,29 @@
+Function: ellglobalred
+Section: elliptic_curves
+C-Name: ellglobalred
+Prototype: G
+Help: ellglobalred(E): E being an elliptic curve, returns [N,[u,r,s,t],c,
+ faN,L], where N is the conductor of E, [u,r,s,t] leads to the standard model
+ for E, c is the product of the local Tamagawa numbers c_p, faN is factor(N)
+ and L[i] is elllocalred(E, faN[i,1]).
+Description:
+ (gen):gen        ellglobalred($1)
+Doc:
+ calculates the arithmetic conductor, the global
+ minimal model of $E$ and the global \idx{Tamagawa number} $c$.
+ $E$ must be an \var{ell} structure as output by \kbd{ellinit}, defined over
+ $\Q$. The result is a vector $[N,v,c,F,L]$, where
+
+ \item $N$ is the arithmetic conductor of the curve,
+
+ \item $v$ gives the coordinate change for $E$ over $\Q$ to the minimal
+ integral model (see \tet{ellminimalmodel}),
+
+ \item $c$ is the product of the local Tamagawa numbers $c_p$, a quantity
+ which enters in the \idx{Birch and Swinnerton-Dyer conjecture},\sidx{minimal model}
+
+ \item $F$ is the factorization of $N$ over $\Z$.
+
+ \item $L$ is a vector, whose $i$-th entry contains the local data
+ at the $i$-th prime divisor of $N$, i.e. \kbd{L[i] = elllocalred(E,F[i,1])},
+ where the local coordinate change has been deleted, and replaced by a $0$.

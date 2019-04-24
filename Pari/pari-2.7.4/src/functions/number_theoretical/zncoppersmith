@@ -1,0 +1,55 @@
+Function: zncoppersmith
+Section: number_theoretical
+C-Name: zncoppersmith
+Prototype: GGGDG
+Help: zncoppersmith(P, N, X, {B=N}): finds all integers x
+ with |x| <= X such that  gcd(N, P(x)) >= B. X should be smaller than
+ exp((log B)^2 / (deg(P) log N)).
+Doc: $N$ being an integer and $P\in \Z[X]$, finds all integers $x$ with
+ $|x| \leq X$ such that
+ $$\gcd(N, P(x)) \geq B,$$
+ using \idx{Coppersmith}'s algorithm (a famous application of the \idx{LLL}
+ algorithm). $X$ must be smaller than $\exp(\log^2 B / (\deg(P) \log N))$:
+ for $B = N$, this means $X < N^{1/\deg(P)}$. Some $x$ larger than $X$ may
+ be returned if you are very lucky. The smaller $B$ (or the larger $X$), the
+ slower the routine will be. The strength of Coppersmith method is the
+ ability to find roots modulo a general \emph{composite} $N$: if $N$ is a prime
+ or a prime power, \tet{polrootsmod} or \tet{polrootspadic} will be much
+ faster.
+
+ We shall now present two simple applications. The first one is
+ finding non-trivial factors of $N$, given some partial information on the
+ factors; in that case $B$ must obviously be smaller than the largest
+ non-trivial divisor of $N$.
+ \bprog
+ setrand(1); \\ to make the example reproducible
+ p = nextprime(random(10^30));
+ q = nextprime(random(10^30)); N = p*q;
+ p0 = p % 10^20; \\ assume we know 1) p > 10^29, 2) the last 19 digits of p
+ p1 = zncoppersmith(10^19*x + p0, N, 10^12, 10^29)
+
+ \\ result in 10ms.
+ %1 = [35023733690]
+ ? gcd(p1[1] * 10^19 + p0, N) == p
+ %2 = 1
+ @eprog\noindent and we recovered $p$, faster than by trying all
+ possibilities $ < 10^{12}$.
+
+ The second application is an attack on RSA with low exponent, when the
+ message $x$ is short and the padding $P$ is known to the attacker. We use
+ the same RSA modulus $N$ as in the first example:
+ \bprog
+ setrand(1);
+ P = random(N);    \\ known padding
+ e = 3;            \\ small public encryption exponent
+ X = floor(N^0.3); \\ N^(1/e - epsilon)
+ x0 = random(X);   \\ unknown short message
+ C = lift( (Mod(x0,N) + P)^e ); \\ known ciphertext, with padding P
+ zncoppersmith((P + x)^3 - C, N, X)
+
+ \\ result in 244ms.
+ %3 = [265174753892462432]
+ ? %[1] == x0
+ %4 = 1
+ @eprog\noindent
+ We guessed an integer of the order of $10^{18}$, almost instantly.

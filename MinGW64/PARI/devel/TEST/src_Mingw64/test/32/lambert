@@ -1,0 +1,18 @@
+  ***   at top-level: do(-1)
+  ***                 ^------
+  ***   in function do: my(x=lambertw(y));exp(x)*
+  ***                        ^--------------------
+  *** lambertw: domain error in Lw: y < 0
+  ***   at top-level: do(I)
+  ***                 ^-----
+  ***   in function do: my(x=lambertw(y));exp(x)*
+  ***                        ^--------------------
+  *** lambertw: sorry, lambert(t_COMPLEX) is not yet implemented.
+1.0000000000000000000000000000000000000
+0.99999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999999999999999999
+9999999999999999999999999999999999999999999999999999999999999
+  ***   at top-level: lambertw(1/x)
+  ***                 ^-------------
+  *** lambertw: domain error in lambertw: valuation < 0
+Total time spent: 12

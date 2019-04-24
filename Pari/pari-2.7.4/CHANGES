@@ -1,0 +1,117 @@
+# $Id$
+Bug numbers refer to the BTS at http://pari.math.u-bordeaux.fr/Bugs/
+
+Done for version 2.7.4 (released 19/06/2015):
+[last column crossreferences current development release 2.8.0]
+
+  Fixed
+    1- divisors([2,1]) -> SEGV                                   [#1664] [F84]
+    2- acos([Pol(1)]) -> GC bug [#1663]                                  [F85]
+    3- primes([1,Pol(2)]) -> SEGV [#1668]                                [F87]
+    4- buffer overflow after default(format,"f.precision")               [F95]
+    5- qfminim(A, 0, ...) -> stack overflow                      [#1682] [F97]
+    6- div_scal_rfrac could create an invalid t_POL              [#1651] [F99]
+    7- polroots(t_POL with leading coeff = 0) -> fp exception    [#1690] [F100]
+    8- \r cannot deal with very long filenames                   [#1616] [F101]
+    9- rnfisabelian(nf, non monic t_POL) -> SEGV                 [#1693] [F102]
+   10- possibly incorrect result in nfdisc(T,listP)                      [F104]
+   11- wrong dim(Ker) returned by ZM_pivot => SEGV in Z-linear algebra
+       routines.  E.g. setrand(1);quadclassunit(-612556842419)   [#1700] [F105]
+   12- moebius(factor(18)) -> 1 instead of 0                     [#1702] [F106]
+   13- ispower(-167^10) => domain error                          [#1703] [F107]
+   14- ispowerful(factor(0)) != ispowerful(0)                            [F108]
+   15- expm1(2*I) => wrong result                                        [F109]
+   16- gamma(1+a*x+O(x^2)) => error [#1707]                              [F110]
+   17- printsep() printed its argument in random format instead of f_RAW [F111]
+   18- nfdisc(x^10 - 29080*x^5 - 25772600) -> oo loop            [#1710] [F112]
+
+  Added
+ED  1- mingw64 support                                                   [A111]
+
+Done for version 2.7.3 (released 18/02/2015):
+[last column crossreferences current development release 2.8.0]
+
+  Fixed
+    1- [from 2.7.2] ??bnrL1 and ??ellL1 did not work anymore
+    2- thue(f^e*g, ...), e even, (f,g)=1 missed solutions such that f<0   [F22]
+XR  3- bnrL1(bnrinit(bnfinit(x^2-168),[6,[1,1]],1)) -> bug in ArtinNumber [F55]
+    4- nfisincl(t_POL, t_POL) could lead to wrong negative results        [F58]
+    5- polresultant(1+x*z^2,1+y*z^4,z) -> GC error [#1614]                [F59]
+BA  6- ellcard over non-prime fields could return wrong results           [F60]
+    7- [libpari] FpX_roots could produce GC errors [#1618]                [F61]
+    8- weber(1+I) was missing its imaginary part                          [F62]
+    9- (1+I)*(1+1/2*I) => wrong result (type errors) [#1619]              [F63]
+   10- contfracpnqn([a]) => [1,a;0,1] instead of [a,1;1,0]                [F64]
+   11- primes([2^50, 2^50+200000]) => stack overflow                      [F65]
+   12- issquare((x+1/2)^2,&z); z => 1.0*x+0.5 instead of x+1/2            [F66]
+   13- possibly missing roots in nfroots (when using Trager)              [F68]
+   14- quadray(bnf, ideal) did not work                                   [F69]
+   15- thue(-14*x^3 + 10*x^2 + 63*x - 5,1) -> "short continued fraction"  [F70]
+   16- thue(29*x^3+130*x^2-35*x-48,1) -> "round error" bug                [F71]
+   17- T=thueinit(10*x^3+6*x^2-41*x+8,1); thue(T,8) => SEGV [#1630]       [F72]
+   18- ellrootno(e,p = 2 or 3) when e not minimal at p => random result   [F73]
+   19- agm(1,2+O(5)) -> SEGV [#1645]                                      [F76]
+BA 20- [cygwin64] ellap(ellinit([0,0,1,-1,0]),10007) was broken           [F77]
+   21- primes([-5,5]) -> [5] (spurious absolute values)                   [F78]
+   22- matqr([;]) -> crash                                                [F79]
+   23- Fp_rem_mBarrett could return a non-normalized result               [F80]
+       p=436^56-35;Mod(271,p)^((p-1)/2) -> p+1
+   24- plotcopy would corrupt "string" objects (ROt_ST)                   [F81]
+BA 25- [GP] default arguments to GP functions could cause corruption      [F82]
+VBr26- [darwin] remove obsolete linker options that cause crashes [#1623] [F83]
+
+Done for version 2.7.2 (released 19/09/2014):
+[last column crossreferences current development release 2.8.0]
+
+  Fixed
+    1- gaffsg(0, t_PADIC): wrong valuation                                [F21]
+    2- (t_INTMOD with word-sized modulus)^(huge negative power) [#1584]   [F24]
+    3- (gp -p N) or (primelimit=N in gprc_ for N >= 436273290 resulted in an
+       incorrect primetable. N.B. Such commands are now useless: needed primes
+       are produced dynamically anyway.                                   [F25]
+    4- monomial(exact zero, d, v) returned an invalid t_POL / t_RFRAC     [F26]
+    5- contfracpnqn(v, n) returned partial quotients p[-1]/q[-1] ...
+       p[n-1]/q[n-1], instead of the documented p[0]/q[0] ... p[n]/q[n]   [F27]
+    6- factor((3+4*I)/25) -> factor 2+I had 0 exponent [#1586]            [F29]
+BA  7- iferr() could crash if some component of the t_ERROR were clones.  [F31]
+    8- nffactor() could overflow the stack when default accuracy too low  [F32]
+BA  9- obsolete use of E=[a1,a2,a3,a4,a6] in ellmul crashed  [#1589]      [F33]
+   10- incorrect rounding in mulrr/divrr for one-word precision reals     [F34]
+BA 11- multiif did not handle correctly return() in conditions [#1590]    [F35]
+   12- [0..5] -> [0,0,0,0,0] on some architectures                        [F36]
+   13- is_gener_Fp could return wrong results                             [F37]
+   14- Fq_sqrtn(t_INT,..,&zeta) could return a wrong root of 1            [F38]
+   15- bnfinit: SEGV due to precision issues [#1592]                      [F39]
+   16- zm_zc_mul only worked for square zm matrices                       [F40]
+   17- genus2red(0,27*x^5+97*x^4+118*x^3+60*x^2+13*x+1,3) -> bug [#1596]  [F41]
+   18- [gphelp] oo loop when $COLUMNS too small [#1594]                   [F42]
+   19- genus2red(x,-x^6-3*x^4-10*x^2-1,3) -> impossible inverse [#1597]   [F43]
+   20- factoru(1) returned a t_MAT instead of the expected "matsmall"     [F44]
+   21- FpM_charpoly wrong in small characteristic [#1602]                 [F45]
+   22- when compatible = 3; series() used a random precision              [F50]
+   23- genus2red(0,6*x^6+5*x^4+x^2+1,7) -> impossible inverse [#1597]     [F51]
+   24- isprime() could crash on large input [#1604]                       [F52]
+   25- genus2red(x^3+1,1) -> type error [#1597]                           [F53]
+   26- gphelp did not handle === correctly [#1603]                        [F54]
+   27- FpXY_evaly() wrong when evaluating at 0                            [F56]
+   28- [mingw] gp could crash at start up [#1607]                         [F57]
+
+Done for version 2.7.1 (released 16/05/2014):
+[last column crossreferences current development release 2.8.0]
+
+  Fixed
+    1- make install fails on OS/X: ln -s libpari.dylib libpari.dylib fails [F1]
+    2- Q_pvalrem(t_FRAC) => wrong result                                   [F2]
+    3- [] == 0 but []~ != 0  (now []~ == 0 as well) [#1560]                [F3]
+BA  4- test-kernel did not work when using --mt=pthread                    [F4]
+BA  5- ellheegner was using too much memory in some case                   [F5]
+BA  6- ellap can overflow on 32-bit machine [#1558] (minimal fix)          [F6]
+    7- nfhilbert(K,x,y, P above 2) could give wrong results [#1561]        [F7]
+    8- gcd(1/2, 1+I*1.) -> SEGV [#1563]                                   [F10]
+    9- mathnf(t_VEC) could corrupt input (change sign)                    [F11]
+   10- [libpari] RgM_transmul did not work                                [F12]
+   11- [libpari] Fq_issquare didn't support T=NULL                        [F13]
+   12- [libpari] nfpow_u didn't handle non-integral rational numbers      [F14]
+   13- eint1(0) -> stack overflow [#1568]                                 [F15]
+   14- nfroots(, t_POL with leading coeff -1) could miss solutions        [F19]
+   15- precprime(1) -> invalid t_INT [#1576]                              [F20]

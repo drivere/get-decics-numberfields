@@ -1,0 +1,16 @@
+Function: _def_nbthreads
+Class: default
+Section: default
+C-Name: sd_nbthreads
+Prototype:
+Help:
+Doc: Number of threads to use for parallel computing.
+ The exact meaning an default depend on the \kbd{mt} engine used:
+
+ \item \kbd{single}: not used (always one thread).
+
+ \item \kbd{pthread}: number of threads (unlimited, default: number of core)
+
+ \item \kbd{mpi}: number of MPI process to use (limited to the number allocated by \kbd{mpirun},
+ default: use all allocated process).
+

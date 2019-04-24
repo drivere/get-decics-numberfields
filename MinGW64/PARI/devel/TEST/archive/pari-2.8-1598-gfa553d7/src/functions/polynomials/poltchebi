@@ -1,0 +1,6 @@
+Function: poltchebi
+Section: polynomials
+C-Name: polchebyshev1
+Prototype: LDn
+Help: poltchebi(n,{v='x}): deprecated alias for polchebyshev
+Doc: deprecated alias for \kbd{polchebyshev}

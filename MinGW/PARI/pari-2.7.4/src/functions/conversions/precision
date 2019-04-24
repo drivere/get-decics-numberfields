@@ -1,0 +1,72 @@
+Function: precision
+Section: conversions
+C-Name: precision0
+Prototype: GD0,L,
+Help: precision(x,{n}): if n is present, return x at precision n. If n is omitted, return real precision of object x.
+Description:
+ (real):small          prec2ndec(gprecision($1))
+ (gen):int             precision0($1, 0)
+ (real,0):small        prec2ndec(gprecision($1))
+ (gen,0):int           precision0($1, 0)
+ (real,#small):real    rtor($1, ndec2prec($2))
+ (gen,#small):gen      gprec($1, $2)
+ (real,small):real     precision0($1, $2)
+ (gen,small):gen       precision0($1, $2)
+
+Doc: the function has two different behaviors according to whether $n$ is present or not.
+
+ If $n$ is missing, the function returns the precision in decimal digits of the
+ PARI object $x$. If $x$ is
+ an exact object, the largest single precision integer is returned.
+ \bprog
+ ? precision(exp(1e-100))
+ %1 = 134                \\ 134 significant decimal digits
+ ? precision(2 + x)
+ %2 = 2147483647         \\ exact object
+ ? precision(0.5 + O(x))
+ %3 = 28                 \\ floating point accuracy, NOT series precision
+ ? precision( [ exp(1e-100), 0.5 ] )
+ %4 = 28                 \\ minimal accuracy among components
+ @eprog\noindent
+ The return value for exact objects is meaningless since it is not even the
+ same on 32 and 64-bit machines. The proper way to test whether an object is
+ exact is
+ \bprog
+ ? isexact(x) = precision(x) == precision(0)
+ @eprog
+
+ If $n$ is present, the function creates a new object equal to $x$ with a new
+ ``precision'' $n$. (This never changes the type of the result. In particular
+ it is not possible to use it to obtain a polynomial from a power series; for
+ that, see \tet{truncate}.) Now the meaning of precision is different from the
+ above (floating point accuracy), and depends on the type of $x$:
+
+ For exact types, no change. For $x$ a vector or a matrix, the operation is
+ done componentwise.
+
+ For real $x$, $n$ is the number of desired significant \emph{decimal}
+ digits. If $n$ is smaller than the precision of $x$, $x$ is truncated,
+ otherwise $x$ is extended with zeros.
+
+ For $x$ a $p$-adic or a power series, $n$ is the desired number of
+ \emph{significant} $p$-adic or $X$-adic digits, where $X$ is the main
+ variable of $x$. (Note: yes, this is inconsistent.)
+ Note that the precision is a priori distinct from the exponent $k$ appearing
+ in $O(*^k)$; it is indeed equal to $k$ if and only if $x$ is a $p$-adic
+ or $X$-adic \emph{unit}.
+ \bprog
+ ? precision(1 + O(x), 10)
+ %1 = 1 + O(x^10)
+ ? precision(x^2 + O(x^10), 3)
+ %2 = x^2 + O(x^5)
+ ? precision(7^2 + O(7^10), 3)
+ %3 = 7^2 + O(7^5)
+ @eprog\noindent
+ For the last two examples, note that $x^2 + O(x^5) = x^2(1 + O(x^3))$
+ indeed has 3 significant coefficients
+
+
+
+Variant: Also available are \fun{GEN}{gprec}{GEN x, long n} and
+ \fun{long}{precision}{GEN x}. In both, the accuracy is expressed in
+ \emph{words} (32-bit or 64-bit depending on the architecture).

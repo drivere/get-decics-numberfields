@@ -1,0 +1,11 @@
+Function: _def_psfile
+Class: default
+Section: default
+C-Name: sd_psfile
+Prototype:
+Help:
+Doc: name of the default file where
+ \kbd{gp} is to dump its PostScript drawings (these are appended, so that no
+ previous data are lost). Environment and time expansion are performed.
+
+ The default value is \kbd{"pari.ps"}.

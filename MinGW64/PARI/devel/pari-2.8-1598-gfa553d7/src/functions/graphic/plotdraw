@@ -1,0 +1,17 @@
+Function: plotdraw
+Class: highlevel
+Section: graphic
+C-Name: rectdraw_flag
+Prototype: vGD0,L,
+Help: plotdraw(list, {flag=0}): draw vector of rectwindows list at indicated
+ x,y positions; list is a vector w1,x1,y1,w2,x2,y2,etc. If flag!=0, x1, y1
+ etc. express fractions of the size of the current output device.
+Doc: physically draw the rectwindows given in $list$
+ which must be a vector whose number of components is divisible by 3. If
+ $list=[w1,x1,y1,w2,x2,y2,\dots]$, the windows $w1$, $w2$, etc.~are
+ physically placed with their upper left corner at physical position
+ $(x1,y1)$, $(x2,y2)$,\dots\ respectively, and are then drawn together.
+ Overlapping regions will thus be drawn twice, and the windows are considered
+ transparent. Then display the whole drawing in a special window on your
+ screen. If $\fl \neq 0$, x1, y1 etc. express fractions of the size of the
+ current output device

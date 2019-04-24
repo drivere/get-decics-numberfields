@@ -1,0 +1,18 @@
+Function: polrootsmod
+Section: polynomials
+C-Name: rootmod0
+Prototype: GGD0,L,
+Help: polrootsmod(pol,p,{flag=0}): roots mod the prime p of the polynomial pol. flag is
+ optional, and can be 0: default, or 1: use a naive search, useful for small p.
+Description:
+ (pol, int, ?0):vec           rootmod($1, $2)
+ (pol, int, 1):vec            rootmod2($1, $2)
+ (pol, int, #small):vec       $"Bad flag in polrootsmod"
+ (pol, int, small):vec        rootmod0($1, $2, $3)
+Doc: row vector of roots modulo $p$ of the polynomial \var{pol}.
+ Multiple roots are \emph{not} repeated.
+ \bprog
+ ? polrootsmod(x^2-1,2)
+ %1 = [Mod(1, 2)]~
+ @eprog\noindent
+ If $p$ is very small, you may set $\fl=1$, which uses a naive search.

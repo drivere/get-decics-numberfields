@@ -1,0 +1,7 @@
+Function: nfisisom
+Section: number_fields
+C-Name: nfisisom
+Prototype: GG
+Help: nfisisom(x,y): as nfisincl but tests whether x is isomorphic to y.
+Doc: as \tet{nfisincl}, but tests for isomorphism. If either $x$ or $y$ is a
+ number field, a much faster algorithm will be used.

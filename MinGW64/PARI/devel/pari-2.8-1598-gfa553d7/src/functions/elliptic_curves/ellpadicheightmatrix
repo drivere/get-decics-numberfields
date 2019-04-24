@@ -1,0 +1,14 @@
+Function: ellpadicheightmatrix
+Section: elliptic_curves
+C-Name: ellpadicheightmatrix
+Prototype: GGLG
+Help: ellpadicheightmatrix(E,p,n,v): gives the height-pairing matrix for vector
+ of points v on elliptic curve E.
+Doc: $v$ being a vector of points, this function outputs the Gram matrix of
+ $v$ with respect to the cyclotomic $p$-adic height, given to $n$ $p$-adic
+ digits; in other words, the $(i,j)$ component of the matrix is equal to
+ \kbd{ellpadicheight}$(E,p,n, v[i],v[j]) = [f,g]$.
+
+ See \tet{ellpadicheight}; in particular one can replace the parameter $p$
+ prime by a vector $[p,[a,b]]$, in which case the routine returns the matrix
+ containing the $p$-adic numbers $af + bg$.

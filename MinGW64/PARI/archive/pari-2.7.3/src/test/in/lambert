@@ -1,0 +1,7 @@
+do(y)=my(x = lambertw(y)); exp(x)*x / y;
+do(-1)
+do(I)
+default(realprecision,38);
+do(2)
+default(realprecision,211);
+do(1e14)

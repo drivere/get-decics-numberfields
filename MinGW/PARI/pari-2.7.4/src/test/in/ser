@@ -1,0 +1,23 @@
+default(realprecision,38);
+s=x+x^2+O(x^5)
+f=[atan,asin,acos,cosh,sinh,tanh,acosh,asinh,atanh];
+{
+for (i=1,#f,
+  print(f[i](s));
+  print(f[i](O(x^5)));
+  print(f[i]([Pol(1)]));
+)
+}
+O(x^-2)
+O(1/x^2)
+trace(I*x+1+O(x^2))
+norm(I*x+1+O(x^2))
+a=Ser(vector(200,i,i));
+a^2 == a*(a+1) - a \\ test RgX_mullow, RgX_sqrlow
+3+O(1)
+serreverse(x/2+O(x^2))
+serreverse(tan(x)/2)
+
+Ser(x+y+O(x^2),x)
+Ser(x+y+O(x^2),y)
+Ser("")

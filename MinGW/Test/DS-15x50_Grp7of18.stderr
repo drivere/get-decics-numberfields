@@ -1,0 +1,17 @@
+11:33:45 (8): Can't open init data file - running in standalone mode
+polyBufferSize = 10240.
+CHECKPOINT_FILE = GetDecics_state.
+Checkpoint Flag = 0.
+Reading file in
+    K = x^2 + 1
+    S = [2, 5]
+    Disc Bound = 512000000000
+    Skip = (P1^1)*(P2^2)*(P3^5)
+    Num Congruences = 20000
+    SCALE = 1.000000
+    |dK| = 4
+    Signature = [0,1]
+Opening output file out
+Now starting the targeted Martinet search:
+The search has finished.
+11:34:20 (8): called boinc_finish(0)

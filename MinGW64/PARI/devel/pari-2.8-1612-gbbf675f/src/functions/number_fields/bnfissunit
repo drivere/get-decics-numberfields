@@ -1,0 +1,11 @@
+Function: bnfissunit
+Section: number_fields
+C-Name: bnfissunit
+Prototype: GGG
+Help: bnfissunit(bnf,sfu,x): bnf being output by bnfinit (with flag<=2), sfu
+ by bnfsunit, gives the column vector of exponents of x on the fundamental
+ S-units and the roots of unity if x is a unit, the empty vector otherwise.
+Doc: $\var{bnf}$ being output by
+ \kbd{bnfinit}, \var{sfu} by \kbd{bnfsunit}, gives the column vector of
+ exponents of $x$ on the fundamental $S$-units and the roots of unity.
+ If $x$ is not a unit, outputs an empty vector.

@@ -1,0 +1,4 @@
+\\ #1322
+default(realprecision,19)
+1. << 2^60
+1. >> 2^60

@@ -1,0 +1,57 @@
+
+# Location of BOINC libraries
+BOINC_DIR = /home/eric/BOINC_Project/linux-i686_include_lib/boinc-v2
+BOINC_API_DIR = $(BOINC_DIR)/api
+BOINC_LIB_DIR = $(BOINC_DIR)/lib
+BOINC_SCHED_DIR = $(BOINC_DIR)/sched
+BOINC_DB_DIR = $(BOINC_DIR)/db
+
+# Location of PARI library
+PARI = /home/eric/BOINC_Project/linux-i686_include_lib/pari-2.8-1711-ge5c317c
+
+GMP = /home/eric/BOINC_Project/linux-i686_include_lib/gmp
+GMP_INC = $(GMP)/include
+
+
+O   = Olinux-i686
+
+CC  = g++
+
+
+INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(PARI)/src/headers -I$(PARI)/$(O) -I$(GMP_INC)
+
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(O) -L$(GMP) -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a -lpthread
+
+CXXFLAGS = -O3 -m32 -Wall -fmax-errors=4
+
+STATIC_FLAGS = -static-libgcc -static-libstdc++ -static
+#STATIC_FLAGS = -static-libgcc -static-libstdc++
+
+PREPROC_DEFS = -DAPP_VERSION_CPU_STD
+
+
+################################################################################
+
+# Target rules
+
+all: build
+
+build: $(O) $(O)/GetDecics
+
+
+$(O)/polDiscTest_cpu.o: polDiscTest_cpu.cpp
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/GetDecics.o: GetDecics.cpp GetDecics.h
+	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
+
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_cpu.o
+	$(CC) $(CXXFLAGS) $(STATIC_FLAGS) -o $@ $+ $(LIBS)
+
+$(O): ;	mkdir -p $(O)
+
+clean:
+	rm -r -f $(O)

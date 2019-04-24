@@ -1,0 +1,10 @@
+Function: bnrconductorofchar
+Section: number_fields
+C-Name: bnrconductorofchar
+Prototype: GG
+Help: bnrconductorofchar(bnr,chi): conductor of the character chi on the ray
+ class group bnr.
+Doc: \var{bnr} being a big
+ ray number field as output by \kbd{bnrinit}, and \var{chi} being a row vector
+ representing a \idx{character} as expressed on the generators of the ray
+ class group, gives the conductor of this character as a modulus.

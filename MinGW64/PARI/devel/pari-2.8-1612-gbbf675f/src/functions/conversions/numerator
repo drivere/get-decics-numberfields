@@ -1,0 +1,25 @@
+Function: numerator
+Section: conversions
+C-Name: numer
+Prototype: G
+Help: numerator(x): numerator of x.
+Doc:
+ numerator of $x$. The meaning of this
+ is clear when $x$ is a rational number or function. If $x$ is an integer
+ or a polynomial, it is treated as a rational number or function,
+ respectively, and the result is $x$ itself. For polynomials, you
+ probably want to use
+ \bprog
+ numerator( content(x) )
+ @eprog\noindent
+ instead.
+
+ In other cases, \kbd{numerator(x)} is defined to be
+ \kbd{denominator(x)*x}. This is the case when $x$ is a vector or a
+ matrix, but also for \typ{COMPLEX} or \typ{QUAD}. In particular since a
+ \typ{PADIC} or \typ{INTMOD} has  denominator $1$, its numerator is
+ itself.
+
+ \misctitle{Warning} Multivariate objects are created according to variable
+ priorities, with possibly surprising side effects ($x/y$ is a polynomial, but
+ $y/x$ is a rational function). See \secref{se:priority}.

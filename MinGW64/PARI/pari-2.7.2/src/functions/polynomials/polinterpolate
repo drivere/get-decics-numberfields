@@ -1,0 +1,15 @@
+Function: polinterpolate
+Section: polynomials
+C-Name: polint
+Prototype: GDGDGD&
+Help: polinterpolate(X,{Y},{x},{&e}): polynomial interpolation at x
+ according to data vectors X, Y (ie return P such that P(X[i]) = Y[i] for
+ all i). If Y is omitted, return P such that P(i) = X[i]. If present, e
+ will contain an error estimate on the returned value.
+Doc: given the data vectors
+ $X$ and $Y$ of the same length $n$ ($X$ containing the $x$-coordinates,
+ and $Y$ the corresponding $y$-coordinates), this function finds the
+ \idx{interpolating polynomial} passing through these points and evaluates it
+ at~$x$. If $Y$ is omitted, return the polynomial interpolating the
+ $(i,X[i])$. If present, $e$ will contain an error estimate on the returned
+ value.

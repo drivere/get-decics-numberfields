@@ -1,0 +1,13 @@
+*** ../src/test/32/rnf	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:17.039747838 -0700
+***************
+*** 751,754 ****
+    ***   at top-level: rnfidealtwoelt(L,[[1
+    ***                 ^--------------------
+    *** rnfidealtwoelt: incorrect type in idealtyp [non-square t_MAT] (t_MAT).
+! Total time spent: 356
+--- 751,754 ----
+    ***   at top-level: rnfidealtwoelt(L,[[1
+    ***                 ^--------------------
+    *** rnfidealtwoelt: incorrect type in idealtyp [non-square t_MAT] (t_MAT).
+! Total time spent: 250

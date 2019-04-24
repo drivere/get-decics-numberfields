@@ -1,0 +1,40 @@
+Function: rnfidealabstorel
+Section: number_fields
+C-Name: rnfidealabstorel
+Prototype: GG
+Help: rnfidealabstorel(rnf,x): transforms the ideal x from absolute to
+ relative representation.
+Doc: let $\var{rnf}$ be a relative
+ number field extension $L/K$ as output by \kbd{rnfinit} and $x$ be an ideal of
+ the absolute extension $L/\Q$ given by a $\Z$-basis of elements of $L$.
+ Returns the relative pseudo-matrix in HNF giving the ideal $x$ considered as
+ an ideal of the relative extension $L/K$, i.e.~as a $\Z_K$-module.
+
+ The reason why the input does not use the customary HNF in terms of a fixed
+ $\Z$-basis for $\Z_L$ is precisely that no such basis has been explicitly
+ specified. On the other hand, if you already computed an (absolute) \var{nf}
+ structure \kbd{Labs} associated to $L$, and $m$ is in HNF, defining
+ an (absolute) ideal with respect to the $\Z$-basis \kbd{Labs.zk}, then
+ \kbd{Labs.zk * m} is a suitable $\Z$-basis for the ideal, and
+ \bprog
+   rnfidealabstorel(rnf, Labs.zk * m)
+ @eprog\noindent converts $m$ to a relative ideal.
+ \bprog
+ ? K = nfinit(y^2+1); L = rnfinit(K, x^2-y); Labs = nfinit(L);
+ ? m = idealhnf(Labs, 17, x^3+2);
+ ? B = rnfidealabstorel(L, Labs.zk * m)
+ %3 = [[1, 8; 0, 1], [[17, 4; 0, 1], 1]]  \\ pseudo-basis for m as Z_K-module
+ ? A = rnfidealreltoabs(L, B)
+ %4 = [17, x^2 + 4, x + 8, x^3 + 8*x^2]   \\ Z-basis for m in Q[x]/(L.pol)
+ ? mathnf(matalgtobasis(Labs, A))
+ %5 =
+ [17 8 4 2]
+
+ [ 0 1 0 0]
+
+ [ 0 0 1 0]
+
+ [ 0 0 0 1]
+ ? % == m
+ %6 = 1
+ @eprog

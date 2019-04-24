@@ -1,0 +1,13 @@
+*** ../src/test/32/size	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:53:40.995705285 -0700
+***************
+*** 10,13 ****
+    ***   at top-level: matsize(1)
+    ***                 ^----------
+    *** matsize: incorrect type in matsize (t_INT).
+! Total time spent: 4
+--- 10,13 ----
+    ***   at top-level: matsize(1)
+    ***                 ^----------
+    *** matsize: incorrect type in matsize (t_INT).
+! Total time spent: 0

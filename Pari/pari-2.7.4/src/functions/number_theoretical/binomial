@@ -1,0 +1,13 @@
+Function: binomial
+Section: number_theoretical
+C-Name: binomial
+Prototype: GL
+Help: binomial(x,y): binomial coefficient x*(x-1)...*(x-y+1)/y! defined for
+ y in Z and any x.
+Doc: \idx{binomial coefficient} $\binom{x}{y}$.
+ Here $y$ must be an integer, but $x$ can be any PARI object.
+Variant: The function
+ \fun{GEN}{binomialuu}{ulong n, ulong k} is also available, and so is
+ \fun{GEN}{vecbinome}{long n}, which returns a vector $v$
+ with $n+1$ components such that $v[k+1] = \kbd{binomial}(n,k)$ for $k$ from
+ $0$ up to $n$.

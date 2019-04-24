@@ -1,0 +1,13 @@
+Function: _def_echo
+Class: default
+Section: default
+C-Name: sd_echo
+Prototype:
+Help:
+Doc: this toggle is either 1 (on) or 0 (off). When \kbd{echo}
+ mode is on, each command is reprinted before being executed. This can be
+ useful when reading a file with the \b{r} or \kbd{read} commands. For
+ example, it is turned on at the beginning of the test files used to check
+ whether \kbd{gp} has been built correctly (see \b{e}).
+
+ The default value is \kbd{0} (no echo).

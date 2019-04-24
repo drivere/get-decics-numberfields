@@ -1,0 +1,7 @@
+v=[1,O(3),x,O(x),Mod(y,y^2+1),1/y,[y,z],Mat(z),List(),List([y,z])];
+{
+for(i=1,#v,
+  print(iferr(variable(v[i]), E,E))
+)
+}
+variable()

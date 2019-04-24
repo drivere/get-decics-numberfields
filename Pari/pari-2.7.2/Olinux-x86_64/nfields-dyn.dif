@@ -1,0 +1,13 @@
+*** ../src/test/64/nfields	2014-09-15 04:32:55.000000000 -0700
+--- gp.out	2015-05-12 08:52:12.529862428 -0700
+***************
+*** 748,751 ****
+  ? getheap
+  [217, 91238]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 64
+--- 748,751 ----
+  ? getheap
+  [217, 91238]
+  ? print("Total time spent: ",gettime);
+! Total time spent: 56

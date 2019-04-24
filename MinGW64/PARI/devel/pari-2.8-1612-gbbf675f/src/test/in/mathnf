@@ -1,0 +1,21 @@
+\e
+mathnf([0,2])
+mathnf([0,2], 1)
+mathnf([0,x])
+mathnf([0,x], 1)
+mathnf([x,x^2+1; x^3+x+1, x+2]*Mod(1,5))
+v=[116085838, 181081878, 314252913,10346840];
+[H,U]=mathnf(v, 1); [v*U, norml2(U)]
+[H,U]=mathnf(v, 5); [v*U, norml2(U)]
+mathnf([])
+mathnf([],1)
+mathnf([;])
+mathnf([;],1)
+mathnfmodid(matrix(0,2), [])
+mathnfmodid([0,7;-1,0;-1,-1], [6,2,2])
+
+matsolvemod([;],[]~,[]~,1)
+matsolvemod([;],[],[]~,1)
+matsolvemod([;],[]~,[],1)
+matsolvemod([;],1,1,1)
+matsolvemod([1,2;3,4],1,2,1)

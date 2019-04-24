@@ -1,0 +1,266 @@
+This is TeX, Version 3.14159265 (TeX Live 2014) (preloaded format=tex 2015.8.24)  6 SEP 2015 13:29
+**develop
+(./develop.tex (./parimacro.tex
+\std=\read0
+ (./paricfg.tex)
+\toc=\write0
+\out=\write1
+\aux=\write2
+\index=\write3
+
+SECOND PASS
+(./develop.aux)) [1
+\openout2 = `develop.aux'.
+
+\appno=\count8
+\chapno=\count8
+\secno=\count8
+\subsecno=\count8
+\subsubsecno=\count8
+\euffam=\fam8
+] [2] (./develop.toc) [3
+\openout0 = `develop.toc'.
+
+] (./develop.aux) [4] [5] [6]
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 262--265
+[]\tenrm To sup-port mul-ti-thread, \tentt BLOCK[]SIGINT[]START \tenrm and \ten
+tt BLOCK[]SIGALRM[]START \tenrm calls
+
+\hbox(6.94444+1.94444)x428.99947, glue set 6.36665
+.\hbox(0.0+0.0)x20.0
+.\tenrm T
+.\kern-0.83334
+.\tenrm o
+.\glue 3.33333 plus 1.66666 minus 1.11111
+.etc.
+
+[8] [9]
+Underfull \hbox (badness 10000) in paragraph at lines 363--368
+\tentt GEN gen_PH_log(GEN a, GEN g, GEN N, void *E, const struct bb_group *grp)
+ \tenrm Generic
+
+\hbox(6.94444+2.22223)x428.99947, glue set 8.54337
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 375--379
+\tentt GEN gen_factored_order(GEN x, GEN N, void *E, const struct bb_group *grp
+) \tenrm re-turns
+
+\hbox(6.94444+2.22223)x428.99947, glue set 6.71837
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 400--401
+\tentt GEN gen_ellgroup(GEN o, GEN d, GEN *pt_m, void *E, const struct bb_group
+ *grp,
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 408--412
+\tentt GEN gen_ellgens(GEN d1, GEN d2, GEN m, void *E, const struct bb_group *g
+rp, GEN
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 425--429
+\tentt const struct bb_group * get_FpXQE_group(void **pt_E, GEN a4, GEN a6, GEN
+ T, GEN
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt c
+.\tentt o
+.\tentt n
+.\tentt s
+.\tentt t
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 430--432
+\tentt const struct bb_group * get_FlxqE_group(void **pt_E, GEN a4, GEN a6, GEN
+ T, ulong
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt c
+.\tentt o
+.\tentt n
+.\tentt s
+.\tentt t
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--435
+\tentt const struct bb_group * get_F2xqE_group(void **pt_E, GEN a2, GEN a6, GEN
+ T) \tenrm idem
+
+\hbox(6.94444+2.22223)x428.99947, glue set 6.49162
+.\tentt c
+.\tentt o
+.\tentt n
+.\tentt s
+.\tentt t
+.etc.
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 534--539
+\tentt GEN gen_bkeval(GEN P, long d, GEN x, int use_sqr, void *E, const struct
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 534--539
+\tentt bb_algebra *ff, GEN cmul(void *E, GEN P, long a, GEN x)) $\teni x$ \tenr
+m be-ing an el-e-ment of
+
+\hbox(6.94444+2.22223)x428.99947, glue set 4.41441
+.\tentt b
+.\tentt b
+.\tentt _
+.\tentt a
+.\tentt l
+.etc.
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 544--548
+\tentt GEN gen_bkeval_powers(GEN P, long d, GEN V, void *E, const struct bb_alg
+ebra *ff,
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 578--579
+\tentt GEN gen_digits(GEN x, GEN B, long n, void *E, struct bb_ring *r, GEN (*d
+iv)(void
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--599
+\tentt GEN gen_ZpX_Dixon(GEN F, GEN V, GEN q, GEN p, long N, void *E, GEN lin(v
+oid *E,
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 614--615
+\tentt GEN gen_ZpX_Newton(GEN x, GEN p, long n, void *E, GEN eval(void *E, GEN 
+a, GEN
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt g
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 652--654
+\tentt GEN Fl2_sqrtn_pre(GEN a, GEN n, ulong D, ulong p, ulong pi, GEN *zeta) \
+tenrm as
+
+\hbox(6.94444+2.22223)x428.99947, glue set 29.53511
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt F
+.etc.
+
+[14] [15]
+Underfull \hbox (badness 10000) in paragraph at lines 751--753
+\tentt GEN mat-slice0(GEN A, long x1, long x2, long y1, long y2) \tenrm used to
+ im-ple-ment
+
+\hbox(6.94444+2.22223)x428.99947, glue set 10.15599
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt m
+.etc.
+
+
+Underfull \hbox (badness 6236) in paragraph at lines 765--767
+\tentt GEN vec-s-e-lect(void *E, long (*f)(void* E, GEN x), GEN A) \tenrm used 
+to im-ple-ment \tentt [x<-
+
+\hbox(6.94444+2.22223)x428.99947, glue set 3.968
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt v
+.etc.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 768--770
+\tentt GEN vec-se-lap-ply(void *Epred, long (*pred)(void* E, GEN x), void *Efun
+, GEN
+
+\hbox(6.94444+2.22223)x428.99947
+.\tentt G
+.\tentt E
+.\tentt N
+.\glue 5.24995
+.\tentt v
+.etc.
+
+[16] [17] [18] [19] [20] (./index.tex [21
+\fullhsize=\dimen20
+\leftcolumn=\box20
+\dbox=\box20
+\dfillskip=\skip20
+\interskipa=\skip20
+\interskipb=\skip20
+] [22]) [23] )
+Output written on develop.dvi (23 pages, 88564 bytes).

@@ -1,0 +1,363 @@
+  ***   at top-level: nfeltmulmodpr(nfinit
+  ***                 ^--------------------
+  *** nfeltmulmodpr: incorrect type in checkprid (t_INT).
+(P)->my(f);print(K.pol,": ",P);f=[nfeltdivmodpr,nfeltmulmodpr];for(i=1,#v,fo
+r(j=i,#v,print("*",[i,j],":");for(k=1,#f,print(iferr(f[k](K,v[i],v[j],P),E,E
+)))));f=[(K,x,P)->nfeltpowmodpr(K,x,-3,P),nfeltreducemodpr];for(i=1,#v,print
+("*",i,":");for(k=1,#f,print(iferr(f[k](K,v[i],P),E,E))))
+y^2 + 1: [[1, 0]~, [1, 1], [2, [1, 1]~, 2, 1, [1, -1; 1, 1]]]~
+*[1, 1]:
+error("impossible inverse in dvmdii: 0.")
+[0, 0]~
+*[1, 2]:
+[0, 0]~
+[0, 0]~
+*[1, 3]:
+[0, 0]~
+[0, 0]~
+*[1, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[1, 5]:
+[0, 0]~
+[0, 0]~
+*[1, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[2, 2]:
+[1, 0]~
+[1, 0]~
+*[2, 3]:
+[1, 0]~
+[1, 0]~
+*[2, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[2, 5]:
+error("impossible inverse in Rg_to_ff: Mod(0, 2).")
+[0, 0]~
+*[2, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[3, 3]:
+[1, 0]~
+[1, 0]~
+*[3, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[3, 5]:
+error("impossible inverse in Rg_to_ff: Mod(0, 2).")
+[0, 0]~
+*[3, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[4, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 5]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("inconsistent variables in poltobasis, z != y.")
+*[5, 5]:
+[1, 0]~
+[0, 0]~
+*[5, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[6, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*1:
+error("impossible inverse in Fl_inv: Mod(0, 2).")
+[0, 0]~
+*2:
+[1, 0]~
+[1, 0]~
+*3:
+[1, 0]~
+[1, 0]~
+*4:
+error("inconsistent variables in poltobasis, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*5:
+error("impossible inverse in Fl_inv: Mod(0, 2).")
+[0, 0]~
+*6:
+error("incorrect type in Rg_to_ff (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+y^2 + 1: [[1, 0]~, [1, 0; 0, 1], [3, [3, 0]~, 1, 2, 1], y^2 + 1]~
+*[1, 1]:
+error("impossible inverse in dvmdii: 0.")
+[0, 0]~
+*[1, 2]:
+[0, 0]~
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[1, 3]:
+[0, 0]~
+[0, 0]~
+*[1, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[1, 5]:
+[0, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[1, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[2, 2]:
+[1, 0]~
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 3]:
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 5]:
+[0, 2]~
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[3, 3]:
+[1, 0]~
+[2, 0]~
+*[3, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[3, 5]:
+[0, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[3, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[4, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 5]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("inconsistent variables in poltobasis, z != y.")
+*[5, 5]:
+[1, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[5, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[6, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*1:
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+[0, 0]~
+*2:
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*3:
+[0, 1]~
+[0, 1]~
+*4:
+error("inconsistent variables in poltobasis, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*5:
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*6:
+error("incorrect type in Rg_to_ff (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+y^3 - 9: [[1, 0, 0]~, [1, 0, 0], [3, [0, 1, 0]~, 3, 1, [0, 3, 0; 0, 0, 3; 1,
+ 0, 0]]]~
+*[1, 1]:
+error("impossible inverse in dvmdii: 0.")
+[0, 0, 0]~
+*[1, 2]:
+[0, 0, 0]~
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[1, 3]:
+[0, 0, 0]~
+[0, 0, 0]~
+*[1, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[1, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[1, 6]:
+[0, 0, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[2, 2]:
+[1, 0, 0]~
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 3]:
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[2, 6]:
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*[3, 3]:
+[1, 0, 0]~
+[0, 0, 0]~
+*[3, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[3, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[3, 6]:
+[0, 0, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*[4, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 6]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[5, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[5, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[6, 6]:
+[1, 0, 0]~
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+*1:
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+[0, 0, 0]~
+*2:
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+*3:
+error("impossible inverse in Fl_inv: Mod(0, 3).")
+[0, 0, 0]~
+*4:
+error("inconsistent variables in poltobasis, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*5:
+error("incorrect type in Rg_to_ff (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*6:
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+error("impossible inverse in Rg_to_ff: Mod(0, 3).")
+y^3 - 9: [[2, 1, 1]~, [1, 1, 0; 0, 1, 1], [2, [3, 3, 1]~, 1, 2, [1, 3, 0; 0,
+ 1, 3; 1, 0, 1]], y^2 + y + 1]~
+*[1, 1]:
+error("impossible inverse in dvmdii: 0.")
+[0, 0, 0]~
+*[1, 2]:
+[0, 0, 0]~
+[0, 0, 0]~
+*[1, 3]:
+[0, 0, 0]~
+[0, 0, 0]~
+*[1, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[1, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[1, 6]:
+[0, 0, 0]~
+[0, 0, 0]~
+*[2, 2]:
+[1, 0, 0]~
+[1, 0, 0]~
+*[2, 3]:
+[1, 0, 1]~
+[0, 0, 1]~
+*[2, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[2, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[2, 6]:
+error("impossible inverse in Rg_to_ff: Mod(0, 2).")
+[0, 0, 0]~
+*[3, 3]:
+[1, 0, 0]~
+[1, 0, 1]~
+*[3, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[3, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[3, 6]:
+error("impossible inverse in Rg_to_ff: Mod(0, 2).")
+[0, 0, 0]~
+*[4, 4]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("inconsistent variables in poltobasis, z != y.")
+*[4, 6]:
+error("inconsistent variables in nf_to_scalar_or_alg, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*[5, 5]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[5, 6]:
+error("incorrect type in nf_to_scalar_or_alg (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*[6, 6]:
+[1, 0, 0]~
+[0, 0, 0]~
+*1:
+error("impossible inverse in Fl_inv: Mod(0, 2).")
+[0, 0, 0]~
+*2:
+[1, 0, 0]~
+[1, 0, 0]~
+*3:
+[1, 0, 0]~
+[0, 0, 1]~
+*4:
+error("inconsistent variables in poltobasis, z != y.")
+error("inconsistent variables in poltobasis, z != y.")
+*5:
+error("incorrect type in Rg_to_ff (t_COL).")
+error("incorrect type in Rg_to_ff (t_COL).")
+*6:
+error("impossible inverse in Flxq_inv: 0.")
+[0, 0, 0]~
+[1, 0]~
+
+[x + 1 3]
+
+[1, y]~
+[;]
+[0, 1]~
+
+[  y y^2]
+
+[y^2 y^3]
+
+
+[1]
+
+[1]
+
+  ***   at top-level: nfsolvemodpr(K,m,v,P
+  ***                 ^--------------------
+  *** nfsolvemodpr: impossible inverse in nfsolvemodpr: [1, 1; 1, 1].
+  ***   at top-level: nfsolvemodpr(K,m,m,P
+  ***                 ^--------------------
+  *** nfsolvemodpr: impossible inverse in nfsolvemodpr: [1, 1; 1, 1].
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+0, 0, 0, 0, 0, 0, 0]~
+Total time spent: 244

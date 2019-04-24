@@ -1,0 +1,22 @@
+flist=`ls $config_dir/*.SH`
+for file in $flist; do
+  . ./$file
+done
+
+echo "Extracting scripts and macros"
+for dir in "$doc_dir" "$misc_dir"; do
+  if test -d $dir; then
+    echo "...in $dir"
+    flist=`ls $dir/*.in`
+    for file in $flist; do
+      sed -e "s%@perl@%$perl%g"\
+          -e "s%@datadir@%$datadir%g"\
+          -e "s%@bindir@%$bindir%g"\
+          -e "s%@includedir@%$includedir%g"\
+          -e "s%@libdir@%$libdir%g"\
+          -e "s%@version@%$pari_release%g"\
+      $file > $dir/`basename $file .in`
+    done
+  fi
+done
+chmod +x $doc_dir/gphelp $misc_dir/tex2mail

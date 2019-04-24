@@ -1,0 +1,4 @@
+  ***   at top-level: agm(1,2+O(5))
+  ***                 ^-------------
+  *** agm: not an n-th power residue in Qp_sqrt: 3 + O(5).
+Total time spent: 16

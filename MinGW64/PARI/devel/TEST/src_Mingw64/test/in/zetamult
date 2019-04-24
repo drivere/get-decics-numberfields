@@ -1,0 +1,23 @@
+default(realprecision,38);
+test(a,b)= if(a==b,oo, ceil(log(abs(a-b))/log(10)));
+test(zetamult([2,1]), zeta(3))
+test(zetamult([4,2]), (zeta(3)^2 - 4*zeta(6)/3))
+test(zetamult([4,4]), (zeta(4)^2 - zeta(8))/2)
+test(zetamult([2,2,2]), zeta(2)^3/6 + zeta(6)/3 - zeta(2)*zeta(4)/2)
+zetamult("a")
+zetamult(2)
+zetamult([])
+zetamult([1,2])
+
+default(realprecision,57);
+for(k=1,10, print(Pi^(4*k) / zetamult(vector(2*k, j, 1+2*(j%2)))));
+
+v = [zeta(9),Pi^2*zeta(7),Pi^4*zeta(5),Pi^6*zeta(3)];
+LD=[2,2,2,2];
+{
+  for(i=1,4,
+    LE=LD; LE[i]=3;
+    z = lindep(concat(zetamult(LE),v));
+    if (z[1] < 0, z = -z); print(z);
+  );
+}

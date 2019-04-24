@@ -1,0 +1,32 @@
+Function: polsturm
+Section: polynomials
+C-Name: sturmpart
+Prototype: lGDGDG
+Help: polsturm(T,{ab}): number of real roots of the squarefree polynomial
+ T (in the interval ab = [a,b] if present).
+Doc: number of real roots of the real squarefree polynomial \var{T}. If
+ the argument \var{ab} is present, it must be a vector $[a,b]$ with
+ two real components (of type \typ{INT}, \typ{REAL}, \typ{FRAC}
+ or  \typ{INFINITY}) and we count roots belonging to that closed interval.
+
+ If possible, you should stick to exact inputs, that is avoid \typ{REAL}s in
+ $T$ and the bounds $a,b$: the result is then guaranteed and we use a fast
+ algorithm (Uspensky's method, relying on Descartes's rule of sign, see
+ \tet{polrootsreal}); otherwise, we use Sturm's algorithm and the result
+ may be wrong due to round-off errors.
+ \bprog
+ ? T = (x-1)*(x-2)*(x-3);
+ ? polsturm(T)
+ %2 = 3
+ ? polsturm(T, [-oo,2])
+ %3 = 2
+ ? polsturm(T, [1/2,+oo])
+ %4 = 3
+ ? polsturm(T, [1, Pi])  \\ Pi inexact: not recommended !
+ %5 = 3
+ @eprog
+ %\syn{NO}
+
+ The library syntax is \fun{long}{RgX_sturmpart}{GEN T, GEN ab} or
+ \fun{long}{sturm}{GEN T} (for the case \kbd{ab = NULL}). The function
+ \fun{long}{sturmpart}{GEN T, GEN a, GEN b} is obsolete and deprecated.

@@ -1,0 +1,9 @@
+Function: intnumstep
+Section: sums
+C-Name: intnumstep
+Prototype: lp
+Help: intnumstep(): gives the default value of m used by all intnum and sumnum
+ routines, such that the integration step is 1/2^m.
+Doc: give the value of $m$ used in all the
+ \kbd{intnum} and \kbd{sumnum} programs, hence such that the integration
+ step is equal to $1/2^m$.

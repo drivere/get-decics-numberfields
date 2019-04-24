@@ -1,0 +1,27 @@
+Here is what I do to build on mingw64:
+
+1.  Untar the pari source code in the usual way.
+2.  Copy the new parigen.h into <pari_root>/src/headers/.
+3.  From the src directory, run ./convertLongsAllFiles.sh
+    This will replace long with pari_long throughout the entire code base.
+4.  Also from the src directory, run ./convertMingw64.sh
+    This will make the necessary changes to build on mingw64.
+    (Eventually this could be incorporated into the Makefile as part of the build.)
+5.  Copy the provided pari.cfg into <pari_root>.
+    You should make sure all paths and other variables are set for your particular system.
+6.  From <pari_root>, run ./Configure --load pari.cfg
+7.  Compare the generated Makefile with my saved version Makefile.SAVE and make any necessary changes.
+    In particular, AR and RANLIB need to be changed (I am not sure if there is a way to fix pari.cfg 
+    so that the AR and RANLIB are automatically set).
+8.  Finally, do "make all".
+
+
+Known Issues:
+1. In plotport.c there is a warning about using %ld for a pari_long.  I could not see a way to
+   easily fix this within the convertMingw64 script and I believe it won't be a problem in this 
+   case since longlong should be overkill anyway for a "fontsize" variable.
+2. My pari.cfg has gmp disabled.  I disabled this early on when it appeared that some of the gmp
+   functions required long* as inputs (implying they were doing arithmetic with longs). According 
+   to my notes, one such function was mpn_gcdext.  Maybe you know of a simple way to fix this.
+   Is there a longlong* version of the function which could be used in it's place?
+

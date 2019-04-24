@@ -1,0 +1,34 @@
+Function: ellwp
+Section: elliptic_curves
+C-Name: ellwp0
+Prototype: GDGD0,L,p
+Help: ellwp(w,{z='x},{flag=0}): computes the value at z of the Weierstrass P
+ function attached to the lattice w, as given by ellperiods. Optional flag
+ means 0 (default), compute only P(z), 1 compute [P(z),P'(z)].
+Doc: Computes the value at $z$ of the Weierstrass $\wp$ function attached to
+ the lattice $w$ as given by \tet{ellperiods}. It is also possible to
+ directly input $w = [\omega_1,\omega_2]$, or an elliptic curve $E$ as given
+ by \kbd{ellinit} ($w = \kbd{E.omega}$).
+ \bprog
+ ? w = ellperiods([1,I]);
+ ? ellwp(w, 1/2)
+ %2 = 6.8751858180203728274900957798105571978
+ ? E = ellinit([1,1]);
+ ? ellwp(E, 1/2)
+ %4 = 3.9413112427016474646048282462709151389
+ @eprog\noindent One can also compute the series expansion around $z = 0$:
+ \bprog
+ ? E = ellinit([1,0]);
+ ? ellwp(E)              \\ 'x implicitly at default seriesprecision
+ %5 = x^-2 - 1/5*x^2 + 1/75*x^6 - 2/4875*x^10 + O(x^14)
+ ? ellwp(E, x + O(x^12)) \\ explicit precision
+ %6 = x^-2 - 1/5*x^2 + 1/75*x^6 + O(x^9)
+ @eprog
+
+ Optional \fl\ means 0 (default): compute only $\wp(z)$, 1: compute
+ $[\wp(z),\wp'(z)]$.
+
+Variant: For $\fl = 0$, we also have
+ \fun{GEN}{ellwp}{GEN w, GEN z, long prec}, and
+ \fun{GEN}{ellwpseries}{GEN E, long v, long precdl} for the power series in
+ variable $v$.

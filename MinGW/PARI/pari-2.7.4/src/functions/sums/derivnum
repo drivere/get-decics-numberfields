@@ -1,0 +1,34 @@
+Function: derivnum
+Section: sums
+C-Name: derivnum0
+Prototype: V=GEp
+Help: derivnum(X=a,expr): numerical derivation of expr with respect to
+ X at X = a.
+Wrapper: (,G)
+Description:
+  (gen,gen):gen:prec derivnum(${2 cookie}, ${2 wrapper}, $1, prec)
+Doc: numerical derivation of \var{expr} with respect to $X$ at $X=a$.
+
+ \bprog
+ ? derivnum(x=0,sin(exp(x))) - cos(1)
+ %1 = -1.262177448 E-29
+ @eprog
+ A clumsier approach, which would not work in library mode, is
+ \bprog
+ ? f(x) = sin(exp(x))
+ ? f'(0) - cos(1)
+ %1 = -1.262177448 E-29
+ @eprog
+ When $a$ is a power series, compute \kbd{derivnum(t=a,f)} as $f'(a) =
+ (f(a))'/a'$.
+
+ \synt{derivnum}{void *E, GEN (*eval)(void*,GEN), GEN a, long prec}. Also
+ available is \fun{GEN}{derivfun}{void *E, GEN (*eval)(void *, GEN), GEN a, long prec}, which also allows power series for $a$.
+
+Function: _derivfun
+Section: programming/internals
+C-Name: derivfun0
+Prototype: GGp
+Help: _derivfun(closure,[args]) numerical derivation of closure with respect to
+ the first variable at (args).
+

@@ -1,0 +1,37 @@
+Function: ellak
+Section: elliptic_curves
+C-Name: akell
+Prototype: GG
+Help: ellak(E,n): computes the n-th Fourier coefficient of the L-function of
+ the elliptic curve E (assumed E is an integral model).
+Doc:
+ computes the coefficient $a_n$ of the $L$-function of the elliptic curve
+ $E/\Q$, i.e.~coefficients of a newform of weight 2 by the modularity theorem
+ (\idx{Taniyama-Shimura-Weil conjecture}). $E$ must be an \var{ell} structure
+ over $\Q$ as output by \kbd{ellinit}. $E$ must be given by an integral model,
+ not necessarily minimal, although a minimal model will make the function
+ faster.
+ \bprog
+ ? E = ellinit([0,1]);
+ ? ellak(E, 10)
+ %2 = 0
+ ? e = ellinit([5^4,5^6]); \\ not minimal at 5
+ ? ellak(e, 5) \\ wasteful but works
+ %3 = -3
+ ? E = ellminimalmodel(e); \\ now minimal
+ ? ellak(E, 5)
+ %5 = -3
+ @eprog\noindent If the model is not minimal at a number of bad primes, then
+ the function will be slower on those $n$ divisible by the bad primes.
+ The speed should be comparable for other $n$:
+ \bprog
+ ? for(i=1,10^6, ellak(E,5))
+ time = 820 ms.
+ ? for(i=1,10^6, ellak(e,5)) \\ 5 is bad, markedly slower
+ time = 1,249 ms.
+
+ ? for(i=1,10^5,ellak(E,5*i))
+ time = 977 ms.
+ ? for(i=1,10^5,ellak(e,5*i)) \\ still slower but not so much on average
+ time = 1,008 ms.
+ @eprog

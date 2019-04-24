@@ -1,0 +1,15 @@
+Function: _def_threadsizemax
+Class: default
+Section: default
+C-Name: sd_threadsizemax
+Prototype:
+Help:
+Doc: In parallel mode, each threads needs its own private \tev{stack} in which
+ to do its computations, see \kbd{parisize}. This value determines the maximal
+ size in bytes of the stacks of each thread, so the total memory allocated will
+ be between $\kbd{parisize}+\kbd{nbthreads}\times\kbd{threadsize}$. and
+ $\kbd{parisize}+\kbd{nbthreads}\times\kbd{threadsizemax}$.
+
+ If set to $0$, the value used is the same as \kbd{threadsize}.
+
+ The default value is $0$.

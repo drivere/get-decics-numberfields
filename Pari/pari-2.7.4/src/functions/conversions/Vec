@@ -1,0 +1,36 @@
+Function: Vec
+Section: conversions
+C-Name: gtovec0
+Prototype: GD0,L,
+Help: Vec(x, {n}): transforms the object x into a vector of dimension n.
+Description:
+ (gen):vec        gtovec($1)
+Doc:
+ transforms the object $x$ into a row vector. The dimension of the
+ resulting vector can be optionally specified via the extra parameter $n$.
+
+ If $n$ is omitted or $0$, the dimension depends on the type of $x$; the
+ vector has a single component, except when $x$ is
+
+ \item a vector or a quadratic form (in which case the resulting vector
+ is simply the initial object considered as a row vector),
+
+ \item a polynomial or a power series. In the case of a polynomial, the
+ coefficients of the vector start with the leading coefficient of the
+ polynomial, while for power series only the significant coefficients are
+ taken into account, but this time by increasing order of degree.
+ In this last case, \kbd{Vec} is the reciprocal function of \kbd{Pol} and
+ \kbd{Ser} respectively,
+
+ \item a matrix: return the vector of columns comprising the matrix.
+
+ \item a character string: return the vector of individual characters.
+
+ \item an error context (\typ{ERROR}): return the error components, see
+ \tet{iferr}.
+
+ In the last three cases (matrix, character string, error), $n$ is
+ meaningless and must be omitted or an error is raised. Otherwise, if $n$ is
+ given, $0$ entries are appended at the end of the vector if $n > 0$, and
+ prepended at the beginning if $n < 0$. The dimension of the resulting vector
+ is $|n|$. Variant: \fun{GEN}{gtovec}{GEN x} is also available.

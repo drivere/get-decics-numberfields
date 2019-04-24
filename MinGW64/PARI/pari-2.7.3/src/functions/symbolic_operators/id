@@ -1,0 +1,5 @@
+Function: _===_
+Help: a === b : true if a and b are identical
+Section: symbolic_operators
+C-Name: gidentical
+Prototype: iGG

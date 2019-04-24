@@ -1,0 +1,19 @@
+Function: algsplittingmatrix
+Section: algebras
+C-Name: algsplittingmatrix
+Prototype: GG
+Help: algsplittingmatrix(al,x): image of x under a splitting of al.
+Doc: A central simple algebra \var{al} output by \tet{alginit} contains data
+ describing an isomorphism~$\phi : A\otimes_K L \to M_d(L)$, where $d$ is the
+ degree of the algebra and $L$ is an extension of $L$ with~$[L:K]=d$. Returns
+ the matrix $\phi(x)$.
+ \bprog
+ ? A = alginit(nfinit(y), [-1,-1]);
+ ? algsplittingmatrix(A,[0,0,0,2]~)
+ %2 =
+ [Mod(x + 1, x^2 + 1) Mod(Mod(1, y)*x + Mod(-1, y), x^2 + 1)]
+
+ [Mod(x + 1, x^2 + 1)                   Mod(-x + 1, x^2 + 1)]
+ @eprog
+
+ Also accepts matrices with coefficients in \var{al}.

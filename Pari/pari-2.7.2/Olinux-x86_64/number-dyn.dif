@@ -1,0 +1,13 @@
+*** ../src/test/32/number	2014-07-30 06:38:47.000000000 -0700
+--- gp.out	2015-05-12 08:52:38.008817169 -0700
+***************
+*** 269,272 ****
+  Mod(391, 3120), Mod(2081, 3120)]]
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 24
+--- 269,272 ----
+  Mod(391, 3120), Mod(2081, 3120)]]
+  ? if(getheap()!=HEAP,getheap())
+  ? print("Total time spent: ",gettime);
+! Total time spent: 10
