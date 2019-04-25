@@ -48,7 +48,10 @@ build: $(O) $(O)/GetDecics
 $(O)/polDiscTest_gpuOpenCL.o: polDiscTest_gpuOpenCL.cpp
 	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
 
-$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h
+$(O)/polDiscTest_cpu.o: polDiscTest_cpu.cpp
+	$(CC) $(CXXFLAGS) $(INCLUDES) -c -o $@ $<
+
+$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h $(O)/polDiscTest_cpu.o
 	$(CC) $(CXXFLAGS) $(INCLUDES) $(PREPROC_DEFS) -c -o $@ $<
 
 $(O)/GetDecics.o: GetDecics.cpp GetDecics.h
@@ -60,7 +63,7 @@ $(O)/openCL_GetDecics.o: openCL_GetDecics.cpp openCL_GetDecics.h
 $(O)/boinc_opencl.o: $(BOINC_API_DIR)/boinc_opencl.cpp $(BOINC_API_DIR)/boinc_opencl.h
 	$(CC) $(CXXFLAGS) $(INCLUDES) -c -o $@ $<
 
-$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o $(O)/polDiscTest_cpu.o
 	$(CC) $(CXXFLAGS) $(STATIC_FLAGS) -o $@ $+ $(LIBS)
 
 $(O): ;	mkdir -p $(O)
