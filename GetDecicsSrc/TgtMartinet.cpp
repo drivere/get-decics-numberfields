@@ -1181,7 +1181,7 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
 
   // This performs the polDisc test using the CPU version:
 #ifdef APP_VERSION_CPU_STD
-  int status = polDiscTest_cpu(polBufNow, numPolysNow, polGoodFlag, numPrimes, pSet);
+  int status = polDiscTest_cpu(polBufNow, numPolysNow, polGoodFlag, NULL, numPrimes, pSet);
   // The cpu version has to trick the code below into processing the current buffer.
   // This is easily done by turning off the "first pass" flag and setting the "previous"
   // state to the current state.
@@ -1196,6 +1196,10 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
   boinc_begin_critical_section();
   int status = polDiscTest_gpuCuda(polBufNow, numPolysNow, polGoodFlag, numPrimes, pSet);
   boinc_end_critical_section();
+  // We let the cpu handle any polynomials that made it through the perfect square filter.
+  if (!firstPass && status==0) {
+    status = polDiscTest_cpu(polBufPrev, numPolysPrev, polGoodFlag, polGoodFlag, numPrimes, pSet);
+    }
 #endif
 
   // This performs the polDisc test using the OPENCL-GPU version:
@@ -1203,6 +1207,10 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
   boinc_begin_critical_section();
   int status = polDiscTest_gpuOpenCL(polBufNow, numPolysNow, polGoodFlag, numPrimes, pSet);
   boinc_end_critical_section();
+  // We let the cpu handle any polynomials that made it through the perfect square filter.
+  if (!firstPass && status==0) {
+    status = polDiscTest_cpu(polBufPrev, numPolysPrev, polGoodFlag, polGoodFlag, numPrimes, pSet);
+    }
 #endif
 
 
@@ -1243,6 +1251,15 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
       }
     exit(1);
 #endif
+
+
+#if 0
+  int accum = 0;
+  for(int k=0; k<numPolysPrev; k++)  accum += polGoodFlag[k];
+  float pct = 100.0 * accum / numPolysPrev;
+  printf("Percent polys remaining = %f\n", pct);
+#endif
+
 
 
   // The GPU is now processing the current buffer.
