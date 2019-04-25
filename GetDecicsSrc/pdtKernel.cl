@@ -402,30 +402,47 @@ void pdtKernelStg3(int numPolys, __global char *validFlag, __global mp_int *polD
   polDisc.sign = polDiscArray[index].sign;
 
 
-  // Initialize local variables
-  mp_int sqrtDisc, sqrtDiscSq;
-  mp_zero(&sqrtDisc);
-  mp_zero(&sqrtDiscSq);
+  // These are the residues Mod 64,63,65,11
+  char resMod64[]={
+    1,1,0,0,1,0,0,0,0,1, 0,0,0,0,0,0,1,1,0,0, 0,0,0,0,0,1,0,0,0,0,
+    0,0,0,1,0,0,1,0,0,0, 0,1,0,0,0,0,0,0,0,1, 0,0,0,0,0,0,0,1,0,0, 0,0,0,0};
+  char resMod63[]={
+    1,1,0,0,1,0,0,1,0,1, 0,0,0,0,0,0,1,0,1,0, 0,0,1,0,0,1,0,0,1,0,
+    0,0,0,0,0,0,1,1,0,0, 0,0,0,1,0,0,1,0,0,1, 0,0,0,0,0,0,0,0,1,0, 0,0,0};
+  char resMod65[]={
+    1,1,0,0,1,0,0,0,0,1, 1,0,0,0,1,0,1,0,0,0, 0,0,0,0,0,1,1,0,0,1,
+    1,0,0,0,0,1,1,0,0,1, 1,0,0,0,0,0,0,0,0,1, 0,1,0,0,0,1,1,0,0,0, 0,1,0,0,1};
+  char resMod11[]={1,1,0,1,1,1,0,0,0,1, 0};
 
 
-  // Check if what remains of the discriminant is a perfect square.
-  // NOTE: The sqrt algorithm needs a few more digits, so we need to check for overflow.
-  int retVal = mp_sqrt( &polDisc, &sqrtDisc);   // Compute the sqrt of polDisc
-  if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+  // First compute polDisc modulo (64*63*65*11)
+  mp_digit rem;
+  mp_div_d( &polDisc, 2882880, NULL, &rem );
 
-  mp_sqr( &sqrtDisc, &sqrtDiscSq ); // Square the sqrt.  This should never overflow.
-
-
-#ifdef DEBUG
-  if(index==DBG_THREAD) {
-    printf("\nReduced polDisc = ");  mp_printf(polDisc);
-    printf("\nsqrtDisc   = ");  mp_printf(sqrtDisc);
-    printf("\nsqrtDisc^2 = ");  mp_printf(sqrtDiscSq);
+  // Check if rem is a quadratic residue modulo 64.
+  // If it's not a residue mod 64, then polDisc is not a perfect square.
+  if ( !resMod64[rem & 0x3F] )  {
+    validFlag[index]=FALSE;
+    return;
     }
-#endif
 
+  // Check if rem is a quadratic residue modulo 63.
+  if ( !resMod63[rem % 63] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
 
-  if ( mp_cmp_mag( &sqrtDiscSq, &polDisc ) != MP_EQ )  validFlag[index] = FALSE;
+  // Check if rem is a quadratic residue modulo 65.
+  if ( !resMod65[rem % 65] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 11.
+  if ( !resMod11[rem % 11] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
 
 
 }
