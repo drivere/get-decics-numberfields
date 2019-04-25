@@ -1,0 +1,14 @@
+14:30:23 (26757): Can't open init data file - running in standalone mode
+numBlocks = 100.
+threadsPerBlock = 32.
+polyBufferSize = 3200.
+14:30:23 (26757): Can't open init data file - running in standalone mode
+Error: Failed to obtain OpenCL device id.
+Error: Failed to initialize OpenCL.
+14:30:24 (26759): Can't open init data file - running in standalone mode
+numBlocks = 100.
+threadsPerBlock = 32.
+polyBufferSize = 3200.
+14:30:24 (26759): Can't open init data file - running in standalone mode
+Error: Failed to obtain OpenCL device id.
+Error: Failed to initialize OpenCL.
