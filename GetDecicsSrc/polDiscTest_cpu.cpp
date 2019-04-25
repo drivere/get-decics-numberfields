@@ -20,7 +20,7 @@ void gmp_print_poly(mpz_t*, int);
 
 
 extern "C" int
-polDiscTest_cpu(long long *polBuf, int numPolys, char *polGoodFlag, int numP, int *pSet)
+polDiscTest_cpu(long long *polBuf, int numPolys, char *polGoodFlag, char *polyMask, int numP, int *pSet)
   {
 
   /* Multi-precision declarations */
@@ -41,6 +41,9 @@ polDiscTest_cpu(long long *polBuf, int numPolys, char *polGoodFlag, int numP, in
   /* Loop over every polynomial in the buffer, applying the discriminant test to each. */
   for(int pIdx=0; pIdx<numPolys; ++pIdx)
     {
+
+    // Only consider those polynomials whose mask is non-zero.
+    if (polyMask && polyMask[pIdx]==0)  continue;
 
     // Extract the polynomial under test
     // It is assummed the input coefficients are in decreasing order of degree.
