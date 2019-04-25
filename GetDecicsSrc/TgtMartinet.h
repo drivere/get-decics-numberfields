@@ -20,7 +20,7 @@ void Write_Cvec_Stats(GEN);
 
 extern "C" int polDiscTest_gpuCuda(long long*, int, char*, int, int*);
 extern "C" int polDiscTest_gpuOpenCL(long long*, int, char*, int, int*);
-extern "C" int polDiscTest_cpu(long long*, int, char*, int, int*);
+extern "C" int polDiscTest_cpu(long long*, int, char*, char*, int, int*);
 
 
 #endif

@@ -51,7 +51,7 @@ $(O)/%.o: %.cpp
 $(O)/boinc_opencl.o: $(BOINC_API_DIR)/boinc_opencl.cpp $(BOINC_API_DIR)/boinc_opencl.h
 	$(CC) $(CXXFLAGS) -c -o $@ $<
 
-$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/openCL_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuOpenCL.o $(O)/boinc_opencl.o $(O)/polDiscTest_cpu.o
 	$(CC) -static $(CXXFLAGS) -o $@ $+ $(LIBS) -pthread
 
 clean:

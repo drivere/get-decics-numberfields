@@ -274,7 +274,10 @@ endif
 $(O)/polDiscTest_gpuCuda.o: polDiscTest_gpuCuda.cu gpuMultiPrec.h
 	$(EXEC) $(NVCC) $(NVCC_INCLUDES) $(ALL_CCFLAGS) $(GENCODE_FLAGS) -o $@ -c $<
 
-$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h
+$(O)/polDiscTest_cpu.o: polDiscTest_cpu.cpp
+	$(CC) $(CXXFLAGS) -c -o $@ $< -pthread
+
+$(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h $(O)/polDiscTest_cpu.o
 	$(CC) $(CXXFLAGS) -D APP_VERSION_GPU_CUDA -c -o $@ $< -pthread
 
 $(O)/cuda_GetDecics.o: cuda_GetDecics.cpp cuda_GetDecics.h
@@ -283,7 +286,7 @@ $(O)/cuda_GetDecics.o: cuda_GetDecics.cpp cuda_GetDecics.h
 $(O)/GetDecics.o: GetDecics.cpp GetDecics.h
 	$(CC) $(CXXFLAGS) -D APP_VERSION_GPU_CUDA -c -o $@ $< -pthread
 
-$(O)/GetDecics: $(O)/GetDecics.o $(O)/cuda_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuCuda.o
+$(O)/GetDecics: $(O)/GetDecics.o $(O)/cuda_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuCuda.o $(O)/polDiscTest_cpu.o
 	$(EXEC) $(NVCC) $(STATIC_FLAGS) $(ALL_LDFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS) $(LIBRARIES) -Xcompiler -pthread
 
 $(O): ;	mkdir -p $(O)

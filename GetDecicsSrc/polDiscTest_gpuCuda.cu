@@ -427,6 +427,18 @@ void pdtKernel_stage2(int numPolys, char *validFlag, mp_int* polDiscArray, int p
 
 
 // CUDA kernel function to do the pol disc test (stage 3)
+// The validFlag was originally initialized to 1.
+// In this kernel, we set the flag to zero if the polDisc is NOT a perfect square.
+// Recall the theorem:
+//      N is a perfect square => N is a square mod n for all n.
+// So the contrapositive gives: 
+//      N is not a square mod n for some n => N is not a perfect square
+// This gives a very fast method of finding non-squares: just check the number mod n
+// for a large enough set of n's.  This will quickly filter out over 99% of the 
+// non-squares.  Any number passing all the modulus tests would have a small chance 
+// of being a perfect square.  One would normally check these few remaining cases
+// by actually computing the sqrt.  In our case, we just throw it back to the cpu
+// to deal with.
 __global__
 void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
 {
@@ -444,31 +456,47 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
   mp_copy(&(polDiscArray[index]), &polDisc);
 
 
-  // Initialize local variables
-  mp_int sqrtDisc, sqrtDiscSq;
-  mp_zero(&sqrtDisc);
-  mp_zero(&sqrtDiscSq);
+  // These are the residues Mod 64,63,65,11
+  char resMod64[]={
+    1,1,0,0,1,0,0,0,0,1, 0,0,0,0,0,0,1,1,0,0, 0,0,0,0,0,1,0,0,0,0,
+    0,0,0,1,0,0,1,0,0,0, 0,1,0,0,0,0,0,0,0,1, 0,0,0,0,0,0,0,1,0,0, 0,0,0,0};
+  char resMod63[]={
+    1,1,0,0,1,0,0,1,0,1, 0,0,0,0,0,0,1,0,1,0, 0,0,1,0,0,1,0,0,1,0,
+    0,0,0,0,0,0,1,1,0,0, 0,0,0,1,0,0,1,0,0,1, 0,0,0,0,0,0,0,0,1,0, 0,0,0};
+  char resMod65[]={
+    1,1,0,0,1,0,0,0,0,1, 1,0,0,0,1,0,1,0,0,0, 0,0,0,0,0,1,1,0,0,1,
+    1,0,0,0,0,1,1,0,0,1, 1,0,0,0,0,0,0,0,0,1, 0,1,0,0,0,1,1,0,0,0, 0,1,0,0,1};
+  char resMod11[]={1,1,0,1,1,1,0,0,0,1, 0};
 
 
-  // Check if what remains of the discriminant is a perfect square.
-  // NOTE: The sqrt algorithm needs a few more digits, so we need to check for overflow.
-  int retVal = mp_sqrt( &polDisc, &sqrtDisc);   // Compute the sqrt of polDisc
-  if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+  // First compute polDisc modulo (64*63*65*11)
+  mp_digit rem;
+  mp_div_d( &polDisc, 2882880, NULL, &rem );
 
-  mp_sqr( &sqrtDisc, &sqrtDiscSq ); // Square the sqrt.  This should never overflow.
-
-
-#ifdef DEBUG
-  if(index==DBG_THREAD) {
-    printf("\nReduced polDisc = ");  mp_printf(polDisc);
-    printf("\nsqrtDisc   = ");  mp_printf(sqrtDisc);
-    printf("\nsqrtDisc^2 = ");  mp_printf(sqrtDiscSq);
+  // Check if rem is a quadratic residue modulo 64.
+  // If it's not a residue mod 64, then polDisc is not a perfect square.
+  if ( !resMod64[rem & 0x3F] )  {
+    validFlag[index]=FALSE;
+    return;
     }
-#endif
 
+  // Check if rem is a quadratic residue modulo 63.
+  if ( !resMod63[rem % 63] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
 
-  if ( mp_cmp_mag( &sqrtDiscSq, &polDisc ) != MP_EQ )  validFlag[index] = FALSE;
+  // Check if rem is a quadratic residue modulo 65.
+  if ( !resMod65[rem % 65] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
 
+  // Check if rem is a quadratic residue modulo 11.
+  if ( !resMod11[rem % 11] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
 
 
 #ifdef CUDA_PROFILER
