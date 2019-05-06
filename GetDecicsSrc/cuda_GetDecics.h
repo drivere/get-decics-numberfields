@@ -3,8 +3,10 @@
 #ifndef CUDA_GETDECICS_H
 #define CUDA_GETDECICS_H
 
+
 #include <cuda_runtime.h>
-#include "gpuMultiPrec.h"
+#include "gpuMultiPrec128.h"
+//#include "gpuMultiPrec256.h"
 
 
 #define FAIL  1
