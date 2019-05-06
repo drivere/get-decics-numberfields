@@ -31,6 +31,7 @@ inline void printErrMsg(int status, const char *msg, const char *funcName, const
 extern "C" int
 polDiscTest_gpuOpenCL(long long *polBuf, int numPolys, char *polGoodFlag, int numP, int *pSet)
   {
+  static int numPolysPrev = 0;
   static int firstPass = 1;
 
   cl_int status;
@@ -48,7 +49,7 @@ polDiscTest_gpuOpenCL(long long *polBuf, int numPolys, char *polGoodFlag, int nu
 
     // Read the flag buffer off the device and put into the polGoodFlag array
     // This is a blocking read - when the call returns, the polGoodFlag is ready to be used.
-    status = clEnqueueReadBuffer(commandQueue, kernelFlagBuffer, CL_TRUE, 0, sizeof(char)*numPolys, polGoodFlag, 0, NULL, NULL);
+    status = clEnqueueReadBuffer(commandQueue, kernelFlagBuffer, CL_TRUE, 0, sizeof(char)*numPolysPrev, polGoodFlag, 0, NULL, NULL);
     CHECK_ERROR(status, "Error: Failed to read flag buffer.", "clEnqueueReadBuffer");
 
   }
@@ -61,6 +62,7 @@ polDiscTest_gpuOpenCL(long long *polBuf, int numPolys, char *polGoodFlag, int nu
 
 
   firstPass = 0;
+  numPolysPrev = numPolys;
 
 
   // Setup primes for the kernel
