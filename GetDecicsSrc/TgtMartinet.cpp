@@ -1255,7 +1255,9 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
 
 #if 0
   int accum = 0;
-  for(int k=0; k<numPolysPrev; k++)  accum += polGoodFlag[k];
+  for(int k=0; k<numPolysPrev; k++)  {
+    if(polGoodFlag[k]!=0) ++accum;
+    }
   float pct = 100.0 * accum / numPolysPrev;
   printf("Percent polys remaining = %f\n", pct);
 #endif
