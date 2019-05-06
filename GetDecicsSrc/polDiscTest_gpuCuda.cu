@@ -10,7 +10,7 @@
 #include <cuda.h>
 
 
-#define CUDA_PROFILER
+//#define CUDA_PROFILER
 
 #ifdef CUDA_PROFILER
   #include <cuda_profiler_api.h>
@@ -27,11 +27,18 @@
   #define PRINTF_ENABLED
 #endif
 
-#include "gpuMultiPrec.h"
+
+#define CUDA
+#include "gpuMultiPrec128.h"
+//#include "gpuMultiPrec256.h"
 #include "cuda_GetDecics.h"
 
-#define TRUE  1
-#define FALSE 0
+
+// Possible states for the validFlag;
+#define TRUE    1
+#define FALSE   0
+#define MEM_ERR 2
+
 
 extern int  numBlocks, threadsPerBlock, polyBufferSize;
 
@@ -53,6 +60,11 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
   // This setting keeps the polynomial on the list for further testing.
   // We do this in case the kernel aborts early before properly setting the flag.
   validFlag[index] = TRUE;
+
+
+#ifdef CUDA_PROFILER
+  unsigned int time1 = clock();
+#endif
 
 
   // Extract the polynomial for this thread.
@@ -91,12 +103,15 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
     if( (B[k]%5) != 0 ) { cont5=1; break;}  // Set content to 1 and break if any coeff is NOT divisible by 5.
     }
 
+    __syncwarp();
+
   // Finally, we get the full content of B:
   int contB = cont2 * cont5;
 
   // Scale B by its content.
 #pragma unroll
   for(int k = 0; k < 10; k++)  B[k] = B[k] / contB;
+
 
   // Multi-precision declarations
   mp_int g, h, mpA[11], mpB[10], R[11], BR, SB[10];
@@ -106,8 +121,8 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
   // Note: Values used need to be zeroed out one time.
   mp_set(&g, 1);
   mp_set(&h, 1);
-  mp_set_vec_ll(mpA, A, 11);  // initialize mpA to A.
-  mp_set_vec_ll(mpB, B, 10);  // initialize mpB to B.
+  mp_set_vec_int64(mpA, A, 11);  // initialize mpA to A.
+  mp_set_vec_int64(mpB, B, 10);  // initialize mpB to B.
 #pragma unroll
   for(int k=0; k<11; k++)  mp_zero(&(R[k]));
   mp_zero(&BR);
@@ -120,22 +135,39 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 
 
 #ifdef DEBUG
+  int iter = 0;
   if(index==DBG_THREAD) {
     printf("long versions:\n");
     printf("  A = %ld ", A[0]);
     for(int k=1; k<11; k++) printf("+ %ld x^%d ", A[k], k);
-    printf("\n  B = %ld ", B[0]);
+    printf("\n");
+    printf("  B = %ld ", B[0]);
     for(int k=1; k<10; k++) printf("+ %ld x^%d ", B[k], k);
-    printf("\nMulti-precision versions:");
-    printf("\nmpA = ");  mp_print_poly(mpA, 10);
-    printf("\nmpB = ");  mp_print_poly(mpB,  9);
+    printf("\n");
+    printf("Multi-precision versions:\n");
+    printf("mpA = ");  mp_print_poly(mpA, 10); printf("\n");
+    printf("mpB = ");  mp_print_poly(mpB,  9) ;printf("\n");
+
+    // This tests multiplication:
+    if(0) {
+      mp_set(&hPow, 1);
+      for(int k=1; k<=12; k++)  {
+        mp_mul( &hPow, &mpA[0], &hPow );
+        printf("A[0]^%d = ",k); mp_printf(hPow); printf("\n");
+        }
+      }
+
     }
 #endif
 
 
 #ifdef CUDA_PROFILER
-  unsigned int time1 = clock();
+  unsigned int time2 = clock();
+  if(index==DBG_THREAD) {
+    printf("Kernel 1 Initialization Time = %d\n", time2 - time1); }
 #endif
+
+    __syncwarp();
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -173,7 +205,7 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 #pragma unroll
       for(int k=degS; k<degR; k++)  {
         int retVal = mp_mul( &(R[degR]), &(mpB[k-degS]), &(SB[k]) );
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
       // Compute R = B[degB]*R - S*B
       // What follows is the mp equivalent of this:
@@ -181,7 +213,7 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 #pragma unroll
       for(int k=0; k<degR; k++) {
         int retVal = mp_mul( &(mpB[degB]), &(R[k]), &BR );
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         mp_sub( &BR, &(SB[k]), &(R[k]) );
         }
 
@@ -196,19 +228,20 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
       --e;
       }
 
+
     // Compute q = B[degB]^e
     mp_set(&q, 1);
 #pragma unroll
     for(int k=1; k<=e; k++)  {
       int retVal = mp_mul( &q, &(mpB[degB]), &q );   // Set q = q * B[degB]
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     // Compute R = q*R.
 #pragma unroll
     for(int k=0; k<=degR; k++)  {
       int retVal = mp_mul( &(R[k]), &q, &(R[k]) );  // R[k] = R[k] * q;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     // End of Pseudo Division
@@ -224,18 +257,19 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 #pragma unroll
     for(int k=1; k<=delta-1; k++)  {
       int retVal = mp_mul( &hPow, &h, &hPow );  // Set hPow = hPow*h
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     int retVal = mp_mul( &g, &hPow, &scale );  // scale = g*hPow
-    if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
 
     degB = degR;
 #pragma unroll
     for(int k=0; k<=degR; k++)  {
       int retVal = mp_div( &(R[k]), &scale, &(mpB[k]), NULL ); // Set B[k] = R[k] / scale;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
+
 
     // Get new g for next iteration.  g = leading coeff of A
     mp_copy( &(mpA[degA]), &g);
@@ -254,7 +288,7 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 #pragma unroll
       for(int k=1; k<=delta-1; k++)  {
         int retVal = mp_mul( &gPow, &g, &gPow );  // Set gPow = gPow*g
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
 
       // Then compute h^(delta-1):
@@ -262,16 +296,45 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 #pragma unroll
       for(int k=1; k<=delta-2; k++)  {
         int retVal = mp_mul( &hPow, &h, &hPow );  // Set hPow = hPow*h
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
 
       // Finally, divide them:
       int retVal = mp_div( &gPow, &hPow, &h, NULL );  // Set h = gPow / hPow;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
 
       }
 
+    #ifdef DEBUG
+      ++iter;
+      if(index==DBG_THREAD) {
+        printf("\n");
+        printf("Iteration %d:\n", iter);
+        printf("  degA = %d\n", degA);
+        printf("  A = "); mp_print_poly(mpA,degA); printf("\n");
+        printf("  degB = %d\n", degB);
+        printf("  B = "); mp_print_poly(mpB,degB); printf("\n");
+        printf("  g = "); mp_printf(g); printf("\n");
+        printf("  h = "); mp_printf(h); printf("\n");
+        printf("\n");
+        }
+    #endif
+
     }  // End while loop on deg(B)
+
+
+#ifdef CUDA_PROFILER
+  unsigned int time3 = clock();
+  if(index==DBG_THREAD) {
+    printf("Kernel 1 Intermediate Steps = %d\n", time3 - time2); }
+#endif
+
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) { printf("g = ");  mp_printf(g); printf("\n"); }
+  if(index==DBG_THREAD) { printf("h = ");  mp_printf(h); printf("\n"); }
+  if(index==DBG_THREAD) { printf("B[0] = ");  mp_printf(mpB[0]); printf("\n"); }
+#endif
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -296,16 +359,16 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
   if( IS_ZERO(mpB) ) {  // mpB is the address of mpB[0]
     validFlag[index] = FALSE;
     polDisc = &(mpB[0]);
-    //return;
     }
   else {
     if(degA%2==0)  polDisc = &h;         // Set polDisc = h
     else           polDisc = &(mpB[0]);  // Set polDisc = B[0]
     }
 
+
 #ifdef DEBUG
   if(index==DBG_THREAD) {
-    printf("\npolDisc = ");  mp_printf(*polDisc);
+    printf("polDisc = ");  mp_printf(*polDisc); printf("\n");
     }
 #endif
 
@@ -319,8 +382,9 @@ void pdtKernel_stage1(int numPolys, int64_t *polys, char *validFlag, mp_int* pol
 
 
 #ifdef CUDA_PROFILER
-//  unsigned int time2 = clock();
-//  printf("Phase 1 time = %d\n", time2 - time1);
+  unsigned int time4 = clock();
+  if(index==DBG_THREAD) {
+    printf("Kernel 1 Final Step = %d\n", time4 - time3); }
 #endif
 
 }
@@ -339,8 +403,7 @@ void pdtKernel_stage2(int numPolys, char *validFlag, mp_int* polDiscArray, int p
 
   // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
-  //if(index>numPolys-1) return;
-  if(index>numPolys-1 || validFlag[index]==FALSE) return;
+  if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
 
   int numP, pSet[2] = {p1, p2};
@@ -415,11 +478,6 @@ void pdtKernel_stage2(int numPolys, char *validFlag, mp_int* polDiscArray, int p
   // Put modified discriminant back into device memory
   mp_copy(&polDisc, &(polDiscArray[index]));
 
-#ifdef CUDA_PROFILER
-//  unsigned int time3 = clock();
-//  printf("Phase 2 time = %d\n", time3 - time2);
-#endif
-
 }
 
 
@@ -447,8 +505,7 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
   // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
   // Also return early if validFlag is already false, which can be set in stage 1.
-  //if(index>numPolys-1) return;
-  if(index>numPolys-1 || validFlag[index]==FALSE) return;
+  if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
 
   // Extract polynomial discriminant for this thread
@@ -472,6 +529,7 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
   // First compute polDisc modulo (64*63*65*11)
   mp_digit rem;
   mp_div_d( &polDisc, 2882880, NULL, &rem );
+
 
   // Check if rem is a quadratic residue modulo 64.
   // If it's not a residue mod 64, then polDisc is not a perfect square.
@@ -497,12 +555,6 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
     validFlag[index]=FALSE;
     return;
     }
-
-
-#ifdef CUDA_PROFILER
-//  unsigned int time4 = clock();
-//  printf("Phase 3 time = %d\n", time4 - time3);
-#endif
 
 }
 

@@ -245,7 +245,7 @@ INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_
 LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L/usr/local/lib -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a
 
 #CXXFLAGS = -O3 -Wall -Werror -fmax-errors=4 $(INCLUDES)
-CXXFLAGS = -O3 -Wall -fmax-errors=4 $(INCLUDES)
+CXXFLAGS = -O3 -Wall -Wno-unknown-pragmas -Wno-class-memaccess -fmax-errors=4 $(INCLUDES)
 
 # Using the -static flag causes the cuda routines to crash.
 #STATIC_FLAGS = -Xcompiler -static-libgcc -Xcompiler -static-libstdc++ -Xcompiler -static
@@ -254,6 +254,7 @@ STATIC_FLAGS = -Xcompiler -static-libgcc -Xcompiler -static-libstdc++
 # Use this to get line numbers with cuda-memcheck
 ALL_CCFLAGS += -lineinfo -Xptxas --warn-on-spills -Xptxas --verbose -Xcompiler -fmax-errors=4
 
+PREPROC_DEFS = -DAPP_VERSION_GPU_CUDA -DCUDA
 
 ################################################################################
 
@@ -271,20 +272,20 @@ else
 endif
 
 
-$(O)/polDiscTest_gpuCuda.o: polDiscTest_gpuCuda.cu gpuMultiPrec.h
+$(O)/polDiscTest_gpuCuda.o: polDiscTest_gpuCuda.cu gpuMultiPrec128.h
 	$(EXEC) $(NVCC) $(NVCC_INCLUDES) $(ALL_CCFLAGS) $(GENCODE_FLAGS) -o $@ -c $<
 
 $(O)/polDiscTest_cpu.o: polDiscTest_cpu.cpp
 	$(CC) $(CXXFLAGS) -c -o $@ $< -pthread
 
 $(O)/TgtMartinet.o: TgtMartinet.cpp TgtMartinet.h $(O)/polDiscTest_cpu.o
-	$(CC) $(CXXFLAGS) -D APP_VERSION_GPU_CUDA -c -o $@ $< -pthread
+	$(CC) $(CXXFLAGS) $(PREPROC_DEFS) -c -o $@ $< -pthread
 
 $(O)/cuda_GetDecics.o: cuda_GetDecics.cpp cuda_GetDecics.h
-	$(CC) $(CXXFLAGS) -D APP_VERSION_GPU_CUDA -c -o $@ $< -pthread
+	$(CC) $(CXXFLAGS) $(PREPROC_DEFS) -c -o $@ $< -pthread
 
 $(O)/GetDecics.o: GetDecics.cpp GetDecics.h
-	$(CC) $(CXXFLAGS) -D APP_VERSION_GPU_CUDA -c -o $@ $< -pthread
+	$(CC) $(CXXFLAGS) $(PREPROC_DEFS) -c -o $@ $< -pthread
 
 $(O)/GetDecics: $(O)/GetDecics.o $(O)/cuda_GetDecics.o $(O)/TgtMartinet.o $(O)/polDiscTest_gpuCuda.o $(O)/polDiscTest_cpu.o
 	$(EXEC) $(NVCC) $(STATIC_FLAGS) $(ALL_LDFLAGS) $(GENCODE_FLAGS) -o $@ $+ $(LIBS) $(LIBRARIES) -Xcompiler -pthread
