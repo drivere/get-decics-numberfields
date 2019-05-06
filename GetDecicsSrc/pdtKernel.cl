@@ -5,6 +5,7 @@
 
 #define TRUE  1
 #define FALSE 0
+#define MEM_ERR 2
 
 
 //#define DEBUG
@@ -102,15 +103,28 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
 
 
 #ifdef DEBUG
+  int iter = 0;
   if(index==DBG_THREAD) {
     printf("long versions:\n");
     printf("  A = %ld ", A[0]);
     for(int k=1; k<11; k++) printf("+ %ld x^%d ", A[k], k);
-    printf("\n  B = %ld ", B[0]);
+    printf("\n");
+    printf("  B = %ld ", B[0]);
     for(int k=1; k<10; k++) printf("+ %ld x^%d ", B[k], k);
-    printf("\nMulti-precision versions:");
-    printf("\nmpA = ");  mp_print_poly(mpA, 10);
-    printf("\nmpB = ");  mp_print_poly(mpB,  9);
+    printf("\n");
+    printf("Multi-precision versions:\n");
+    printf("mpA = ");  mp_print_poly(mpA, 10); printf("\n");
+    printf("mpB = ");  mp_print_poly(mpB,  9) ;printf("\n");
+
+    // This tests multiplication:
+    if(0) {
+      mp_set(&hPow, 1);
+      for(int k=1; k<=12; k++)  {
+        mp_mul( &hPow, &mpA[0], &hPow );
+        printf("A[0]^%d = ",k); mp_printf(hPow); printf("\n");
+        }
+      }
+
     }
 #endif
 
@@ -148,14 +162,14 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
       for(int k=0; k<=degS-1; k++)  mp_zero(&(SB[k]));
       for(int k=degS; k<degR; k++)  {
         int retVal = mp_mul( &(R[degR]), &(mpB[k-degS]), &(SB[k]) );
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
       // Compute R = B[degB]*R - S*B
       // What follows is the mp equivalent of this:
       //      for(int k=0; k<degR; k++)  R[k] = B[degB]*R[k]-SB[k];
       for(int k=0; k<degR; k++) {
         int retVal = mp_mul( &(mpB[degB]), &(R[k]), &BR );
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         mp_sub( &BR, &(SB[k]), &(R[k]) );
         }
 
@@ -173,13 +187,13 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
     mp_set(&q, 1);
     for(int k=1; k<=e; k++)  {
       int retVal = mp_mul( &q, &(mpB[degB]), &q );   // Set q = q * B[degB]
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     // Compute R = q*R.
     for(int k=0; k<=degR; k++)  {
       int retVal = mp_mul( &(R[k]), &q, &(R[k]) );  // R[k] = R[k] * q;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     // End of Pseudo Division
@@ -194,16 +208,16 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
     mp_copy(&h, &hPow);  // Init hPow = h
     for(int k=1; k<=delta-1; k++)  {
       int retVal = mp_mul( &hPow, &h, &hPow );  // Set hPow = hPow*h
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     int retVal = mp_mul( &g, &hPow, &scale );  // scale = g*hPow
-    if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
 
     degB = degR;
     for(int k=0; k<=degR; k++)  {
       int retVal = mp_div( &(R[k]), &scale, &(mpB[k]), NULL ); // Set B[k] = R[k] / scale;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     // Get new g for next iteration.  g = leading coeff of A
@@ -222,23 +236,45 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
       mp_copy(&g, &gPow);  // Init gPow = g
       for(int k=1; k<=delta-1; k++)  {
         int retVal = mp_mul( &gPow, &g, &gPow );  // Set gPow = gPow*g
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
 
       // Then compute h^(delta-1):
       mp_copy(&h, &hPow);  // Init hPow = h
       for(int k=1; k<=delta-2; k++)  {
         int retVal = mp_mul( &hPow, &h, &hPow );  // Set hPow = hPow*h
-        if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
 
       // Finally, divide them:
       int retVal = mp_div( &gPow, &hPow, &h, NULL );  // Set h = gPow / hPow;
-      if ( retVal == MP_MEM )  return;  // ValidFlag was already set, so just return.
+        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
 
       }
 
+    #ifdef DEBUG
+      ++iter;
+      if(index==DBG_THREAD) {
+        printf("\n");
+        printf("Iteration %d:\n", iter);
+        printf("  degA = %d\n", degA);
+        printf("  A = "); mp_print_poly(mpA,degA); printf("\n");
+        printf("  degB = %d\n", degB);
+        printf("  B = "); mp_print_poly(mpB,degB); printf("\n");
+        printf("  g = "); mp_printf(g); printf("\n");
+        printf("  h = "); mp_printf(h); printf("\n");
+        printf("\n");
+        }
+    #endif
+
     }  // End while loop on deg(B)
+
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) { printf("g = ");  mp_printf(g); printf("\n"); }
+  if(index==DBG_THREAD) { printf("h = ");  mp_printf(h); printf("\n"); }
+  if(index==DBG_THREAD) { printf("B[0] = ");  mp_printf(mpB[0]); printf("\n"); }
+#endif
 
 
   //////////////////////////////////////////////////////////////////////////////
@@ -257,22 +293,22 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
 
 
   // If the discriminant is zero, then the polynomial is reducible.
-  // In this case, the polynomial is invalid.  Set the flag and return.
+  // In this case, the polynomial is invalid.  Set the flag.
   mp_int *polDisc;
 
   if( IS_ZERO(mpB) ) {  // mpB is the address of mpB[0]
     validFlag[index] = FALSE;
     polDisc = &(mpB[0]);
-    //return;
     }
   else {
     if(degA%2==0)  polDisc = &h;         // Set polDisc = h
     else           polDisc = &(mpB[0]);  // Set polDisc = B[0]
     }
 
+
 #ifdef DEBUG
   if(index==DBG_THREAD) {
-    printf("\npolDisc = ");  mp_printf(*polDisc);
+    printf("polDisc = ");  mp_printf(*polDisc); printf("\n");
     }
 #endif
 
@@ -301,8 +337,7 @@ void pdtKernelStg2(int numPolys, __global char *validFlag, __global mp_int *polD
 
   // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
-  //if(index>numPolys-1) return;
-  if(index>numPolys-1 || validFlag[index]==FALSE) return;
+  if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
 
   int numP, pSet[2] = {p1, p2};
@@ -390,8 +425,7 @@ void pdtKernelStg3(int numPolys, __global char *validFlag, __global mp_int *polD
   // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
   // Also return early if validFlag is already false, which can be set in stage 1.
-  //if(index>numPolys-1) return;
-  if(index>numPolys-1 || validFlag[index]==FALSE) return;
+  if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
 
   // Extract polynomial discriminant for this thread
