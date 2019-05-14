@@ -1196,6 +1196,21 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
   boinc_begin_critical_section();
   int status = polDiscTest_gpuCuda(polBufNow, numPolysNow, polGoodFlag, numPrimes, pSet);
   boinc_end_critical_section();
+
+  // This prints out some diagnostic information regarding the percentage of
+  // polynomials that pass the perfect square filter.
+  #if 0
+    int accum = 0;
+    static long totalAccum = 0;  // used for a running total over all passes.
+    for(int k=0; k<numPolysPrev; k++)  { if(polGoodFlag[k]!=0) ++accum; }
+    totalAccum += accum;
+    if (!firstPass) {
+      float pct = 100.0 * accum / numPolysPrev;
+      float pctTotal =  100.0 * totalAccum / *polCount;
+      printf("Percent polys remaining:  This pass = %.3f%%, Running total = %.4f%%\n", pct, pctTotal);
+      }
+  #endif
+
   // We let the cpu handle any polynomials that made it through the perfect square filter.
   if (!firstPass && status==0) {
     status = polDiscTest_cpu(polBufPrev, numPolysPrev, polGoodFlag, polGoodFlag, numPrimes, pSet);
@@ -1252,15 +1267,6 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
     exit(1);
 #endif
 
-
-#if 0
-  int accum = 0;
-  for(int k=0; k<numPolysPrev; k++)  {
-    if(polGoodFlag[k]!=0) ++accum;
-    }
-  float pct = 100.0 * accum / numPolysPrev;
-  printf("Percent polys remaining = %f\n", pct);
-#endif
 
 
 
