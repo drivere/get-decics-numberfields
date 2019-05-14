@@ -87,9 +87,9 @@ typedef struct  {
 __device__ int  mp_init(mp_int*);
 __device__ void mp_zero(mp_int*);
 __device__ void mp_set(mp_int*, mp_digit);
-__device__ void mp_set_vec_ll(mp_int*, int64_t*, int);
-__device__ int  mp_set_ll(mp_int*, int64_t);
-__device__ int  mp_set_ull(mp_int*, uint64_t);
+__device__ void mp_set_vec_int64(mp_int*, int64_t*, int);
+__device__ int  mp_set_int64(mp_int*, int64_t);
+__device__ int  mp_set_uint64(mp_int*, uint64_t);
 __device__ void mp_clamp(mp_int*);
 __device__ int  mp_copy(mp_int*, mp_int*);
 __device__ int  mp_copy_vec(mp_int*, mp_int*, int);
@@ -129,7 +129,7 @@ __device__ inline
 int mp_init(mp_int *a)
 {
    /* set the digits to zero */
-#pragma unroll
+//#pragma unroll
    for (int i = 0; i < MP_PREC; i++)  a->dp[i] = 0;
 
    /* set the used to zero and sign to positive */
@@ -148,7 +148,7 @@ void mp_zero(mp_int *a)
    a->sign = MP_ZPOS;
    a->used = 0;
 
-#pragma unroll
+//#pragma unroll
    for (int i = 0; i < MP_PREC; i++)  a->dp[i] = 0;
 }
 
@@ -157,8 +157,8 @@ void mp_zero(mp_int *a)
 __device__ inline
 void mp_set(mp_int *a, mp_digit b)
 {
-   a->dp[0] = b & MP_MASK;
-#pragma unroll
+   a->dp[0] = b;
+//#pragma unroll
    for (int i = 1; i < MP_PREC; i++)  a->dp[i] = 0;
 
    a->sign = MP_ZPOS;
@@ -169,38 +169,38 @@ void mp_set(mp_int *a, mp_digit b)
 
 /* Use this to initialize a vector of mp_ints from a vector of long long */
 __device__ inline
-void mp_set_vec_ll(mp_int *a, int64_t *b, int numElem)
+void mp_set_vec_int64(mp_int *a, int64_t *b, int numElem)
 {
-#pragma unroll
-   for (int k = 0; k < numElem; k++)  mp_set_ll(&(a[k]), b[k]);
+//#pragma unroll
+   for (int k = 0; k < numElem; k++)  mp_set_int64(&(a[k]), b[k]);
 }
 
 
 
 __device__ inline
-int mp_set_ll(mp_int *a, int64_t b)
+int mp_set_int64(mp_int *a, int64_t b)
 {
-   if(b>0) {
-      mp_set_ull(a, b);
-   }
-   else {
-      mp_set_ull(a, -b);
-      a->sign = MP_NEG;
-   }
+   int sgn = 1;
+   if(b<0) {
+      b=-b;
+      sgn = -1;
+      }
+   mp_set_uint64(a, b);
+   if(sgn==-1)  a->sign = MP_NEG;
+
    return MP_OKAY;
 }
 
 
 
 __device__ inline
-int mp_set_ull(mp_int *a, uint64_t b)
+int mp_set_uint64(mp_int *a, uint64_t b)
 {
   unsigned int  x;
 
   mp_zero(a);
 
   // set four bits at a time
-#pragma unroll
   for (x = 0; x < (sizeof(uint64_t) * 2u); x++) {
     // shift the number up four bits
     mp_mul_2d(a, 4, a);
@@ -232,7 +232,6 @@ void mp_clamp(mp_int *a)
    /* decrease used while the most significant digit is zero. */
    //   while ((a->used > 0) && (a->dp[a->used - 1] == 0u))  --(a->used);
    int k;
-#pragma unroll
    for (k=a->used-1; k>=0; --k) { if(a->dp[k] != 0u)  break; }
    a->used = k+1;
 
@@ -247,25 +246,15 @@ __device__ inline
 int mp_copy(mp_int *a, mp_int *b)
 {
    /* if dst == src do nothing */
-   if (a == b)  return MP_OKAY;
+   //if (a == b)  return MP_OKAY;
 
-   /* pointer aliases */
-   mp_digit *tmpa, *tmpb;
+   // I thought this would keep threads in lock-step and speed up the program, 
+   // but it actually made the code slower.
+   //for (int n = 0; n < MP_PREC; n++)  b->dp[n] = a->dp[n];
 
-   /* source */
-   tmpa = a->dp;
-
-   /* destination */
-   tmpb = b->dp;
-
-   /* copy all the digits */
    int n;
-#pragma unroll
-   for (n = 0; n < a->used; n++)  *tmpb++ = *tmpa++;
-
-   /* clear high digits */
-#pragma unroll
-   for (; n < b->used; n++)  *tmpb++ = 0;
+   for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
+   for (; n < b->used; n++)  b->dp[n] = 0;
 
    /* copy used count and sign */
    b->used = a->used;
@@ -278,7 +267,6 @@ int mp_copy(mp_int *a, mp_int *b)
 __device__ inline
 int mp_copy_vec(mp_int *a, mp_int *b, int numElem)
 {
-#pragma unroll
    for (int k = 0; k < numElem; k++)  mp_copy(&(a[k]), &(b[k]));
    return MP_OKAY;
 }

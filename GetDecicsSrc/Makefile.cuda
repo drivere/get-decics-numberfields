@@ -199,8 +199,9 @@ LIBRARIES :=
 ################################################################################
 
 # Gencode arguments
-#SMS ?= 30 35 37 50 52 60 61 70 75
-SMS ?= 61
+SMS ?= 30 35 37 50 52 60 61 70 75
+#SMS ?= 50 52 60 61 70 75
+#SMS ?= 61
 
 
 ifeq ($(SMS),)
@@ -252,7 +253,7 @@ CXXFLAGS = -O3 -Wall -Wno-unknown-pragmas -Wno-class-memaccess -fmax-errors=4 $(
 STATIC_FLAGS = -Xcompiler -static-libgcc -Xcompiler -static-libstdc++
 
 # Use this to get line numbers with cuda-memcheck
-ALL_CCFLAGS += -lineinfo -Xptxas --warn-on-spills -Xptxas --verbose -Xcompiler -fmax-errors=4
+#ALL_CCFLAGS += -lineinfo -Xptxas --warn-on-spills -Xptxas --verbose -Xcompiler -fmax-errors=4
 
 PREPROC_DEFS = -DAPP_VERSION_GPU_CUDA -DCUDA
 

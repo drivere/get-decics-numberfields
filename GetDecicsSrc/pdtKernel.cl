@@ -1,6 +1,5 @@
 
 /* This is supposed to give printf functionality on AMD */
-/* But it doesn't work, and neither does printf by itself */
 //#pragma OPENCL EXTENSION cl_amd_printf : enable
 
 #define TRUE  1
@@ -8,6 +7,7 @@
 #define MEM_ERR 2
 
 
+// Use this to turn on DEBUG mode
 //#define DEBUG
 #define DBG_THREAD 0
 
@@ -45,14 +45,14 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
   // (i.e. A[0]*x^10 + A[1]*x^9 + ... + A[9]*x + A[10])
   // BUT FOR IMPLEMENTATION REASONS, WE REVERSE THE ORDER.
   int64_t A[11];
-#pragma unroll
+//#pragma unroll
   for(int col = 0; col < 11; col++)  A[10-col] = polys[index*11+col];
 
 
   // Compute the derivative of A.  Call it B.
   // NOTE: B = 10*x^9 + 9*A[9]*x^8 + 8*A[8]*x^7 + ... + 2*A[2]*x + A[1]
   int64_t B[10];
-#pragma unroll
+//#pragma unroll
   for(int k = 1; k <= 10; k++)  B[k-1] = k*A[k];
 
   // The discriminant of a monic decic is -1*Resultant(A,B).
@@ -83,19 +83,62 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
   for(int k = 0; k < 10; k++)  B[k] = B[k] / contB;
 
 
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("Original polynomials:\n");
+    printf("  A = %ld ", A[0]);
+    for(int k=1; k<11; k++) printf("+ %ld x^%d ", A[k], k);
+    printf("\n");
+    printf("  B = %ld ", B[0]);
+    for(int k=1; k<10; k++) printf("+ %ld x^%d ", B[k], k);
+    printf("\n");
+    }
+#endif
+
+
+  ////////////////////////////////////////////////////////////////
+  /*  Do the first iteration of the sub-resultant algorithm.    */
+  /*  This allows us to stay with longs a little longer before  */
+  /*  transitioning to multi-precision.                         */
+
+  // This computes: R = d*A-S*B in Algorithm 3.1.2
+  long R[10];
+  R[0] = B[9]*A[0];
+  for(int k=1;k<=9;++k)  R[k] = B[9]*A[k] - B[k-1];
+
+  // The last line was the 1st iteration of Pseudo Division.
+  // If A[9]==0, only 1 iteration is needed and R[k] = B[9]*R[k] (since q=B[9]).
+  // Otherwise, a 2nd iteration is needed which gives R[k] = B[9]*R[k] - R[9]*B[k].
+  // The next line handles both cases together (note that R[9]=0 in case 1):
+  for(int k=0;k<=8;++k)  R[k] = B[9]*R[k] - R[9]*B[k];
+
+  // Determine the degree of R (it must be less than or equal to 8)
+  int degR = 0;
+  for(int k=8; k>0; k--)  {
+    if( R[k]!=0 ) { degR=k; break; }
+    }
+
   // Multi-precision declarations
-  mp_int g, h, mpA[11], mpB[10], R[11], BR, SB[10];
+  mp_int g, h, mpA[10], mpB[9], mpR[10], BR, SB[9];
   mp_int q, gPow, hPow, scale;
 
-  // Multi-precision initializations.
-  // Note: Values used below only need to be zeroed out one time (we do that here).
-  mp_set(&g, 1);
-  mp_set(&h, 1);
-  mp_set_vec_ll(mpA, A, 11);  // initialize mpA to A.
-  mp_set_vec_ll(mpB, B, 10);  // initialize mpB to B.
-  for(int k=0; k<11; k++)  mp_zero(&(R[k]));
+  // Setup next iteration: A=B, B=R, g=A[9](= original B[9]), h=g.
+  int degA = 9;
+  int degB = degR;
+  mp_set_vec_int64(mpA, B, degA+1);  // initialize mpA to B.
+  mp_set_vec_int64(mpB, R, degR+1);  // initialize mpB to R.
+  mp_set_int64(&g, B[9]);
+  mp_set_int64(&h, B[9]);
+
+  /*  The first iteration of sub-resultant is now complete. */
+  ////////////////////////////////////////////////////////////
+
+
+  // The remaining multi-precision initializations.
+  // Note: These need to either be set or zeroed out one time.
+  for(int k=0; k<10; k++)  mp_zero(&(mpR[k]));
   mp_zero(&BR);
-  for(int k=0; k<10; k++)  mp_zero(&(SB[k]));
+  for(int k=0; k<9; k++)  mp_zero(&(SB[k]));
   //mp_zero(&q);  // This one is not needed at this point.
   mp_zero(&gPow);
   mp_zero(&hPow);
@@ -105,16 +148,17 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
 #ifdef DEBUG
   int iter = 0;
   if(index==DBG_THREAD) {
+    printf("AFTER FIRST SUB-RESULTANT ITERATION:\n");
     printf("long versions:\n");
-    printf("  A = %ld ", A[0]);
-    for(int k=1; k<11; k++) printf("+ %ld x^%d ", A[k], k);
+    printf("  A = %ld ", B[0]); // Note: The new A is really B
+    for(int k=1; k<=degA; k++) printf("+ %ld x^%d ", B[k], k);
     printf("\n");
-    printf("  B = %ld ", B[0]);
-    for(int k=1; k<10; k++) printf("+ %ld x^%d ", B[k], k);
+    printf("  B = %ld ", R[0]); // Note: The new B is really R
+    for(int k=1; k<=degB; k++) printf("+ %ld x^%d ", R[k], k);
     printf("\n");
     printf("Multi-precision versions:\n");
-    printf("mpA = ");  mp_print_poly(mpA, 10); printf("\n");
-    printf("mpB = ");  mp_print_poly(mpB,  9) ;printf("\n");
+    printf("mpA = ");  mp_print_poly(mpA, degA); printf("\n");
+    printf("mpB = ");  mp_print_poly(mpB, degB); printf("\n");
 
     // This tests multiplication:
     if(0) {
@@ -133,9 +177,14 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
   // Steps 2/3: Pseudo Division and Reduction.
   //////////////////////////////////////////////////////////////////////////////
 
-  int degB = 9;
-  int degA = 10;
-  while(degB>0) {
+  // This is really a loop over the degree of B.
+  // degB starts <= 8 and drops by at least 1 every iteration, so we loop the max of 8 times.
+  // This gives a fixed size for the for loop and we break early once degB=0.
+  for(int degIter=8; degIter>0; --degIter) {
+
+    // We are done once degB=0, so exit the loop
+    if(degB==0) break;
+
     int delta = degA - degB;
 
     ////////////////////////////////////////////////////////////////////////////
@@ -144,12 +193,19 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
     // Note, since we don't need Q, we don't compute it.
 
     // Initialize R to A.
-    int degR = degA;
-    mp_copy_vec(mpA, R, degA+1);
+    degR = degA;
+    mp_copy_vec(mpA, mpR, degA+1);
 
     int e = delta + 1;
 
-    while(degR>=degB) {
+    // degR starts at degB+delta and must drop by at least 1 each pass through the loop.
+    // So we loop the maximum number of times which is delta+1.
+    // We do this to get a fixed size for loop, and break early once degR<degB
+    for(int delIter=delta; delIter>=0; --delIter) {
+
+      // We are done once the degree of R is less than the degree of B
+      if(degR<degB) break;
+
       // We dont actually need the polynomial S, just it's degree.
       int degS = degR - degB;
 
@@ -161,27 +217,29 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
       //      for(int k=degS; k<degR; k++)  SB[k] = R[degR]*B[k-degS];
       for(int k=0; k<=degS-1; k++)  mp_zero(&(SB[k]));
       for(int k=degS; k<degR; k++)  {
-        int retVal = mp_mul( &(R[degR]), &(mpB[k-degS]), &(SB[k]) );
+        int retVal = mp_mul( &(mpR[degR]), &(mpB[k-degS]), &(SB[k]) );
         if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
         }
       // Compute R = B[degB]*R - S*B
       // What follows is the mp equivalent of this:
       //      for(int k=0; k<degR; k++)  R[k] = B[degB]*R[k]-SB[k];
       for(int k=0; k<degR; k++) {
-        int retVal = mp_mul( &(mpB[degB]), &(R[k]), &BR );
+        int retVal = mp_mul( &(mpB[degB]), &(mpR[k]), &BR );
         if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
-        mp_sub( &BR, &(SB[k]), &(R[k]) );
+        mp_sub( &BR, &(SB[k]), &(mpR[k]) );
         }
 
       // Determine the degree of the new R.
       int degRnew = 0;
       for(int k=degR-1; k>0; k--)  {
-        if( !IS_ZERO(&(R[k])) ) { degRnew=k; break; }
+        //if( !IS_ZERO(&(mpR[k])) ) { degRnew=k; break; }
+        if( mpR[k].used>0 ) { degRnew=k; break; }
         }
       degR = degRnew;
 
       --e;
-      }
+      }  // End of inner for loop
+
 
     // Compute q = B[degB]^e
     mp_set(&q, 1);
@@ -192,7 +250,7 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
 
     // Compute R = q*R.
     for(int k=0; k<=degR; k++)  {
-      int retVal = mp_mul( &(R[k]), &q, &(R[k]) );  // R[k] = R[k] * q;
+      int retVal = mp_mul( &(mpR[k]), &q, &(mpR[k]) );  // R[k] = R[k] * q;
       if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
@@ -212,13 +270,14 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
       }
 
     int retVal = mp_mul( &g, &hPow, &scale );  // scale = g*hPow
-      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
 
     degB = degR;
     for(int k=0; k<=degR; k++)  {
-      int retVal = mp_div( &(R[k]), &scale, &(mpB[k]), NULL ); // Set B[k] = R[k] / scale;
+      int retVal = mp_div( &(mpR[k]), &scale, &(mpB[k]), NULL ); // Set B[k] = R[k] / scale;
       if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
+
 
     // Get new g for next iteration.  g = leading coeff of A
     mp_copy( &(mpA[degA]), &g);
@@ -248,8 +307,7 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
 
       // Finally, divide them:
       int retVal = mp_div( &gPow, &hPow, &h, NULL );  // Set h = gPow / hPow;
-        if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
-
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
       }
 
     #ifdef DEBUG
@@ -267,7 +325,7 @@ void pdtKernelStg1(int numPolys, __global int64_t *polys, __global char *validFl
         }
     #endif
 
-    }  // End while loop on deg(B)
+    }  // End of outer for loop
 
 
 #ifdef DEBUG
@@ -417,6 +475,18 @@ void pdtKernelStg2(int numPolys, __global char *validFlag, __global mp_int *polD
 
 
 // OpenCL kernel function to do the pol disc test (stage 3)
+// The validFlag was originally initialized to 1.
+// In this kernel, we set the flag to zero if the polDisc is NOT a perfect square.
+// Recall the theorem:
+//      N is a perfect square => N is a square mod n for all n.
+// So the contrapositive gives: 
+//      N is not a square mod n for some n => N is not a perfect square
+// This gives a very fast method of finding non-squares: just check the number mod n
+// for a large enough set of n's.  This will quickly filter out over 99% of the 
+// non-squares.  Any number passing all the modulus tests would have a small chance 
+// of being a perfect square.  One would normally check these few remaining cases
+// by actually computing the sqrt.  In our case, we just throw it back to the cpu
+// to deal with.
 __kernel
 void pdtKernelStg3(int numPolys, __global char *validFlag, __global mp_int *polDiscArray)
 {

@@ -28,12 +28,12 @@ INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_
 LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L$(INTEL_LIB) -lOpenCL -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a -lpthread
 
 #CXXFLAGS = -O3 -Wall -Werror -fmax-errors=4
-CXXFLAGS = -O3 -Wall -fmax-errors=4
+CXXFLAGS = -O3 -fmax-errors=4
 
 #STATIC_FLAGS = -static-libgcc -static-libstdc++ -static
 STATIC_FLAGS = -static-libgcc -static-libstdc++
 
-PREPROC_DEFS = -DAPP_VERSION_GPU_OPENCL -DBOINC_GPU_PLATFORM=PROC_TYPE_INTEL_GPU
+PREPROC_DEFS = -DAPP_VERSION_GPU_OPENCL -DGPU_VENDOR_INTEL
 
 
 ################################################################################

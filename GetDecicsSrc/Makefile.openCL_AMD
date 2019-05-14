@@ -33,7 +33,7 @@ CXXFLAGS = -O3 -fmax-errors=4
 #STATIC_FLAGS = -static-libgcc -static-libstdc++ -static
 STATIC_FLAGS = -static-libgcc -static-libstdc++
 
-PREPROC_DEFS = -DAPP_VERSION_GPU_OPENCL -DBOINC_GPU_PLATFORM=PROC_TYPE_AMD_GPU
+PREPROC_DEFS = -DAPP_VERSION_GPU_OPENCL -DGPU_VENDOR_AMD
 
 
 ################################################################################
