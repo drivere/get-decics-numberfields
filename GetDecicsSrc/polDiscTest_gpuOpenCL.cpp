@@ -99,7 +99,7 @@ polDiscTest_gpuOpenCL(long long *polBuf, int numPolys, char *polGoodFlag, int nu
   /* Total number of work items = numPolys, but we need to bump this up to the next multiple of threadsPerBlock */
   size_t numTotalThreads = ( (numPolys+threadsPerBlock-1)/threadsPerBlock ) * threadsPerBlock;
   size_t globalSize[1] = { numTotalThreads };
-  size_t localSize[1]  = { (size_t)MIN( numPolys, threadsPerBlock) };
+  size_t localSize[1]  = { (size_t)threadsPerBlock };
   status = clFinish(commandQueue);  // Make sure the previous buffer write has completed.
   CHECK_ERROR(status, "Error: Failed to Write Buffer.", "clFinish");
 
