@@ -523,9 +523,17 @@ is associated with a fixed value of a1.
   pari_long *loopIdxs = loopIdxs1;
   int bufferPtr = 0;  // This is a toggle switch that points to the current buffer.
 
+  // This is the number of indices to skip between prints. 
+  // This targets a max of 250 total printf statements (for Cvec counter).
+  int idxSkip = NumCvecs/250;
+  if(idxSkip<1) idxSkip = 1;
+
+  fprintf(stderr, "  Num Cvecs = %lld.\n", NumCvecs);
 
   for(i=CvecIdx;i<NumCvecs;++i)
     {
+    if(i%idxSkip==0)  fprintf(stderr, "    Doing Cvec %lld.\n", i+1);
+
     float Cvec_frac_done = i*Delta_Cvec;
 
     // Extract the congruence vector for the current index.
