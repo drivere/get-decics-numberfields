@@ -26,8 +26,10 @@ void printBuildLog(cl_device_id);
 const char *getErrorString(cl_int);
 char* convert_to_string(const char*);
 
-
-#define KERNEL_FILENAME "pdtKernel.cl"
-
+#ifdef GPU_VENDOR_AMD
+  #define KERNEL_FILENAME "pdtKernelAMD.cl"
+#else
+  #define KERNEL_FILENAME "pdtKernel.cl"
+#endif
 
 #endif
