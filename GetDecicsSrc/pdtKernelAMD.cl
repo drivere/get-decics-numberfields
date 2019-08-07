@@ -547,4 +547,43 @@ void pdtKernelStg3(int numPolys, __global char *validFlag, __global mp_int *polD
     }
 
 
+  // Do a 2nd pass with other moduli.
+  // Compute polDisc modulo (17*19*23*29*31)
+  mp_div_d( &polDisc, 6678671, NULL, &rem );
+
+  // Check if rem is a quadratic residue modulo 17.
+  const char resMod17[] = {1,1,1,0,1, 0,0,0,1,1, 0,0,0,1,0, 1,1};
+  if ( !resMod17[rem % 17] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 19.
+  const char resMod19[] = {1,1,0,0,1, 1,1,1,0,1, 0,1,0,0,0, 0,1,1,0};
+  if ( !resMod19[rem % 19] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 23.
+  const char resMod23[] = {1,1,1,1,1, 0,1,0,1,1, 0,0,1,1,0, 0,1,0,1,0, 0,0,0};
+  if ( !resMod23[rem % 23] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 29.
+  const char resMod29[] = {1,1,0,0,1, 1,1,1,0,1, 0,0,0,1,0, 0,1,0,0,0, 1,0,1,1,1, 1,0,0,1};
+  if ( !resMod29[rem % 29] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 31.
+  const char resMod31[] = {1,1,1,0,1, 1,0,1,1,1, 1,0,0,0,1, 0,1,0,1,1, 1,0,0,0,0, 1,0,0,1,0, 0};
+  if ( !resMod31[rem % 31] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
 }
