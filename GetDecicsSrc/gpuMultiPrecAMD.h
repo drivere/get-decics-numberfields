@@ -47,7 +47,9 @@
 // This is the hard-coded amount of precision to be used.
 // It is the number of mp_digits. A "digit" is 32bits.
 // But only 31 bits of each digit is actually used.  So 31*24 = 744 bits max.
-#define MP_PREC  24  // Stable Value: 30
+// EDD 8-5-19: Noticed some sf4_DS15x271 cases were failing with memory errors,
+//             so bumped precision up to 32 (31*32=992 bits)
+#define MP_PREC  32
 
 #define MP_OKAY       0   /* ok result */
 #define MP_VAL       -3   /* invalid input */

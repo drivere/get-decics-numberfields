@@ -1209,13 +1209,19 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
   // polynomials that pass the perfect square filter.
   #if 0
     int accum = 0;
+    int memErrAccum = 0;
     static long totalAccum = 0;  // used for a running total over all passes.
-    for(int k=0; k<numPolysPrev; k++)  { if(polGoodFlag[k]!=0) ++accum; }
+    static long memErrTotalAccum = 0;
+    for(int k=0; k<numPolysPrev; k++)  { if(polGoodFlag[k]==1) ++accum; }
+    for(int k=0; k<numPolysPrev; k++)  { if(polGoodFlag[k]==2) ++memErrAccum; }
     totalAccum += accum;
+    memErrTotalAccum += memErrAccum;
     if (!firstPass) {
       float pct = 100.0 * accum / numPolysPrev;
-      float pctTotal =  100.0 * totalAccum / *polCount;
+      float pctTotal = 100.0 * totalAccum / (*polCount + numPolysPrev);
       printf("Percent polys remaining:  This pass = %.3f%%, Running total = %.4f%%\n", pct, pctTotal);
+      pctTotal = 100.0 * memErrTotalAccum / *polCount;
+      printf("Memory Error Count = %ld, (%.4f%%)\n", memErrTotalAccum, pctTotal);
       }
   #endif
 
