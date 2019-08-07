@@ -53,7 +53,9 @@
 // This is the hard-coded amount of precision to be used.
 // It is the number of mp_digits. A "digit" is 64bits.
 // But only 63 bits of each digit is actually used.  So 63*12 = 756 bits max.
-#define MP_PREC  12
+// EDD 8-5-19: Noticed some sf4_DS15x271 cases were failing with memory errors,
+//             so bumped precision up to 15 (63*15=945 bits)
+#define MP_PREC  15
 
 #define MP_OKAY       0   /* ok result */
 #define MP_VAL       -3   /* invalid input */
@@ -229,7 +231,8 @@ int mp_copy(mp_int *a, mp_int *b)
 
    int n;
    for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
-   for (; n < b->used; n++)  b->dp[n] = 0;
+   //for (; n < b->used; n++)  b->dp[n] = 0;
+   for (; n < MP_PREC; n++)  b->dp[n] = 0;
 
    /* copy used count and sign */
    b->used = a->used;
@@ -1337,6 +1340,19 @@ void mp_printf(mp_int a)
   #else
     printf("%s", str);
   #endif
+
+}
+
+
+__device__
+void mp_printf_thread(int threadIdx, const char* prefix, mp_int a)
+{
+  char str[256];
+
+  mp_toradix(&a, str, 10);
+
+  // The Open CL standard does not define %s for non-literal strings.  Works for Cuda though!
+  printf("idx %d: %s %s\n", threadIdx, prefix, str);
 
 }
 
