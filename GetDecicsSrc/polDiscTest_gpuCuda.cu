@@ -19,7 +19,7 @@
 
 // Use this to turn on DEBUG mode
 //#define DEBUG
-#define DBG_THREAD 0
+#define DBG_THREAD -1
 
 
 // The PRINTF_ENABLED is used in gpuMultiPrec to turn on the printing functions.
@@ -454,7 +454,9 @@ void pdtKernel_stage2(int numPolys, char *validFlag, mp_int* polDiscArray, int p
 
   // Extract polynomial discriminant for this thread
   mp_int polDisc;
-  mp_copy(&(polDiscArray[index]), &polDisc);
+  for (int n = 0; n < MP_PREC; n++)  polDisc.dp[n] = polDiscArray[index].dp[n];
+  polDisc.used = polDiscArray[index].used;
+  polDisc.sign = polDiscArray[index].sign;
 
 
   // Initialize local variables
@@ -552,20 +554,25 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
 
   // Extract polynomial discriminant for this thread
   mp_int polDisc;
-  mp_copy(&(polDiscArray[index]), &polDisc);
+  for (int n = 0; n < MP_PREC; n++)  polDisc.dp[n] = polDiscArray[index].dp[n];
+  polDisc.used = polDiscArray[index].used;
+  polDisc.sign = polDiscArray[index].sign;
+
+
+  //mp_printf_thread(index, "polDisc = ", polDisc);
 
 
   // These are the residues Mod 64,63,65,11
-  char resMod64[]={
+  const char resMod64[]={
     1,1,0,0,1,0,0,0,0,1, 0,0,0,0,0,0,1,1,0,0, 0,0,0,0,0,1,0,0,0,0,
     0,0,0,1,0,0,1,0,0,0, 0,1,0,0,0,0,0,0,0,1, 0,0,0,0,0,0,0,1,0,0, 0,0,0,0};
-  char resMod63[]={
+  const char resMod63[]={
     1,1,0,0,1,0,0,1,0,1, 0,0,0,0,0,0,1,0,1,0, 0,0,1,0,0,1,0,0,1,0,
     0,0,0,0,0,0,1,1,0,0, 0,0,0,1,0,0,1,0,0,1, 0,0,0,0,0,0,0,0,1,0, 0,0,0};
-  char resMod65[]={
+  const char resMod65[]={
     1,1,0,0,1,0,0,0,0,1, 1,0,0,0,1,0,1,0,0,0, 0,0,0,0,0,1,1,0,0,1,
     1,0,0,0,0,1,1,0,0,1, 1,0,0,0,0,0,0,0,0,1, 0,1,0,0,0,1,1,0,0,0, 0,1,0,0,1};
-  char resMod11[]={1,1,0,1,1,1,0,0,0,1, 0};
+  const char resMod11[]={1,1,0,1,1,1,0,0,0,1, 0};
 
 
   // First compute polDisc modulo (64*63*65*11)
@@ -598,6 +605,46 @@ void pdtKernel_stage3(int numPolys, char *validFlag, mp_int* polDiscArray)
     return;
     }
 
+
+  // Do a 2nd pass with other moduli.
+  // Compute polDisc modulo (17*19*23*29*31)
+  mp_div_d( &polDisc, 6678671, NULL, &rem );
+
+  // Check if rem is a quadratic residue modulo 17.
+  const char resMod17[] = {1,1,1,0,1, 0,0,0,1,1, 0,0,0,1,0, 1,1};
+  if ( !resMod17[rem % 17] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 19.
+  const char resMod19[] = {1,1,0,0,1, 1,1,1,0,1, 0,1,0,0,0, 0,1,1,0};
+  if ( !resMod19[rem % 19] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 23.
+  const char resMod23[] = {1,1,1,1,1, 0,1,0,1,1, 0,0,1,1,0, 0,1,0,1,0, 0,0,0};
+  if ( !resMod23[rem % 23] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 29.
+  const char resMod29[] = {1,1,0,0,1, 1,1,1,0,1, 0,0,0,1,0, 0,1,0,0,0, 1,0,1,1,1, 1,0,0,1};
+  if ( !resMod29[rem % 29] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
+  // Check if rem is a quadratic residue modulo 31.
+  const char resMod31[] = {1,1,1,0,1, 1,0,1,1,1, 1,0,0,0,1, 0,1,0,1,1, 1,0,0,0,0, 1,0,0,1,0, 0};
+  if ( !resMod31[rem % 31] )  {
+    validFlag[index]=FALSE;
+    return;
+    }
+
 }
 
 
@@ -621,10 +668,10 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
   static int numPolysPrev = 0;
   static int firstPass = 1;
 
-//  printf("Entering polDiscTest\n");
-//  printf("  numPolysPrev = %d\n", numPolysPrev);
-//  printf("  numPolys = %d\n", numPolys);
-//  printf("  firstPass = %d\n", firstPass);
+  //printf("Entering polDiscTest\n");
+  //printf("  numPolysPrev = %d\n", numPolysPrev);
+  //printf("  numPolys = %d\n", numPolys);
+  //printf("  firstPass = %d\n", firstPass);
 
 
   // If this is not the first pass then transfer the polGoodFlag from the GPU (from previous pass).
