@@ -286,13 +286,13 @@ polDiscTest_cpu(long long *polBuf, int numPolys, char *polGoodFlag, char *polyMa
 
     // Check if what remains of the discriminant is a perfect square.
 
-    // This is supposed to the faster but is not??
-    //if( mpz_perfect_square_p(polDisc) )  polGoodFlag[pIdx] = TRUE;
-    //else                                 polGoodFlag[pIdx] = FALSE;
+    // This is supposed to the faster but may actually be a tad slower.
+    if( mpz_perfect_square_p(polDisc) )  polGoodFlag[pIdx] = TRUE;
+    else                                 polGoodFlag[pIdx] = FALSE;
 
-    mpz_sqrtrem(sqrtDisc, rem, polDisc);  // sqrtDisc = sqrt(polDisc) rounded down, rem = polDisc - sqrtDisc^2
-    if( mpz_sgn(rem)==0 ) polGoodFlag[pIdx] = TRUE;
-    else                  polGoodFlag[pIdx] = FALSE;
+    //mpz_sqrtrem(sqrtDisc, rem, polDisc);  // sqrtDisc = sqrt(polDisc) rounded down, rem = polDisc - sqrtDisc^2
+    //if( mpz_sgn(rem)==0 ) polGoodFlag[pIdx] = TRUE;
+    //else                  polGoodFlag[pIdx] = FALSE;
 
 #ifdef DEBUG
     gmp_printf("Reduced polDisc = %Zd\n", polDisc);
