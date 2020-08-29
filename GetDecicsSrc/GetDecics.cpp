@@ -31,6 +31,9 @@
 #include "GetDecics.h"
 #include "TgtMartinet.h"
 
+#include <fstream>
+using std::ifstream;
+
 
 /* Global variables */
 int numBlocks;
@@ -65,6 +68,7 @@ using std::string;
 #define DEFAULT_CHECKPOINT_FILE "GetDecics_state"
 #define INPUT_FILENAME "in"
 #define OUTPUT_FILENAME "out"
+#define GPU_LOOKUP_TABLE_FILENAME "gpuLookupTable.txt"
 
 
 string CHECKPOINT_FILE;
@@ -215,37 +219,181 @@ int do_checkpoint(pari_long *loopIdxs, pari_long *Stat)
 
 void  init_globals(int argc, char** argv) {
 
+#ifdef APP_VERSION_CPU_STD
   /* Initialize using the default values */
-  polyBufferSize  = DEFAULT_POLY_BUFFER_SIZE;
+  numBlocks       = DEFAULT_NUM_BLOCKS;
   threadsPerBlock = DEFAULT_THREADS_PER_BLOCK;
+#else
+  // Otherwise this is the GPU case.  We use a lookup table.
 
-  /* The buffer size needs to be a multiple of the threadsPerBlock */
-  polyBufferSize = ( (polyBufferSize+threadsPerBlock-1)/threadsPerBlock ) * threadsPerBlock;
+  // First get the summary string for the host GPU.
+  APP_INIT_DATA aid;
+  char gpuSummary[1024];
+  boinc_get_init_data(aid);
+  aid.host_info.coprocs.summary_string(gpuSummary, sizeof(gpuSummary));
 
-  numBlocks = polyBufferSize / threadsPerBlock;
+  // Remove all spaces from the gpu summary string.
+  string gpuStr = gpuSummary;
+  int idx = 0;
+  for(int k = 0; gpuStr[k]; k++)  if(gpuStr[k] != ' ') gpuStr[idx++] = gpuStr[k];
+  gpuStr = gpuStr.erase(idx);
+  fprintf(stderr, "GPU Summary String = %s.\n", gpuStr.c_str());
+
+  // Load the lookup table.  This allows for 64 entries.
+  string gpuNameList[64];
+  int numBlocksList[64], threadsPerBlockList[64];
+  int numEntries = loadLookupTable(gpuNameList, numBlocksList, threadsPerBlockList);
+  if(numEntries) {
+
+    // Find the GPU in the lookup table
+    int row, found = 0;
+    for(int k=0; k<numEntries; ++k) {
+      int idx = gpuStr.find(gpuNameList[k]);
+      if(idx>0) {
+        found = 1;
+        row = k;
+        break;  // Exit the loop once it is found
+        }
+      }
+
+    if(found) {
+      numBlocks       = numBlocksList[row];
+      threadsPerBlock = threadsPerBlockList[row];
+      fprintf(stderr, "GPU found in lookup table:\n");
+      fprintf(stderr, "  GPU Name = %s.\n", gpuNameList[row].c_str());
+      }
+    else {
+      numBlocks       = DEFAULT_NUM_BLOCKS;
+      threadsPerBlock = DEFAULT_THREADS_PER_BLOCK;
+      fprintf(stderr, "GPU was not found in the lookup table.  Using default values:\n");
+      }
+
+    }
+
+  // This is the case when there was a problem with the lookup table or it was empty.
+  else { 
+    numBlocks       = DEFAULT_NUM_BLOCKS;
+    threadsPerBlock = DEFAULT_THREADS_PER_BLOCK;
+    fprintf(stderr, "Lookup table was empty.  Using default values:\n");
+    }
+
+#endif
+
+  polyBufferSize  = numBlocks * threadsPerBlock;
+  fprintf(stderr, "  numBlocks = %d.\n", numBlocks);
+  fprintf(stderr, "  threadsPerBlock = %d.\n", threadsPerBlock);
+  fprintf(stderr, "  polyBufferSize = %d.\n", polyBufferSize);
+
 
   /* Now check the command line arguments for overrides. */
   /* Two command line arguments can be overriden: numBlocks and threadsPerBlock */
+  int modFlag = 0;
   for (int i=0; i<argc-1; i++) {
     if ((!strcmp(argv[i], "--numBlocks")) || (!strcmp(argv[i], "-numBlocks"))) {
-      numBlocks = atoi(argv[i+1]);
-      i+=2;
+      int numBlocksNew = atoi(argv[i+1]);
+      if(numBlocksNew != numBlocks) {
+        i+=2;
+        modFlag = 1;
+        numBlocks = numBlocksNew;
+        fprintf(stderr, "Command line override: Forcing numBlocks = %d.\n", numBlocks);
+      }
     }
     if ((!strcmp(argv[i], "--threadsPerBlock")) || (!strcmp(argv[i], "-threadsPerBlock"))) {
-      threadsPerBlock = atoi(argv[i+1]);
-      i+=2;
+      int threadsPerBlockNew = atoi(argv[i+1]);
+      if(threadsPerBlockNew != threadsPerBlock) {
+        i+=2;
+        modFlag = 1;
+        threadsPerBlock = threadsPerBlockNew;
+        fprintf(stderr, "Command line override: Forcing threadsPerBlock = %d.\n", threadsPerBlock);
+      }
     }
   }
 
-  /* Recompute the polynomial buffer size in case of overrides */
-  polyBufferSize = numBlocks * threadsPerBlock;
+  /* If parameters were modified, recompute polyBufferSize and notify the user */
+  if(modFlag) {
+    polyBufferSize = numBlocks * threadsPerBlock;
+    fprintf(stderr, "\nFinal sizing:\n");
+    fprintf(stderr, "  numBlocks = %d.\n", numBlocks);
+    fprintf(stderr, "  threadsPerBlock = %d.\n", threadsPerBlock);
+    fprintf(stderr, "  polyBufferSize = %d.\n", polyBufferSize);
+  }
 
-  /* Print out diagnostic information */
-#if defined(APP_VERSION_GPU_OPENCL) || defined(APP_VERSION_GPU_CUDA)
-  fprintf(stderr, "numBlocks = %d.\n", numBlocks);
-  fprintf(stderr, "threadsPerBlock = %d.\n", threadsPerBlock);
-#endif
-  fprintf(stderr, "polyBufferSize = %d.\n", polyBufferSize);
+
+}
+
+
+
+int loadLookupTable(string* nameList, int* numBlocksList, int* threadsPerBlockList) {
+
+  char fullFilename[512];
+  boinc_resolve_filename(GPU_LOOKUP_TABLE_FILENAME, fullFilename, sizeof(fullFilename));
+
+  ifstream lookupTableFile(fullFilename);
+  int N=0;
+  if(lookupTableFile)  {
+    fprintf(stderr, "Loading GPU lookup table from file.\n");
+
+    string rowStr;
+
+    // Skip the first 2 rows which are just headers
+    getline(lookupTableFile,rowStr);
+    getline(lookupTableFile,rowStr);
+
+    // Now load 1 row at a time and extract the fields.
+    while(!lookupTableFile.eof()) { // Read lines until end of file is reached.
+      getline(lookupTableFile,rowStr);
+
+      int I1 = rowStr.find("|");       // Index of 1st "|"
+      int I2 = rowStr.find("|",I1+1);  // Index of 2nd "|"
+
+      // Only extract fields if both "|" characters are found.
+      if(I1>0 && I2>0) {
+
+        string field1 = rowStr.substr(0,I1);
+        string field2 = rowStr.substr(I1+1,I2-I1-1);
+        string field3 = rowStr.substr(I2+1,rowStr.length()-I2-1);
+
+        // Remove leading spaces and tabs.
+	int I3 = field1.find_first_not_of(" \t");
+	field1 = field1.substr(I3);
+
+        // Remove trailing spaces and tabs.
+	I3 = field1.find_last_not_of(" \t");
+	field1 = field1.substr(0,I3+1);
+
+        // Remove all spaces from the name.
+        int idx = 0;
+        for(int k = 0; field1[k]; k++)  if(field1[k] != ' ') field1[idx++] = field1[k];
+        field1 = field1.erase(idx);
+
+        nameList[N] = field1;
+        numBlocksList[N] = atoi(field2.c_str());
+        threadsPerBlockList[N] = atoi(field3.c_str());
+        ++N;
+
+        }
+
+      }  // End of while loop
+
+
+    // Useful for debugging:
+    if(0) {
+      fprintf(stderr, "Number of entries = %d\n", N);
+      for(int k=0;k<N;++k) {
+        fprintf(stderr, "k = %d\n", k);
+        fprintf(stderr, "gpuName[k] = %s\n", nameList[k].c_str());
+        fprintf(stderr, "numBlocks[k] = %d\n", numBlocksList[k]);
+        fprintf(stderr, "threadsPerBlock[k] = %d\n", threadsPerBlockList[k]);
+        }
+    }
+
+    lookupTableFile.close();
+    return N;
+    }
+  else {
+    fprintf(stderr, "Failed to load lookup table.\n");
+    return 0;
+  }
 
 }
 

@@ -34,15 +34,31 @@ changed accordingly).
 
 
 4. To test the executable:
-  a. cp executable into the test directory.
-  b. Make sure init_data.xml corresponds to the right gpu type.
-  c. Setup a link named "in" for the dat file you want to test
+  a. cp executable into the Test directory.
+  b. Make sure you have a valid init_data.xml file.  There are some samples in the
+     Test directory.  If testing the lookup table, you will need an init_data.xml 
+     file for your specific system.  I get it by copying one from any BOINC slot 
+     directory (any project will do since all you need are the xml tags related to 
+     the GPU). If the system you are testing on is not attached to any project, 
+     then you can copy an init_data.xml file from any system with the same GPU.
+  c. Remove the following files from previous runs if they exist:
+     stderr.txt, out, GetDecics_state, boinc_finish_called.
+     Note: The GetDecics_state file is the checkpoint file.  Results will be 
+     incomplete if this file is present when starting a run.
+  d. Setup a link named "in" for the dat file you want to test
      (e.g. ln -fs sf5_DS-14x11_Grp10973of705883.dat in)
-  d. Then run it: ./GetDecics
-     There are 2 optional command line arguments that can override defaults:
+  e. If using the lookup table gpuLookupTable.txt, either change the row for your 
+     GPU or add a new row if your GPU is not listed.  The name in the lookup table
+     must be a substring of the BOINC generated GPU string.  Spaces are ignored 
+     when comparing strings.  When in doubt, do an initial run and look near the 
+     top of stderr.txt for the BOINC GPU string.  For example, BOINC reported my 
+     GPU as "[CUDA|GeForceGTX1050|1|1992MB|45066|102]", so I used the name 
+     "GTX 1050" in the lookup table.
+  f. Finally run the executable: ./GetDecics
+     There are 2 optional command line arguments that can override sizing parameters:
      ./GetDecics --numBlocks XX --threadsPerBlock YY
-     (for my AMD card, I needed to use numBlocks=threadsPerBlock=64, otherwise
-      I got an out of resources error).
+     When using the lookup table, you can ignore these command line arguments.
+
 
 A successful run will produce some output files.  If there are problems, stderr.txt 
 may have some clues.  The important file is called "out".  There are truth files in 
