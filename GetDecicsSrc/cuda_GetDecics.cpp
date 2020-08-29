@@ -48,6 +48,11 @@ int initializeCuda(int argc, char** argv) {
 
   // Create the stream
   cudaStreamCreate(&pdtStream);
+  CUDACHECK;
+
+  // Set device flags.  The blocking sync frees up the CPU while GPU is busy.
+//  cudaSetDeviceFlags(cudaDeviceScheduleBlockingSync);
+//  CUDACHECK;
 
 
   // If we make it this far, then return success
