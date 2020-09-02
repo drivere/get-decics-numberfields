@@ -144,7 +144,6 @@ do
 	else
 		echo "FAIL" >> "${resultsFile}"
 		echo "FAILED: Output did not match verification file"
-		exit 1
 	fi	
 done
 
