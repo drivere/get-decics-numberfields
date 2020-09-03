@@ -1,0 +1,152 @@
+#!/bin/bash
+
+# Verify that exactly 1 argument was supplied
+if [ "$#" -ne 1 ]
+then
+	echo "Supply a testing file as an argument"
+	echo "It will consist of N lines"
+	echo "Line 1: Executable file name"
+	echo "Line 2: Data file name"
+	echo "Lines 3..n: pairs of parameters (e.g. 100,32) representing numBlocks and threadsPerBlock parameter values"
+	exit 1
+fi
+
+# Read in the test source file
+fileContents=$(<$1)
+fileContentsAsArray=($fileContents)
+arrayLength=${#fileContentsAsArray[@]}
+
+# Verify that the executable exists
+executableName=${fileContentsAsArray[0]}
+if test -f "$executableName";
+then
+	echo "Executable ${executableName} found"
+else
+	echo "Could not find executable ${executableName}"
+	exit 1
+fi
+
+# Verify that the executable can be executed
+if [ -x ${executableName} ]
+then
+	echo "${executableName} can be executed"
+else
+	echo "${executableName} does not have permission to be executed"
+	exit 1
+fi
+
+# Verify that the data file exists
+dataFile=${fileContentsAsArray[1]}
+if test -f "$dataFile";
+then
+	echo "Data file ${dataFile} found"
+else
+	echo "Could not find data file ${dataFile}"
+	exit 1
+fi
+
+# Verify that the verification file exists
+verificationFile="wu_${dataFile%.dat}.out.truth"
+if test -f "$verificationFile";
+then
+	echo "Verification file ${verificationFile} found"
+else
+	echo "Could not find verification file ${verificationFile}"
+	exit 1
+fi
+
+IFS=","
+
+# Verify that each line of parameters is valid
+for (( i=2; i<arrayLength; i++));
+do
+	paramToParse=${fileContentsAsArray[i]}
+        read -ra param_arr <<< "$paramToParse"
+
+	# Verify that the line contains exactly 2 parameters
+	if [ ${#param_arr[@]} -ne 2 ]
+	then
+		echo "Parameter ${paramToParse} is invalid"
+		exit 1
+	fi		
+done
+
+# At this stage, the file passed in contains valid data
+echo "Parameters are valid"
+
+# Delete the existing symbolic link if it exists
+if [ -L in ]
+then
+	$(rm in)
+	echo "link removed"
+else	
+	echo "no link to remove"
+fi
+
+# Set the new symbolic link
+$(ln -fs ${dataFile} in)
+
+# Prepare the results file
+resultsFile="testResults-$(date +%Y%m%d-%H%M%S).csv"
+echo "Results will be stored in: ${resultsFile}"
+
+echo "numBlocks,threadsPerBlock,real time,user time,sys time,PASS/FAIL" >"${resultsFile}"
+
+# Prepare and run GetDecics
+# i=0: executable file
+# i=1: data file
+for (( i=2; i<arrayLength; i++));
+do
+	# Get parameters
+	paramToParse=${fileContentsAsArray[i]}
+	read -ra param_arr <<< "$paramToParse"
+
+	# Delete or clear files for a clean run
+	if [ -f GetDecics_state ]
+	then
+		$(rm GetDecics_state)
+		echo "Deleted GetDecics_state"
+	fi
+
+	if [ -f boinc_finish_called ]
+	then
+		$(rm boinc_finish_called)
+		echo "Deleted boinc_finish_called"
+	fi
+
+	>out
+	>stderr.txt
+
+	echo "executing ./${executableName} --numBlocks ${param_arr[0]} --threadsPerBlock ${param_arr[1]}"
+
+	# Run GetDecics
+	timesTaken=$( { time ./${executableName} --numBlocks "${param_arr[0]}" --threadsPerBlock "${param_arr[1]}"; } 2>&1)
+
+	# Extract the runtimes from the output of the time command
+	readarray -t timesTakenArray <<<"$timesTaken"
+	timesTakenArrayLength=${#timesTakenArray[@]}
+
+	echo -n "${param_arr[0]},${param_arr[1]}," >> "${resultsFile}"
+
+	for (( j=1; j<timesTakenArrayLength; j++));
+	do
+		# Extract the runtime from the time output line being evaluated
+		timeValue=${timesTakenArray[j]}		
+		modLine=$(echo "$timeValue" | cut -f2)
+		echo -n "${modLine}," >> "${resultsFile}"
+	done
+
+	# Verify output against truth file
+	diff <(head -n -2 out) <(head -n -2 "${verificationFile}") &>/dev/null;
+	if [ $? -eq 0 ]
+	then
+		echo "PASS" >> "${resultsFile}"
+	else
+		echo "FAIL" >> "${resultsFile}"
+		echo "FAILED: Output did not match verification file"
+	fi	
+done
+
+echo "Completed running all tests. See results in ${resultsFile}"
+
+exit
