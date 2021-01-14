@@ -16,7 +16,7 @@ extern int polyBufferSize;
 /* Function Prototypes */
 int  do_checkpoint(pari_long*, pari_long*);
 void init_globals(int, char**);
-int loadLookupTable(string*, int*, int*);
+int  loadLookupTable(string*, int*, int*);
 
 
 
@@ -42,13 +42,13 @@ int loadLookupTable(string*, int*, int*);
 // NumBlocks = PolyBufferSize / ThreadsPerBlock, so ThreadsPerBlock 
 //    must evenly divide PolyBufferSize.
 #if defined(APP_VERSION_GPU_CUDA) || defined(GPU_VENDOR_NVIDIA)
-  #define DEFAULT_NUM_BLOCKS         100
+  #define DEFAULT_NUM_BLOCKS         1024
   #define DEFAULT_THREADS_PER_BLOCK  32
 #elif GPU_VENDOR_AMD
-  #define DEFAULT_NUM_BLOCKS         128
+  #define DEFAULT_NUM_BLOCKS         1024
   #define DEFAULT_THREADS_PER_BLOCK  32
 #elif GPU_VENDOR_INTEL
-  #define DEFAULT_NUM_BLOCKS         128
+  #define DEFAULT_NUM_BLOCKS         1024
   #define DEFAULT_THREADS_PER_BLOCK  32
 #else   /* cpu version */
   #define DEFAULT_NUM_BLOCKS         10240   /* 10000 polys uses almost 1 MB */

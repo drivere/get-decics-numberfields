@@ -1,9 +1,6 @@
 // This is the BOINC main wrapper for the Targeted Martinet search routine.
 
-
 //typedef long long pari_long;
-
-
 
 #ifdef _WIN32
 #  include "boinc_win.h"
@@ -42,10 +39,18 @@ int polyBufferSize;
 
 
 #ifdef APP_VERSION_GPU_CUDA
-  int64_t  *kernelPolyBuffer;
-  char     *kernelFlagBuffer;
-  mp_int   *kernelDiscBuffer;
-  cudaGraphExec_t  pdtExecGraph;
+  int64_t  *gpuPolyBuffer;
+  char     *gpuFlagBuffer;
+  mp_int   *gpuDiscBuffer;
+  int64_t  *gpuPolyA;
+  int64_t  *gpuPolyB;
+  int      *gpuDegA;
+  int      *gpuDegB;
+  int64_t  *gpuG;
+  int64_t  *gpuH;
+  uint64_t *gpuScale;
+  mp_int   *gpu_mpA;
+  mp_int   *gpu_mpB;
   cudaStream_t     pdtStream;
 #endif
 
@@ -54,12 +59,36 @@ int polyBufferSize;
   cl_context        context;
   cl_command_queue  commandQueue;
   cl_program        program;
-  cl_kernel         pdtKernelStg1;
-  cl_kernel         pdtKernelStg2;
+  cl_kernel         pdtKernelSubResultantInit;
+  cl_kernel         pdtKernelSubResultantMpInit;
+  cl_kernel         pdtKernelSubResultantDegB8;
+  cl_kernel         pdtKernelSubResultantDegB7DegA9;
+  cl_kernel         pdtKernelSubResultantDegB7DegA8;
+  cl_kernel         pdtKernelSubResultantDegB6DegA9;
+  cl_kernel         pdtKernelSubResultantDegB6DegA8;
+  cl_kernel         pdtKernelSubResultantDegB6DegA7;
+  cl_kernel         pdtKernelSubResultantDegB5;
+  cl_kernel         pdtKernelSubResultantDegB4;
+  cl_kernel         pdtKernelSubResultantDegB3;
+  cl_kernel         pdtKernelSubResultantDegB2;
+
+  cl_kernel         pdtKernelSubResultantFinish;
+
+  cl_kernel         pdtKernelDiv2;
+  cl_kernel         pdtKernelDiv5;
+  cl_kernel         pdtKernelDivP;
   cl_kernel         pdtKernelStg3;
   cl_mem            kernelPolyBuffer;
   cl_mem            kernelFlagBuffer;
   cl_mem            kernelDiscBuffer;
+  cl_mem            kernelPolyA;
+  cl_mem            kernelPolyB;
+  cl_mem            kernelDegA;
+  cl_mem            kernelDegB;
+  cl_mem            kernelG;
+  cl_mem            kernelH;
+  cl_mem            kernelMpA;
+  cl_mem            kernelMpB;
 #endif
 
 
@@ -72,6 +101,7 @@ using std::string;
 
 
 string CHECKPOINT_FILE;
+
 
 
 int main(int argc, char **argv)
@@ -292,16 +322,17 @@ void  init_globals(int argc, char** argv) {
     if ((!strcmp(argv[i], "--numBlocks")) || (!strcmp(argv[i], "-numBlocks"))) {
       int numBlocksNew = atoi(argv[i+1]);
       if(numBlocksNew != numBlocks) {
-        i+=2;
+        ++i;
         modFlag = 1;
         numBlocks = numBlocksNew;
         fprintf(stderr, "Command line override: Forcing numBlocks = %d.\n", numBlocks);
+        continue;
       }
     }
     if ((!strcmp(argv[i], "--threadsPerBlock")) || (!strcmp(argv[i], "-threadsPerBlock"))) {
       int threadsPerBlockNew = atoi(argv[i+1]);
       if(threadsPerBlockNew != threadsPerBlock) {
-        i+=2;
+        ++i;
         modFlag = 1;
         threadsPerBlock = threadsPerBlockNew;
         fprintf(stderr, "Command line override: Forcing threadsPerBlock = %d.\n", threadsPerBlock);

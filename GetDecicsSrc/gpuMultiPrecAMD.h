@@ -14,6 +14,7 @@
 #define GPUMULTIPREC_H
 
 
+
 #ifdef CUDA
   /* These includes are to get CHAR_BIT, uint32_t, and uint64_t. */
   #include <limits.h>
@@ -43,18 +44,20 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #endif
 
+#include "mp_int.h"
+
 
 // This is the hard-coded amount of precision to be used.
 // It is the number of mp_digits. A "digit" is 32bits.
 // But only 31 bits of each digit is actually used.  So 31*24 = 744 bits max.
 // EDD 8-5-19: Noticed some sf4_DS15x271 cases were failing with memory errors,
 //             so bumped precision up to 32 (31*32=992 bits)
-#define MP_PREC  32
+//#define MP_PREC  32
 
 #define MP_OKAY       0   /* ok result */
 #define MP_VAL       -3   /* invalid input */
-#define MP_ZPOS       0   /* positive integer */
-#define MP_NEG        1   /* negative */
+#define MP_ZPOS       1   /* positive integer */
+#define MP_NEG       -1   /* negative integer */
 #define MP_MEM       -2   /* out of mem */
 
 /* equalities */
@@ -68,7 +71,7 @@
 #define IS_ODD(a)  (((a)->used > 0) && (((a)->dp[0] & 1u) == 1u))
 
 
-typedef uint32_t  mp_digit;
+//typedef uint32_t  mp_digit;
 typedef uint64_t  mp_word;
 #define DIGIT_BIT 31
 #define MP_MASK  ((((mp_digit)1)<<((mp_digit)DIGIT_BIT))-((mp_digit)1))
@@ -78,11 +81,12 @@ typedef uint64_t  mp_word;
 
 
 /* This is the structure that defines the multi-precision data type */
+/*
 typedef struct  {
    int used, sign;
    mp_digit dp[MP_PREC];
 } mp_int;
-
+*/
 
 
 // Function Prototypes
@@ -127,6 +131,7 @@ __device__ inline
 int mp_init(mp_int *a)
 {
    /* set the digits to zero */
+//#pragma unroll
    for (int i = 0; i < MP_PREC; i++)  a->dp[i] = 0;
 
    /* set the used to zero and sign to positive */
@@ -255,6 +260,35 @@ int mp_copy(mp_int *a, mp_int *b)
    b->sign = a->sign;
    return MP_OKAY;
 }
+
+
+/* global-to-private version of the copy function */
+__device__ inline
+void mp_copy_g2p( __global mp_int *a, mp_int *b)
+{
+   int n;
+   for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
+   for (; n < MP_PREC; n++)  b->dp[n] = 0;
+
+   /* copy used count and sign */
+   b->used = a->used;
+   b->sign = a->sign;
+}
+
+
+/* private-to-global version of the copy function */
+__device__ inline
+void mp_copy_p2g( mp_int *a, __global mp_int *b)
+{
+   int n;
+   for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
+   //for (; n < MP_PREC; n++)  b->dp[n] = 0;
+
+   /* copy used count and sign */
+   b->used = a->used;
+   b->sign = a->sign;
+}
+
 
 
 /* copy a vector of mp_ints */
@@ -1239,6 +1273,7 @@ int mp_mod_2d(mp_int *a, int b, mp_int *c)
 
 
 
+
 /* all the code below here is only needed for printing */
 
 #ifdef PRINTF_ENABLED
@@ -1337,6 +1372,19 @@ void mp_printf(mp_int a)
 /* poly[] should be of length deg+1.                           */
 __device__
 void mp_print_poly(mp_int *poly, int deg)
+{
+   mp_printf(poly[0]);
+   for(int k=1; k<=deg; k++) {
+      printf(" + ");
+      mp_printf(poly[k]);
+      printf(" x^%d", k);
+   }
+}
+
+
+/* This version works with global memory */
+__device__
+void mp_print_poly_g(__global mp_int *poly, int deg)
 {
    mp_printf(poly[0]);
    for(int k=1; k<=deg; k++) {

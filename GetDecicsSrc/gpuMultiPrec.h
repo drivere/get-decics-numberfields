@@ -14,6 +14,7 @@
 #define GPUMULTIPREC_H
 
 
+
 #ifdef CUDA
   /* These includes are to get CHAR_BIT, uint32_t, and uint64_t. */
   #include <limits.h>
@@ -43,18 +44,20 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #endif
 
+#include "mp_int.h"
+
 
 // This is the hard-coded amount of precision to be used.
 // It is the number of mp_digits. A "digit" is 32bits.
 // But only 31 bits of each digit is actually used.  So 31*24 = 744 bits max.
 // EDD 8-5-19: Noticed some sf4_DS15x271 cases were failing with memory errors,
 //             so bumped precision up to 32 (31*32=992 bits)
-#define MP_PREC  32
+//#define MP_PREC  32
 
 #define MP_OKAY       0   /* ok result */
 #define MP_VAL       -3   /* invalid input */
-#define MP_ZPOS       0   /* positive integer */
-#define MP_NEG        1   /* negative */
+#define MP_ZPOS       1   /* positive integer */
+#define MP_NEG       -1   /* negative integer */
 #define MP_MEM       -2   /* out of mem */
 
 /* equalities */
@@ -68,7 +71,7 @@
 #define IS_ODD(a)  (((a)->used > 0) && (((a)->dp[0] & 1u) == 1u))
 
 
-typedef uint32_t  mp_digit;
+//typedef uint32_t  mp_digit;
 typedef uint64_t  mp_word;
 #define DIGIT_BIT 31
 #define MP_MASK  ((((mp_digit)1)<<((mp_digit)DIGIT_BIT))-((mp_digit)1))
@@ -78,11 +81,12 @@ typedef uint64_t  mp_word;
 
 
 /* This is the structure that defines the multi-precision data type */
+/*
 typedef struct  {
    int used, sign;
    mp_digit dp[MP_PREC];
 } mp_int;
-
+*/
 
 
 // Function Prototypes
@@ -115,10 +119,6 @@ __device__ int  mp_mod_d(mp_int*, mp_digit, mp_digit*);
 __device__ int  mp_div_2(mp_int*, mp_int*);
 __device__ int  mp_div_2d(mp_int*, int, mp_int*, mp_int*);
 __device__ int  mp_mod_2d(mp_int*, int, mp_int*);
-__device__ int  mp_sqrt(mp_int*, mp_int*);
-__device__ int  mp_sqr(mp_int*, mp_int*);
-__device__ int  s_mp_sqr(mp_int*, mp_int*);
-__device__ int  fast_s_mp_sqr(mp_int*, mp_int*);
 #ifdef PRINTF_ENABLED
 __device__ int  mp_toradix(mp_int*, char*, int);
 __device__ void bn_reverse(unsigned char*, int);
@@ -150,7 +150,6 @@ void mp_zero(mp_int *a)
    a->sign = MP_ZPOS;
    a->used = 0;
 
-//#pragma unroll
    for (int i = 0; i < MP_PREC; i++)  a->dp[i] = 0;
 }
 
@@ -160,7 +159,6 @@ __device__ inline
 void mp_set(mp_int *a, mp_digit b)
 {
    a->dp[0] = b;
-//#pragma unroll
    for (int i = 1; i < MP_PREC; i++)  a->dp[i] = 0;
 
    a->sign = MP_ZPOS;
@@ -173,7 +171,6 @@ void mp_set(mp_int *a, mp_digit b)
 __device__ inline
 void mp_set_vec_int64(mp_int *a, int64_t *b, int numElem)
 {
-//#pragma unroll
    for (int k = 0; k < numElem; k++)  mp_set_int64(&(a[k]), b[k]);
 }
 
@@ -265,6 +262,35 @@ int mp_copy(mp_int *a, mp_int *b)
 }
 
 
+/* global-to-private version of the copy function */
+__device__ inline
+void mp_copy_g2p( __global mp_int *a, mp_int *b)
+{
+   int n;
+   for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
+   for (; n < MP_PREC; n++)  b->dp[n] = 0;
+
+   /* copy used count and sign */
+   b->used = a->used;
+   b->sign = a->sign;
+}
+
+
+/* private-to-global version of the copy function */
+__device__ inline
+void mp_copy_p2g( mp_int *a, __global mp_int *b)
+{
+   int n;
+   for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
+   //for (; n < MP_PREC; n++)  b->dp[n] = 0;
+
+   /* copy used count and sign */
+   b->used = a->used;
+   b->sign = a->sign;
+}
+
+
+
 /* copy a vector of mp_ints */
 __device__ inline
 int mp_copy_vec(mp_int *a, mp_int *b, int numElem)
@@ -290,7 +316,6 @@ int mp_count_bits(mp_int *a)
 
    /* take the last digit and count the bits in it */
    q = a->dp[a->used - 1];
-#pragma unroll
    while (q > (mp_digit)0) {
       ++r;
       q >>= (mp_digit)1;
@@ -335,7 +360,6 @@ int mp_cmp_mag(mp_int *a, mp_int *b)
    tmpb = b->dp + (a->used - 1);
 
    /* compare based on digits  */
-#pragma unroll
    for (int n = 0; n < a->used; ++n, --tmpa, --tmpb) {
       if (*tmpa > *tmpb)  return MP_GT;
       if (*tmpa < *tmpb)  return MP_LT;
@@ -375,12 +399,10 @@ int mp_lshd(mp_int *a, int b)
     * except the window goes the otherway around.  Copying from
     * the bottom to the top.  see bn_mp_rshd.c for more info.
     */
-#pragma unroll
    for (x = a->used - 1; x >= b; x--)  *top-- = *bottom--;
 
    /* zero the lower digits */
    top = a->dp;
-#pragma unroll
    for (x = 0; x < b; x++)  *top++ = 0;
 
    return MP_OKAY;
@@ -421,11 +443,9 @@ void mp_rshd(mp_int *a, int b)
                 /\                   |      ---->
                  \-------------------/      ---->
     */
-#pragma unroll
    for (x = 0; x < (a->used - b); x++)  *bottom++ = *top++;
 
    /* zero the top digits */
-#pragma unroll
    for (; x < a->used; x++)  *bottom++ = 0;
 
    /* remove excess digits */
@@ -534,7 +554,6 @@ int s_mp_add(mp_int *a, mp_int *b, mp_int *c)
 
    /* zero the carry */
    u = 0;
-#pragma unroll
    for (i = 0; i < min; i++) {
       /* Compute the sum at one digit, T[i] = A[i] + B[i] + U */
       *tmpc = *tmpa++ + *tmpb++ + u;
@@ -550,7 +569,6 @@ int s_mp_add(mp_int *a, mp_int *b, mp_int *c)
     * if A or B has more digits add those in
     */
    if (min != max) {
-#pragma unroll
       for (; i < max; i++) {
          /* T[i] = X[i] + U */
          *tmpc = x->dp[i] + u;
@@ -567,7 +585,6 @@ int s_mp_add(mp_int *a, mp_int *b, mp_int *c)
    *tmpc++ = u;
 
    /* clear digits above oldused */
-#pragma unroll
    for (i = c->used; i < olduse; i++)  *tmpc++ = 0;
 
    mp_clamp(c);
@@ -598,7 +615,6 @@ int s_mp_sub(mp_int *a, mp_int *b, mp_int *c)
 
    /* set carry to zero */
    u = 0;
-#pragma unroll
    for (i = 0; i < min; i++) {
       /* T[i] = A[i] - B[i] - U */
       *tmpc = (*tmpa++ - *tmpb++) - u;
@@ -615,7 +631,6 @@ int s_mp_sub(mp_int *a, mp_int *b, mp_int *c)
    }
 
    /* now copy higher words if any, e.g. if A has more digits than B  */
-#pragma unroll
    for (; i < max; i++) {
       /* T[i] = A[i] - U */
       *tmpc = *tmpa++ - u;
@@ -628,7 +643,6 @@ int s_mp_sub(mp_int *a, mp_int *b, mp_int *c)
    }
 
    /* clear digits above used (since we may not have grown result above) */
-#pragma unroll
    for (i = c->used; i < olduse; i++)  *tmpc++ = 0;
 
    mp_clamp(c);
@@ -691,7 +705,6 @@ int s_mp_mul_digs(mp_int *a, mp_int *b, mp_int *c, int digs)
 
    /* compute the digits of the product directly */
    pa = a->used;
-#pragma unroll
    for (ix = 0; ix < pa; ix++) {
       /* set the carry to zero */
       u = 0;
@@ -710,7 +723,6 @@ int s_mp_mul_digs(mp_int *a, mp_int *b, mp_int *c, int digs)
       tmpy = b->dp;
 
       /* compute the columns of the output and propagate the carry */
-#pragma unroll
       for (iy = 0; iy < pb; iy++) {
          /* compute the column as a mp_word */
          r = (mp_word)*tmpt + ((mp_word)tmpx * (mp_word)*tmpy++) + (mp_word)u;
@@ -767,7 +779,6 @@ int fast_s_mp_mul_digs(mp_int *a, mp_int *b, mp_int *c, int digs)
 
    /* clear the carry */
    _W = 0;
-#pragma unroll
    for (ix = 0; ix < pa; ix++) {
       int tx, ty, iy;
       mp_digit *tmpx, *tmpy;
@@ -786,7 +797,6 @@ int fast_s_mp_mul_digs(mp_int *a, mp_int *b, mp_int *c, int digs)
       iy = MIN(a->used-tx, ty+1);
 
       /* execute loop */
-#pragma unroll
       for (iz = 0; iz < iy; ++iz) {
          _W += (mp_word)*tmpx++ * (mp_word)*tmpy--;
       }
@@ -804,14 +814,12 @@ int fast_s_mp_mul_digs(mp_int *a, mp_int *b, mp_int *c, int digs)
 
    mp_digit *tmpc;
    tmpc = c->dp;
-#pragma unroll
    for (ix = 0; ix < pa; ix++) {
       /* now extract the previous digit [below the carry] */
       *tmpc++ = W[ix];
    }
 
    /* clear unused digits [that existed in the old copy of c] */
-#pragma unroll
    for (; ix < olduse; ix++)  *tmpc++ = 0;
 
    mp_clamp(c);
@@ -847,7 +855,6 @@ int mp_mul_d(mp_int *a, mp_digit b, mp_int *c)
    u = 0;
 
    /* compute columns */
-#pragma unroll
    for (ix = 0; ix < a->used; ix++) {
       /* compute product and carry sum for this term */
       r = (mp_word)u + ((mp_word)*tmpa++ * (mp_word)b);
@@ -864,7 +871,6 @@ int mp_mul_d(mp_int *a, mp_digit b, mp_int *c)
    ++ix;
 
    /* now zero digits above the top */
-#pragma unroll
    while (ix++ < olduse)  *tmpc++ = 0;
 
    /* set used count */
@@ -908,7 +914,6 @@ int mp_mul_2d(mp_int *a, int b, mp_int *c)
 
       /* carry */
       r    = 0;
-#pragma unroll
       for (x = 0; x < c->used; x++) {
          /* get the higher bits of the current word */
          rr = (*tmpc >> shift) & mask;
@@ -992,7 +997,6 @@ int mp_div(mp_int *a, mp_int *b, mp_int *c, mp_int *d)
    /* while (x >= y*b**n-t) do { q[n-t] += 1; x -= y*b**{n-t} } */
    if( mp_lshd(&y, n - t) != MP_OKAY )  return MP_MEM;  /* y = y*b**{n-t} */
 
-#pragma unroll
    while (mp_cmp(&x, &y) != MP_LT) {
       ++(q.dp[n - t]);
       mp_sub(&x, &y, &x);
@@ -1002,7 +1006,6 @@ int mp_div(mp_int *a, mp_int *b, mp_int *c, mp_int *d)
    mp_rshd(&y, n - t);
 
    /* step 3. for i from n down to (t + 1) */
-#pragma unroll
    for (i = n; i >= (t + 1); i--) {
       if (i > x.used)  continue;
 
@@ -1100,7 +1103,6 @@ int mp_div_d(mp_int *a, mp_digit b, mp_int *c, mp_digit *d)
    q.used = a->used;
    q.sign = a->sign;
    w = 0;
-#pragma unroll
    for (ix = a->used - 1; ix >= 0; ix--) {
       w = (w << (mp_word)DIGIT_BIT) | (mp_word)a->dp[ix];
 
@@ -1152,7 +1154,6 @@ int mp_div_2(mp_int *a, mp_int *b)
 
    /* carry */
    r = 0;
-#pragma unroll
    for (x = b->used - 1; x >= 0; x--) {
       /* get the carry for the next iteration */
       rr = *tmpa & 1u;
@@ -1166,7 +1167,6 @@ int mp_div_2(mp_int *a, mp_int *b)
 
    /* zero excess digits */
    tmpb = b->dp + b->used;
-#pragma unroll
    for (x = b->used; x < oldused; x++)  *tmpb++ = 0;
 
    b->sign = a->sign;
@@ -1218,7 +1218,6 @@ int mp_div_2d(mp_int *a, int b, mp_int *c, mp_int *d)
 
       /* carry */
       r = 0;
-#pragma unroll
       for (x = c->used - 1; x >= 0; x--) {
          /* get the lower  bits of this word in a temp */
          rr = *tmpc & mask;
@@ -1259,7 +1258,6 @@ int mp_mod_2d(mp_int *a, int b, mp_int *c)
    mp_copy(a, c);
 
    /* zero digits above the last digit of the modulus */
-#pragma unroll
    for (x = (b / DIGIT_BIT) + (((b % DIGIT_BIT) == 0) ? 0 : 1); x < c->used; x++) {
       c->dp[x] = 0;
    }
@@ -1273,222 +1271,6 @@ int mp_mod_2d(mp_int *a, int b, mp_int *c)
 
 
 
-
-/* this function is less generic than mp_n_root, simpler and faster */
-/* WARNING: we assume ret is different from arg */
-__device__ inline
-int mp_sqrt(mp_int *arg, mp_int *ret)
-{
-   mp_int t2;
-
-   /* must be positive */
-   //if (arg->sign == MP_NEG)  return MP_VAL;
-
-   /* easy out */
-   //if (IS_ZERO(arg)) { mp_zero(ret); return MP_OKAY; }
-
-   mp_copy(arg, ret);
-
-   mp_init(&t2);
-
-   /* First approx. (not very bad for large arg) */
-   mp_rshd(ret, ret->used/2);
-
-   /* ret > 0  */
-   int retVal = mp_div(arg, ret, &t2, NULL);
-   if( retVal != MP_OKAY )  return retVal;
-
-   mp_add(ret, &t2, ret);
-   mp_div_2(ret, ret);  /* This is safe from overflow */
-
-   /* And now ret > sqrt(arg) */
-
-/*
-   // Original code.  Replaced with for loop so it could be unrolled.
-   do {
-      mp_div(arg, ret, &t2, NULL);  // If we've made it this far then this is safe from overflow
-      mp_add(ret, &t2, ret);
-      mp_div_2(ret, ret);
-      // ret >= sqrt(arg) >= t2 at this point
-   } while (mp_cmp_mag(ret, &t2) == MP_GT);
-   return MP_OKAY;
-*/
-
-
-#pragma unroll
-   for(int k=0; k<30; ++k) {
-      mp_div(arg, ret, &t2, NULL);  // If we've made it this far then this is safe from overflow
-      mp_add(ret, &t2, ret);
-      mp_div_2(ret, ret);
-      if (mp_cmp_mag(ret, &t2) != MP_GT)  return MP_OKAY;
-   }
-   // If the for loop doesn't return early, then it never converged.
-   // To error on the side of caution, we return an error.
-   return MP_MEM;
-
-
-}
-
-
-
-/* computes b = a*a */
-__device__ inline
-int mp_sqr(mp_int *a, mp_int *b)
-{
-   b->sign = MP_ZPOS;
-
-   /* can we use the fast comba multiplier? */
-   if ((((a->used * 2) + 1) < (int)MP_WARRAY) && (a->used <
-         (int)(1u << (((sizeof(mp_word) * (size_t)CHAR_BIT) - (2u * (size_t)DIGIT_BIT)) - 1u)))) {
-      return( fast_s_mp_sqr(a, b) );
-   }
-   else
-   {
-      return( s_mp_sqr(a, b) );
-   }
-}
-
-
-/* NOTE: HAVE NOT ADDED MEMORY ERROR CHECKING YET ON BELOW FUNCTIONS */
-
-
-/* low level squaring, b = a*a, HAC pp.596-597, Algorithm 14.16 */
-__device__ inline
-int s_mp_sqr(mp_int *a, mp_int *b)
-{
-   mp_int  t;
-   int     ix, iy, pa;
-   mp_word r;
-   mp_digit u, tmpx, *tmpt;
-
-   pa = a->used;
-   mp_init(&t);
-
-   /* default used is maximum possible size */
-   t.used = (2 * pa) + 1;
-
-#pragma unroll
-   for (ix = 0; ix < pa; ix++) {
-      /* first calculate the digit at 2*ix */
-      /* calculate double precision result */
-      r = (mp_word)t.dp[2*ix] + ((mp_word)a->dp[ix] * (mp_word)a->dp[ix]);
-
-      /* store lower part in result */
-      t.dp[ix+ix] = (mp_digit)(r & (mp_word)MP_MASK);
-
-      /* get the carry */
-      u = (mp_digit)(r >> (mp_word)DIGIT_BIT);
-
-      /* left hand side of A[ix] * A[iy] */
-      tmpx = a->dp[ix];
-
-      /* alias for where to store the results */
-      tmpt = t.dp + ((2 * ix) + 1);
-
-#pragma unroll
-      for (iy = ix + 1; iy < pa; iy++) {
-         /* first calculate the product */
-         r = (mp_word)tmpx * (mp_word)a->dp[iy];
-
-         /* now calculate the double precision result, note we use
-          * addition instead of *2 since it's easier to optimize */
-         r = (mp_word)*tmpt + r + r + (mp_word)u;
-
-         /* store lower part */
-         *tmpt++ = (mp_digit)(r & (mp_word)MP_MASK);
-
-         /* get carry */
-         u = (mp_digit)(r >> (mp_word)DIGIT_BIT);
-      }
-      /* propagate upwards */
-#pragma unroll
-      while (u != 0uL) {
-         r       = (mp_word)*tmpt + (mp_word)u;
-         *tmpt++ = (mp_digit)(r & (mp_word)MP_MASK);
-         u       = (mp_digit)(r >> (mp_word)DIGIT_BIT);
-      }
-   }
-
-   mp_clamp(&t);
-   mp_copy(&t, b);
-
-   return MP_OKAY;
-}
-
-
-
-
-/* faster algorithm for low level squaring: b = a*a */
-__device__ inline
-int fast_s_mp_sqr(mp_int *a, mp_int *b)
-{
-   int       olduse, pa, ix, iz;
-   mp_digit  W[MP_WARRAY], *tmpx;
-   mp_word   W1;
-
-   pa = a->used + a->used;
-
-   /* number of output digits to produce */
-   W1 = 0;
-#pragma unroll
-   for (ix = 0; ix < pa; ix++) {
-      int      tx, ty, iy;
-      mp_word  _W;
-      mp_digit *tmpy;
-
-      /* clear counter */
-      _W = 0;
-
-      /* get offsets into the two bignums */
-      ty = MIN(a->used-1, ix);
-      tx = ix - ty;
-
-      /* setup temp aliases */
-      tmpx = a->dp + tx;
-      tmpy = a->dp + ty;
-
-      /* this is the number of times the loop will iterrate, essentially
-         while (tx++ < a->used && ty-- >= 0) { ... } */
-      iy = MIN(a->used-tx, ty+1);
-
-      /* now for squaring tx can never equal ty
-       * we halve the distance since they approach at a rate of 2x
-       * and we have to round because odd cases need to be executed */
-      iy = MIN(iy, ((ty-tx)+1)>>1);
-
-      /* execute loop */
-#pragma unroll
-      for (iz = 0; iz < iy; iz++)  _W += (mp_word)*tmpx++ * (mp_word)*tmpy--;
-
-      /* double the inner product and add carry */
-      _W = _W + _W + W1;
-
-      /* even columns have the square term in them */
-      if (((unsigned)ix & 1u) == 0u)  _W += (mp_word)a->dp[ix>>1] * (mp_word)a->dp[ix>>1];
-
-      /* store it */
-      W[ix] = _W & MP_MASK;
-
-      /* make next carry */
-      W1 = _W >> (mp_word)DIGIT_BIT;
-   }
-
-   /* setup dest */
-   olduse  = b->used;
-   b->used = a->used+a->used;
-
-   mp_digit *tmpb;
-   tmpb = b->dp;
-#pragma unroll
-   for (ix = 0; ix < pa; ix++)  *tmpb++ = W[ix] & MP_MASK;
-
-   /* clear unused digits [that existed in the old copy of c] */
-#pragma unroll
-   for (; ix < olduse; ix++)  *tmpb++ = 0;
-
-   mp_clamp(b);
-   return MP_OKAY;
-}
 
 
 
@@ -1590,6 +1372,19 @@ void mp_printf(mp_int a)
 /* poly[] should be of length deg+1.                           */
 __device__
 void mp_print_poly(mp_int *poly, int deg)
+{
+   mp_printf(poly[0]);
+   for(int k=1; k<=deg; k++) {
+      printf(" + ");
+      mp_printf(poly[k]);
+      printf(" x^%d", k);
+   }
+}
+
+
+/* This version works with global memory */
+__device__
+void mp_print_poly_g(__global mp_int *poly, int deg)
 {
    mp_printf(poly[0]);
    for(int k=1; k<=deg; k++) {
