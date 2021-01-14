@@ -15,6 +15,7 @@
 #ifndef GPUMULTIPREC_H
 #define GPUMULTIPREC_H
 
+#include "mp_int.h"
 
 #ifdef CUDA
   #ifndef __CUDA_ARCH__
@@ -50,17 +51,16 @@
 #endif
 
 
-// This is the hard-coded amount of precision to be used.
-// It is the number of mp_digits. A "digit" is 64bits.
-// But only 63 bits of each digit is actually used.  So 63*12 = 756 bits max.
-// EDD 8-5-19: Noticed some sf4_DS15x271 cases were failing with memory errors,
-//             so bumped precision up to 15 (63*15=945 bits)
-#define MP_PREC  15
 
 #define MP_OKAY       0   /* ok result */
 #define MP_VAL       -3   /* invalid input */
-#define MP_ZPOS       0   /* positive integer */
-#define MP_NEG        1   /* negative */
+
+#define MP_ZPOS       1   /* positive integer */
+#define MP_ZERO       0   /* zero */
+#define MP_NEG       -1   /* negative */
+//#define MP_ZPOS       0   /* positive integer */
+//#define MP_NEG        1   /* negative */
+
 #define MP_MEM       -2   /* out of mem */
 
 /* equalities */
@@ -83,40 +83,35 @@ typedef uint128_t  mp_word;
 #define MP_WARRAY  8
 
 
-/* This is the structure that defines the multi-precision data type */
-typedef struct  {
-   int used, sign;
-   mp_digit dp[MP_PREC];
-} mp_int;
-
-
 
 // Function Prototypes
-__device__ int  mp_init(mp_int*);
+__device__ void mp_init(mp_int*);
 __device__ void mp_zero(mp_int*);
 __device__ void mp_set(mp_int*, mp_digit);
 __device__ void mp_set_vec_int64(mp_int*, int64_t*, int);
-__device__ int  mp_set_int64(mp_int*, int64_t);
-__device__ int  mp_set_ull(mp_int*, uint64_t);
+__device__ void mp_set_int64(mp_int*, int64_t);
 __device__ void mp_clamp(mp_int*);
-__device__ int  mp_copy(mp_int*, mp_int*);
-__device__ int  mp_copy_vec(mp_int*, mp_int*, int);
+__device__ void mp_copy(mp_int*, mp_int*);
+__device__ void mp_copy_vec(mp_int*, mp_int*, int);
 __device__ int  mp_count_bits(mp_int*);
 __device__ int  mp_cmp(mp_int*, mp_int*);
 __device__ int  mp_cmp_mag(mp_int*, mp_int*);
 __device__ int  mp_lshd(mp_int*, int);
 __device__ void mp_rshd(mp_int*, int);
 __device__ int  mp_add(mp_int*, mp_int*, mp_int*);
+__device__ void mp_add_2dig(mp_int*, mp_int*, mp_int*);
 __device__ int  mp_sub(mp_int*, mp_int*, mp_int*);
 __device__ int  s_mp_add(mp_int*, mp_int*, mp_int*);
 __device__ int  s_mp_sub(mp_int*, mp_int*, mp_int*);
 __device__ int  mp_mul(mp_int*, mp_int*, mp_int*);
+__device__ void mp_mul_2dig(mp_int*, mp_int*, mp_int*);
 __device__ int  s_mp_mul_digs(mp_int*, mp_int*, mp_int*, int);
 __device__ int  fast_s_mp_mul_digs(mp_int*, mp_int*, mp_int*, int);
 __device__ int  mp_mul_d(mp_int*, mp_digit, mp_int*);
 __device__ int  mp_mul_2d(mp_int*, int, mp_int*);
 __device__ int  mp_div(mp_int*, mp_int*, mp_int*, mp_int*);
 __device__ int  mp_div_d(mp_int*, mp_digit, mp_int*, mp_digit*);
+__device__ void mp_div_d_2dig(mp_int*, mp_digit);
 __device__ int  mp_mod_d(mp_int*, mp_digit, mp_digit*);
 __device__ int  mp_div_2(mp_int*, mp_int*);
 __device__ int  mp_div_2d(mp_int*, int, mp_int*, mp_int*);
@@ -130,7 +125,7 @@ __device__ void mp_print_poly(mp_int*, int);
 
 
 __device__ inline
-int mp_init(mp_int *a)
+void mp_init(mp_int *a)
 {
    /* set the digits to zero */
 //#pragma unroll
@@ -139,8 +134,6 @@ int mp_init(mp_int *a)
    /* set the used to zero and sign to positive */
    a->used  = 0;
    a->sign  = MP_ZPOS;
-
-   return MP_OKAY;
 }
 
 
@@ -151,10 +144,45 @@ void mp_zero(mp_int *a)
 {
    a->sign = MP_ZPOS;
    a->used = 0;
-
-//#pragma unroll
    for (int i = 0; i < MP_PREC; i++)  a->dp[i] = 0;
 }
+
+
+/* Set only first 2 digits to zero */
+__device__ inline
+void mp_zero_2dig(mp_int *a)
+{
+   a->sign = MP_ZPOS;
+   a->used = 0;
+   a->dp[0] = 0;
+   a->dp[1] = 0;
+}
+
+
+/* Set only first 3 digits to zero */
+__device__ inline
+void mp_zero_3dig(mp_int *a)
+{
+   a->sign = MP_ZPOS;
+   a->used = 0;
+   a->dp[0] = 0;
+   a->dp[1] = 0;
+   a->dp[2] = 0;
+}
+
+
+/* Set only first 4 digits to zero */
+__device__ inline
+void mp_zero_4dig(mp_int *a)
+{
+   a->sign = MP_ZPOS;
+   a->used = 0;
+   a->dp[0] = 0;  a->dp[1] = 0;
+   a->dp[2] = 0;  a->dp[3] = 0;
+}
+
+
+
 
 
 
@@ -163,7 +191,6 @@ __device__ inline
 void mp_set(mp_int *a, mp_digit b)
 {
    a->dp[0] = b;
-//#pragma unroll
    for (int i = 1; i < MP_PREC; i++)  a->dp[i] = 0;
 
    a->sign = MP_ZPOS;
@@ -176,24 +203,39 @@ void mp_set(mp_int *a, mp_digit b)
 __device__ inline
 void mp_set_vec_int64(mp_int *a, int64_t *b, int numElem)
 {
-//#pragma unroll
    for (int k = 0; k < numElem; k++)  mp_set_int64(&(a[k]), b[k]);
 }
 
 
 
 __device__ inline
-int mp_set_int64(mp_int *a, int64_t b)
+void mp_set_int64(mp_int *a, int64_t b)
 {
-   int sgn = 1;
-   if(b<0) {
-      b=-b;
-      sgn = -1;
-      }
-   mp_set(a, b);
-   if(sgn==-1)  a->sign = MP_NEG;
 
-   return MP_OKAY;
+
+/*
+//   a->dp[0] = (b>=0) ? b : -b;  // |b|
+   a->dp[0] = llabs(b);
+   for (int i = 1; i < MP_PREC; i++)  a->dp[i] = 0;
+   a->used = (a->dp[0] != 0) ? 1 : 0;
+   if(b<0) a->sign = MP_NEG;
+   else    a->sign = MP_ZPOS;
+*/
+
+
+   a->used = 1;
+   for (int i = 1; i < MP_PREC; i++)  a->dp[i] = 0;
+
+   if(b<0) {
+     a->sign = MP_NEG;
+     a->dp[0] = -b;
+     }
+   else {
+     a->sign = MP_ZPOS;
+     a->dp[0] = b;
+     if(b==0) a->used = 0;
+     }
+
 }
 
 
@@ -221,32 +263,27 @@ void mp_clamp(mp_int *a)
 
 /* copy, b = a */
 __device__ inline
-int mp_copy(mp_int *a, mp_int *b)
+void mp_copy(mp_int *a, mp_int *b)
 {
-   /* if dst == src do nothing */
-   //if (a == b)  return MP_OKAY;
 
    // I thought this would keep threads in lock-step, but it actually made the code slower.
    //for (int n = 0; n < MP_PREC; n++)  b->dp[n] = a->dp[n];
 
    int n;
    for (n = 0; n < a->used; n++)  b->dp[n] = a->dp[n];
-   //for (; n < b->used; n++)  b->dp[n] = 0;
    for (; n < MP_PREC; n++)  b->dp[n] = 0;
 
    /* copy used count and sign */
    b->used = a->used;
    b->sign = a->sign;
-   return MP_OKAY;
 }
 
 
 /* copy a vector of mp_ints */
 __device__ inline
-int mp_copy_vec(mp_int *a, mp_int *b, int numElem)
+void mp_copy_vec(mp_int *a, mp_int *b, int numElem)
 {
    for (int k = 0; k < numElem; k++)  mp_copy(&(a[k]), &(b[k]));
-   return MP_OKAY;
 }
 
 
@@ -409,7 +446,7 @@ void mp_rshd(mp_int *a, int b)
 
 
 
-/* high level addition (handles signs) */
+/* high level addition (handles signs) c = a + b */
 __device__ inline
 int mp_add(mp_int *a, mp_int *b, mp_int *c)
 {
@@ -433,6 +470,210 @@ int mp_add(mp_int *a, mp_int *b, mp_int *c)
       }
    }
 }
+
+
+
+
+/* Simplified addition assuming result fits in 2 digits     */
+/* c = a+b  */
+__device__ inline
+void mp_add_2dig(mp_int *a, mp_int *b, mp_int *c)
+{
+
+   /* set aliases for input pointers so that |t1|>|t2| */
+   const mp_int *t1, *t2;
+
+
+   if (mp_cmp_mag(a, b) == MP_LT) { t1 = b;  t2 = a; }
+   else { t1 = a;  t2 = b; }
+
+
+   // This handles both addition and subtraction simultaneously.
+   // But it appears the multiplication by sgn actually slows things down.
+/*
+   int sgn = t1->sign * t2->sign;  // sgn=1 if signs are the same, otherwise -1
+   c->sign = t1->sign;
+   c->dp[0] = t1->dp[0] + sgn*(t2->dp[0]);
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   c->dp[1] = t1->dp[1] + sgn*(t2->dp[1] + carry);
+*/
+
+
+// The code below handles the addition and subtraction separately.
+/*
+   if ( t1->sign == t2->sign ) {  // Then add them
+     c->sign = t1->sign;
+     c->dp[0] = t1->dp[0] + t2->dp[0];
+     uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+     c->dp[0] = (c->dp[0]) & MP_MASK;
+     c->dp[1] = t1->dp[1] + t2->dp[1] + carry;
+     }
+  else {  // Otherwise subtract them
+     c->sign = t1->sign;
+     c->dp[0] = t1->dp[0] - t2->dp[0];
+     uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+     c->dp[0] = (c->dp[0]) & MP_MASK;
+     c->dp[1] = t1->dp[1] - t2->dp[1] - carry;
+     }
+*/
+
+
+   c->sign = t1->sign;
+   if ( t1->sign == t2->sign )  c->dp[0] = t1->dp[0] + t2->dp[0];
+   else                         c->dp[0] = t1->dp[0] - t2->dp[0];
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[1] = t1->dp[1] + t2->dp[1] + carry;
+   else                         c->dp[1] = t1->dp[1] - t2->dp[1] - carry;
+
+
+   /* Set used digits */
+   c->used = 2;
+   mp_clamp(c);
+
+}
+
+
+
+
+
+/* Simplified addition assuming result fits in 3 digits     */
+/* c = a+b  */
+__device__ inline
+void mp_add_3dig(mp_int *a, mp_int *b, mp_int *c)
+{
+
+   /* set aliases for input pointers so that |t1|>|t2| */
+   const mp_int *t1, *t2;
+
+
+   if( mp_cmp_mag(a,b) == MP_LT ) { t1 = b;  t2 = a; }
+   else                           { t1 = a;  t2 = b; }
+   __syncwarp();
+
+
+
+   // This handles both addition and subtraction simultaneously.
+   // The multiplication by sgn slows things down a little
+/*
+   int sgn = t1->sign * t2->sign;  // sgn=1 if signs are the same, otherwise -1
+   c->sign = t1->sign;
+   c->dp[0] = t1->dp[0] + sgn*(t2->dp[0]);
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   c->dp[1] = t1->dp[1] + sgn*(t2->dp[1] + carry);
+   carry = (c->dp[1]) >> DIGIT_BIT;
+   c->dp[1] = (c->dp[1]) & MP_MASK;
+   c->dp[2] = t1->dp[2] + sgn*(t2->dp[2] + carry);
+*/
+
+
+// Either version below takes about the same time
+
+/*
+   c->sign = t1->sign;
+   if ( t1->sign == t2->sign ) {
+     c->dp[0] = t1->dp[0] + t2->dp[0];
+     uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+     c->dp[0] = (c->dp[0]) & MP_MASK;
+     c->dp[1] = t1->dp[1] + t2->dp[1] + carry;
+     carry = (c->dp[1]) >> DIGIT_BIT;
+     c->dp[1] = (c->dp[1]) & MP_MASK;
+     c->dp[2] = t1->dp[2] + t2->dp[2] + carry;
+     }
+   else {
+     c->dp[0] = t1->dp[0] - t2->dp[0];
+     uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+     c->dp[0] = (c->dp[0]) & MP_MASK;
+     c->dp[1] = t1->dp[1] - t2->dp[1] - carry;
+     carry = (c->dp[1]) >> DIGIT_BIT;
+     c->dp[1] = (c->dp[1]) & MP_MASK;
+     c->dp[2] = t1->dp[2] - t2->dp[2] - carry;
+     }
+*/
+
+
+   c->sign = t1->sign;
+   if ( t1->sign == t2->sign )  c->dp[0] = t1->dp[0] + t2->dp[0];
+   else                         c->dp[0] = t1->dp[0] - t2->dp[0];
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[1] = t1->dp[1] + t2->dp[1] + carry;
+   else                         c->dp[1] = t1->dp[1] - t2->dp[1] - carry;
+   carry = (c->dp[1]) >> DIGIT_BIT;
+   c->dp[1] = (c->dp[1]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[2] = t1->dp[2] + t2->dp[2] + carry;
+   else                         c->dp[2] = t1->dp[2] - t2->dp[2] - carry;
+
+
+   /* Set used digits */
+   c->used = 3;
+   mp_clamp(c);
+
+}
+
+
+
+
+
+
+/* Simplified addition assuming result fits in 4 digits     */
+/* c = a+b  */
+__device__ inline
+void mp_add_4dig(mp_int *a, mp_int *b, mp_int *c)
+{
+   /* set aliases for input pointers so that |t1|>|t2| */
+   const mp_int *t1, *t2;
+
+   if( mp_cmp_mag(a,b) == MP_LT ) { t1 = b;  t2 = a; }
+   else                           { t1 = a;  t2 = b; }
+   __syncwarp();
+
+
+   // This handles both addition and subtraction simultaneously.
+/*
+   int sgn = t1->sign * t2->sign;  // sgn=1 if signs are the same, otherwise -1
+   c->sign = t1->sign;
+   c->dp[0] = t1->dp[0] + sgn*(t2->dp[0]);
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   c->dp[1] = t1->dp[1] + sgn*(t2->dp[1] + carry);
+   carry = (c->dp[1]) >> DIGIT_BIT;
+   c->dp[1] = (c->dp[1]) & MP_MASK;
+   c->dp[2] = t1->dp[2] + sgn*(t2->dp[2] + carry);
+   carry = (c->dp[2]) >> DIGIT_BIT;
+   c->dp[2] = (c->dp[2]) & MP_MASK;
+   c->dp[3] = t1->dp[3] + sgn*(t2->dp[3] + carry);
+*/
+
+
+   c->sign = t1->sign;
+   if ( t1->sign == t2->sign )  c->dp[0] = t1->dp[0] + t2->dp[0];
+   else                         c->dp[0] = t1->dp[0] - t2->dp[0];
+   uint64_t carry = (c->dp[0]) >> DIGIT_BIT;
+   c->dp[0] = (c->dp[0]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[1] = t1->dp[1] + t2->dp[1] + carry;
+   else                         c->dp[1] = t1->dp[1] - t2->dp[1] - carry;
+   carry = (c->dp[1]) >> DIGIT_BIT;
+   c->dp[1] = (c->dp[1]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[2] = t1->dp[2] + t2->dp[2] + carry;
+   else                         c->dp[2] = t1->dp[2] - t2->dp[2] - carry;
+   carry = (c->dp[2]) >> DIGIT_BIT;
+   c->dp[2] = (c->dp[2]) & MP_MASK;
+   if ( t1->sign == t2->sign )  c->dp[3] = t1->dp[3] + t2->dp[3] + carry;
+   else                         c->dp[3] = t1->dp[3] - t2->dp[3] - carry;
+
+
+   /* Set used digits */
+   c->used = 4;
+   mp_clamp(c);
+
+}
+
+
+
+
 
 
 
@@ -616,7 +857,6 @@ int s_mp_sub(mp_int *a, mp_int *b, mp_int *c)
 __device__ inline
 int mp_mul(mp_int *a, mp_int *b, mp_int *c)
 {
-   int neg = (a->sign == b->sign) ? MP_ZPOS : MP_NEG;
 
    /* can we use the fast multiplier?
     *
@@ -624,6 +864,9 @@ int mp_mul(mp_int *a, mp_int *b, mp_int *c)
     * have less than MP_WARRAY digits and the number of
     * digits won't affect carry propagation
     */
+
+//   int neg = (a->sign == b->sign) ? MP_ZPOS : MP_NEG;
+   int sign = a->sign * b->sign;
 
    /* exit with error if required digits exceeds set precision */
    int digs = a->used + b->used + 1;
@@ -635,7 +878,10 @@ int mp_mul(mp_int *a, mp_int *b, mp_int *c)
    else
       retVal = s_mp_mul_digs(a, b, c, digs);
 
-   c->sign = (c->used > 0) ? neg : MP_ZPOS;
+   //c->sign = (c->used > 0) ? neg : MP_ZPOS;
+   c->sign = sign;
+//   if(c->used==0)  c->sign = MP_ZPOS;
+
    return retVal;
 }
 
@@ -904,6 +1150,174 @@ int mp_mul_2d(mp_int *a, int b, mp_int *c)
 
 
 
+/* Simplified multiplication assuming result fits in 2 digits     */
+/* c = (a1*2^63 + a0) * (b1*2^63 + b0)                            */
+/*   = a1*b1*2^126 + (a1*b0 + a0*b1)*2^63 + a0*b0                 */
+/* Since the product fits in 2 digits, one of a1 or b1 must be 0, */
+/* thus we ignore the a1*b1*2^126 term in the above expansion.    */
+/* WARNING: c must not be equal to a or b                         */
+__device__ inline
+void mp_mul_2dig(mp_int *a, mp_int *b, mp_int *c)  /* c = a*b  */
+{
+   /* Set the sign field. */
+   c->sign = a->sign * b->sign;
+
+   /* Multiply the 2 lower digits. */
+   //mp_word T = (mp_word)(a->dp[0]) * (b->dp[0]);
+   mp_word T = mul128(a->dp[0], b->dp[0]);
+
+   /* The lower part of T is the lower digit. */
+   c->dp[0] = T.lo & MP_MASK;
+
+   /* Move the 64th bit of T from lower digit into upper digit. */
+   /* Add this to (a1*b0 + a0*b1) to get the upper digit of c.  */
+   T = T<<1;
+   c->dp[1] = T.hi + a->dp[1]*b->dp[0] + a->dp[0]*b->dp[1];
+
+
+   /* Cleanup.   Is this necessary? */
+   //c->used = 2; mp_clamp(c);
+   if(c->dp[1] != 0)  c->used = 2;
+   else {
+     if(c->dp[0] != 0)  c->used = 1;
+     else { c->used = 0; c->sign = MP_ZPOS; }
+     }
+
+}
+
+
+
+
+
+/* Same as mp_mul_2dig but b is a positive mp_digit */
+__device__ inline
+void mp_mul_d_2dig(mp_int *a, mp_digit b, mp_int *c)  /* c = a*b  */
+{
+   /* Set the sign field. */
+   c->sign = a->sign;
+
+   /* Multiply the 2 lower digits. */
+   mp_word T = mul128(a->dp[0], b);
+
+   /* The lower part of T is the lower digit. */
+   c->dp[0] = T.lo & MP_MASK;
+
+   /* Move the 64th bit of T from lower digit into upper digit. */
+   /* Add this to (a1*b0 + a0*b1) to get the upper digit of c.  */
+   T = T<<1;
+   c->dp[1] = T.hi + a->dp[1]*b;
+
+   /* Cleanup.   Is this necessary? */
+   //c->used = 2; mp_clamp(c);
+   if(c->dp[1] != 0)  c->used = 2;
+   else {
+     if(c->dp[0] != 0)  c->used = 1;
+     else { c->used = 0; c->sign = MP_ZPOS; }
+     }
+}
+
+
+
+
+
+/* Simplified multiplication assuming result fits in 3 digits      */
+/* c = (a2*2^126 + a1*2^63 + a0) * (b2*2^126 + b1*2^63 + b0)       */
+/*   = a2*b2*2^252 + (a2*b1 + a1*b2)2^189 +                        */
+/*     (a2*b0 + a1*b1 + a0*b2)*2^126 + (a1*b0 + a0*b1)2^63 + a0*b0 */
+/* Since the product fits in 3 digits, one of a2 or b2 must be 0,  */
+/* thus we ignore the a2*b2*2^252 term in the above expansion.     */
+/* Similarly, we can also ignore the 2^189 term.                   */
+/* WARNING: c must not be equal to a or b                          */
+__device__ inline
+void mp_mul_3dig(mp_int *a, mp_int *b, mp_int *c)  /* c = a*b  */
+{
+   /* Set the sign field. */
+   c->sign = a->sign * b->sign;
+
+   /* Multiply the 2 lower digits. */
+   mp_word T = mul128(a->dp[0], b->dp[0]);
+
+   /* The lower part of T is the lower digit. */
+   c->dp[0] = T.lo & MP_MASK;
+   T = T >> DIGIT_BIT;  /* shift to get next carry */
+
+   /* Compute second digit. */
+   T = T + mul128(a->dp[0],b->dp[1]);
+   T = T + mul128(a->dp[1],b->dp[0]);
+   c->dp[1] = T.lo & MP_MASK;
+   T = T >> DIGIT_BIT;  /* shift to get next carry */
+
+   /* Compute third and final digit. */
+   T = T + mul128(a->dp[0],b->dp[2]);
+   T = T + mul128(a->dp[1],b->dp[1]);
+   T = T + mul128(a->dp[2],b->dp[0]);
+   c->dp[2] = T.lo & MP_MASK;
+
+   /* Cleanup.   Is this necessary? */
+   //c->used = 3; mp_clamp(c);
+   if(c->dp[2] != 0)  c->used = 3;
+   else {
+     if(c->dp[1] != 0)  c->used = 2;
+     else {
+       if(c->dp[0] != 0)  c->used = 1;
+       else { c->used = 0; c->sign = MP_ZPOS; }
+       }
+     }
+   __syncwarp();
+
+}
+
+
+
+
+/* Simplified multiplication assuming result fits in 4 digits      */
+/* WARNING: c must not be equal to a or b                          */
+__device__ inline
+void mp_mul_4dig(mp_int *a, mp_int *b, mp_int *c)  /* c = a*b  */
+{
+   /* Set the sign field. */
+   c->sign = a->sign * b->sign;
+
+   /* Multiply the 2 lower digits. */
+   mp_word T = mul128(a->dp[0], b->dp[0]);
+
+   /* The lower part of T is the lower digit. */
+   c->dp[0] = T.lo & MP_MASK;
+   T = T >> DIGIT_BIT;  /* shift to get next carry */
+
+   /* Compute second digit. */
+   T = T + mul128(a->dp[0],b->dp[1]);
+   T = T + mul128(a->dp[1],b->dp[0]);
+   c->dp[1] = T.lo & MP_MASK;
+   T = T >> DIGIT_BIT;  /* shift to get next carry */
+
+   /* Compute third digit. */
+   T = T + mul128(a->dp[0],b->dp[2]);
+   T = T + mul128(a->dp[1],b->dp[1]);
+   T = T + mul128(a->dp[2],b->dp[0]);
+   c->dp[2] = T.lo & MP_MASK;
+   T = T >> DIGIT_BIT;  /* shift to get next carry */
+
+   /* Compute fourth and final digit. */
+   T = T + mul128(a->dp[0],b->dp[3]);
+   T = T + mul128(a->dp[1],b->dp[2]);
+   T = T + mul128(a->dp[2],b->dp[1]);
+   T = T + mul128(a->dp[3],b->dp[0]);
+   c->dp[3] = T.lo & MP_MASK;
+
+   /* Set used digits */
+   int k;
+   for(k=3; k>=0; --k) { if(c->dp[k] != 0)  break; }
+   c->used = k+1;
+   if(c->used == 0)  c->sign = MP_ZPOS;
+   __syncwarp();
+
+}
+
+
+
+
+
 
 /* integer signed division.
  * c*b + d == a [e.g. a/b, c=quotient, d=remainder]
@@ -1100,6 +1514,177 @@ int mp_div_d(mp_int *a, mp_digit b, mp_int *c, mp_digit *d)
 }
 
 
+
+/* Single digit division (based on routine from MPI) a = b*c + d  */
+// I tried to optimize this for the GPU
+__device__ inline
+void mp_div_d_gpu(mp_int *a, mp_digit b, mp_int *c, mp_digit *d)
+{
+   mp_int  q;
+   mp_word w;
+   mp_digit t;
+   int ix;
+
+   q.used = a->used;
+   q.sign = a->sign;
+   w = 0;
+
+   for (ix = a->used - 1; ix >= 0; ix--) {
+      w = (w << DIGIT_BIT) | (mp_word)a->dp[ix];
+      t = (mp_digit)(w / b);
+      w = w - (mp_word)t * b;
+      q.dp[ix] = t;
+   }
+
+
+// The code below is no better timewise
+
+/*
+   ix = a->used - 1;
+   t = a->dp[ix] / b;
+   mp_digit tmp = a->dp[ix] - t*b;
+   q.dp[ix] = t;
+
+   if(ix>0) {
+     ix--;
+     w.lo = (tmp<<DIGIT_BIT) | a->dp[ix];
+     w.hi = tmp>>1;
+     t = div128to64_noRem(w, b);
+     w = w - mul128(t,b);
+     q.dp[ix] = t;
+     ix--;
+     for (; ix >= 0; ix--) {
+       w.hi = (w.hi<<DIGIT_BIT) | (w.lo>>1);
+       w.lo = (w.lo<<DIGIT_BIT) | a->dp[ix];
+       t = div128to64_noRem(w, b);
+       w = w - mul128(t,b);
+       q.dp[ix] = t;
+       }
+     }
+   else { 
+     w = (mp_word)tmp;
+     }
+*/
+
+   if (d != NULL)  *d = (mp_digit)w;
+
+   if (c != NULL) {
+      mp_clamp(&q);
+      mp_copy(&q, c);
+   }
+
+}
+
+
+
+
+/* Simplified division when a is only 2 digits, b is positive, */
+/* and the division is known to be exact.                      */
+/* Puts the quotient back into a (to save a couple ops)        */
+__device__ inline
+void mp_div_d_2dig(mp_int *a, mp_digit b)  /* a = a/b */
+{
+   mp_word w;
+   mp_digit t;
+
+   t = a->dp[1] / b;
+
+/*
+   w = (mp_word)(a->dp[1] - t*b);
+   a->dp[1] = t;
+   w = (w << DIGIT_BIT) | (mp_word)a->dp[0];
+   a->dp[0] = (mp_digit)(w / b);
+*/
+
+   // This is a more efficient way to do the above
+   mp_digit tmp = a->dp[1] - t*b;
+   a->dp[1] = t;
+   w.lo = (tmp<<DIGIT_BIT) | a->dp[0];
+   w.hi = tmp>>1;
+   a->dp[0] = div128to64_noRem(w, b);
+   __syncwarp();
+
+
+   /* Cleanup.   Is this necessary? */
+   mp_clamp(a);
+/*
+   if(a->dp[1] != 0)  a->used = 2;
+   else {
+     if(a->dp[0] != 0)  a->used = 1;
+     else { a->used = 0; a->sign = MP_ZPOS; }
+     }
+   __syncwarp();
+*/
+
+}
+
+
+
+
+
+/* Simplified division when a is only 3 digits, b is positive, */
+/* and the division is known to be exact.                      */
+/* Puts the quotient back into a (to save a couple ops)        */
+__device__ inline
+void mp_div_d_3dig(mp_int *a, mp_digit b)  /* a = a/b */
+{
+   mp_word w;
+   mp_digit t;
+
+/*
+   w = (mp_word)a->dp[2];
+   t = (mp_digit)(w / b);
+   a->dp[2] = t
+
+   w = w - (mp_word)t * b;
+   w = (w << DIGIT_BIT) | (mp_word)a->dp[1];
+   t = (mp_digit)(w / b);
+   a->dp[1] = t
+
+   w = w - (mp_word)t * b;
+   w = (w << DIGIT_BIT) | (mp_word)a->dp[0];
+   a->dp[0] = (mp_digit)(w / b);
+*/
+
+
+   t = a->dp[2] / b;
+   mp_digit tmp = a->dp[2] - t*b;
+   a->dp[2] = t;
+
+   w.lo = (tmp<<DIGIT_BIT) | a->dp[1];
+   w.hi = tmp>>1;
+   t = div128to64_noRem(w, b);
+   __syncwarp();
+   a->dp[1] = t;
+
+   w = w - mul128(t,b);
+   w.hi = (w.hi<<DIGIT_BIT) | (w.lo>>1);
+   w.lo = (w.lo<<DIGIT_BIT) | a->dp[0];
+   a->dp[0] = div128to64_noRem(w, b);
+   __syncwarp();
+
+
+
+   /* Cleanup.   Is this necessary? */
+   mp_clamp(a);
+/*
+   if(a->dp[2] != 0)  a->used = 3;
+   else {
+     if(a->dp[1] != 0)  a->used = 2;
+     else {
+       if(a->dp[0] != 0)  a->used = 1;
+       else { a->used = 0; a->sign = MP_ZPOS; }
+       }
+     }
+   __syncwarp();
+*/
+
+}
+
+
+
+
+
 /* Given a and b, compute c:  a = c (mod b) */
 __device__ inline
 int mp_mod_d(mp_int *a, mp_digit b, mp_digit *c)
@@ -1262,7 +1847,6 @@ int mp_toradix(mp_int *a, char *str, int radix)
    mp_int  t;
    mp_digit d;
    char   *_s = str;
-   //const char *const mp_s_rmap = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/";
    char mp_s_rmap[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/";
 
 

@@ -7,7 +7,6 @@
 #include "cuda_GetDecics.h"
 
 
-extern "C" int generateCudaGraph(void);
 extern int polyBufferSize;
 
 
@@ -28,32 +27,31 @@ int initializeCuda(int argc, char** argv) {
     }
   }
 
-  // Allocate Unified Memory -- accessible from both CPU and GPU
-  cudaMallocManaged(&kernelPolyBuffer, polyBufferSize*11*sizeof(int64_t));
+  // Set device flags.  The blocking sync frees up the CPU while GPU is busy.
+  cudaSetDeviceFlags(cudaDeviceScheduleBlockingSync);
   CUDACHECK;
-  cudaMallocManaged(&kernelFlagBuffer, polyBufferSize*sizeof(char));
+
+  // Allocate Unified Memory -- accessible from both CPU and GPU
+  cudaMallocManaged(&gpuPolyBuffer, polyBufferSize*11*sizeof(int64_t));
+  CUDACHECK;
+  cudaMallocManaged(&gpuFlagBuffer, polyBufferSize*sizeof(char));
   CUDACHECK;
 
   // Allocate Device only memory (intermediate data between kernel calls)
-  cudaMalloc(&kernelDiscBuffer, polyBufferSize*sizeof(mp_int));
-
-
-  // Create the Cuda Execution Graph
-  //int status = generateCudaGraph();
-  //if(status != 0) {
-  //  fprintf(stderr, "Cuda Error: failed to generate the execution graph.\n");
-  //  return status;
-  //}
-
+  cudaMalloc(&gpuDiscBuffer, polyBufferSize*sizeof(mp_int));
+  cudaMalloc(&gpuPolyA, polyBufferSize*10*sizeof(int64_t));
+  cudaMalloc(&gpuPolyB, polyBufferSize*9*sizeof(int64_t));
+  cudaMalloc(&gpuDegA,  polyBufferSize*sizeof(int));
+  cudaMalloc(&gpuDegB,  polyBufferSize*sizeof(int));
+  cudaMalloc(&gpuG,     polyBufferSize*sizeof(int64_t));
+  cudaMalloc(&gpuH,     polyBufferSize*sizeof(int64_t));
+  cudaMalloc(&gpuScale, polyBufferSize*sizeof(uint64_t));
+  cudaMalloc(&gpu_mpA,  polyBufferSize*10*sizeof(mp_int));
+  cudaMalloc(&gpu_mpB,  polyBufferSize*9*sizeof(mp_int));
 
   // Create the stream
   cudaStreamCreate(&pdtStream);
   CUDACHECK;
-
-  // Set device flags.  The blocking sync frees up the CPU while GPU is busy.
-//  cudaSetDeviceFlags(cudaDeviceScheduleBlockingSync);
-//  CUDACHECK;
-
 
   // If we make it this far, then return success
   return 0;
@@ -88,10 +86,18 @@ int getCudaDevId(int argc, char** argv) {
 
 void cleanupCuda(void) {
 
-  cudaFree(kernelPolyBuffer);
-  cudaFree(kernelFlagBuffer);
-  cudaFree(kernelDiscBuffer);
-  cudaGraphExecDestroy(pdtExecGraph);
+  cudaFree(gpuPolyBuffer);
+  cudaFree(gpuFlagBuffer);
+  cudaFree(gpuDiscBuffer);
+  cudaFree(gpuPolyA);
+  cudaFree(gpuPolyB);
+  cudaFree(gpuDegA);
+  cudaFree(gpuDegB);
+  cudaFree(gpuG);
+  cudaFree(gpuH);
+  cudaFree(gpuScale);
+  cudaFree(gpu_mpA);
+  cudaFree(gpu_mpB);
   cudaStreamDestroy(pdtStream);
   cudaDeviceReset();
   fprintf(stderr, "Cuda cleanup complete.\n");

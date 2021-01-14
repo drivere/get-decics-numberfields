@@ -20,6 +20,20 @@ int initializeOpenCL(int argc, char * argv[]) {
     return 1;
   }
 
+
+  /* Get the device setting: CL_DEVICE_PREFERRED_INTEROP_USER_SYNC */
+/*
+  cl_bool interopSyncFlag;
+  size_t  tmp;
+  cl_int stat = clGetDeviceInfo(device, CL_DEVICE_PREFERRED_INTEROP_USER_SYNC, sizeof(cl_bool),	&interopSyncFlag, &tmp);
+  if (stat != CL_SUCCESS) {
+    fprintf(stderr, "Error: clGetDeviceInfo() returned %s\n", getErrorString(stat));
+    return 1; 
+  }
+  fprintf(stderr, "CL_DEVICE_PREFERRED_INTEROP_USER_SYNC = %d\n", interopSyncFlag);
+*/
+
+
   /* Create the OpenCL context */
   cl_context_properties cps[3] = { CL_CONTEXT_PLATFORM, (cl_context_properties)platform, 0 };
   cl_int status = 0;
@@ -61,32 +75,128 @@ int initializeOpenCL(int argc, char * argv[]) {
   //
   // Create the OpenCL kernel objects
   //
-  /* Stage 1 kernel */
-  pdtKernelStg1 = clCreateKernel(program, "pdtKernelStg1", &status);
+
+  /* Stage 1: Compute Sub-resultant */
+  pdtKernelSubResultantInit = clCreateKernel(program, "pdtKernelSubResultantInit", &status);
   if (status != CL_SUCCESS) {
     fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
     return 1;
   }
-  fprintf(stderr, "Successfully Created Stage 1 Kernel.\n");
-  /* Stage 2 kernel */
-  pdtKernelStg2 = clCreateKernel(program, "pdtKernelStg2", &status);
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantInit.\n");
+
+  pdtKernelSubResultantDegB8 = clCreateKernel(program, "pdtKernelSubResultantDegB8", &status);
   if (status != CL_SUCCESS) {
-    fprintf(stderr, "Kernel Stage 2 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
     return 1;
   }
-  fprintf(stderr, "Successfully Created Stage 2 Kernel.\n");
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB8.\n");
+
+  pdtKernelSubResultantMpInit = clCreateKernel(program, "pdtKernelSubResultantMpInit", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantMpInit.\n");
+
+  pdtKernelSubResultantDegB7DegA9 = clCreateKernel(program, "pdtKernelSubResultantDegB7DegA9", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB7DegA9.\n");
+
+  pdtKernelSubResultantDegB7DegA8 = clCreateKernel(program, "pdtKernelSubResultantDegB7DegA8", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB7DegA8.\n");
+
+  pdtKernelSubResultantDegB6DegA9 = clCreateKernel(program, "pdtKernelSubResultantDegB6DegA9", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB6DegA9.\n");
+
+  pdtKernelSubResultantDegB6DegA8 = clCreateKernel(program, "pdtKernelSubResultantDegB6DegA8", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB6DegA8.\n");
+
+  pdtKernelSubResultantDegB6DegA7 = clCreateKernel(program, "pdtKernelSubResultantDegB6DegA7", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB6DegA7.\n");
+
+  pdtKernelSubResultantDegB5 = clCreateKernel(program, "pdtKernelSubResultantDegB5", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB5.\n");
+
+  pdtKernelSubResultantDegB4 = clCreateKernel(program, "pdtKernelSubResultantDegB4", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantDegB4.\n");
+
+
+/*
+  pdtKernelSubResultantFinish = clCreateKernel(program, "pdtKernelSubResultantFinish", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Stage 1 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 1 Kernel: pdtKernelSubResultantFinish.\n");
+*/
+
+
+  /* Stage 2 kernels */
+  pdtKernelDiv2 = clCreateKernel(program, "pdtKernelDiv2", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Div2 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "\nSuccessfully Created Stage 2 Kernel: pdtKernelDiv2.\n");
+
+  pdtKernelDiv5 = clCreateKernel(program, "pdtKernelDiv5", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel Div5 Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 2 Kernel: pdtKernelDiv5.\n");
+
+  pdtKernelDivP = clCreateKernel(program, "pdtKernelDivP", &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Kernel DivP Error: clCreateKernel() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created Stage 2 Kernel: pdtKernelDivP.\n");
+
+
   /* Stage 3 kernel */
   pdtKernelStg3 = clCreateKernel(program, "pdtKernelStg3", &status);
   if (status != CL_SUCCESS) {
     fprintf(stderr, "Kernel Stage 3 Error: clCreateKernel() returned %s\n", getErrorString(status));
     return 1;
   }
-  fprintf(stderr, "Successfully Created Stage 3 Kernel.\n");
+  fprintf(stderr, "\nSuccessfully Created Stage 3 Kernel.\n\n");
 
   //////////////////////////////////////////////////////////////////////////////
 
 
-  /* Create the OpenCL memory buffers */
+
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // Create the OpenCL memory buffers
+  //
   kernelPolyBuffer = clCreateBuffer(context, CL_MEM_READ_ONLY, sizeof(long long)*polyBufferSize*11, NULL, &status);
   if (status != CL_SUCCESS) {
     fprintf(stderr, "Error: Failed to create device polynomial buffer. clCreateBuffer() returned %s\n", getErrorString(status));
@@ -96,17 +206,73 @@ int initializeOpenCL(int argc, char * argv[]) {
 
   kernelFlagBuffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(char)*polyBufferSize, NULL, &status);
   if (status != CL_SUCCESS) {
-    fprintf(stderr, "Error: Failed to create device result buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    fprintf(stderr, "Error: Failed to create device flag buffer. clCreateBuffer() returned %s\n", getErrorString(status));
     return 1;
   }
-  fprintf(stderr, "Successfully Created Output Memory Buffer.\n");
+  fprintf(stderr, "Successfully Created Output Flag Memory Buffer.\n");
 
   kernelDiscBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(mp_int)*polyBufferSize, NULL, &status);
   if (status != CL_SUCCESS) {
-    fprintf(stderr, "Error: Failed to create device result buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    fprintf(stderr, "Error: Failed to create device discriminant buffer. clCreateBuffer() returned %s\n", getErrorString(status));
     return 1;
   }
   fprintf(stderr, "Successfully Created Discriminant Data Buffer.\n");
+
+  kernelPolyA = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int64_t)*polyBufferSize*10, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device polyA buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created PolyA Data Buffer.\n");
+
+  kernelPolyB = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int64_t)*polyBufferSize*9, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device polyB buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created PolyB Data Buffer.\n");
+
+  kernelDegA = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int)*polyBufferSize, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device DegA buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created DegA Data Buffer.\n");
+
+  kernelDegB = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int)*polyBufferSize, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device DegB buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created DegB Data Buffer.\n");
+
+  kernelG = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int64_t)*polyBufferSize, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device G buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created G Data Buffer.\n");
+
+  kernelH = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(int64_t)*polyBufferSize, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device H buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created H Data Buffer.\n");
+
+  kernelMpA = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(mp_int)*polyBufferSize*10, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device mpA buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created mpA Data Buffer.\n");
+
+  kernelMpB = clCreateBuffer(context, CL_MEM_READ_WRITE, sizeof(mp_int)*polyBufferSize*9, NULL, &status);
+  if (status != CL_SUCCESS) {
+    fprintf(stderr, "Error: Failed to create device mpB buffer. clCreateBuffer() returned %s\n", getErrorString(status));
+    return 1;
+  }
+  fprintf(stderr, "Successfully Created mpB Data Buffer.\n\n");
 
 
   /* If we make it this far, then return success */
@@ -119,8 +285,27 @@ void cleanup_openCL(void) {
   clReleaseMemObject(kernelPolyBuffer);
   clReleaseMemObject(kernelFlagBuffer);
   clReleaseMemObject(kernelDiscBuffer);
-  clReleaseKernel(pdtKernelStg1);
-  clReleaseKernel(pdtKernelStg2);
+  clReleaseMemObject(kernelPolyA);
+  clReleaseMemObject(kernelPolyB);
+  clReleaseMemObject(kernelDegA);
+  clReleaseMemObject(kernelDegB);
+  clReleaseMemObject(kernelG);
+  clReleaseMemObject(kernelH);
+  clReleaseMemObject(kernelMpA);
+  clReleaseMemObject(kernelMpB);
+  clReleaseKernel(pdtKernelSubResultantInit);
+  clReleaseKernel(pdtKernelSubResultantMpInit);
+  clReleaseKernel(pdtKernelSubResultantDegB8);
+  clReleaseKernel(pdtKernelSubResultantDegB7DegA9);
+  clReleaseKernel(pdtKernelSubResultantDegB7DegA8);
+  clReleaseKernel(pdtKernelSubResultantDegB6DegA9);
+  clReleaseKernel(pdtKernelSubResultantDegB6DegA8);
+  clReleaseKernel(pdtKernelSubResultantDegB6DegA7);
+  clReleaseKernel(pdtKernelSubResultantDegB5);
+  clReleaseKernel(pdtKernelSubResultantDegB4);
+  clReleaseKernel(pdtKernelDiv2);
+  clReleaseKernel(pdtKernelDiv5);
+  clReleaseKernel(pdtKernelDivP);
   clReleaseKernel(pdtKernelStg3);
   clReleaseCommandQueue(commandQueue);
   clReleaseProgram(program);

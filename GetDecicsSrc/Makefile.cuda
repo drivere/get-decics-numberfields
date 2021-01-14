@@ -92,13 +92,18 @@ else ifneq ($(TARGET_ARCH),$(HOST_ARCH))
         HOST_COMPILER ?= powerpc64le-linux-gnu-g++
     endif
 endif
-HOST_COMPILER ?= g++
+
+#HOST_COMPILER ?= g++
+HOST_COMPILER ?= g++82
+
 NVCC          := $(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
 
 
 # internal flags
 NVCCFLAGS   := -m${TARGET_SIZE}
 CCFLAGS     := -O3
+#CCFLAGS     := -O3 -fpie -fpic
+#CCFLAGS     := -O3 -fpie -fpic -fexceptions -g -Wall
 LDFLAGS     :=
 
 
@@ -198,10 +203,12 @@ LIBRARIES :=
 
 ################################################################################
 
+#XXXXX
 # Gencode arguments
 SMS ?= 30 35 37 50 52 60 61 70 75
 #SMS ?= 50 52 60 61 70 75
 #SMS ?= 61
+#SMS ?= 86  This is for the latest 3080 cards, but not supported by Cuda 10
 
 
 ifeq ($(SMS),)
@@ -236,16 +243,23 @@ hw      := $(shell uname -m)
 OBase   := O$(system)-$(hw)
 O       := $(OBase)-Cuda
 
-CC  = g++
+#CC  = g++
+CC  = g++82
+
 
 CUDA_INC = /usr/local/cuda/targets/x86_64-linux/include
 INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(PARI)/src/headers -I$(PARI)/$(OBase) -I$(CUDA_INC)
 #INCLUDES = -I$(BOINC_DIR) -I$(BOINC_LIB_DIR) -I$(BOINC_API_DIR) -I$(BOINC_SCHED_DIR) -I$(BOINC_DB_DIR) -I$(PARI)/src/headers -I$(PARI)/$(OBase)
 
 #LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L/usr/local/lib -lboinc_api -lboinc -lpari -lm -lgmp
-LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L/usr/local/lib -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a
+#LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a
+# The libmymathfuncs.a was specially built to give older versions of exp,exp2,log,log2, and pow. 
+# This allows older hosts to run the binary, as it now only requires glibc 2.17 or higher.
+LIBS =  -L$(BOINC_LIB_DIR) -L$(BOINC_API_DIR) -L$(PARI)/$(OBase) -L/usr/local/lib -lboinc_api -lboinc -l:libpari.a -lm -l:libgmp.a  -l:libmymathfuncs.a
+
 
 #CXXFLAGS = -O3 -Wall -Werror -fmax-errors=4 $(INCLUDES)
+#CXXFLAGS = -O3 -fPIC -fPIE -g -Wall -Wno-unknown-pragmas -Wno-class-memaccess -fmax-errors=4 -ffunction-sections -fdata-sections $(INCLUDES)
 CXXFLAGS = -O3 -Wall -Wno-unknown-pragmas -Wno-class-memaccess -fmax-errors=4 $(INCLUDES)
 
 # Using the -static flag causes the cuda routines to crash.

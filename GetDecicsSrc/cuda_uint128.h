@@ -725,10 +725,14 @@ template <typename T>
               rhat;
     int s;
 
+
+    // This check is unnecessary since every call to this guarantees x.hi<v
+/*
     if(x.hi >= v){
       if(r != NULL) *r = (uint64_t) -1;
       return  (uint64_t) -1;
     }
+*/
 
     // If x.hi is zero we can use standard 64bit divide.
     if(x.hi==0) {
@@ -762,14 +766,6 @@ template <typename T>
       rhat = rhat + vn1;
       if (rhat >= b)  break;
       }
-/*
-  again1:
-    if (q1 >= b || q1*vn0 > b*rhat + un1){
-      q1 = q1 - 1;
-      rhat = rhat + vn1;
-      if(rhat < b) goto again1;
-     }
-*/
 
     un21 = un64*b + un1 - q1*v;
 
@@ -781,18 +777,81 @@ template <typename T>
       rhat = rhat + vn1;
       if (rhat >= b)  break;
       }
-/*
-  again2:
-    if(q0 >= b || q0 * vn0 > b*rhat + un0){
-      q0 = q0 - 1;
-      rhat = rhat + vn1;
-      if(rhat < b) goto again2;
-    }
-*/
 
     if(r != NULL) *r = (un21*b + un0 - q0*v) >> s;
     return q1*b + q0;
   }
+
+
+
+// This version is just like the previous but removes all references to
+// the remainder, in the hope it can be more efficient.
+#ifdef __CUDA_ARCH__
+  __device__
+#endif
+  static inline uint64_t div128to64_noRem(uint128_t x, uint64_t v) // x / v
+  {
+    //printf("cuda_uint128:  Entering 128/64 division -> uint64\n");
+
+    const uint64_t b = (1ull << 32);
+    uint64_t  un1, un0,
+              vn1, vn0,
+              q1, q0,
+              un64, un21, un10,
+              rhat;
+    int s;
+
+
+    // If x.hi is zero we can use standard 64bit divide.
+    if(x.hi==0) {
+      return  x.lo/v;
+    }
+
+    s = clz64(v);
+
+    if(s > 0){
+      v = v << s;
+      un64 = (x.hi << s) | ((x.lo >> (64 - s)) & (-s >> 31));
+      un10 = x.lo << s;
+    }else{
+//      un64 = x.lo | x.hi;
+      un64 = x.hi;
+      un10 = x.lo;
+    }
+    __syncwarp();
+
+    vn1 = v >> 32;
+    vn0 = v & 0xffffffff;
+
+    un1 = un10 >> 32;
+    un0 = un10 & 0xffffffff;
+
+    q1 = un64/vn1;
+    rhat = un64 - q1*vn1;
+
+    while (q1 >= b || q1 * vn0 > b * rhat + un1) {
+      q1 = q1 - 1;
+      rhat = rhat + vn1;
+      if (rhat >= b)  break;
+      }
+    __syncwarp();
+
+    un21 = un64*b + un1 - q1*v;
+
+    q0 = un21/vn1;
+    rhat = un21 - q0*vn1;
+
+    while (q0 >= b || q0 * vn0 > b * rhat + un0) {
+      q0 = q0 - 1;
+      rhat = rhat + vn1;
+      if (rhat >= b)  break;
+      }
+    __syncwarp();
+
+    return q1*b + q0;
+  }
+
+
 
   #ifdef __CUDA_ARCH__
     __device__
@@ -1165,6 +1224,15 @@ template <typename T>
 {
   return uint128_t::div128to64(x, v, r);
 }
+
+#ifdef __CUDA_ARCH__
+  __device__
+#endif
+  inline uint64_t div128to64_noRem(uint128_t x, uint64_t v)
+{
+  return uint128_t::div128to64_noRem(x, v);
+}
+
 
 #ifdef __CUDA_ARCH__
   __device__
