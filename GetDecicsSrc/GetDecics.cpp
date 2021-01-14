@@ -69,11 +69,9 @@ int polyBufferSize;
   cl_kernel         pdtKernelSubResultantDegB6DegA7;
   cl_kernel         pdtKernelSubResultantDegB5;
   cl_kernel         pdtKernelSubResultantDegB4;
-  cl_kernel         pdtKernelSubResultantDegB3;
-  cl_kernel         pdtKernelSubResultantDegB2;
-
+  //cl_kernel         pdtKernelSubResultantDegB3;
+  //cl_kernel         pdtKernelSubResultantDegB2;
   cl_kernel         pdtKernelSubResultantFinish;
-
   cl_kernel         pdtKernelDiv2;
   cl_kernel         pdtKernelDiv5;
   cl_kernel         pdtKernelDivP;
