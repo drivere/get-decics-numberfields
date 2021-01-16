@@ -962,11 +962,15 @@ void pdtKernel_sr_degB5(int numPolys, char *validFlag, int *DegA, int *DegB, mp_
 
 
 
-
 // This kernel runs an iteration of sub-resultant for the case when degB=4 and degA=5.
-// For this case, the results fit in a 6 digit multi-prec.
+// For this case, the results fit in a 6 digit multi-prec, but we use the standard routines.
+// This kernel will complete the sub-resultant calculation.
+// Analysis has shown that the vast majority of cases will have degA=5 and in all subsequent
+// iterations, the degrees of A and B will drop by 1.  Whenever this does not occur, the
+// polynomial is kicked back to the cpu for processing (less than 1 in 100000 polys).
+
 __global__
-void pdtKernel_sr_degB4(int numPolys, char *validFlag, int *DegA, int *DegB, mp_int *MPA, mp_int *MPB )
+void pdtKernel_sr_degB4_3_2(int numPolys, char *validFlag, mp_int* polDiscArray, int *DegA, int *DegB, mp_int *MPA, mp_int *MPB )
 {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -974,16 +978,17 @@ void pdtKernel_sr_degB4(int numPolys, char *validFlag, int *DegA, int *DegB, mp_
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
   if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
+  int degA = DegA[index];
+  int degB = DegB[index];
 
   // Skip any polynomial for which degB is not 4 or degA is not 5.
   // Analysis has shown that the other cases are extremely rare, so we let the CPU handle them.
-  if(DegB[index]!=4 || DegA[index]!=5) { validFlag[index] = MEM_ERR; return; }
+  if(degB!=4 || degA!=5) { validFlag[index] = MEM_ERR; return; }
 
 
 #ifdef CUDA_PROFILER
   unsigned int time1 = clock();
 #endif
-
 
 
   // Multi-precision declarations
@@ -997,11 +1002,298 @@ void pdtKernel_sr_degB4(int numPolys, char *validFlag, int *DegA, int *DegB, mp_
 
 
   // The above is faster than using the device memory directly as done here:
-/*
-  mp_int *mpA, *mpB, mpR[5], mpT1, mpT2;
-  mpA = &(MPA[index*10]);  // Setup pointers for A and B polynomials
-  mpB = &(MPB[index*9]);
-*/
+  //mp_int *mpA, *mpB, mpR[5], mpT1, mpT2;
+  //mpA = &(MPA[index*10]);  // Setup pointers for A and B polynomials
+  //mpB = &(MPB[index*9]);
+
+
+  // The remaining multi-precision initializations.
+  // Note: These need to either be set or zeroed out one time.
+#pragma unroll
+  for(int k=0; k<=4; k++)  mp_zero(&(mpR[k]));
+  mp_zero(&mpT1);
+  mp_zero(&mpT2);
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // Compute R.
+  // What follows is the mp equivalent of this:
+  //    int64_t R[5];
+  //    R[0] = B[4]*A[0];
+  //    for(int k=1;k<=4;++k)  R[k] = B[4]*A[k] - A[5]*B[k-1];
+  //    for(int k=0;k<=3;++k)  R[k] = B[4]*R[k] - R[4]*B[k];
+
+  mp_mul( &(mpB[4]), &(mpA[0]), &(mpR[0]) );
+#pragma unroll
+  for(int k=1;k<=4;++k) {
+    mp_mul( &(mpB[4]), &(mpA[k]),   &mpT1 );  // 1st term
+    mp_mul( &(mpA[5]), &(mpB[k-1]), &mpT2 );  // 2nd term
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+#pragma unroll
+  for(int k=0;k<=3;++k) {
+    mp_mul( &(mpB[4]), &(mpR[k]), &mpT1 );  // 1st term
+    mp_mul( &(mpR[4]), &(mpB[k]), &mpT2 );  // 2nd term
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+
+  // Determine the degree of R (it must be less than or equal to 3)
+  int degR = 0;
+  for(int k=3; k>0; k--)  {
+    if( mpR[k].used>0 ) { degR=k; break; }
+    }
+  // Analysis has shown degR=3 the vast majority of the time.  So if its not 3, let the cpu handle it.
+  if( degR<3 ) {
+    validFlag[index] = MEM_ERR;
+    return;
+    }
+  __syncwarp();
+
+  // From previous iteration, g=h=A[5]
+  mp_mul( &(mpA[5]), &(mpA[5]), &mpT1 );  // Set T1 = g^2
+
+  // NOTE: To save ops, we interchange the role of A and B.
+  // So we skip setting A=B, and instead set A=R/g^2.
+  // We do not set g or h, since here on out we will always assume g = h = lead coef of A.
+#pragma unroll
+  for(int col=0; col<=3; col++) {
+    mp_div( &(mpR[col]), &mpT1, &(mpA[col]), NULL ); // Set A[k] = R[k] / T1;
+    }
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("After iteration degB4:\n");
+    printf("  A = "); mp_print_poly(mpB, 4); printf("\n"); // A and B have been interchanged.
+    printf("  B = "); mp_print_poly(mpA, 3); printf("\n");
+    printf("  g = "); mp_printf( mpB[4] ); printf("\n");
+    printf("  h = "); mp_printf( mpB[4] ); printf("\n\n");
+    }
+#endif
+
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // Here starts the iteration for degB=3
+  //
+  // Compute R.
+  // What follows is the mp equivalent of this (but A and B must be swapped):
+  //    R[0] = B[3]*A[0];
+  //    for(int k=1;k<=3;++k)  R[k] = B[3]*A[k] - A[4]*B[k-1];
+  //    for(int k=0;k<=2;++k)  R[k] = B[3]*R[k] - R[3]*B[k];
+
+  mp_mul( &(mpA[3]), &(mpB[0]), &(mpR[0]) );
+#pragma unroll
+  for(int k=1;k<=3;++k) {
+    mp_mul( &(mpA[3]), &(mpB[k]),   &mpT1 );  // 1st term
+    mp_mul( &(mpB[4]), &(mpA[k-1]), &mpT2 );  // 2nd term
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+#pragma unroll
+  for(int k=0;k<=2;++k) {
+    mp_mul( &(mpA[3]), &(mpR[k]), &mpT1 );  // 1st term
+    mp_mul( &(mpR[3]), &(mpA[k]), &mpT2 );  // 2nd term
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+
+  // Determine the degree of R (it must be less than or equal to 2)
+  degR = 0;
+  for(int k=2; k>0; k--)  {
+    if( mpR[k].used>0 ) { degR=k; break; }
+    }
+  if( degR!=2 ) {
+    validFlag[index] = MEM_ERR;
+    return;
+    }
+  __syncwarp();
+
+  // From previous iteration, g=h=A[4].  Don't forget A and B have been swapped.
+  mp_mul( &(mpB[4]), &(mpB[4]), &mpT1 );  // Set T1 = g^2
+
+  // We would normally set A=B here, but since they were swapped A is now back to being itself.
+
+  // Set B = R/(g^2) (delta=1 and g=h)
+  mp_div( &(mpR[0]), &mpT1, &(mpB[0]), NULL );
+  mp_div( &(mpR[1]), &mpT1, &(mpB[1]), NULL );
+  mp_div( &(mpR[2]), &mpT1, &(mpB[2]), NULL );
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("After iteration degB3:\n");
+    printf("  A = "); mp_print_poly(mpA, 3); printf("\n");
+    printf("  B = "); mp_print_poly(mpB, 2); printf("\n");
+    printf("  g = "); mp_printf( mpA[3] ); printf("\n");
+    printf("  h = "); mp_printf( mpA[3] ); printf("\n\n");
+    }
+#endif
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // Here starts the iteration for degB=2
+  //
+  // Compute R.
+  // What follows is the mp equivalent of this:
+  //    R[0] = B[2]*A[0];
+  //    for(int k=1;k<=2;++k)  R[k] = B[2]*A[k] - A[3]*B[k-1];
+  //    for(int k=0;k<=1;++k)  R[k] = B[2]*R[k] - R[2]*B[k];
+
+  int retVal = mp_mul( &(mpB[2]), &(mpA[0]), &(mpR[0]) );
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  for(int k=1;k<=2;++k) {
+    retVal = mp_mul( &(mpB[2]), &(mpA[k]),   &mpT1 );  // 1st term
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+    retVal = mp_mul( &(mpA[3]), &(mpB[k-1]), &mpT2 );  // 2nd term
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+  for(int k=0;k<=1;++k) {
+    retVal = mp_mul( &(mpB[2]), &(mpR[k]), &mpT1 );  // 1st term
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+    retVal = mp_mul( &(mpR[2]), &(mpB[k]), &mpT2 );  // 2nd term
+      if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+    mpT2.sign = -mpT2.sign;  // negate the 2nd term
+    mp_add( &mpT1, &mpT2, &(mpR[k]) );  // Sum the terms
+    }
+
+  // Determine the degree of R (it must be less than or equal to 1)
+  if( mpR[1].used>0 )  degR=1;
+  else                 degR=0;
+
+  // From previous iteration, g=h=A[3]
+  retVal = mp_mul( &(mpA[3]), &(mpA[3]), &mpT1 );  // Set T1 = g^2
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+
+  // Instead of setting A=B and B=R/g^2, we swap the roles of A and B.
+  // So we leave B alone and set A = R/(g^2) (delta=1 and g=h)
+  retVal = mp_div( &(mpR[0]), &mpT1, &(mpA[0]), NULL );
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  retVal = mp_div( &(mpR[1]), &mpT1, &(mpA[1]), NULL );
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("After iteration degB2:\n");
+    printf("  A = "); mp_print_poly(mpB,2); printf("\n");  // A and B have been swapped
+    printf("  B = "); mp_print_poly(mpA,1); printf("\n");
+    printf("  g = "); mp_printf( mpB[2] ); printf("\n");
+    printf("  h = "); mp_printf( mpB[2] ); printf("\n\n");
+    }
+#endif
+
+  // If degR=0 then we are done.  Set the polDisc value and return.
+  if( degR==0 ) {  // h=g=A[2]
+    if( IS_ZERO(mpB) ) { validFlag[index] = FALSE; return; }
+    mp_int *polDisc;
+    polDisc = &(mpB[2]);  // Set polDisc = h = A[2].  But A and B have been swapped.
+    polDisc->sign = MP_ZPOS;  // Make sure the discriminant is positive.
+    mp_copy(polDisc, &(polDiscArray[index]));  // Store in global memory.
+    #ifdef DEBUG
+      if(index==DBG_THREAD) { printf("polDisc = ");  mp_printf(*polDisc); printf("\n"); }
+    #endif
+    return;
+    }
+
+
+  //////////////////////////////////////////////////////////////////////////////
+  //
+  // Here starts the iteration for degB=1.
+  //
+  // Compute R.
+  // What follows is the mp equivalent of this (but A and B must be swapped):
+  //    R[0] = B[1]*A[0];
+  //    R[1] = B[1]*A[1] - A[2]*B[0];
+  //    R[0] = B[1]*R[0] - R[1]*B[0];
+
+  retVal = mp_mul( &(mpA[1]), &(mpB[0]), &(mpR[0]) );
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  retVal = mp_mul( &(mpB[1]), &(mpA[1]), &mpT1 );  // 1st term
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  retVal = mp_mul( &(mpB[2]), &(mpA[0]), &mpT2 );  // 2nd term
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  mpT2.sign = -mpT2.sign;  // negate the 2nd term
+  mp_add( &mpT1, &mpT2, &(mpR[1]) );  // Sum the terms
+
+  retVal = mp_mul( &(mpA[1]), &(mpR[0]), &mpT1 );  // 1st term
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  retVal = mp_mul( &(mpR[1]), &(mpA[0]), &mpT2 );  // 2nd term
+    if ( retVal == MP_MEM )  { validFlag[index] = MEM_ERR; return; }
+  mpT2.sign = -mpT2.sign;  // negate the 2nd term
+  mp_add( &mpT1, &mpT2, &(mpR[0]) );  // Sum the terms
+
+  // Set B = R/(g^2) (delta=1 and g=h) where from previous iteration, g=A[2]
+  // And don't forget, A and B have been swapped.
+  mp_mul( &(mpB[2]), &(mpB[2]), &mpT1 );  // Set T1 = g^2
+  mp_div( &(mpR[0]), &mpT1, &(mpR[0]), NULL );
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("Sub-resultant complete:\n");
+    printf("  A = "); mp_print_poly(mpA,1); printf("\n");
+    printf("  B = "); mp_printf(mpR[0]); printf("\n\n");
+    }
+#endif
+
+  // Now complete the polDisc calculation.
+  if( IS_ZERO(mpR) ) { validFlag[index] = FALSE; return; }
+  mp_int *polDisc;
+  polDisc = &(mpR[0]);   // Set polDisc = R[0]
+  polDisc->sign = MP_ZPOS;  // Make sure the discriminant is positive.
+  mp_copy(polDisc, &(polDiscArray[index]));  // Store in global memory.
+
+#ifdef DEBUG
+  if(index==DBG_THREAD) {
+    printf("polDisc = ");  mp_printf(*polDisc); printf("\n");
+    }
+#endif
+
+}  // End of pdtKernel_sr_degB4_3_2
+
+
+
+
+
+// This kernel runs an iteration of sub-resultant for the case when degB=4 and degA=5.
+// For this case, the results fit in a 6 digit multi-prec.
+__global__
+void pdtKernel_sr_degB4(int numPolys, char *validFlag, int *DegA, int *DegB, mp_int *MPA, mp_int *MPB )
+{
+  int index = blockIdx.x * blockDim.x + threadIdx.x;
+
+  // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
+  // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
+  if(index>numPolys-1 || validFlag[index]!=TRUE) return;
+
+  // Skip any polynomial for which degB is not 4 or degA is not 5.
+  // Analysis has shown that the other cases are extremely rare, so we let the CPU handle them.
+  if(DegB[index]!=4 || DegA[index]!=5) { validFlag[index] = MEM_ERR; return; }
+
+
+#ifdef CUDA_PROFILER
+  unsigned int time1 = clock();
+#endif
+
+
+  // Multi-precision declarations
+  mp_int mpA[6], mpB[5], mpR[5], mpT1, mpT2;
+
+  // Copy data from gpu memory into local memory for this thread
+#pragma unroll
+  for(int col=0; col<=5; col++)  mp_copy(&(MPA[index*10+col]), &(mpA[col]));
+#pragma unroll
+  for(int col=0; col<=4; col++)  mp_copy(&(MPB[index*9 +col]), &(mpB[col]));
+
+
+  // The above is faster than using the device memory directly as done here:
+  //mp_int *mpA, *mpB, mpR[5], mpT1, mpT2;
+  //mpA = &(MPA[index*10]);  // Setup pointers for A and B polynomials
+  //mpB = &(MPB[index*9]);
 
 
   // The remaining multi-precision initializations.
@@ -1081,8 +1373,6 @@ void pdtKernel_sr_degB4(int numPolys, char *validFlag, int *DegA, int *DegB, mp_
 #endif
 
 }  // End of pdtKernel_sr_degB4
-
-
 
 
 
@@ -2234,14 +2524,6 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
 #endif
 
 
-  // Setup primes for the kernel
-/*
-  int p1, p2;
-  if(numP==1)       { p1=pSet[0]; p2=pSet[0]; }
-  else if(numP==2)  { p1=pSet[0]; p2=pSet[1]; }
-  else { printf("Error: This function only supports 2 primes max."); return FAIL; }
-*/
-
   if(numP>2) { printf("Error: This function only supports 2 primes max."); return FAIL; }
   int doP2=0, doP5=0, doPgen=0;
   for( int k=0; k<numP; ++k) {
@@ -2249,7 +2531,6 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
     if(pSet[k]==5) doP5 = 1;
     }
   if( (doP2+doP5)<numP )  doPgen = 1;
-
 
 
   // Copy polynomials to the device memory
@@ -2260,14 +2541,15 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
   }
 
 
-
-  // Launch stage 1 threads on the GPU
   int numBlocksNew = (numPolys + threadsPerBlock - 1) / threadsPerBlock;
-  //printf("Launching Stage 1.\n");
 
 
-  pdtKernel_sr_init<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuPolyBuffer, 
-       gpuPolyA, gpuPolyB, gpuDegA, gpuDegB, gpuG, gpuH);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Launch stage 1 threads
+  //
+
+  pdtKernel_sr_init<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuPolyBuffer, gpuPolyA, gpuPolyB, gpuDegA, gpuDegB, gpuG, gpuH);
   CUDACHECK;
 
   pdtKernel_sr_degB8<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuPolyA, gpuPolyB, gpuDegA, gpuDegB, gpuG, gpuH);
@@ -2284,10 +2566,8 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
   // That is as much as we can do with 64bits.  We now move to multi-precision.
 
   // Initialize the multi-precision variables
-  pdtKernel_sr_mpInit<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuPolyA, gpuPolyB, 
-       gpuDegA, gpuDegB, gpuScale, gpu_mpA, gpu_mpB );
+  pdtKernel_sr_mpInit<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuPolyA, gpuPolyB, gpuDegA, gpuDegB, gpuScale, gpu_mpA, gpu_mpB);
   CUDACHECK;
-
 
   // Do the degB=6, degA=8 case.
   pdtKernel_sr_degB6degA8<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB, gpuG, gpuH );
@@ -2299,30 +2579,41 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
 
   // At this point we may assume degB<6.  (degA arbitrary)
 
-
   // Do the degB=5, degA=6 case.
-  pdtKernel_sr_degB5<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, 
-       gpu_mpA, gpu_mpB, gpuG, gpuH );
+  pdtKernel_sr_degB5<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB, gpuG, gpuH );
+  CUDACHECK;
 
 
-  // Do the degB=4, degA=5 case.
-  pdtKernel_sr_degB4<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+  // We can complete in two different ways.  Method 2 appears to be faster.
+  if(0) {  // METHOD 1
+    // Do the degB=4, degB=3, and degB=2 cases in the same kernel.
+    // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
+    pdtKernel_sr_degB4_3_2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+    CUDACHECK;
+    }
+  else { //METHOD 2
+    // Do the degB=4, degA=5 case.
+    pdtKernel_sr_degB4<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+    CUDACHECK;
 
-  // Do the degB=3, degA=4 case.
-  pdtKernel_sr_degB3<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+    // Do the degB=3, degA=4 case.
+    pdtKernel_sr_degB3<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+    CUDACHECK;
 
+    // Do the degB=2, degA=3 case.
+    // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
+    pdtKernel_sr_degB2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+    CUDACHECK;
+    }
 
-  // Do the degB=2, degA=3 case.
-  // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
-  pdtKernel_sr_degB2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, 
-       gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
-
-
-
-//  pdtKernel_sr_finish<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, 
-//       gpu_mpA, gpu_mpB );
+//  pdtKernel_sr_finish<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB, gpuG, gpuH );
 //  CUDACHECK;
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  // Launch stage 2 threads
+  //
 
   // Divide out factors of 2
   if(doP2) {
@@ -2347,11 +2638,18 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
     }
 
 
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
   // Launch stage 3 threads
+  //
+
   //printf("Launching Stage 3.\n\n");
   pdtKernel_perfSqTest<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer);
   CUDACHECK;
+  #ifdef DEBUG
+    cudaStreamSynchronize(pdtStream);  // We only do this for debug in order to flush the printf buffers
+    CUDACHECK;
+  #endif
 
 
 #ifdef CUDA_PROFILER
@@ -2363,4 +2661,3 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
   return 0;
 
   }
-
