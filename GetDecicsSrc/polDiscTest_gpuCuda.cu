@@ -10,6 +10,10 @@
 #include <cuda.h>
 
 
+// This finishes the sub-resultant using multiple kernels, instead of 1.
+#define SR_FINISH_METHOD_MULTI_KERNEL
+
+
 //#define CUDA_PROFILER
 
 #ifdef CUDA_PROFILER
@@ -116,9 +120,9 @@ void pdtKernel_sr_init(int numPolys, int64_t *polys, int64_t *polyA, int64_t *po
 
 
   ////////////////////////////////////////////////////////////////
-  /*  Do the first iteration of the sub-resultant algorithm.    */
-  /*  This allows us to stay with longs a little longer before  */
-  /*  transitioning to multi-precision.                         */
+  //  Do the first iteration of the sub-resultant algorithm.    
+  //  This allows us to stay with longs a little longer before  
+  //  transitioning to multi-precision.                         
 
   // This computes: R = d*A-S*B in Algorithm 3.1.2
   int64_t R[10];
@@ -137,7 +141,7 @@ void pdtKernel_sr_init(int numPolys, int64_t *polys, int64_t *polyA, int64_t *po
     if( R[k]!=0 ) { degR=k; break; }
     }
 
-  /*  The first iteration of sub-resultant is now complete. */
+  //  The first iteration of sub-resultant is now complete.
   ////////////////////////////////////////////////////////////
 
 
@@ -969,6 +973,8 @@ void pdtKernel_sr_degB5(int numPolys, char *validFlag, int *DegA, int *DegB, mp_
 // iterations, the degrees of A and B will drop by 1.  Whenever this does not occur, the
 // polynomial is kicked back to the cpu for processing (less than 1 in 100000 polys).
 
+#ifndef SR_FINISH_METHOD_MULTI_KERNEL
+// Using the pre-processor directive to turn this off results in a smaller executable.
 __global__
 void pdtKernel_sr_degB4_3_2(int numPolys, char *validFlag, mp_int* polDiscArray, int *DegA, int *DegB, mp_int *MPA, mp_int *MPB )
 {
@@ -1254,6 +1260,7 @@ void pdtKernel_sr_degB4_3_2(int numPolys, char *validFlag, mp_int* polDiscArray,
 #endif
 
 }  // End of pdtKernel_sr_degB4_3_2
+#endif
 
 
 
@@ -1680,8 +1687,8 @@ void pdtKernel_sr_degB2(int numPolys, char *validFlag, mp_int* polDiscArray, int
 
 
 
-
-// NOTE:   This function is now deprecated.
+/*
+// NOTE: Commenting this out results in a smaller executable (this function is now deprecated).
 // This kernel completes the sub-resultant calculation.
 __global__
 void pdtKernel_sr_finish(int numPolys, char *validFlag, mp_int* polDiscArray, int *DegA, int *DegB, 
@@ -1906,7 +1913,6 @@ void pdtKernel_sr_finish(int numPolys, char *validFlag, mp_int* polDiscArray, in
         }
     #endif
 
-
     }  // End of outer for loop
 
 
@@ -1975,27 +1981,26 @@ void pdtKernel_sr_finish(int numPolys, char *validFlag, mp_int* polDiscArray, in
 #endif
 
 }
+*/
 
 
 
 
 
-// NOTE: This function is now deprecated.
+/*
+// NOTE: Commenting this out results in a smaller executable (this function is now deprecated).
 // CUDA kernel function to divide out factors of p1 and p2 from the polynomial discriminant.
 __global__
 void pdtKernel_divP(int numPolys, char *validFlag, mp_int* polDiscArray, int p1, int p2)
 {
   int index = blockIdx.x * blockDim.x + threadIdx.x;
 
-
   // Valid indices are 0 through numPolys-1.  Exit if this is an invalid index.
   // This can happen if numPolys is not equal to numBlocks * threadsPerBlock.
   if(index>numPolys-1 || validFlag[index]!=TRUE) return;
 
-
   int numP, pSet[2] = {p1, p2};
   numP = (p1==p2) ? 1 : 2;
-
 
   // Extract polynomial discriminant for this thread
   mp_int polDisc;
@@ -2003,11 +2008,9 @@ void pdtKernel_divP(int numPolys, char *validFlag, mp_int* polDiscArray, int p1,
   polDisc.sign = polDiscArray[index].sign;
   for (int n = 0; n<polDisc.used; n++)  polDisc.dp[n] = polDiscArray[index].dp[n];
 
-
   // Initialize local variables
   mp_int q;
   mp_zero(&q);
-
 
   // Divide out all factors of p for each prime in pSet
   for(int k=0; k<numP; k++)  {
@@ -2031,23 +2034,21 @@ void pdtKernel_divP(int numPolys, char *validFlag, mp_int* polDiscArray, int p1,
       if( (pow2 & 0x1)==0 )        { d +=  1; pow2 >>= 1;  }
       mp_div_2d( &polDisc, d, &polDisc, NULL ); // Set polDisc = polDisc/2^d
 
-      /*
       // This is the DeBruijn Method for getting the power d, given 2^d.
       // It is a tad slower than the above method.
-      int d = 0;
-      static const int MultiplyDeBruijnBitPosition[32] = {
-        0,  9,  1, 10, 13, 21,  2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
-        8, 12, 20, 28, 15, 17, 24,  7, 19, 27, 23,  6, 26,  5, 4, 31 };
-      uint32_t v = (uint32_t)(pow2 & 0xFFFFFFFF);
-      if( v==0 ) { d  = 32; v = (uint32_t)((pow2>>32) & 0xFFFFFFFF); }
-      v |= v >> 1;
-      v |= v >> 2;
-      v |= v >> 4;
-      v |= v >> 8;
-      v |= v >> 16;
-      d += MultiplyDeBruijnBitPosition[(uint32_t)(v*0x07C4ACDDU) >> 27];
-      mp_div_2d( &polDisc, d, &polDisc, NULL ); // Set polDisc = polDisc/2^d
-      */
+//      int d = 0;
+//      static const int MultiplyDeBruijnBitPosition[32] = {
+//        0,  9,  1, 10, 13, 21,  2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
+//        8, 12, 20, 28, 15, 17, 24,  7, 19, 27, 23,  6, 26,  5, 4, 31 };
+//      uint32_t v = (uint32_t)(pow2 & 0xFFFFFFFF);
+//      if( v==0 ) { d  = 32; v = (uint32_t)((pow2>>32) & 0xFFFFFFFF); }
+//      v |= v >> 1;
+//      v |= v >> 2;
+//      v |= v >> 4;
+//      v |= v >> 8;
+//      v |= v >> 16;
+//      d += MultiplyDeBruijnBitPosition[(uint32_t)(v*0x07C4ACDDU) >> 27];
+//      mp_div_2d( &polDisc, d, &polDisc, NULL ); // Set polDisc = polDisc/2^d
 
       }
 
@@ -2102,6 +2103,7 @@ void pdtKernel_divP(int numPolys, char *validFlag, mp_int* polDiscArray, int p1,
 #endif
 
 }  // End of pdtKernel_divP (now deprecated)
+*/
 
 
 
@@ -2216,6 +2218,8 @@ void pdtKernel_div5(int numPolys, char *validFlag, mp_int* polDiscArray)
 
 
 
+// NOTE: Commenting this out results in a smaller executable (this function is not currently used)
+/*
 // CUDA kernel function to divide out factors of 2 and 5 from the polynomial discriminant.
 __global__
 void pdtKernel_div25(int numPolys, char *validFlag, mp_int* polDiscArray)
@@ -2298,7 +2302,7 @@ void pdtKernel_div25(int numPolys, char *validFlag, mp_int* polDiscArray)
   #endif
 
 }  // End of pdtKernel_div25
-
+*/
 
 
 
@@ -2584,27 +2588,30 @@ polDiscTest_gpuCuda(long long polBuf[][11], int numPolys, char *polGoodFlag, int
   CUDACHECK;
 
 
-  // We can complete in two different ways.  Method 2 appears to be faster.
-  if(0) {  // METHOD 1
-    // Do the degB=4, degB=3, and degB=2 cases in the same kernel.
-    // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
-    pdtKernel_sr_degB4_3_2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
-    CUDACHECK;
-    }
-  else { //METHOD 2
-    // Do the degB=4, degA=5 case.
-    pdtKernel_sr_degB4<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
-    CUDACHECK;
+  // We can complete in two different ways.  Method 1 appears to be faster.
+#ifdef SR_FINISH_METHOD_MULTI_KERNEL
+  // METHOD 1: Finish sub-resultant computation using 3 smaller kernels.
+  // This means more transfering of data between gpu RAM and local memory, but for some reason is faster.
 
-    // Do the degB=3, degA=4 case.
-    pdtKernel_sr_degB3<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
-    CUDACHECK;
+  // Do the degB=4, degA=5 case.
+  pdtKernel_sr_degB4<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+  CUDACHECK;
 
-    // Do the degB=2, degA=3 case.
-    // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
-    pdtKernel_sr_degB2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
-    CUDACHECK;
-    }
+  // Do the degB=3, degA=4 case.
+  pdtKernel_sr_degB3<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+  CUDACHECK;
+
+  // Do the degB=2, degA=3 case.
+  // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
+  pdtKernel_sr_degB2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+  CUDACHECK;
+#else
+  // METHOD 2: Do the degB=4, degB=3, and degB=2 cases in the same kernel.
+  // This kernel will complete the polDisc computation and store it in gpuDiscBuffer
+  pdtKernel_sr_degB4_3_2<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB );
+  CUDACHECK;
+#endif
+
 
 //  pdtKernel_sr_finish<<<numBlocksNew, threadsPerBlock, 0, pdtStream>>>(numPolys, gpuFlagBuffer, gpuDiscBuffer, gpuDegA, gpuDegB, gpu_mpA, gpu_mpB, gpuG, gpuH );
 //  CUDACHECK;
