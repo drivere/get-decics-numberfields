@@ -1,1 +1,2 @@
-The truth files in here are for the cpu.
+The .dat files are input data files.
+The .truth files are the truth.  These are for the cpu, so elapsed times should be higher than any gpu run.
