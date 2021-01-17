@@ -1,0 +1,134 @@
+<app_init_data>
+<major_version>7</major_version>
+<minor_version>14</minor_version>
+<release>2</release>
+<app_version>305</app_version>
+<app_name>GetDecics</app_name>
+<boinc_dir>/home/eric/BOINC</boinc_dir>
+<wu_cpu_time>0.000000</wu_cpu_time>
+<starting_elapsed_time>0.000000</starting_elapsed_time>
+<using_sandbox>0</using_sandbox>
+<vm_extensions_disabled>0</vm_extensions_disabled>
+<user_total_credit>123218327.769646</user_total_credit>
+<user_expavg_credit>100391.194147</user_expavg_credit>
+<host_total_credit>19031923.782965</host_total_credit>
+<host_expavg_credit>19680.488938</host_expavg_credit>
+<resource_share_fraction>1.000000</resource_share_fraction>
+<checkpoint_period>60.000000</checkpoint_period>
+<fraction_done_start>0.000000</fraction_done_start>
+<fraction_done_end>1.000000</fraction_done_end>
+<gpu_type>ATI</gpu_type>
+<gpu_device_num>0</gpu_device_num>
+<gpu_opencl_dev_index>0</gpu_opencl_dev_index>
+<gpu_usage>0.500000</gpu_usage>
+<ncpus>0.250000</ncpus>
+<rsc_fpops_est>10000000000000.000000</rsc_fpops_est>
+<rsc_fpops_bound>700000000000000000000.000000</rsc_fpops_bound>
+<rsc_memory_bound>256000000.000000</rsc_memory_bound>
+<rsc_disk_bound>256000000.000000</rsc_disk_bound>
+<computation_deadline>1599113695.000000</computation_deadline>
+<vbox_window>0</vbox_window>
+<host_info>
+    <timezone>-25200</timezone>
+    <domain_name>Big-Driver</domain_name>
+    <ip_addr>192.168.1.116</ip_addr>
+    <host_cpid>aeefcc32d3a83ec77a602a1c8752eba7</host_cpid>
+    <p_ncpus>12</p_ncpus>
+    <p_vendor>GenuineIntel</p_vendor>
+    <p_model>Intel(R) Core(TM) i7-4960X CPU @ 3.60GHz [Family 6 Model 62 Stepping 4]</p_model>
+    <p_features>fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm cpuid_fault epb pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms xsaveopt dtherm ida arat pln pts md_clear flush_l1d</p_features>
+    <p_fpops>5100752597.335384</p_fpops>
+    <p_iops>23117398728.614048</p_iops>
+    <p_membw>1000000000.000000</p_membw>
+    <p_calculated>1577673408.946510</p_calculated>
+    <p_vm_extensions_disabled>0</p_vm_extensions_disabled>
+    <m_nbytes>16789401600.000000</m_nbytes>
+    <m_cache>15728640.000000</m_cache>
+    <m_swap>21474832384.000000</m_swap>
+    <d_total>492018819072.000000</d_total>
+    <d_free>324862992384.000000</d_free>
+    <os_name>Linux Fedora</os_name>
+    <os_version>Fedora 31 (Thirty One) [5.4.8-200.fc31.x86_64|libc 2.30 (GNU libc)]</os_version>
+    <n_usable_coprocs>1</n_usable_coprocs>
+    <wsl_available>0</wsl_available>
+    <coprocs>
+<coproc_ati>
+   <count>1</count>
+   <name>Radeon RX 570 Series</name>
+   <available_ram>4089061376.000000</available_ram>
+   <have_cal>0</have_cal>
+   <have_opencl>1</have_opencl>
+   <peak_flops>5324800000000.000000</peak_flops>
+   <CALVersion></CALVersion>
+   <target>0</target>
+   <localRAM>3899</localRAM>
+   <uncachedRemoteRAM>0</uncachedRemoteRAM>
+   <cachedRemoteRAM>0</cachedRemoteRAM>
+   <engineClock>1300</engineClock>
+   <memoryClock>0</memoryClock>
+   <wavefrontSize>0</wavefrontSize>
+   <numberOfSIMD>0</numberOfSIMD>
+   <doublePrecision>0</doublePrecision>
+   <pitch_alignment>0</pitch_alignment>
+   <surface_alignment>0</surface_alignment>
+   <maxResource1DWidth>0</maxResource1DWidth>
+   <maxResource2DWidth>0</maxResource2DWidth>
+   <maxResource2DHeight>0</maxResource2DHeight>
+   <coproc_opencl>
+      <name>Radeon RX 570 Series</name>
+      <vendor>Advanced Micro Devices, Inc.</vendor>
+      <vendor_id>4098</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>190</single_fp_config>
+      <double_fp_config>63</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>1</execution_capabilities>
+      <extensions>cl_khr_fp64 cl_amd_fp64 cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_3d_image_writes cl_khr_byte_addressable_store cl_khr_fp16 cl_khr_gl_sharing cl_amd_device_attribute_query cl_amd_vec3 cl_amd_printf cl_amd_media_ops cl_amd_media_ops2 cl_amd_popcnt cl_khr_image2d_from_buffer cl_amd_bus_addressable_memory cl_khr_spir cl_khr_gl_event</extensions>
+      <global_mem_size>4089061376</global_mem_size>
+      <local_mem_size>32768</local_mem_size>
+      <max_clock_frequency>1300</max_clock_frequency>
+      <max_compute_units>32</max_compute_units>
+      <nv_compute_capability_major>0</nv_compute_capability_major>
+      <nv_compute_capability_minor>0</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>4</amd_simd_per_compute_unit>
+      <amd_simd_width>16</amd_simd_width>
+      <amd_simd_instruction_width>1</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 2.1 AMD-APP (2906.7)</opencl_platform_version>
+      <opencl_device_version>OpenCL 1.2 AMD-APP (2906.7)</opencl_device_version>
+      <opencl_driver_version>2906.7</opencl_driver_version>
+   </coproc_opencl>
+</coproc_ati>
+    </coprocs>
+<opencl_cpu_prop>
+   <platform_vendor>The pocl project</platform_vendor>
+   <opencl_cpu_info>
+      <name>pthread-Intel(R) Core(TM) i7-4960X CPU @ 3.60GHz</name>
+      <vendor>GenuineIntel</vendor>
+      <vendor_id>1818455920</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>159</single_fp_config>
+      <double_fp_config>191</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>3</execution_capabilities>
+      <extensions>cl_khr_byte_addressable_store cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_3d_image_writes cl_khr_fp64 cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_fp64</extensions>
+      <global_mem_size>14641917952</global_mem_size>
+      <local_mem_size>8388608</local_mem_size>
+      <max_clock_frequency>4000</max_clock_frequency>
+      <max_compute_units>12</max_compute_units>
+      <nv_compute_capability_major>0</nv_compute_capability_major>
+      <nv_compute_capability_minor>0</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>0</amd_simd_per_compute_unit>
+      <amd_simd_width>0</amd_simd_width>
+      <amd_simd_instruction_width>0</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 1.2 pocl 1.5-pre, RelWithDebInfo, LLVM 9.0.0, RELOC, SLE</opencl_platform_version>
+      <opencl_device_version>OpenCL 1.2 pocl HSTR: pthread-x86_64-unknown-linux-gnu-ivybridge</opencl_device_version>
+      <opencl_driver_version>1.5-pre</opencl_driver_version>
+   </opencl_cpu_info>
+</opencl_cpu_prop>
+</host_info>
+<app_file>GetDecics_3.05_x86_64-pc-linux-gnu__opencl_amd</app_file>
+<app_file>pdtKernelAMD_v305.cl</app_file>
+<app_file>gpuMultiPrecAMD_v305.h</app_file>
+</app_init_data>

@@ -1,0 +1,149 @@
+<app_init_data>
+<major_version>7</major_version>
+<minor_version>10</minor_version>
+<release>2</release>
+<app_version>303</app_version>
+<app_name>GetDecics</app_name>
+<gpu_type>NVIDIA</gpu_type>
+<gpu_device_num>0</gpu_device_num>
+<gpu_opencl_dev_index>0</gpu_opencl_dev_index>
+<gpu_usage>0.990000</gpu_usage>
+<ncpus>0.100000</ncpus>
+<rsc_fpops_est>10000000000000.000000</rsc_fpops_est>
+<rsc_fpops_bound>700000000000000000000.000000</rsc_fpops_bound>
+<rsc_memory_bound>256000000.000000</rsc_memory_bound>
+<rsc_disk_bound>256000000.000000</rsc_disk_bound>
+<computation_deadline>1598978646.000000</computation_deadline>
+<vbox_window>0</vbox_window>
+<host_info>
+    <timezone>-25200</timezone>
+    <p_ncpus>64</p_ncpus>
+    <p_vendor>AuthenticAMD</p_vendor>
+    <p_model>AMD Ryzen Threadripper 2990WX 32-Core Processor [Family 23 Model 8 Stepping 2]</p_model>
+    <p_features>fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid amd_dcm aperfmperf pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb hw_pstate sme ssbd sev ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 rdseed adx smap clflushopt sha_ni xsaveopt xsavec xgetbv1 xsaves clzero irperf xsaveerptr arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif overflow_recov succor smca</p_features>
+    <p_fpops>6404965498.409088</p_fpops>
+    <p_iops>25302073100.933128</p_iops>
+    <p_membw>1000000000.000000</p_membw>
+    <p_calculated>1598293408.365757</p_calculated>
+    <p_vm_extensions_disabled>0</p_vm_extensions_disabled>
+    <m_nbytes>67447148544.000000</m_nbytes>
+    <m_cache>524288.000000</m_cache>
+    <m_swap>137438949376.000000</m_swap>
+    <d_total>848147619840.000000</d_total>
+    <d_free>649563734016.000000</d_free>
+    <os_name>Linux Fedora</os_name>
+    <os_version>Fedora 31 (Thirty One) [5.7.15-100.fc31.x86_64|libc 2.30 (GNU libc)]</os_version>
+    <n_usable_coprocs>1</n_usable_coprocs>
+    <coprocs>
+<coproc_cuda>
+   <count>1</count>
+   <name>GeForce GTX 1050</name>
+   <available_ram>1832255488.000000</available_ram>
+   <have_cuda>1</have_cuda>
+   <have_opencl>1</have_opencl>
+   <peak_flops>1911040000000.000000</peak_flops>
+   <cudaVersion>11000</cudaVersion>
+   <drvVersion>45066</drvVersion>
+   <totalGlobalMem>2089025536.000000</totalGlobalMem>
+   <sharedMemPerBlock>49152.000000</sharedMemPerBlock>
+   <regsPerBlock>65536</regsPerBlock>
+   <warpSize>32</warpSize>
+   <memPitch>2147483647.000000</memPitch>
+   <maxThreadsPerBlock>1024</maxThreadsPerBlock>
+   <maxThreadsDim>1024 1024 64</maxThreadsDim>
+   <maxGridSize>2147483647 65535 65535</maxGridSize>
+   <clockRate>1493000</clockRate>
+   <totalConstMem>65536.000000</totalConstMem>
+   <major>6</major>
+   <minor>1</minor>
+   <textureAlignment>512.000000</textureAlignment>
+   <deviceOverlap>1</deviceOverlap>
+   <multiProcessorCount>5</multiProcessorCount>
+   <coproc_opencl>
+      <name>GeForce GTX 1050</name>
+      <vendor>NVIDIA Corporation</vendor>
+      <vendor_id>4318</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>191</single_fp_config>
+      <double_fp_config>63</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>1</execution_capabilities>
+      <extensions>cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll cl_nv_copy_opts cl_nv_create_buffer cl_khr_int64_base_atomics cl_khr_int64_extended_atomics</extensions>
+      <global_mem_size>2089025536</global_mem_size>
+      <local_mem_size>49152</local_mem_size>
+      <max_clock_frequency>1493</max_clock_frequency>
+      <max_compute_units>5</max_compute_units>
+      <nv_compute_capability_major>6</nv_compute_capability_major>
+      <nv_compute_capability_minor>1</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>0</amd_simd_per_compute_unit>
+      <amd_simd_width>0</amd_simd_width>
+      <amd_simd_instruction_width>0</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 1.2 CUDA 11.0.228</opencl_platform_version>
+      <opencl_device_version>OpenCL 1.2 CUDA</opencl_device_version>
+      <opencl_driver_version>450.66</opencl_driver_version>
+   </coproc_opencl>
+<pci_info>
+   <bus_id>65</bus_id>
+   <device_id>0</device_id>
+   <domain_id>0</domain_id>
+</pci_info>
+</coproc_cuda>
+    </coprocs>
+<opencl_cpu_prop>
+   <platform_vendor>The pocl project</platform_vendor>
+   <opencl_cpu_info>
+      <name>pthread-AMD Ryzen Threadripper 2990WX 32-Core Processor</name>
+      <vendor>AuthenticAMD</vendor>
+      <vendor_id>1818455920</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>191</single_fp_config>
+      <double_fp_config>191</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>3</execution_capabilities>
+      <extensions>cl_khr_byte_addressable_store cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_3d_image_writes cl_khr_fp64 cl_khr_int64_base_atomics cl_khr_int64_extended_atomics cl_khr_fp64</extensions>
+      <global_mem_size>65299664896</global_mem_size>
+      <local_mem_size>4194304</local_mem_size>
+      <max_clock_frequency>3000</max_clock_frequency>
+      <max_compute_units>64</max_compute_units>
+      <nv_compute_capability_major>0</nv_compute_capability_major>
+      <nv_compute_capability_minor>0</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>0</amd_simd_per_compute_unit>
+      <amd_simd_width>0</amd_simd_width>
+      <amd_simd_instruction_width>0</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 1.2 pocl 1.5-pre, RelWithDebInfo, LLVM 9.0.0, RELOC, SLE</opencl_platform_version>
+      <opencl_device_version>OpenCL 1.2 pocl HSTR: pthread-x86_64-unknown-linux-gnu-znver1</opencl_device_version>
+      <opencl_driver_version>1.5-pre</opencl_driver_version>
+   </opencl_cpu_info>
+</opencl_cpu_prop>
+<opencl_cpu_prop>
+   <platform_vendor>Intel(R) Corporation</platform_vendor>
+   <opencl_cpu_info>
+      <name>AMD Ryzen Threadripper 2990WX 32-Core Processor</name>
+      <vendor>Intel(R) Corporation</vendor>
+      <vendor_id>32902</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>7</single_fp_config>
+      <double_fp_config>63</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>3</execution_capabilities>
+      <extensions>cl_khr_icd cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_byte_addressable_store cl_khr_depth_images cl_khr_3d_image_writes cl_intel_exec_by_local_thread cl_khr_spir cl_khr_fp64 cl_khr_image2d_from_buffer cl_intel_vec_len_hint</extensions>
+      <global_mem_size>67447148544</global_mem_size>
+      <local_mem_size>32768</local_mem_size>
+      <max_clock_frequency>0</max_clock_frequency>
+      <max_compute_units>64</max_compute_units>
+      <nv_compute_capability_major>0</nv_compute_capability_major>
+      <nv_compute_capability_minor>0</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>0</amd_simd_per_compute_unit>
+      <amd_simd_width>0</amd_simd_width>
+      <amd_simd_instruction_width>0</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 2.1 LINUX</opencl_platform_version>
+      <opencl_device_version>OpenCL 2.1 (Build 0)</opencl_device_version>
+      <opencl_driver_version>18.1.0.0920</opencl_driver_version>
+   </opencl_cpu_info>
+</opencl_cpu_prop>
+</host_info>
+<app_file>GetDecics_3.03_x86_64-pc-linux-gnu__cuda30</app_file>
+</app_init_data>

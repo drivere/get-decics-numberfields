@@ -1,0 +1,58 @@
+
+NOTES: 
+   1. The instructions below apply to linux, but the process could be tweaked for testing 
+      on Windows.  I have heard that Windows 10 can run bash scripts, but I have not
+      looked into this.  Ideally, we would like a Windows version of the tester script.
+   2. Executables can be found in the Binaries directory (gzipped).  This allows users
+      to test their card without having to build the code.
+   3. I would like to thank Khalim Husain for developing the tester script.
+
+
+There are two types of testing.
+Unless you are an expert with Cuda or openCL, you will probably be interested in Type 1.
+
+==============================
+Type 1 Testing (general users)
+==============================
+This involves fine tuning of GPU parameters for specific cards.  Results from this testing
+are used to modify or add entries to the gpuLookupTable.txt file.
+Here is the general procedure:
+
+1. Create a test file.  Examples are in exampleTestFiles.
+2. Run "tester" script with your test filename as an argument.  Without any arguments it
+   will give you usage information.
+3. Tester will output a csv file.  You can visually inspect this file or import it into
+   your favorite spreadsheet program.  Example results are in exampleTestFiles.
+4. In setting up the test file, here are some things to know:
+   a. For Nvidia cards, threadsPerBlock should be a multiple of 32, because this is the 
+      size of a warp, which is the number of threads that run in lockstep.  NumBlocks
+      can be made as large as you like, but remember the data array also has to fit
+      in CPU RAM.  I find that usage of ~1GB on the video card translates into about
+      100MB of CPU RAM.  Going above 1GB on the video card doesn't seem to give much
+      more of an advantage (at least on GTX1050 or GTX1660).  Setting numBlocks to a
+      multiple of cuda cores seems to be a good starting point.
+   b. For AMD cards, threadsPerBlock should be set to the "preferred work group size".
+      On the RX570 this is 64, and this does seem to give best results.  Not sure of
+      a good starting point for numBlocks, something over 1000 is probably good.
+
+
+===============================
+Type 2 Testing (advanced users)
+===============================
+This involves performance testing after improvements are made to the kernel functions.
+Here is the general procedure:
+1. Copy a set of input dat files and corresponding truth files into a test directory.
+2. Copy in the executable and rename to GetDecics.cuda or GetDecics.opencl, depending
+   on which you are testing.
+3. Copy in the init_data.xml and gpuLookupTable.txt.
+4. For opencl, also copy the following files: mp_int.h, gpuMultiPrec.h, and pdtKernel.cl.
+   (for AMD cards you will need gpuMultiPrecAMD.h and pdtKernelAMD.cl).
+5. Run DoAllWUs_gpu.bash.  This will create an output file for each data file.
+6. Run DiffAllResults_gpu.bash.  This will diff the results against the truth files.
+7. You may want to run a first pass using the baseline executable to get accurate timing
+   for the truth files for your particular card; otherwise you are comparing to the 
+   timing from another card.  Use these for truth when running the diff script.
+   The Rename.csh script is helpful for renaming the baseline result files.
+8. This should be obvious, but the results should match the truth, except for the 
+   elapsed time.  And obviously we want the elapsed time to go down.
+

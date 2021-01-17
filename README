@@ -58,7 +58,7 @@ changed accordingly).
      There are 2 optional command line arguments that can override sizing parameters:
      ./GetDecics --numBlocks XX --threadsPerBlock YY
      When using the lookup table, you can ignore these command line arguments.
-
+  g. Also see the README in the Test directory.
 
 A successful run will produce some output files.  If there are problems, stderr.txt 
 may have some clues.  The important file is called "out".  There are truth files in 
