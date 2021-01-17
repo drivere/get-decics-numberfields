@@ -1,0 +1,7 @@
+x^10 + 200*x^8 + 12400*x^6 - 28160*x^5 + 152000*x^4 + 640000*x^3 - 952000*x^2 + 256000*x + 5734400
+#   The search is complete. Stats:
+#   Inspected 443359504 polynomials.
+#   Num Polys passing PolDisc test = 4 (9.02202e-07%).
+#   Num Polys passing irreducibility test = 4 (100%).
+#   Num Polys passing field disc test = 1 (25%).
+#   Elapsed Time = 2927 (sec)

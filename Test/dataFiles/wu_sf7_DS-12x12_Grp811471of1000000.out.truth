@@ -1,0 +1,12 @@
+x^10 - 200*x^8 + 10250*x^6 + 65625*x^2 + 25000
+x^10 - 200*x^8 + 6250*x^6 + 600000*x^4 + 3665625*x^2 + 25000
+x^10 + 200*x^8 + 10250*x^6 + 50000*x^4 - 34375*x^2 + 25000
+x^10 + 200*x^8 + 8250*x^6 + 50000*x^4 + 315625*x^2 + 225000
+x^10 + 200*x^8 + 18250*x^6 + 850000*x^4 + 16065625*x^2 + 9025000
+x^10 + 200*x^8 + 18250*x^6 + 850000*x^4 + 13665625*x^2 + 112225000
+#   The search is complete. Stats:
+#   Inspected 767410575 polynomials.
+#   Num Polys passing PolDisc test = 13095 (0.00170639%).
+#   Num Polys passing irreducibility test = 12895 (98.4727%).
+#   Num Polys passing field disc test = 6 (0.0465297%).
+#   Elapsed Time = 4774 (sec)

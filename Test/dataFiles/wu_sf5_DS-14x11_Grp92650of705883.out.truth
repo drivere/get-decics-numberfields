@@ -1,0 +1,6 @@
+#   The search is complete. Stats:
+#   Inspected 107045198 polynomials.
+#   Num Polys passing PolDisc test = 2 (1.86837e-06%).
+#   Num Polys passing irreducibility test = 2 (100%).
+#   Num Polys passing field disc test = 0 (0%).
+#   Elapsed Time = 680 (sec)

@@ -1,0 +1,7 @@
+x^10 - 200*x^8 + 800*x^7 + 8000*x^6 - 107520*x^5 + 344000*x^4 + 556800*x^3 + 7028800*x^2 + 22246400*x + 33198080
+#   The search is complete. Stats:
+#   Inspected 576322581 polynomials.
+#   Num Polys passing PolDisc test = 3 (5.20542e-07%).
+#   Num Polys passing irreducibility test = 3 (100%).
+#   Num Polys passing field disc test = 1 (33.3333%).
+#   Elapsed Time = 3712 (sec)

@@ -1,0 +1,9 @@
+x^10 + 80*x^8 - 640*x^7 + 1820*x^6 - 16608*x^5 + 61200*x^4 - 430720*x^3 + 1112160*x^2 + 3829120*x + 2294016
+x^10 + 80*x^8 - 40*x^7 + 4020*x^6 - 1008*x^5 + 67200*x^4 - 14720*x^3 + 1149760*x^2 + 3736320*x + 7087616
+x^10 + 80*x^8 - 40*x^7 + 2020*x^6 - 9808*x^5 + 47200*x^4 - 486720*x^3 + 1565760*x^2 - 6663680*x + 20002816
+#   The search is complete. Stats:
+#   Inspected 89826675 polynomials.
+#   Num Polys passing PolDisc test = 102 (0.000113552%).
+#   Num Polys passing irreducibility test = 75 (73.5294%).
+#   Num Polys passing field disc test = 3 (4%).
+#   Elapsed Time = 564 (sec)
