@@ -1164,63 +1164,64 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
 
 
 #ifdef DEBUG_TEST
-    if(1) {
-      // This is the poly:
-      // x^10 - 180*x^8 - 1080*x^7 + 5670*x^6 + 95096*x^5 + 510300*x^4 + 1501560*x^3 + 2551135*x^2 + 1842360*x^1 - 974096
-      polBufNow[0]  = 1;
-      polBufNow[1]  = 0;
-      polBufNow[2]  = -180;
-      polBufNow[3]  = -1080;
-      polBufNow[4]  = 5670;
-      polBufNow[5]  = 95096;
-      polBufNow[6]  = 510300;
-      polBufNow[7]  = 1501560;
-      polBufNow[8]  = 2551135;
-      polBufNow[9]  = 1842360;
-      polBufNow[10] = -974096;
-      }
-    if(0) {
-      // This is the poly: x^10 + 850*x^6 - 1760*x^5 + 4100625*x^2 + 26244000*x + 47239200
-      polBufNow[0]  = 1;
-      polBufNow[1]  = 0;
-      polBufNow[2]  = 0;
-      polBufNow[3]  = 0;
-      polBufNow[4]  = 850;
-      polBufNow[5]  = -1760;
-      polBufNow[6]  = 0;
-      polBufNow[7]  = 0;
-      polBufNow[8]  = 4100625;
-      polBufNow[9]  = 26244000;
-      polBufNow[10] = 47239200;
-      }
-    if(0) {
-      // This is the poly: x^10 - 80*x^8 - 80*x^7 + 2470*x^6 + 4776*x^5 - 130700*x^4 - 947040*x^3 + 11520710*x^2 - 2205040*x + 10340064
-      polBufNow[0]  = 1;
-      polBufNow[1]  = 0;
-      polBufNow[2]  = -80;
-      polBufNow[3]  = -80;
-      polBufNow[4]  = 2470;
-      polBufNow[5]  = 4776;
-      polBufNow[6]  = -130700;
-      polBufNow[7]  = -947040;
-      polBufNow[8]  = 11520710;
-      polBufNow[9]  = -2205040;
-      polBufNow[10] = 10340064;
-      }
-    if(0) {
-      // This is the poly: x^10 - 16*x^7 + 66*x^6 + 320*x^5 + 1200*x^4 + 2160*x^3 + 2993*x^2 + 2112*x + 576
-      polBufNow[0]  = 1;
-      polBufNow[1]  = 0;
-      polBufNow[2]  = 0;
-      polBufNow[3]  = -16;
-      polBufNow[4]  = 66;
-      polBufNow[5]  = 320;
-      polBufNow[6]  = 1200;
-      polBufNow[7]  = 2160;
-      polBufNow[8]  = 2993;
-      polBufNow[9]  = 2112;
-      polBufNow[10] = 576;
-      }
+  if (!firstPass)  numPolysNow=0;
+  if(1) {
+    // This is the poly:
+    // x^10 - 180*x^8 - 1080*x^7 + 5670*x^6 + 95096*x^5 + 510300*x^4 + 1501560*x^3 + 2551135*x^2 + 1842360*x^1 - 974096
+    polBufNow[0]  = 1;
+    polBufNow[1]  = 0;
+    polBufNow[2]  = -180;
+    polBufNow[3]  = -1080;
+    polBufNow[4]  = 5670;
+    polBufNow[5]  = 95096;
+    polBufNow[6]  = 510300;
+    polBufNow[7]  = 1501560;
+    polBufNow[8]  = 2551135;
+    polBufNow[9]  = 1842360;
+    polBufNow[10] = -974096;
+    }
+  if(0) {
+    // This is the poly: x^10 + 850*x^6 - 1760*x^5 + 4100625*x^2 + 26244000*x + 47239200
+    polBufNow[0]  = 1;
+    polBufNow[1]  = 0;
+    polBufNow[2]  = 0;
+    polBufNow[3]  = 0;
+    polBufNow[4]  = 850;
+    polBufNow[5]  = -1760;
+    polBufNow[6]  = 0;
+    polBufNow[7]  = 0;
+    polBufNow[8]  = 4100625;
+    polBufNow[9]  = 26244000;
+    polBufNow[10] = 47239200;
+    }
+  if(0) {
+    // This is the poly: x^10 - 80*x^8 - 80*x^7 + 2470*x^6 + 4776*x^5 - 130700*x^4 - 947040*x^3 + 11520710*x^2 - 2205040*x + 10340064
+    polBufNow[0]  = 1;
+    polBufNow[1]  = 0;
+    polBufNow[2]  = -80;
+    polBufNow[3]  = -80;
+    polBufNow[4]  = 2470;
+    polBufNow[5]  = 4776;
+    polBufNow[6]  = -130700;
+    polBufNow[7]  = -947040;
+    polBufNow[8]  = 11520710;
+    polBufNow[9]  = -2205040;
+    polBufNow[10] = 10340064;
+    }
+  if(0) {
+    // This is the poly: x^10 - 16*x^7 + 66*x^6 + 320*x^5 + 1200*x^4 + 2160*x^3 + 2993*x^2 + 2112*x + 576
+    polBufNow[0]  = 1;
+    polBufNow[1]  = 0;
+    polBufNow[2]  = 0;
+    polBufNow[3]  = -16;
+    polBufNow[4]  = 66;
+    polBufNow[5]  = 320;
+    polBufNow[6]  = 1200;
+    polBufNow[7]  = 2160;
+    polBufNow[8]  = 2993;
+    polBufNow[9]  = 2112;
+    polBufNow[10] = 576;
+    }
 #endif
 
 
@@ -1304,10 +1305,12 @@ void testPolys(pari_long *polBufNow, int numPolysNow, pari_long *StatVec, pari_l
 
 
 #ifdef DEBUG_TEST
+  if (!firstPass) {
     for(int k=0; k<numPolysPrev; k++) {
       cout << "polGoodFlag[" << k << "] = " << (int)polGoodFlag[k] << "\n";
       }
     exit(1);
+    }
 #endif
 
 
