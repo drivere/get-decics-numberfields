@@ -1,0 +1,111 @@
+<app_init_data>
+<major_version>7</major_version>
+<minor_version>8</minor_version>
+<release>4</release>
+<app_version>303</app_version>
+<app_name>GetDecics</app_name>
+<boinc_dir>/home/eric/BOINC</boinc_dir>
+<wu_cpu_time>0.000000</wu_cpu_time>
+<starting_elapsed_time>0.000000</starting_elapsed_time>
+<using_sandbox>0</using_sandbox>
+<vm_extensions_disabled>0</vm_extensions_disabled>
+<user_total_credit>123219443.769646</user_total_credit>
+<user_expavg_credit>100401.725966</user_expavg_credit>
+<host_total_credit>9719096.113887</host_total_credit>
+<host_expavg_credit>22546.767206</host_expavg_credit>
+<resource_share_fraction>1.000000</resource_share_fraction>
+<checkpoint_period>60.000000</checkpoint_period>
+<fraction_done_start>0.000000</fraction_done_start>
+<fraction_done_end>1.000000</fraction_done_end>
+<gpu_type>NVIDIA</gpu_type>
+<gpu_device_num>0</gpu_device_num>
+<gpu_opencl_dev_index>0</gpu_opencl_dev_index>
+<gpu_usage>0.510000</gpu_usage>
+<ncpus>0.100000</ncpus>
+<rsc_fpops_est>10000000000000.000000</rsc_fpops_est>
+<rsc_fpops_bound>700000000000000000000.000000</rsc_fpops_bound>
+<rsc_memory_bound>256000000.000000</rsc_memory_bound>
+<rsc_disk_bound>256000000.000000</rsc_disk_bound>
+<computation_deadline>1599079986.000000</computation_deadline>
+<vbox_window>0</vbox_window>
+<host_info>
+    <timezone>-25200</timezone>
+    <domain_name>Little-Driver</domain_name>
+    <ip_addr>192.168.1.124</ip_addr>
+    <host_cpid>e403c752770d9830c702fa48d997515e</host_cpid>
+    <p_ncpus>4</p_ncpus>
+    <p_vendor>GenuineIntel</p_vendor>
+    <p_model>Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz [Family 6 Model 42 Stepping 7]</p_model>
+    <p_features>fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 popcnt tsc_deadline_timer aes xsave avx lahf_lm epb pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid xsaveopt dtherm ida arat pln pts md_clear flush_l1d</p_features>
+    <p_fpops>4471086499.216172</p_fpops>
+    <p_iops>22364846234.054459</p_iops>
+    <p_membw>1000000000.000000</p_membw>
+    <p_calculated>1586919737.620820</p_calculated>
+    <p_vm_extensions_disabled>0</p_vm_extensions_disabled>
+    <m_nbytes>8290103296.000000</m_nbytes>
+    <m_cache>6291456.000000</m_cache>
+    <m_swap>17175670784.000000</m_swap>
+    <d_total>420371480576.000000</d_total>
+    <d_free>170166722560.000000</d_free>
+    <os_name>Linux Fedora</os_name>
+    <os_version>Fedora release 31 (Thirty One) [5.4.8-200.fc31.x86_64]</os_version>
+    <n_usable_coprocs>1</n_usable_coprocs>
+    <coprocs>
+<coproc_cuda>
+   <count>1</count>
+   <name>GeForce GTX 1660</name>
+   <available_ram>4167041024.000000</available_ram>
+   <have_cuda>1</have_cuda>
+   <have_opencl>1</have_opencl>
+   <peak_flops>10306560000000.000000</peak_flops>
+   <cudaVersion>10020</cudaVersion>
+   <drvVersion>44044</drvVersion>
+   <totalGlobalMem>4294967295.000000</totalGlobalMem>
+   <sharedMemPerBlock>49152.000000</sharedMemPerBlock>
+   <regsPerBlock>65536</regsPerBlock>
+   <warpSize>32</warpSize>
+   <memPitch>2147483647.000000</memPitch>
+   <maxThreadsPerBlock>1024</maxThreadsPerBlock>
+   <maxThreadsDim>1024 1024 64</maxThreadsDim>
+   <maxGridSize>2147483647 65535 65535</maxGridSize>
+   <clockRate>1830000</clockRate>
+   <totalConstMem>65536.000000</totalConstMem>
+   <major>7</major>
+   <minor>5</minor>
+   <textureAlignment>512.000000</textureAlignment>
+   <deviceOverlap>1</deviceOverlap>
+   <multiProcessorCount>22</multiProcessorCount>
+   <coproc_opencl>
+      <name>GeForce GTX 1660</name>
+      <vendor>NVIDIA Corporation</vendor>
+      <vendor_id>4318</vendor_id>
+      <available>1</available>
+      <half_fp_config>0</half_fp_config>
+      <single_fp_config>191</single_fp_config>
+      <double_fp_config>63</double_fp_config>
+      <endian_little>1</endian_little>
+      <execution_capabilities>1</execution_capabilities>
+      <extensions>cl_khr_global_int32_base_atomics cl_khr_global_int32_extended_atomics cl_khr_local_int32_base_atomics cl_khr_local_int32_extended_atomics cl_khr_fp64 cl_khr_byte_addressable_store cl_khr_icd cl_khr_gl_sharing cl_nv_compiler_options cl_nv_device_attribute_query cl_nv_pragma_unroll cl_nv_copy_opts cl_nv_create_buffer cl_khr_int64_base_atomics cl_khr_int64_extended_atomics</extensions>
+      <global_mem_size>6232997888</global_mem_size>
+      <local_mem_size>49152</local_mem_size>
+      <max_clock_frequency>1830</max_clock_frequency>
+      <max_compute_units>22</max_compute_units>
+      <nv_compute_capability_major>7</nv_compute_capability_major>
+      <nv_compute_capability_minor>5</nv_compute_capability_minor>
+      <amd_simd_per_compute_unit>0</amd_simd_per_compute_unit>
+      <amd_simd_width>0</amd_simd_width>
+      <amd_simd_instruction_width>0</amd_simd_instruction_width>
+      <opencl_platform_version>OpenCL 1.2 CUDA 10.2.109</opencl_platform_version>
+      <opencl_device_version>OpenCL 1.2 CUDA</opencl_device_version>
+      <opencl_driver_version>440.44</opencl_driver_version>
+   </coproc_opencl>
+<pci_info>
+   <bus_id>1</bus_id>
+   <device_id>0</device_id>
+   <domain_id>0</domain_id>
+</pci_info>
+</coproc_cuda>
+    </coprocs>
+</host_info>
+<app_file>GetDecics_3.03_x86_64-pc-linux-gnu__cuda30</app_file>
+</app_init_data>
