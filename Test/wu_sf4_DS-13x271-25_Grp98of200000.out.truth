@@ -1,8 +1,0 @@
-x^10 + 850*x^6 - 1760*x^5 + 4100625*x^2 + 26244000*x + 47239200
-x^10 + 350*x^6 + 40*x^5 + 50625*x^2 - 81000*x + 97200
-#   The search is complete. Stats:
-#   Inspected 190024191 polynomials.
-#   Num Polys passing PolDisc test = 66 (3.47324e-05%).
-#   Num Polys passing irreducibility test = 66 (100%).
-#   Num Polys passing field disc test = 2 (3.0303%).
-#   Elapsed Time = 23886 (sec)
