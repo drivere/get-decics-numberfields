@@ -1,0 +1,63 @@
+wu file: sf3_DS-15x271_Grp47of6553600.dat
+6c6
+< #   Elapsed Time = 190 (sec)
+---
+> #   Elapsed Time = 245 (sec)
+22.5% Improvement
+
+
+
+wu file: sf3_DS-16x270_Grp3624961of3932160.dat
+6c6
+< #   Elapsed Time = 769 (sec)
+---
+> #   Elapsed Time = 1031 (sec)
+25.5% Improvement
+
+
+
+wu file: sf3_DS-16x270_Grp74of3932160.dat
+7c7
+< #   Elapsed Time = 550 (sec)
+---
+> #   Elapsed Time = 745 (sec)
+26.2% Improvement
+
+
+
+wu file: sf3_DS-16x271-1_Grp99of2000000.dat
+6c6
+< #   Elapsed Time = 200 (sec)
+---
+> #   Elapsed Time = 233 (sec)
+14.2% Improvement
+
+
+
+wu file: sf4_DS-13x271-25_Grp98of200000.dat
+8c8
+< #   Elapsed Time = 236 (sec)
+---
+> #   Elapsed Time = 311 (sec)
+24.2% Improvement
+
+
+
+wu file: sf5_DS-14x11_Grp10973of705883.dat
+9c9
+< #   Elapsed Time = 115 (sec)
+---
+> #   Elapsed Time = 152 (sec)
+24.4% Improvement
+
+
+
+wu file: sf5_DS-14x11_Grp33043of705883.dat
+10c10
+< #   Elapsed Time = 79 (sec)
+---
+> #   Elapsed Time = 106 (sec)
+25.5% Improvement
+
+
+

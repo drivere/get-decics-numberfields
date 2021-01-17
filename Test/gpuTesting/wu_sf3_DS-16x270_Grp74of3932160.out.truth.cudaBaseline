@@ -1,0 +1,7 @@
+x^10 - 80*x^8 + 400*x^7 - 10840*x^6 - 108448*x^5 - 102400*x^4 + 1896000*x^3 + 3592080*x^2 - 8868480*x - 21935872
+#   The search is complete. Stats:
+#   Inspected 411279013 polynomials.
+#   Num Polys passing PolDisc test = 11 (2.67458e-06%).
+#   Num Polys passing irreducibility test = 11 (100%).
+#   Num Polys passing field disc test = 1 (9.09091%).
+#   Elapsed Time = 745 (sec)
