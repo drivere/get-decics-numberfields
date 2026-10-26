@@ -65,12 +65,12 @@ int getCudaDevId(int argc, char** argv) {
   APP_INIT_DATA aid;
   boinc_get_init_data(aid);
 
-  // First check the gpu_opencl_dev_index
-  if(aid.gpu_opencl_dev_index >= 0)  return aid.gpu_opencl_dev_index;
-
-  // If that doesn't work, check the gpu_device_num
+  // First check the gpu_device_num
   if(aid.gpu_device_num >= 0)  return aid.gpu_device_num;
 
+  // Then check the gpu_opencl_dev_index
+  if(aid.gpu_opencl_dev_index >= 0)  return aid.gpu_opencl_dev_index;
+  
   // Finally, check the command line arguments.
   int devID = -1;  // Initialize to an invalid number
   for (int i=0; i<argc-1; i++) {
